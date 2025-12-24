@@ -17,4 +17,6 @@ Currently there are no pre-packaged binaries. [See the thread](https://forum.wei
 
 # TODO
 - Arm sprites
-- Configurable mod options
+- Improve sprites
+- More config options
+- Test in multiplayer (most likely broken)

@@ -8,6 +8,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using WgMod.Common.Configs;
 using WgMod.Content.Buffs;
 
 namespace WgMod.Common.Players;
@@ -43,8 +44,8 @@ public class WgPlayer : ModPlayer
 
     public void ReceivePlayerSync(BinaryReader reader) 
     {
-			SetWeight(new Weight(reader.ReadSingle()));
-		}
+        SetWeight(new Weight(reader.ReadSingle()));
+    }
 
     public override void CopyClientState(ModPlayer targetCopy)
     {
@@ -78,10 +79,9 @@ public class WgPlayer : ModPlayer
             SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Belly_", 3, SoundType.Sound));
     }
 
-    // TODO: Add an option to disable buffs and debuffs
     public override void PostUpdateRunSpeeds()
     {
-        if (Player.mount.Active)
+        if (Player.mount.Active || ModContent.GetInstance<WgServerConfig>().DisableBuffs)
             return;
         float factor = _weight.ClampedImmobility;
         factor = 1f - factor * factor;
@@ -92,6 +92,12 @@ public class WgPlayer : ModPlayer
 
     public override void PreUpdateBuffs()
     {
+        if (ModContent.GetInstance<WgServerConfig>().DisableBuffs)
+        {
+            SetBuff<ImmobileBuff>(false);
+            SetBuff<FatBuff>(false);
+            return;
+        }
         int stage = _weight.GetStage();
         bool immobile = stage >= Weight.ImmobileStage;
         SetBuff<ImmobileBuff>(immobile);

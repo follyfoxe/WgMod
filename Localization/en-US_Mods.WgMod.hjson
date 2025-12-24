@@ -29,3 +29,15 @@ Buffs: {
 			'''
 	}
 }
+
+Configs: {
+	WgServerConfig: {
+		DisplayName: Wg Server Config
+		Headers.General: General Header
+
+		DisableBuffs: {
+			Label: Disable Buffs
+			Tooltip: "Disables fat buffs and debuffs"
+		}
+	}
+}
