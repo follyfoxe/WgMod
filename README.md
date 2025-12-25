@@ -2,8 +2,12 @@
 Fetish. Don't like that stuff? Then don't look at it, silly :3
 
 # Wg Terraria Mod
-Very early proof of concept weight gain mod for tModLoader. Contributions are very much welcome.
+![logo](icon.png)
+
+Very early proof of concept weight gain mod for tModLoader.
 [More info](https://forum.weightgaming.com/t/terraria-weight-gain-mod-proof-of-concept)
+- Some elements are inspired by [StarPounds](https://github.com/StarPounds/StarPounds)
+- Contributions are very much welcome, ideally via this repo
 
 # Features
 - Basic weight gain mechanics

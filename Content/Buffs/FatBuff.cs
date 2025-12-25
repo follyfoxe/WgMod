@@ -68,7 +68,7 @@ public class FatBuff : ModBuff
         int stage = wg.Weight.GetStage();
         if (stage < Weight.ImmobileStage)
         {
-            int h = (int)MathF.Round(float.Lerp(0f, rect.Height, wg.Weight.GetStageFactor()));
+            int h = (int)MathF.Round(float.Lerp(0f, rect.Height, wg.Weight.GetStageFactor()) / 2f) * 2;
             spriteBatch.Draw(drawParams.Texture, drawParams.Position + new Vector2(0f, rect.Height - h), new Rectangle(rect.X, rect.Y + rect.Height - h, rect.Width, h), Color.White);
         }
         else
