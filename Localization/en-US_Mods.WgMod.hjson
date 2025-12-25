@@ -29,6 +29,11 @@ Buffs: {
 			Name7: Immobile
 		}
 	}
+
+	GainingBuff: {
+		DisplayName: Gaining
+		Description: Fattening over time
+	}
 }
 
 Configs: {
@@ -36,9 +41,9 @@ Configs: {
 		DisplayName: Wg Server Config
 		Headers.General: General Header
 
-		DisableBuffs: {
-			Label: Disable Buffs
-			Tooltip: Disables fat buffs and debuffs
+		DisableFatBuffs: {
+			Label: Disable Fat Buffs
+			Tooltip: Disables fat buffs and debuffs, status buffs like 'Gaining' will still apply
 		}
 	}
 }

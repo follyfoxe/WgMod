@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
+using WgMod.Content.Buffs;
 
 namespace WgMod;
 
@@ -17,6 +19,12 @@ public partial class WgMod : Mod
         [BuffID.WellFed3] = 6f
     };
 
+    // Duration in seconds
+    public static readonly Dictionary<int, float> GainTable = new()
+    {
+        [BuffID.Honey] = 1.5f
+    };
+
     public override void Load()
     {
         On_Player.AddBuff += OnPlayerAddBuff;
@@ -29,8 +37,13 @@ public partial class WgMod : Mod
 
     public static void OnPlayerAddBuff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
     {
-        if (self.TryGetModPlayer(out WgPlayer wg) && BuffTable.TryGetValue(type, out float mass))
-            wg.SetWeight(wg.Weight + mass);
+        if (self.TryGetModPlayer(out WgPlayer wg))
+        {
+            if (BuffTable.TryGetValue(type, out float mass))
+                wg.SetWeight(wg.Weight + mass);
+            else if (GainTable.TryGetValue(type, out float time))
+                GainingBuff.AddBuff(self, time);
+        }
         orig(self, type, timeToAdd, quiet, foodHack);
     }
 }

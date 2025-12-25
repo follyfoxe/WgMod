@@ -1,8 +1,5 @@
 using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Configs;
@@ -10,7 +7,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Buffs;
 
-public class FatBuff : ModBuff
+public class FatBuff : WgBuffBase
 {
     public const float MaxDamageReduction = 0.1f;
 
@@ -34,7 +31,7 @@ public class FatBuff : ModBuff
 
     public override void Update(Player player, ref int buffIndex)
     {
-        if (ModContent.GetInstance<WgServerConfig>().DisableBuffs || !Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
+        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs || !Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
         {
             _movementFactor = 1f;
             _damageReduction = 0f;
@@ -54,26 +51,13 @@ public class FatBuff : ModBuff
         wg._movementFactor = _movementFactor;
     }
 
-    public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
-    {
-        drawParams.DrawColor = Color.DimGray;
-        return true;
-    }
-
-    public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
+    public override float GetProgress(int buffIndex)
     {
         if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
-            return;
-        Rectangle rect = drawParams.SourceRectangle;
+            return 1f;
         int stage = wg.Weight.GetStage();
         if (stage < Weight.ImmobileStage)
-        {
-            int h = (int)MathF.Round(float.Lerp(0f, rect.Height, wg.Weight.GetStageFactor()) / 2f) * 2;
-            spriteBatch.Draw(drawParams.Texture, drawParams.Position + new Vector2(0f, rect.Height - h), new Rectangle(rect.X, rect.Y + rect.Height - h, rect.Width, h), Color.White);
-        }
-        else
-            spriteBatch.Draw(drawParams.Texture, drawParams.Position, Color.White);
-        //Vector2 pos = drawParams.Position + rect.Center.ToVector2() * 0.5f;
-        //spriteBatch.DrawString(FontAssets.ItemStack.Value, stage.ToString(), pos, Color.White);
+            return wg.Weight.GetStageFactor();
+        return 1f;
     }
 }

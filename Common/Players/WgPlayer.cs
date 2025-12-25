@@ -73,7 +73,7 @@ public class WgPlayer : ModPlayer
 
     public override void PostUpdateRunSpeeds()
     {
-        if (ModContent.GetInstance<WgServerConfig>().DisableBuffs || Player.mount.Active)
+        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs || Player.mount.Active)
             return;
         Player.runAcceleration *= _movementFactor;
         Player.maxRunSpeed *= _movementFactor;
