@@ -36,4 +36,11 @@ public class GainingBuff : WgBuffBase
         SoundEngine.PlaySound(SoundID.SplashWeak);
         return true;
     }
+
+    public static float DurationFromGainPerTick(float gainPerTick)
+    {
+        // GainPerTick = TotalGain / TotalTicks
+        // GainPerTick * TotalTicks = TotalGain
+        return TotalGain / gainPerTick / 60f;
+    }
 }
