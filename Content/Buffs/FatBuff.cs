@@ -31,7 +31,7 @@ public class FatBuff : WgBuffBase
 
     public override void Update(Player player, ref int buffIndex)
     {
-        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs || !Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
+        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs || !player.TryGetModPlayer(out WgPlayer wg))
         {
             _movementFactor = 1f;
             _damageReduction = 0f;
@@ -51,10 +51,8 @@ public class FatBuff : WgBuffBase
         wg._movementFactor = _movementFactor;
     }
 
-    public override float GetProgress(int buffIndex)
+    public override float GetProgress(WgPlayer wg, int buffIndex)
     {
-        if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
-            return 1f;
         int stage = wg.Weight.GetStage();
         if (stage < Weight.ImmobileStage)
             return wg.Weight.GetStageFactor();

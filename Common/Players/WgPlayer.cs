@@ -15,6 +15,8 @@ public class WgPlayer : ModPlayer
 {
     public Weight Weight => _weight;
 
+    public readonly int[] buffDuration = new int[Player.MaxBuffs];
+
     internal float _movementFactor;
 
     Weight _weight;
@@ -82,6 +84,8 @@ public class WgPlayer : ModPlayer
 
     public override void PreUpdateBuffs()
     {
+        for (int i = 0; i < Player.MaxBuffs; i++)
+            buffDuration[i] = Math.Max(buffDuration[i], Player.buffTime[i]);
         int type = ModContent.BuffType<FatBuff>();
         if (!Player.HasBuff(type))
             Player.AddBuff(type, 60);

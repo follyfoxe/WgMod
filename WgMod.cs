@@ -70,11 +70,13 @@ public partial class WgMod : Mod
     public override void Load()
     {
         On_Player.AddBuff += OnPlayerAddBuff;
+        On_Player.DelBuff += OnPlayerDelBuff;
     }
 
     public override void Unload()
     {
         On_Player.AddBuff -= OnPlayerAddBuff;
+        On_Player.DelBuff -= OnPlayerDelBuff;
     }
 
     public static void OnPlayerAddBuff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
@@ -87,5 +89,12 @@ public partial class WgMod : Mod
                 GainingBuff.AddBuff(self, time);
         }
         orig(self, type, timeToAdd, quiet, foodHack);
+    }
+
+    public static void OnPlayerDelBuff(On_Player.orig_DelBuff orig, Player self, int index)
+    {
+        if (self.TryGetModPlayer(out WgPlayer wg))
+            wg.buffDuration[index] = 0;
+        orig(self, index);
     }
 }

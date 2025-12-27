@@ -1,8 +1,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using WgMod.Common.Players;
 
 namespace WgMod.Content.Buffs;
 
@@ -16,8 +18,10 @@ public abstract class WgBuffBase : ModBuff
 
     public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
     {
+        if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
+            return;
         Rectangle rect = drawParams.SourceRectangle;
-        float t = GetProgress(buffIndex);
+        float t = GetProgress(wg, buffIndex);
         if (t < 1f)
         {
             int h = (int)MathF.Round(float.Lerp(0f, rect.Height, t) / 2f) * 2;
@@ -27,5 +31,8 @@ public abstract class WgBuffBase : ModBuff
             spriteBatch.Draw(drawParams.Texture, drawParams.Position, Color.White);
     }
 
-    public abstract float GetProgress(int buffIndex);
+    public virtual float GetProgress(WgPlayer wg, int buffIndex)
+    {
+        return 1f - wg.Player.buffTime[buffIndex] / (float)wg.buffDuration[buffIndex];
+    }
 }

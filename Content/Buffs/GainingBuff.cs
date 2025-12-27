@@ -10,21 +10,12 @@ namespace WgMod.Content.Buffs;
 public class GainingBuff : WgBuffBase
 {
     public const float TotalGain = 2f;
-    int _duration;
 
     public override void Update(Player player, ref int buffIndex)
     {
-        if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
+        if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-        GetProgress(buffIndex);
-        wg.SetWeight(wg.Weight + TotalGain / _duration);
-    }
-
-    public override float GetProgress(int buffIndex)
-    {
-        int time = Main.LocalPlayer.buffTime[buffIndex];
-        _duration = Math.Max(_duration, time);
-        return 1f - time / (float)_duration;
+        wg.SetWeight(wg.Weight + TotalGain / wg.buffDuration[buffIndex]);
     }
 
     public static bool AddBuff(Player player, float duration)
