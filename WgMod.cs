@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ModLoader;
@@ -67,6 +66,8 @@ public partial class WgMod : Mod
         if (self.HasBuff(type))
             previousTime = self.buffTime[self.FindBuffIndex(type)];
         orig(self, type, timeToAdd, quiet, foodHack);
+        if (!self.HasBuff(type))
+            return;
 
         int index = self.FindBuffIndex(type);
         wg.buffDuration[index] = timeToAdd;
