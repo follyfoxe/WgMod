@@ -19,7 +19,7 @@ Very early proof of concept weight gain mod for tModLoader.
 Currently there are no pre-packaged binaries. [See the thread](https://forum.weightgaming.com/t/terraria-weight-gain-mod-proof-of-concept)
 
 # TODO
-- Arm sprites
+- Arm sprites 1. (3, 4) 2. (5, 6, 7)
 - Improve sprites
 - More config options
 - Test in multiplayer (most likely broken)

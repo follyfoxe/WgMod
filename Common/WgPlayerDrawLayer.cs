@@ -87,15 +87,15 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     // TODO
     public static float CalculateOffsetX(Weight weight) => weight.GetStage() switch
     {
-        6 => 2f * 2f,
-        7 => 2f * 2f,
+        6 => 1f * 2f,
+        7 => 1f * 2f,
         _ => 0f
     };
 
     public static float CalculateOffsetY(Weight weight) => weight.GetStage() switch
     {
         6 => 3f * 2f,
-        7 => 7f * 2f,
+        7 => 8f * 2f,
         _ => 0f
     };
 

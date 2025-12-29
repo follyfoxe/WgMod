@@ -54,8 +54,8 @@ public class WeightManipulator : ModItem
         if (player.TryGetModPlayer(out WgPlayer wg))
         {
             int sign = player.altFunctionUse == 2 ? -1 : 1;
-            wg.SetWeight(wg.Weight + sign * 5f);
-            Main.NewText($"Weight: {wg.Weight} ({wg.Weight.ToPounds()} lbs)", 255, 255, 0);
+            wg.SetWeight(wg.Weight + sign * 10f);
+            Main.NewText($"Weight: {wg.Weight} ({wg.Weight.ToPounds()} lbs), Stage: {wg.Weight.GetStage()}", 255, 255, 0);
             return true;
         }
         return null;
