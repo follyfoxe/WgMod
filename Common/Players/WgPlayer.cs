@@ -20,6 +20,10 @@ public class WgPlayer : ModPlayer
     internal float _buffTotalGain;
     internal float _movementFactor;
 
+    internal float _squishPos = 1f;
+    internal float _squishVel;
+    internal float _bellyOffset;
+
     Weight _weight;
     Vector2 _prevVel;
 
@@ -98,12 +102,37 @@ public class WgPlayer : ModPlayer
 
     public override void PreUpdateMovement()
     {
-        float factor = MathF.Abs(Player.velocity.X);
-        factor += MathF.Abs(Player.velocity.X - _prevVel.X) * 30f;
-        factor *= 0.0002f;
-
-        SetWeight(_weight - factor);
+        Vector2 acc = Player.velocity - _prevVel;
         _prevVel = Player.velocity;
+
+        // Weight loss
+        float factor = MathF.Abs(Player.velocity.X);
+        factor += MathF.Abs(acc.X) * 30f;
+        factor *= 0.0002f;
+        SetWeight(_weight - factor);
+    }
+
+    public override void PostUpdate()
+    {
+        const float dt = 1f / 60f;
+        if (Main.dedServ || ModContent.GetInstance<WgClientConfig>().DisableJiggle)
+        {
+            _squishVel = 0f;
+            _squishPos = 1f;
+        }
+        else
+        {
+            Vector2 vel = Player.velocity;
+            vel.Y += _bellyOffset * 0.6f;
+
+            _squishPos += MathF.Abs(vel.X) * 0.005f;
+            _squishPos += vel.Y * 0.005f;
+
+            _squishVel += (1f - _squishPos) * 400f * dt;
+            _squishVel = float.Lerp(_squishVel, 0f, 1f - MathF.Exp(-6f * dt));
+            _squishPos += _squishVel * dt;
+            _squishPos = Math.Clamp(_squishPos, 0.5f, 1.5f);
+        }
     }
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)

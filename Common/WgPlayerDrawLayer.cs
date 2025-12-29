@@ -58,7 +58,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             else if (frame >= 6 && frame <= 19)
                 offset = float.Lerp(2f, -2f, MathF.Sin((frame - 6) / 13f * MathF.Tau * 2f) * 0.5f + 0.5f);
         }
+        wg._bellyOffset = offset;
 
+        float baseSquish = (wg._squishPos + 1f) * 0.5f;
         Rectangle baseFrame = _baseTexture.Frame(1, Weight.StageCount, 0, stage);
         drawInfo.DrawDataCache.Add(new DrawData(
             _baseTexture.Value,
@@ -67,10 +69,10 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.colorBodySkin,
             0f,
             baseFrame.Size() * 0.5f,
-            2f,
+            new Vector2(2f * baseSquish, 2f / baseSquish),
             drawInfo.playerEffect
         ));
-
+        
         Rectangle bellyFrame = _bellyTexture.Frame(1, Weight.StageCount, 0, stage);
         drawInfo.DrawDataCache.Add(new DrawData(
             _bellyTexture.Value, // The texture to render.
@@ -79,7 +81,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.colorBodySkin, // Color.
             0f, // Rotation.
             bellyFrame.Size() * 0.5f, // Origin. Uses the texture's center.
-            2f, // Scale.
+            new Vector2(2f / wg._squishPos, 2f * wg._squishPos), // Scale.
             drawInfo.playerEffect
         ));
     }

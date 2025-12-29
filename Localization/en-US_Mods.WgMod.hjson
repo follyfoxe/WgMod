@@ -46,4 +46,14 @@ Configs: {
 			Tooltip: Disables fat buffs and debuffs, status buffs like 'Gaining' will still apply
 		}
 	}
+
+	WgClientConfig: {
+		DisplayName: Wg Client Config
+		Headers.Visual: Visual Header
+
+		DisableJiggle: {
+			Label: Disable Jiggle
+			Tooltip: Disables jiggle effects
+		}
+	}
 }
