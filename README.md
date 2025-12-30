@@ -23,3 +23,4 @@ Currently there are no pre-packaged binaries. [See the thread](https://forum.wei
 - Improve sprites
 - More config options
 - Test in multiplayer (most likely broken)
+- Add checks to prevent the server from loading or running unecessary stuff

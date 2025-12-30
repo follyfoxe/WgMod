@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WgMod.Common.Configs;
@@ -26,6 +27,18 @@ public class WgPlayer : ModPlayer
 
     Weight _weight;
     Vector2 _prevVel;
+
+    public override void Load()
+    {
+        if (Main.netMode != NetmodeID.Server)
+            WgArms.Load(Mod);
+    }
+
+    public override void SetStaticDefaults()
+    {
+        if (Main.netMode != NetmodeID.Server)
+            WgArms.SetupDrawing(Mod);
+    }
 
     public override void Initialize()
     {
@@ -133,6 +146,14 @@ public class WgPlayer : ModPlayer
             _squishPos += _squishVel * dt;
             _squishPos = Math.Clamp(_squishPos, 0.5f, 1.5f);
         }
+    }
+
+    public override void FrameEffects()
+    {
+        int stage = Weight.GetStage();
+        int armStage = WgArms.GetArmStage(stage);
+        if (armStage >= 0)
+            Player.body = WgArms.GetArmEquipSlot(Mod, armStage);
     }
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
