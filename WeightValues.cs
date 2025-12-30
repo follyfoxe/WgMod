@@ -1,5 +1,3 @@
-using System;
-
 namespace WgMod;
 
 public static class WeightValues

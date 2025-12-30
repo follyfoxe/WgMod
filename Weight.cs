@@ -7,16 +7,18 @@ public readonly record struct Weight(float Mass)
 {
     const float KgToPounds = 2.2046226218f;
 
-    public const float Base = 70f;
-    public const float Immobile = 400f;
-    public const float Max = Immobile + 10f;
+    public static readonly Weight Base = new(70f);
+    public static readonly Weight Immobile = new(400f);
+    public static readonly Weight Max = Immobile + 10f;
 
     public const int StageCount = 8;
     public const int ImmobileStage = StageCount - 1;
-    public const int HeavyStage = 3;
 
-    public readonly float Immobility => (Mass - Base) / (Immobile - Base); // Inverese lerp
-    public readonly float ClampedImmobility => Math.Clamp(Immobility, 0f, 1f);
+    public const int DamageReductionStage = 2; // Stage at which damage reduction starts being applied
+    public const int HeavyStage = 3; // Stage at which thin ice breaks, melee buff starts being applied
+
+    public readonly float Immobility => GetFactor(Base, Immobile);
+    public readonly float ClampedImmobility => GetClampedFactor(Base, Immobile);
 
     public override readonly string ToString() => $"{Mass} Kg";
     public readonly float ToPounds() => Mass * KgToPounds;
@@ -30,11 +32,14 @@ public readonly record struct Weight(float Mass)
         return (Mass - a) / (b - a);
     }
 
+    public readonly float GetFactor(Weight start, Weight end) => (Mass - start.Mass) / (end.Mass - start.Mass); // Inverese lerp
+    public readonly float GetClampedFactor(Weight start, Weight end) => Math.Clamp(GetFactor(start, end), 0f, 1f);
+
     public static Weight FromStage(int stage) => FromImmobility(stage / (float)ImmobileStage);
-    public static Weight FromImmobility(float factor) => new(float.Lerp(Base, Immobile, factor));
+    public static Weight FromImmobility(float factor) => new(float.Lerp(Base.Mass, Immobile.Mass, factor));
 
     public static Weight FromPounds(float pounds) => new(pounds / KgToPounds);
-    public static Weight Clamp(Weight weight) => new(Math.Clamp(weight.Mass, Base, Max));
+    public static Weight Clamp(Weight weight) => new(Math.Clamp(weight.Mass, Base.Mass, Max.Mass));
 
     public static Weight operator +(Weight w, float mass) => new(w.Mass + mass);
     public static Weight operator -(Weight w, float mass) => new(w.Mass - mass);

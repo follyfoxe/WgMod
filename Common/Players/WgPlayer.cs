@@ -43,7 +43,7 @@ public class WgPlayer : ModPlayer
 
     public override void Initialize()
     {
-        SetWeight(new Weight(Weight.Base), false);
+        SetWeight(Weight.Base, false);
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
