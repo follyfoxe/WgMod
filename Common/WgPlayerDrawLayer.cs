@@ -43,6 +43,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             position.X -= WeightValues.DrawOffsetX(stage);
         else
             position.X += WeightValues.DrawOffsetX(stage);
+        position.Y -= drawInfo.seatYOffset;
+        position.Y += drawInfo.mountOffSet * 0.5f;
 
         Rectangle legFrame = drawInfo.drawPlayer.legFrame;
         int frame = legFrame.Y / legFrame.Height;
@@ -69,7 +71,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.colorBodySkin,
             0f,
             baseFrame.Size() * 0.5f,
-            new Vector2(2f * baseSquish, 2f / baseSquish),
+            new Vector2(1f * baseSquish, 1f / baseSquish),
             drawInfo.playerEffect
         ));
         
@@ -81,7 +83,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.colorBodySkin, // Color.
             0f, // Rotation.
             bellyFrame.Size() * 0.5f, // Origin. Uses the texture's center.
-            new Vector2(2f / wg._squishPos, 2f * wg._squishPos), // Scale.
+            new Vector2(1f / wg._squishPos, 1f * wg._squishPos), // Scale.
             drawInfo.playerEffect
         ));
     }
