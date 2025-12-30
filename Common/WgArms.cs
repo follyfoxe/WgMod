@@ -43,6 +43,7 @@ public static class WgArms
 
 public class SkinEquipTexture : EquipTexture
 {
+    // TODO: Somehow fix everything else being tinted too (accessories and such)
     public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
     {
         color = drawPlayer.skinColor;

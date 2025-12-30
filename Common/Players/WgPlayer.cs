@@ -25,6 +25,8 @@ public class WgPlayer : ModPlayer
     internal float _squishVel;
     internal float _bellyOffset;
 
+    internal int _iceBreakTimer;
+
     Weight _weight;
     Vector2 _prevVel;
 
@@ -123,6 +125,24 @@ public class WgPlayer : ModPlayer
         factor += MathF.Abs(acc.X) * 30f;
         factor *= 0.0002f;
         SetWeight(_weight - factor);
+
+        //Player.width = Player.defaultWidth * 4;
+
+        // Ice break
+        if (Weight.GetStage() >= Weight.HeavyStage)
+        {
+            const int IceBreakTime = 60;
+            if (Player.velocity.Y > -0.01f && HasIceBelow())
+            {
+                if (_iceBreakTimer == IceBreakTime / 2)
+                    SoundEngine.PlaySound(SoundID.Item127);
+                _iceBreakTimer++;
+                if (_iceBreakTimer >  IceBreakTime)
+                    ThinIceBreak();
+            }
+            else
+                _iceBreakTimer = 0;
+        }
     }
 
     public override void PostUpdate()
@@ -160,5 +180,46 @@ public class WgPlayer : ModPlayer
     {
         drawInfo.Position.Y -= WgPlayerDrawLayer.CalculateOffsetY(_weight);
         drawInfo.backShoulderOffset.X += 32f;
+    }
+
+    // Taken from CheckIceBreak() in Player.cs
+    void ThinIceBreak()
+    {
+        Vector2 pos = Player.position + Player.velocity;
+        int xStart = (int)(pos.X / 16.0);
+        int xEnd = (int)(((double)pos.X + Player.width) / 16.0);
+        int yStart = (int)(((double)Player.position.Y + Player.height + 1.0) / 16.0);
+        for (int x = xStart; x <= xEnd; x++)
+        {
+            for (int y = yStart; y <= yStart + 1 && Main.tile[x, y] != null; y++)
+            {
+                Tile tile = Main.tile[x, y];
+                if (tile.HasUnactuatedTile && tile.TileType == TileID.BreakableIce && !WorldGen.SolidTile(x, y - 1))
+                {
+                    WorldGen.KillTile(x, y);
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                        NetMessage.SendData(MessageID.TileManipulation, number2: x, number3: y);
+                }
+            }
+        }
+    }
+
+    // Not exactly proud of this...
+    bool HasIceBelow()
+    {
+        Vector2 pos = Player.position + Player.velocity;
+        int xStart = (int)(pos.X / 16.0);
+        int xEnd = (int)(((double)pos.X + Player.width) / 16.0);
+        int yStart = (int)(((double)Player.position.Y + Player.height + 1.0) / 16.0);
+        for (int x = xStart; x <= xEnd; x++)
+        {
+            for (int y = yStart; y <= yStart + 2; y++)
+            {
+                Tile tile = Main.tile[x, y];
+                if (tile.HasUnactuatedTile && tile.TileType == TileID.BreakableIce && !WorldGen.SolidTile(x, y - 1))
+                    return true;
+            }
+        }
+        return false;
     }
 }

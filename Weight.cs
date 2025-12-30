@@ -13,7 +13,7 @@ public readonly record struct Weight(float Mass)
 
     public const int StageCount = 8;
     public const int ImmobileStage = StageCount - 1;
-    public const int BuffStage = 3;
+    public const int HeavyStage = 3;
 
     public readonly float Immobility => (Mass - Base) / (Immobile - Base); // Inverese lerp
     public readonly float ClampedImmobility => Math.Clamp(Immobility, 0f, 1f);
