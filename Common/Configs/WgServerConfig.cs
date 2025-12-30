@@ -8,4 +8,5 @@ public class WgServerConfig : ModConfig
 
     [Header("General")]
     public bool DisableFatBuffs;
+    public bool DisableFatHitbox;
 }

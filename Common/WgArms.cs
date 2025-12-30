@@ -43,9 +43,9 @@ public static class WgArms
 
 public class SkinEquipTexture : EquipTexture
 {
-    // TODO: Somehow fix everything else being tinted too (accessories and such)
+    // TODO: Somehow fix everything else being tinted too (accessories and such), also fix the arm glowing in the dark for some reason
     public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
     {
-        color = drawPlayer.skinColor;
+        color = drawPlayer.GetImmuneAlphaPure(drawPlayer.skinColor, shadow);
     }
 }

@@ -14,8 +14,7 @@ namespace WgMod.Common.Players;
 
 public class WgPlayer : ModPlayer
 {
-    public Weight Weight => _weight;
-
+    public Weight Weight { get; private set; }
     public readonly int[] buffDuration = new int[Player.MaxBuffs];
 
     internal float _buffTotalGain;
@@ -26,8 +25,6 @@ public class WgPlayer : ModPlayer
     internal float _bellyOffset;
 
     internal int _iceBreakTimer;
-
-    Weight _weight;
     Vector2 _prevVel;
 
     public override void Load()
@@ -44,7 +41,7 @@ public class WgPlayer : ModPlayer
 
     public override void Initialize()
     {
-        _weight = new Weight(Weight.Base);
+        SetWeight(new Weight(Weight.Base), false);
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -52,7 +49,7 @@ public class WgPlayer : ModPlayer
         ModPacket packet = Mod.GetPacket();
         packet.Write((byte)WgMod.MessageType.WgPlayerSync);
         packet.Write((byte)Player.whoAmI);
-        packet.Write(_weight.Mass);
+        packet.Write(Weight.Mass);
         packet.Send(toWho, fromWho);
     }
 
@@ -64,13 +61,13 @@ public class WgPlayer : ModPlayer
     public override void CopyClientState(ModPlayer targetCopy)
     {
         WgPlayer clone = (WgPlayer)targetCopy;
-        clone.SetWeight(_weight, false);
+        clone.SetWeight(Weight, false);
     }
 
     public override void SendClientChanges(ModPlayer clientPlayer)
     {
         WgPlayer clone = (WgPlayer)clientPlayer;
-        if (_weight != clone._weight)
+        if (Weight != clone.Weight)
             SyncPlayer(-1, Main.myPlayer, false);
     }
 
@@ -82,14 +79,14 @@ public class WgPlayer : ModPlayer
 
     public override void SaveData(TagCompound tag)
     {
-        tag["Weight"] = _weight.Mass;
+        tag["Weight"] = Weight.Mass;
     }
 
     public void SetWeight(Weight weight, bool effects = true)
     {
-        int prevStage = _weight.GetStage();
-        _weight = Weight.Clamp(weight);
-        if (_weight.GetStage() != prevStage && effects)
+        int prevStage = Weight.GetStage();
+        Weight = Weight.Clamp(weight);
+        if (Weight.GetStage() != prevStage && effects)
             SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Belly_", 3, SoundType.Sound));
     }
 
@@ -124,12 +121,27 @@ public class WgPlayer : ModPlayer
         float factor = MathF.Abs(Player.velocity.X);
         factor += MathF.Abs(acc.X) * 30f;
         factor *= 0.0002f;
-        SetWeight(_weight - factor);
+        SetWeight(Weight - factor);
 
-        //Player.width = Player.defaultWidth * 4;
+        // Hitbox
+        int stage = Weight.GetStage();
+        int targetWidth = Player.defaultWidth;
+        if (!ModContent.GetInstance<WgServerConfig>().DisableFatHitbox)
+            targetWidth = GetHitboxWidthInTiles(stage) * 16 - 12;
+        if (Player.width != targetWidth)
+        {
+            float centerX = Player.position.X + Player.width * 0.5f;
+            float targetX = centerX - targetWidth * 0.5f;
+            // Make sure we have enough space... otherwise we'd be able to walk through walls
+            if (!Collision.SolidCollision(new Vector2(targetX, Player.position.Y), targetWidth, Player.height))
+            {
+                Player.width = targetWidth;
+                Player.position.X = targetX;
+            }
+        }
 
         // Ice break
-        if (Weight.GetStage() >= Weight.HeavyStage)
+        if (stage >= Weight.HeavyStage)
         {
             const int IceBreakTime = 60;
             if (Player.velocity.Y > -0.01f && HasIceBelow())
@@ -178,9 +190,18 @@ public class WgPlayer : ModPlayer
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
-        drawInfo.Position.Y -= WgPlayerDrawLayer.CalculateOffsetY(_weight);
+        drawInfo.Position.Y -= WgPlayerDrawLayer.CalculateOffsetY(Weight);
         drawInfo.backShoulderOffset.X += 32f;
     }
+
+    public static int GetHitboxWidthInTiles(int stage) => stage switch
+    {
+        4 => 3,
+        5 => 4,
+        6 => 5,
+        7 => 6,
+        _ => 2,
+    };
 
     // Taken from CheckIceBreak() in Player.cs
     void ThinIceBreak()

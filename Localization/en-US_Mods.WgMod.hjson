@@ -45,6 +45,11 @@ Configs: {
 			Label: Disable Fat Buffs
 			Tooltip: Disables fat buffs and debuffs, status buffs like 'Gaining' will still apply
 		}
+
+		DisableFatHitbox: {
+			Label: Disable Fat Hitbox
+			Tooltip: "Disables player hitbox size changes"
+		}
 	}
 
 	WgClientConfig: {
