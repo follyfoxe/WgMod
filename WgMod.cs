@@ -87,7 +87,22 @@ public partial class WgMod : Mod
     public static void OnPlayerDelBuff(On_Player.orig_DelBuff orig, Player self, int index)
     {
         if (self.TryGetModPlayer(out WgPlayer wg))
+        {
             wg.buffDuration[index] = 0;
+            int num = 0;
+            for (int i = 0; i < wg.buffDuration.Length - 1; i++)
+            {
+                if (wg.buffDuration[i] != 0)
+                {
+                    if (num < i)
+                    {
+                        wg.buffDuration[num] = wg.buffDuration[i];
+                        wg.buffDuration[i] = 0;
+                    }
+                    num++;
+                }
+            }
+        }
         orig(self, index);
     }
 }
