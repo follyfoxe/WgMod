@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 using WgMod.Content.Buffs;
@@ -46,12 +49,14 @@ public partial class WgMod : Mod
         RegisterBuffs();
         On_Player.AddBuff += OnPlayerAddBuff;
         On_Player.DelBuff += OnPlayerDelBuff;
+        On_Mount.Draw += OnMountDraw;
     }
 
     public override void Unload()
     {
         On_Player.AddBuff -= OnPlayerAddBuff;
         On_Player.DelBuff -= OnPlayerDelBuff;
+        On_Mount.Draw -= OnMountDraw;
     }
 
     public static void OnPlayerAddBuff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
@@ -104,5 +109,12 @@ public partial class WgMod : Mod
             }
         }
         orig(self, index);
+    }
+
+    public static void OnMountDraw(On_Mount.orig_Draw orig, Mount self, List<DrawData> playerDrawData, int drawType, Player drawPlayer, Vector2 Position, Color drawColor, SpriteEffects playerEffect, float shadow)
+    {
+        if (drawPlayer.TryGetModPlayer(out WgPlayer wg) && self.Active)
+            Position.Y += WeightValues.DrawOffsetY(wg.Weight.GetStage());
+        orig(self, playerDrawData, drawType, drawPlayer, Position, drawColor, playerEffect, shadow);
     }
 }

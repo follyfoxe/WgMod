@@ -156,7 +156,7 @@ public class WgPlayer : ModPlayer
         // Hitbox
         int stage = Weight.GetStage();
         int targetWidth = Player.defaultWidth;
-        if (!ModContent.GetInstance<WgServerConfig>().DisableFatHitbox)
+        if (!ModContent.GetInstance<WgServerConfig>().DisableFatHitbox && !Player.mount.Active)
             targetWidth = WeightValues.GetHitboxWidthInTiles(stage) * 16 - 12;
         if (Player.width != targetWidth)
         {
