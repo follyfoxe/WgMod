@@ -1,5 +1,8 @@
 using System;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Configs;
@@ -15,11 +18,14 @@ public class FatBuff : WgBuffBase
     float _damageReduction = 0f;
     float _meleeBoost = 0f;
 
+    Asset<Texture2D> _stagesTexture;
+
     public override void SetStaticDefaults()
     {
         Main.buffNoTimeDisplay[Type] = true;
         Main.buffNoSave[Type] = true;
         BuffID.Sets.TimeLeftDoesNotDecrease[Type] = true;
+        _stagesTexture = ModContent.Request<Texture2D>($"{Texture}_Stages");
     }
 
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
@@ -27,7 +33,10 @@ public class FatBuff : WgBuffBase
         if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
             return;
         buffName = this.GetLocalizedValue("Stages.Name" + wg.Weight.GetStage());
-        tip = base.Description.Format(MathF.Round((1f - wg._finalMovementFactor) * 100f), MathF.Round(_damageReduction * 100f), MathF.Round(_meleeBoost * 100f));
+        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs)
+            tip = this.GetLocalizedValue("DisabledBuffs");
+        else
+            tip = base.Description.Format(MathF.Round((1f - wg._finalMovementFactor) * 100f), MathF.Round(_damageReduction * 100f), MathF.Round(_meleeBoost * 100f));
     }
 
     public override void Update(Player player, ref int buffIndex)
@@ -54,6 +63,16 @@ public class FatBuff : WgBuffBase
         // Apply factors
         player.endurance += _damageReduction;
         player.GetDamage(DamageClass.Melee) += _meleeBoost;
+    }
+
+    public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
+    {
+        if (Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
+        {
+            drawParams.Texture = _stagesTexture.Value;
+            drawParams.SourceRectangle = drawParams.Texture.Frame(1, Weight.StageCount, 0, wg.Weight.GetStage());
+        }
+        return base.PreDraw(spriteBatch, buffIndex, ref drawParams);
     }
 
     public override float GetProgress(WgPlayer wg, int buffIndex)

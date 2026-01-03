@@ -28,7 +28,7 @@ public abstract class WgBuffBase : ModBuff
             spriteBatch.Draw(drawParams.Texture, drawParams.Position + new Vector2(0f, rect.Height - h), new Rectangle(rect.X, rect.Y + rect.Height - h, rect.Width, h), Color.White);
         }
         else
-            spriteBatch.Draw(drawParams.Texture, drawParams.Position, Color.White);
+            spriteBatch.Draw(drawParams.Texture, drawParams.Position, drawParams.SourceRectangle, Color.White);
     }
 
     public virtual float GetProgress(WgPlayer wg, int buffIndex)

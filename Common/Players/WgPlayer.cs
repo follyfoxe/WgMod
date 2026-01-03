@@ -11,6 +11,7 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WgMod.Common.Configs;
 using WgMod.Content.Buffs;
+using WgMod.Content.Tiles;
 
 namespace WgMod.Common.Players;
 
@@ -19,13 +20,16 @@ public class WgPlayer : ModPlayer
     /// <summary> The player's weight </summary>
     public Weight Weight { get; private set; }
 
-    /// <summary> How much movement will be reduced because of the player's weight </summary>
+    /// <summary> How much movement will be reduced because of the player's weight, multiply this number </summary>
     public float MovementPenalty;
 
-    /// <summary> Multiplier to how fast the player will lose weight when walking </summary>
-    public float WeightLossMultiplier;
+    /// <summary> How fast the player will lose weight when walking, add or subtract to this number </summary>
+    public float WeightLossFactor;
 
     public readonly int[] BuffDuration = new int[Player.MaxBuffs];
+
+    internal bool _onTreadmill;
+    internal float _treadmillX;
     
     internal float _squishRest = 1f;
     internal float _squishPos = 1f;
@@ -118,7 +122,7 @@ public class WgPlayer : ModPlayer
         }
         else
             MovementPenalty = 1f;
-        WeightLossMultiplier = 1f;
+        WeightLossFactor = 1f;
     }
 
     public override void PostUpdateBuffs()
@@ -143,6 +147,9 @@ public class WgPlayer : ModPlayer
 
     public override void PreUpdateMovement()
     {
+        if (_onTreadmill)
+            WeightLossFactor += Treadmill.WeightLoss;
+
         Vector2 acc = Player.velocity - _prevVel;
         _prevVel = Player.velocity;
         _squishRest = 1f;
@@ -151,12 +158,12 @@ public class WgPlayer : ModPlayer
         float factor = MathF.Abs(Player.velocity.X);
         factor += MathF.Abs(acc.X) * 20f;
         factor *= 0.0002f;
-        SetWeight(Weight - factor * WeightLossMultiplier);
+        SetWeight(Weight - factor * WeightLossFactor);
 
         // Hitbox
         int stage = Weight.GetStage();
         int targetWidth = Player.defaultWidth;
-        if (!ModContent.GetInstance<WgServerConfig>().DisableFatHitbox)
+        if (!ModContent.GetInstance<WgServerConfig>().DisableFatHitbox && !Player.mount.Active && !Player.isLockedToATile)
             targetWidth = WeightValues.GetHitboxWidthInTiles(stage) * 16 - 12;
         if (Player.width != targetWidth)
         {
@@ -192,6 +199,8 @@ public class WgPlayer : ModPlayer
     public override void PreUpdate()
     {
         Player.gfxOffY = _lastGfxOffY;
+        if (!Player.sitting.isSitting)
+            _onTreadmill = false;
     }
 
     public override void PostUpdate()
@@ -219,6 +228,9 @@ public class WgPlayer : ModPlayer
         // Can't find a better way to change the draw position
         _lastGfxOffY = Player.gfxOffY;
         Player.gfxOffY -= WeightValues.DrawOffsetY(Weight.GetStage());
+
+        if (_onTreadmill)
+            Player.Center = new Vector2(_treadmillX, Player.Center.Y);
     }
 
     public override void FrameEffects()
@@ -227,6 +239,16 @@ public class WgPlayer : ModPlayer
         int armStage = WeightValues.GetArmStage(stage);
         if (armStage >= 0)
             Player.body = WgArms.GetArmEquipSlot(Mod, armStage);
+    }
+
+    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+    {
+        if (_onTreadmill)
+        {
+            drawInfo.isSitting = false;
+            drawInfo.torsoOffset = 0f;
+            drawInfo.seatYOffset = 0f;
+        }
     }
     
     public override void TransformDrawData(ref PlayerDrawSet drawInfo)

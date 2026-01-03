@@ -12,7 +12,7 @@ Very early weight gain mod for tModLoader.
 # Features
 - Basic weight gain mechanics
 - Food items and obtaining different buffs affect weight
-- Weight manipulator item (subject to change)
+- Treadmill for quickly losing weight
 
 # Optional features
 These are turned on by default but can be turned off in the mod's settings

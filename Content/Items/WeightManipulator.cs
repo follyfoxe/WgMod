@@ -30,15 +30,6 @@ public class WeightManipulator : ModItem
         Item.UseSound = SoundID.Item4;
     }
 
-    public override void AddRecipes()
-    {
-        CreateRecipe(1)
-            .AddIngredient(ItemID.Gel, 20)
-            .AddIngredient(ItemID.Lever)
-            .AddTile(TileID.Anvils)
-            .Register();
-    }
-
     public override bool AltFunctionUse(Player player)
     {
         return true;

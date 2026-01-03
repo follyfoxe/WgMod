@@ -1,0 +1,50 @@
+﻿using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using WgMod.Common.Players;
+
+namespace WgMod.Content.Items.Accessories;
+
+[AutoloadEquip(EquipType.Shoes)]
+public class ExoskeletonLegs : ModItem
+{
+    public override void SetDefaults()
+    {
+        Item.width = 22;
+        Item.height = 22;
+
+        Item.accessory = true;
+        Item.rare = ItemRarityID.Orange;
+        Item.value = Item.buyPrice(gold: 1);
+    }
+
+    public override void UpdateAccessory(Player player, bool hideVisual)
+    {
+        player.accRunSpeed = 6.75f;
+        player.rocketBoots = 2;
+        player.vanityRocketBoots = 2;
+
+        if (!player.TryGetModPlayer(out WgPlayer wg))
+            return;
+
+        float immobility = wg.Weight.ClampedImmobility;
+        wg.MovementPenalty *= float.Lerp(0f, 0.8f, immobility);
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.SpectreBoots)
+            .AddIngredient(ItemID.GoldBar, 12)
+            .AddIngredient(ItemID.Wire, 6)
+            .AddTile(TileID.Anvils)
+            .Register();
+
+        CreateRecipe()
+            .AddIngredient(ItemID.SpectreBoots)
+            .AddIngredient(ItemID.PlatinumBar, 12)
+            .AddIngredient(ItemID.Wire, 6)
+            .AddTile(TileID.Anvils)
+            .Register();
+    }
+}
