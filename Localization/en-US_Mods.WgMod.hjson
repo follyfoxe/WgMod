@@ -50,6 +50,16 @@ Items: {
 			Effects scale with your obesity
 			'''
 	}
+
+	QueenlyGluttony: {
+		DisplayName: Queenly Gluttony
+		Tooltip:
+			'''
+			Increases melee damage, critical strike chance, and armor penetration
+			Attacks inflict pretty sparkle slime!
+			Effects scale with your obesity
+			'''
+	}
 }
 
 Buffs: {

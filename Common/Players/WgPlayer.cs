@@ -30,7 +30,7 @@ public class WgPlayer : ModPlayer
 
     internal bool _onTreadmill;
     internal float _treadmillX;
-    
+
     internal float _squishRest = 1f;
     internal float _squishPos = 1f;
     internal float _squishVel;
@@ -40,6 +40,7 @@ public class WgPlayer : ModPlayer
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
     internal bool _ambrosiaOnHit;
+    internal bool _queenlyGluttony;
 
     float _lastGfxOffY;
     Vector2 _prevVel;
@@ -251,7 +252,7 @@ public class WgPlayer : ModPlayer
             drawInfo.seatYOffset = 0f;
         }
     }
-    
+
     public override void TransformDrawData(ref PlayerDrawSet drawInfo)
     {
         // Couldn't think of a better solution
@@ -308,10 +309,11 @@ public class WgPlayer : ModPlayer
         }
         return false;
     }
-    
+
     public override void ResetEffects()
     {
         _ambrosiaOnHit = false;
+        _queenlyGluttony = false;
     }
 
     // For Flask of Ambrosia :3
@@ -320,5 +322,15 @@ public class WgPlayer : ModPlayer
         if (_ambrosiaOnHit)
             Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
     }
-}
 
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        if (_queenlyGluttony && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed))
+        {
+            if (Main.rand.NextBool(50))
+                target.AddBuff(BuffID.Shimmer, 120);
+            else
+                target.AddBuff(BuffID.GelBalloonBuff, 120);
+        }
+    }
+}

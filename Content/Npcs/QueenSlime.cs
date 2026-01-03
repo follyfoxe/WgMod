@@ -6,16 +6,16 @@ using WgMod.Content.Items.Accessories;
 
 namespace WgMod.Npcs
 {
-    public class Deerclops : GlobalNPC
+    public class QueenSlime : GlobalNPC
     {
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot)
         {
-            if (npc.type == NPCID.Deerclops)
+            if (npc.type == NPCID.QueenSlimeBoss)
             {
                 npcLoot.Add(
                     ItemDropRule.ByCondition(
-                        Condition.DownedDeerclops.ToDropCondition(ShowItemDropInUI.Always),
-                        ModContent.ItemType<WeightLossPendant>(),
+                        Condition.DownedQueenSlime.ToDropCondition(ShowItemDropInUI.Always),
+                        ModContent.ItemType<QueenlyGluttony>(),
                         chanceDenominator: 2,
                         chanceNumerator: 1
                     )
