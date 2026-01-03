@@ -1,6 +1,5 @@
+using System;
 using Terraria;
-using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
@@ -15,6 +14,10 @@ namespace WgMod.Content.Buffs
             Main.buffNoSave[Type] = true;
         }
 
+        float _ambrosiaMoveSpeed;
+        int _ambrosiaDefense;
+        int _ambrosiaRegen;
+
         public override void Update(Player player, ref int buffIndex)
         {
             if (!player.TryGetModPlayer(out WgPlayer wg))
@@ -22,12 +25,28 @@ namespace WgMod.Content.Buffs
 
             float immobility = wg.Weight.ClampedImmobility;
 
-            player.moveSpeed *= float.Lerp(1.25f, 1.5f, immobility);
-            player.maxRunSpeed *= float.Lerp(1.25f, 1.5f, immobility);
-            player.runAcceleration *= float.Lerp(1.25f, 1.5f, immobility);
-            player.accRunSpeed *= float.Lerp(1.25f, 1.5f, immobility);
-            player.statDefense += (int)float.Lerp(1f, 10f, immobility);
-            player.lifeRegen += (int)float.Lerp(1f, 5f, immobility);
+            _ambrosiaMoveSpeed = float.Lerp(1.25f, 1.5f, immobility);
+            _ambrosiaDefense = (int)float.Lerp(1f, 10f, immobility);
+            _ambrosiaRegen = (int)float.Lerp(1f, 5f, immobility);
+
+            player.moveSpeed *= _ambrosiaMoveSpeed;
+            player.maxRunSpeed *= _ambrosiaMoveSpeed;
+            player.runAcceleration *= _ambrosiaMoveSpeed;
+            player.accRunSpeed *= _ambrosiaMoveSpeed;
+            player.statDefense += _ambrosiaDefense;
+            player.lifeRegen += _ambrosiaRegen;
+        }
+
+        public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
+        {
+            if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
+                return;
+            else
+                tip = base.Description.Format(
+                    MathF.Round(_ambrosiaMoveSpeed * 100f - 100f),
+                    _ambrosiaDefense,
+                    _ambrosiaRegen
+                );
         }
     }
 }

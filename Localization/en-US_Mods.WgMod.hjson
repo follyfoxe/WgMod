@@ -56,7 +56,8 @@ Items: {
 		Tooltip:
 			'''
 			Increases melee damage, critical strike chance, and armor penetration
-			Attacks inflict pretty sparkle slime!
+			Decreases melee speed
+			Melee attacks inflict pretty sparkle slime!
 			Effects scale with your obesity
 			'''
 	}
@@ -91,8 +92,14 @@ Buffs: {
 	}
 
 	AmbrosiaGorged: {
-		Description: Your belly is laden with power
 		DisplayName: Ambrosia Gorged
+		Description:
+			'''
+			Your belly is laden with power
+			Increased movement speed by {0}%
+			Increased defense by {1}
+			Increased life regen by {2} per second
+			'''
 	}
 }
 
