@@ -39,6 +39,7 @@ public class WgPlayer : ModPlayer
     internal float _finalMovementFactor;
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
+    internal bool _ambrosiaOnHit;
 
     float _lastGfxOffY;
     Vector2 _prevVel;
@@ -307,4 +308,17 @@ public class WgPlayer : ModPlayer
         }
         return false;
     }
+    
+    public override void ResetEffects()
+    {
+        _ambrosiaOnHit = false;
+    }
+
+    // For Flask of Ambrosia :3
+    public override void OnHurt(Player.HurtInfo info)
+    {
+        if (_ambrosiaOnHit)
+            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
+    }
 }
+
