@@ -37,7 +37,7 @@ Items: {
 	}
 
 	WeightLossPendant: {
-		DisplayName: Weight Loss Pendant
+		DisplayName: Amulet of Starving
 		Tooltip: Greatly increases the rate at which you lose weight!
 	}
 

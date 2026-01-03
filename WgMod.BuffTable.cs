@@ -58,5 +58,8 @@ partial class WgMod
             (BuffID.HeartyMeal, 2f),
             (BuffID.Honey, GainOverTime(3f, 1f)) // Gain 3 kg every 1 second
         ]);
+
+        // WgMod
+        AddBuffs("WgMod", [("AmbrosiaGorged", 6f)]);
     }
 }
