@@ -234,16 +234,15 @@ public class WgPlayer : ModPlayer
             Player.Center = new Vector2(_treadmillX, Player.Center.Y);
     }
 
-    public override void FrameEffects()
+    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
         int stage = Weight.GetStage();
         int armStage = WeightValues.GetArmStage(stage);
         if (armStage >= 0)
+        {
             Player.body = WgArms.GetArmEquipSlot(Mod, armStage);
-    }
-
-    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
-    {
+            drawInfo.armorHidesArms = true;
+        }
         if (_onTreadmill)
         {
             drawInfo.isSitting = false;
