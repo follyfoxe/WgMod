@@ -32,7 +32,7 @@ public class QueenlyGluttony : ModItem
 
         float immobility = wg.Weight.ClampedImmobility;
         _queenlyGluttonyDamage = float.Lerp(1.05f, 1.2f, immobility);
-        _queenlyGluttonyAttackSpeed = float.Lerp(0.95f, 0.8f, immobility);
+        _queenlyGluttonyAttackSpeed = float.Lerp(0.96f, 0.85f, immobility);
         _queenlyGluttonyCritChance = (int)float.Lerp(5f, 10f, immobility);
         _queenlyGluttonyArmorPenetration = (int)float.Lerp(2f, 6f, immobility);
 
