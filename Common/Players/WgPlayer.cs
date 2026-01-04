@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -306,6 +307,7 @@ public class WgPlayer : ModPlayer
         return false;
     }
 
+    // Resets some effects
     public override void ResetEffects()
     {
         _ambrosiaOnHit = false;
@@ -319,6 +321,7 @@ public class WgPlayer : ModPlayer
             Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
     }
 
+    // On hit effects NPCs
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         if (_queenlyGluttony && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed))
