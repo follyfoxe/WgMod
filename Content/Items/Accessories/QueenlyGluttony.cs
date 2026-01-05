@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 

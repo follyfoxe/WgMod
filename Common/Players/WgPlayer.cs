@@ -40,8 +40,11 @@ public class WgPlayer : ModPlayer
     internal float _finalMovementFactor;
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
-    internal bool _ambrosiaOnHit;
-    internal bool _queenlyGluttony;
+    internal bool _ambrosiaOnHit; // FlaskOfAmbrosia effect
+    internal bool _queenlyGluttony; // QueenlyGluttony effect
+    internal bool _bottomlessAppetite; //BottomlessAppetite effect
+    internal int _bottomlessAppetiteGrabRange; // How much BottomlessAppetite increases grab range
+    public bool _vacuumSetBonus;
 
     float _lastGfxOffY;
     Vector2 _prevVel;
@@ -136,7 +139,7 @@ public class WgPlayer : ModPlayer
         else
             basePenalty = 1f;
         _finalMovementFactor = Math.Clamp(1f - MovementPenalty.ApplyTo(basePenalty), 0f, 1f);
-        
+
         Player.runAcceleration *= _finalMovementFactor;
         Player.maxRunSpeed *= _finalMovementFactor;
         Player.accRunSpeed *= _finalMovementFactor;
@@ -312,24 +315,23 @@ public class WgPlayer : ModPlayer
     {
         _ambrosiaOnHit = false;
         _queenlyGluttony = false;
+        _bottomlessAppetite = false;
     }
 
-    // For Flask of Ambrosia :3
     public override void OnHurt(Player.HurtInfo info)
     {
-        if (_ambrosiaOnHit)
-            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
+        if (_ambrosiaOnHit) // If FlaskOfAmbrosia is equipped
+            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60); // Apply AmbrosiaGorged to player for 8 seconds when taking damage
     }
 
-    // On hit effects NPCs
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        if (_queenlyGluttony && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed))
+        if (_queenlyGluttony && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed)) // If QueenlyGluttony is equipped and player is using melee
         {
             if (Main.rand.NextBool(50))
-                target.AddBuff(BuffID.Shimmer, 120);
+                target.AddBuff(BuffID.Shimmer, 2 * 60); // 1/50 chance to apply shimmer to enemy for 2 seconds
             else
-                target.AddBuff(BuffID.GelBalloonBuff, 120);
+                target.AddBuff(BuffID.GelBalloonBuff, 2 * 60); // 49/50 chance to apply Sparkle Slime Balloon effect to enemy for 2 seconds
         }
     }
 }
