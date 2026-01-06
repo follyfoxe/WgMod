@@ -61,6 +61,31 @@ Items: {
 			Effects scale with your obesity
 			'''
 	}
+
+	BottomlessAppetite: {
+		DisplayName: Bottomless Appetite
+		Tooltip:
+			'''
+			Increases pickup range for dropped items
+			Effects scale [c/FF0000:exponentially] with your obesity
+			'Your hunger knows no bounds'
+			'''
+	}
+
+	VacuumSkirt: {
+		Tooltip: ""
+		DisplayName: Vacuum Skirt
+	}
+
+	VacuumHelmet: {
+		Tooltip: ""
+		DisplayName: Vacuum Helmet
+	}
+
+	VacuumCrop: {
+		Tooltip: ""
+		DisplayName: Vacuum Crop
+	}
 }
 
 Buffs: {
