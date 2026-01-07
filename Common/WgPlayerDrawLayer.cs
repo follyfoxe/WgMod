@@ -13,11 +13,30 @@ namespace WgMod.Common;
 
 public class WgPlayerDrawLayer : PlayerDrawLayer
 {
+    // Better than having an item I suppose...
+    public const int ShaderItemId = -1000;
+
     public override bool IsHeadLayer => false;
     public override Transformation Transform => PlayerDrawLayers.TorsoGroup;
 
     Asset<Texture2D> _baseTexture;
     Asset<Texture2D> _bellyTexture;
+    int _baseArmorShader;
+    int _bellyArmorShader;
+
+    public override void SetStaticDefaults()
+    {
+        const string armorShaderPass = "MainPass";
+        Asset<Effect> armorShader = Mod.Assets.Request<Effect>("Assets/Effects/FatArmor");
+
+        Asset<Texture2D> baseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base_ArmorFem");
+        GameShaders.Armor.BindShader(ShaderItemId, new ArmorShaderData(armorShader, armorShaderPass).UseImage(baseTexture));
+        _baseArmorShader = GameShaders.Armor.GetShaderIdFromItemId(ShaderItemId);
+
+        Asset<Texture2D> bellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly_ArmorFem");
+        GameShaders.Armor.BindShader(ShaderItemId, new ArmorShaderData(armorShader, armorShaderPass).UseImage(bellyTexture));
+        _bellyArmorShader = GameShaders.Armor.GetShaderIdFromItemId(ShaderItemId);
+    }
 
     public override void Load()
     {
@@ -68,9 +87,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         float t = wg.Weight.ClampedImmobility;
         float bellySquish = float.Lerp(wg._squishPos, 1f, t * t * 0.4f);
         float baseSquish = (bellySquish + 1f) * 0.5f;
-        
+
         Rectangle baseFrame = _baseTexture.Frame(1, Weight.StageCount, 0, stage);
-        drawInfo.DrawDataCache.Add(new DrawData(
+        DrawData baseDrawData = new(
             _baseTexture.Value,
             PrepPos(position + new Vector2(0f, MathF.Round(MathF.Abs(offset) / 2f)) * -2f),
             baseFrame,
@@ -79,35 +98,37 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             baseFrame.Size() * 0.5f,
             new Vector2(1f * baseSquish, 1f / baseSquish),
             drawInfo.playerEffect
-        ));
+        );
+        drawInfo.DrawDataCache.Add(baseDrawData);
 
-        Vector2 bellyPos = PrepPos(position + new Vector2(0f, MathF.Round(offset / 2f) * 2f));
-        Vector2 bellyScale = new(1f / bellySquish, 1f * bellySquish);
         Rectangle bellyFrame = _bellyTexture.Frame(1, Weight.StageCount, 0, stage);
-        drawInfo.DrawDataCache.Add(new DrawData(
+        DrawData bellyDrawData = new(
             _bellyTexture.Value, // The texture to render.
-            bellyPos, // Position to render at.
+            PrepPos(position + new Vector2(0f, MathF.Round(offset / 2f) * 2f)), // Position to render at.
             bellyFrame, // Source rectangle.
             skinColor, // Color.
             0f, // Rotation.
             bellyFrame.Size() * 0.5f, // Origin. Uses the texture's center.
-            bellyScale, // Scale.
+            new Vector2(1f / bellySquish, 1f * bellySquish), // Scale.
             drawInfo.playerEffect
-        ));
-
+        );
+        drawInfo.DrawDataCache.Add(bellyDrawData);
+        
         if (wg._lastBodySlot > 0 && drawInfo.usesCompositeTorso)
         {
             Texture2D texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot].Value;
-            drawInfo.DrawDataCache.Add(new DrawData(
-                texture,
-                bellyPos,
-                bellyFrame,
-                drawInfo.colorArmorBody,
-                0f,
-                bellyFrame.Size() * 0.5f,
-                bellyScale,
-                drawInfo.playerEffect
-            ) { shader = GameShaders.Armor.GetShaderIdFromItemId(ModContent.ItemType<FatArmorShader>()) });
+            drawInfo.DrawDataCache.Add(baseDrawData with
+            {
+                texture = texture,
+                color = drawInfo.colorArmorBody,
+                shader = _baseArmorShader
+            });
+            drawInfo.DrawDataCache.Add(bellyDrawData with
+            {
+                texture = texture,
+                color = drawInfo.colorArmorBody,
+                shader = _bellyArmorShader
+            });
         }
     }
 
