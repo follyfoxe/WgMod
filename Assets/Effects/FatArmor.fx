@@ -16,7 +16,7 @@ float2 uImageSize1;
 float4 uLegacyArmorSourceRect;
 float2 uLegacyArmorSheetSize;
 
-float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
+float4 PixelShaderFunction(float2 coords : TEXCOORD0, float4 color : COLOR0) : COLOR0
 {
 	float2 bellyCoords = (floor(coords * uImageSize0) + 0.5f) / uImageSize1;
 	float4 tex = tex2D(uImage1, bellyCoords);
@@ -25,7 +25,7 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
 	float2 uv = (floor(tex.xy * uImageSize0) + 0.5f) / uImageSize0;
 	float4 col = tex2D(uImage0, uv);
 	col.rgb *= 1.0f - tex.b;
-	return col;
+	return col * color;
 }
 
 technique Technique1
