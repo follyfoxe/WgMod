@@ -26,14 +26,14 @@ public class QueenlyGluttony : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-
         float immobility = wg.Weight.ClampedImmobility;
-        _queenlyGluttonyDamage = float.Lerp(1.05f, 1.2f, immobility);
+
+        _queenlyGluttonyDamage = float.Lerp(0.05f, 0.2f, immobility);
         _queenlyGluttonyAttackSpeed = float.Lerp(0.96f, 0.85f, immobility);
         _queenlyGluttonyCritChance = (int)float.Lerp(5f, 10f, immobility);
         _queenlyGluttonyArmorPenetration = (int)float.Lerp(2f, 6f, immobility);
 
-        player.GetDamage(DamageClass.Melee) *= _queenlyGluttonyDamage;
+        player.GetDamage(DamageClass.Melee) += _queenlyGluttonyDamage;
         player.GetAttackSpeed(DamageClass.Melee) *= _queenlyGluttonyAttackSpeed;
         player.GetCritChance(DamageClass.Melee) += _queenlyGluttonyCritChance;
         player.GetArmorPenetration(DamageClass.Melee) += _queenlyGluttonyArmorPenetration;

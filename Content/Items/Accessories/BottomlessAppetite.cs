@@ -21,10 +21,10 @@ public class BottomlessAppetite : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-
         float immobility = wg.Weight.ClampedImmobility;
+
         wg._bottomlessAppetite = true;
-        wg._bottomlessAppetiteGrabRange = (int)float.Lerp(2f, 5f, immobility);
+        wg._bottomlessAppetiteGrabRange = (int)float.Lerp(2f, 9999f, immobility);
     }
 
     public override void AddRecipes()

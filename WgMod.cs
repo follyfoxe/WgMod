@@ -189,7 +189,7 @@ public partial class WgMod : Mod
         {
             if (wg._bottomlessAppetite && item.type != ItemID.FallenStar)
             {
-                num ^= wg._bottomlessAppetiteGrabRange;
+                num *= wg._bottomlessAppetiteGrabRange;
             }
         }
         ItemLoader.GrabRange(item, self, ref num);

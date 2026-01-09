@@ -73,18 +73,58 @@ Items: {
 	}
 
 	VacuumSkirt: {
-		Tooltip: ""
 		DisplayName: Vacuum Skirt
+		Tooltip:
+			'''
+			6% - 12% increased attack speed
+			50 - 100 increased maximum life
+			8 - 16 increased defense
+			3% - 6% reduced damage taken
+			Movement effects of fatness are 10% more punishing
+			Effects scale with your obesity
+			'''
 	}
 
 	VacuumHelmet: {
-		Tooltip: ""
 		DisplayName: Vacuum Helmet
+		Tooltip:
+			'''
+			4% - 8% increased critical strike chance
+			50 - 100 increased maximum life
+			6 - 12 increased defense
+			2% - 4% reduced damage taken
+			Movement effects of fatness are 10% more punishing
+			Effects scale with your obesity
+			'''
+		VacuumSetBonus:
+			'''
+			5 - 20 life regenerated per second
+			Losing weight is 50% harder
+			'''
 	}
 
 	VacuumCrop: {
-		Tooltip: ""
 		DisplayName: Vacuum Crop
+		Tooltip:
+			'''
+			6% - 12% increased damage
+			100 - 200 increased maximum life
+			12 - 24 increased defense
+			3% - 6% reduced damage taken
+			Movement effects of fatness are 15% more punishing
+			Effects scale with your obesity
+			'''
+	}
+
+	HellRaiser: {
+		DisplayName: Hell-Raiser
+		Tooltip: 
+		'''
+		Increases the maximum number of minions by 3
+		Decreases / increases summon damage by 10% - 10%
+		Decreases whip attack speed by 10% - 20%
+		Effects scale with your obesity
+		'''
 	}
 }
 
