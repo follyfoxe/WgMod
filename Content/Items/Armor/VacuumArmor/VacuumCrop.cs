@@ -28,16 +28,15 @@ namespace WgMod.Content.Items.Armor.VacuumArmor
         {
             if (!player.TryGetModPlayer(out WgPlayer wg))
                 return;
-
             float immobility = wg.Weight.ClampedImmobility;
 
-            _vacuumCropAttack = float.Lerp(1.06f, 1.12f, immobility);
+            _vacuumCropAttack = float.Lerp(0.06f, 0.12f, immobility);
             _vacuumCropHealth = (int)MathF.Floor((int)float.Lerp(100f, 200f, immobility) / 5f) * 5;
             _vacuumCropDefense = (int)float.Lerp(12f, 24f, immobility);
             _vacuumCropResist = float.Lerp(0.03f, 0.06f, immobility);
             _vacuumCropMovePenalty = float.Lerp(1.15f, 0.9f, immobility);
 
-            player.GetDamage(DamageClass.Generic) *= _vacuumCropAttack;
+            player.GetDamage(DamageClass.Generic) += _vacuumCropAttack;
             player.statLifeMax2 += _vacuumCropHealth;
             player.statDefense += _vacuumCropDefense;
             player.endurance += _vacuumCropResist;

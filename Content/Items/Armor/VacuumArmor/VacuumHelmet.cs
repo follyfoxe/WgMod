@@ -1,6 +1,7 @@
 ﻿using System;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
@@ -26,6 +27,13 @@ namespace WgMod.Content.Items.Armor.VacuumArmor
             Item.defense = 36;
         }
 
+        public override void SetStaticDefaults()
+        {
+            SetBonusText = this.GetLocalization("VacuumSetBonus");
+        }
+
+        public static LocalizedText SetBonusText { get; private set; }
+
         public override bool IsArmorSet(Item head, Item body, Item legs)
         {
             return body.type == ModContent.ItemType<VacuumCrop>()
@@ -37,13 +45,13 @@ namespace WgMod.Content.Items.Armor.VacuumArmor
             if (!player.TryGetModPlayer(out WgPlayer wg))
                 return;
             wg._vacuumSetBonus = true;
+            player.setBonus = SetBonusText.Value;
         }
 
         public override void UpdateEquip(Player player)
         {
             if (!player.TryGetModPlayer(out WgPlayer wg))
                 return;
-
             float immobility = wg.Weight.ClampedImmobility;
 
             _vacuumHelmetCritChance = float.Lerp(1.04f, 1.08f, immobility);
@@ -61,12 +69,15 @@ namespace WgMod.Content.Items.Armor.VacuumArmor
             player.aggro += 5;
 
             if (!wg._vacuumSetBonus)
-            {return;}
+            {
+                return;
+            }
             else
             {
                 _vacuumSetBonusRegen = (int)float.Lerp(5f, 20f, immobility);
 
                 player.lifeRegen += _vacuumSetBonusRegen;
+                wg.WeightLossFactor *= 0.5f;
             }
         }
 
