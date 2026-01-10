@@ -56,75 +56,10 @@ partial class WgMod
             (BuffID.SugarRush, 12f),
             (BuffID.Lucky, 2f),
             (BuffID.HeartyMeal, 2f),
-            (BuffID.Honey, GainOverTime(3f, 1f)), // Gain 3 kg every 1 second
+            (BuffID.Honey, GainOverTime(3f, 1f)) // Gain 3 kg every 1 second
         ]);
 
         // WgMod
         AddBuffs("WgMod", [("AmbrosiaGorged", 6f)]);
-
-        // Calamity Mod
-        AddBuffs(
-            "CalamityMod",
-            [
-                ("BloodyMaryBuff", 6f),
-                ("CaribbeanRumBuff", 6f),
-                ("CinnamonRollBuff", 8f),
-                ("EverclearBuff", 6f),
-                ("EvergreenGinBuff", 6f),
-                ("FireballBuff", 6f),
-                ("GrapeBeerBuff", 6f),
-                ("MargaritaBuff", 6f),
-                ("MoonshineBuff", 6f),
-                ("MoscowMuleBuff", 6f),
-                ("OldFashionedBuff", 6f),
-                ("PurpleHazeBuff", 6f),
-                ("RedWineBuff", 6f),
-                ("RumBuff", 6f),
-                ("ScrewdriverBuff", 6f),
-                ("StarBreamRyeBuff", 6f),
-                ("TequilaBuff", 6f),
-                ("VodkaBuff", 6f),
-                ("WhiskeyBuff", 6f),
-                ("WhiteWineBuff", 2f),
-                ("AnechoicCoatingBuff", 2f),
-                ("BaguetteBuff", 6f),
-                ("BloodfinBoost", 3f),
-                ("BoundingBuff", 2f),
-                ("CalciumBuff", 1f),
-                ("CeaselessHunger", 12f),
-                ("GravityNormalizerBuff", 6f),
-                ("Omniscience", 6f),
-                ("PhotosynthesisBuff", 4f),
-                ("ShadowBuff", 1f),
-                ("Soaring", 2f),
-                ("SulphurskinBuff", 3f),
-                ("TeslaBuff", 6f),
-                ("Zen", 6f),
-                ("Zerg", 6f),
-                ("AbsorberRegen", 2f),
-                ("GreenJellyRegen", GainOverTime(3f, 1f)),
-                ("PinkJellyRegen", GainOverTime(3f, 1f)),
-            ]
-        );
-
-        // Better Potions
-        AddBuffs(
-            "BetterPotions",
-            [
-                ("BerserkerBuff", 4f),
-                ("DeterringBuff", 4f),
-                ("DiscoInfernoBuff", 8f),
-                ("FlightBuff", 4f),
-                ("HeightenedSensesBuff", 6f),
-                ("ImmovableBuff", 4f),
-                ("InstigatingBuff", 4f),
-                ("LeapingBuff", 2f),
-                ("OrichalcumskinBuff", 6f),
-                ("PiercingBuff", 4f),
-                ("PredatorBuff", 2f),
-                ("SteelfallBuff", 24f),
-                ("WarBuff", 4f)
-            ]
-        );
     }
 }

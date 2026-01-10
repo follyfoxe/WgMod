@@ -43,7 +43,7 @@ public class TerraskeletonLegs : ModItem
             return;
 
         float immobility = wg.Weight.ClampedImmobility;
-        wg.MovementPenalty *= float.Lerp(1f, 0.6f, immobility);
+        wg.MovementPenaltyReduction *= float.Lerp(1f, 0.6f, immobility);
     }
 
     public override void AddRecipes()

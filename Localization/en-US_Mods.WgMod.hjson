@@ -1,4 +1,15 @@
 Items: {
+	Wings.Extra: "{0}% reduced movement penalty from weight while midair"
+	Vanilla.StrangeBrew.Tooltip:
+		'''
+		Side Effects May Include:
+		-Unpredictable Healing
+		-Inconsistent Potion Sickness
+		-Brief Periods of Inexplicable Invulnerability
+		-Sudden Weight Gain
+		'It looks and smells terrible'
+		'''
+
 	WeightManipulator: {
 		DisplayName: Weight Manipulator
 		Tooltip:
@@ -72,43 +83,159 @@ Items: {
 			'''
 	}
 
-	VacuumSkirt: {
-		Tooltip: ""
-		DisplayName: Vacuum Skirt
+	HellRaiser: {
+		DisplayName: Hell-Raiser
+		Tooltip:
+			'''
+			Increases the maximum number of minions by 3
+			Decreases / increases summon damage by 10% - 10%
+			Decreases whip attack speed by 10% - 20%
+			Effects scale with your obesity
+			'''
 	}
 
-	VacuumHelmet: {
+	Armor: {
+		CloudyHeadgear: {
+			DisplayName: Cloudy Headgear
+			Tooltip:
+				'''
+				You can move around as if you're 20kg lighter
+				Increases jump speed by 20%
+				'''
+			SetBonus:
+				'''
+				Increased defense
+				Effect scales with your obesity
+				'''
+			SetBonusAlt:
+				'''
+				Increases defense by {0}[c/676767:/{1}]
+				Effect scales with your obesity
+				'''
+		}
+
+		CloudyCrop: {
+			DisplayName: Cloudy Crop
+			Tooltip:
+				'''
+				You can move around as if you're 20kg lighter
+				You can use weapons as if you're 20kg lighter
+				'''
+		}
+
+		CloudySkirt: {
+			DisplayName: Cloudy Skirt
+			Tooltip:
+				'''
+				You can move around as if you're 10kg lighter
+				5% reduced mobility penalty from weight
+				5% increased movement speed
+				'''
+		}
+
+		VacuumSkirt: {
+			DisplayName: Vacuum Skirt
+			Tooltip:
+				'''
+				6% - 12% increased attack speed
+				50 - 100 increased maximum life
+				8 - 16 increased defense
+				3% - 6% reduced damage taken
+				Movement effects of fatness are 10% more punishing
+				Effects scale with your obesity
+				'''
+		}
+
+		VacuumHelmet: {
+			DisplayName: Vacuum Helmet
+			Tooltip:
+				'''
+				4% - 8% increased critical strike chance
+				50 - 100 increased maximum life
+				6 - 12 increased defense
+				2% - 4% reduced damage taken
+				Movement effects of fatness are 10% more punishing
+				Effects scale with your obesity
+				'''
+			VacuumSetBonus:
+				'''
+				5 - 20 life regenerated per second
+				Losing weight is 50% harder
+				'''
+		}
+
+		VacuumCrop: {
+			DisplayName: Vacuum Crop
+			Tooltip:
+				'''
+				6% - 12% increased damage
+				100 - 200 increased maximum life
+				12 - 24 increased defense
+				3% - 6% reduced damage taken
+				Movement effects of fatness are 15% more punishing
+				Effects scale with your obesity
+				'''
+		}
+	}
+
+	PortableScale: {
+		DisplayName: Portable Scale
 		Tooltip: ""
-		DisplayName: Vacuum Helmet
+	}
+
+	MeteorCrush: {
+		DisplayName: Meteor Crush
+		Tooltip: ""
 	}
 
 	VacuumCrop: {
 		Tooltip: ""
 		DisplayName: Vacuum Crop
 	}
+
+	VacuumHelmet: {
+		DisplayName: Vacuum Helmet
+		Tooltip: ""
+		VacuumSetBonus: Mods.WgMod.Items.VacuumHelmet.VacuumSetBonus
+	}
+
+	VacuumSkirt: {
+		DisplayName: Vacuum Skirt
+		Tooltip: ""
+	}
+
+	GuideToLiftingYourFatAss: {
+		DisplayName: Guide To Lifting Your Fat Ass
+		Tooltip: ""
+	}
 }
 
 Buffs: {
 	FatBuff: {
 		DisplayName: Fat
-		Description:
-			'''
-			Reduced movement speed by {0}%
-			Reduces damage taken by {1}%
-			Increases maximum health by {2}
-			'''
-		DisabledBuffs: Fat buffs and debuffs disabled
+		Description: lmoa fatass
+		Mobility: "{0}% reduced mobility"
+		AttackSpeed: "{0}% reduced attack speed"
+		MaxLife: +{0} max life
+		DR: "{0}% reduced damage taken"
+		DisabledBuffs: Stat changes from weight are disabled
 
 		Stages: {
-			Name0: Regular
-			Name1: Chubby
-			Name2: Overweight
-			Name3: Fat
-			Name4: Obese
-			Name5: Morbidly obese
-			Name6: Barely mobile
-			Name7: Immobile
+			0: Regular
+			1: Chubby
+			2: Overweight
+			3: Fat
+			4: Obese
+			5: Severely Obese
+			6: Morbidly Obese
+			7: Blob
+			8: Fatty Blob
+			9: Enormous Blob
+			10: Fat Fuck
 		}
+
+		PreImmobile: Barely Mobile
+		Immobile: Immobile
 	}
 
 	GainingBuff: {
@@ -117,42 +244,81 @@ Buffs: {
 	}
 
 	AmbrosiaGorged: {
+		Description: Your belly is laden with power
 		DisplayName: Ambrosia Gorged
-		Description:
-			'''
-			Your belly is laden with power
-			Increased movement speed by {0}%
-			Increased defense by {1}
-			Increased life regen by {2} per second
-			'''
 	}
 }
 
 Configs: {
-	WgServerConfig: {
+	Server: {
 		DisplayName: Wg Server Config
-		Headers.General: General Header
+
+		Headers: {
+			General: General
+			Extra: Extras
+		}
 
 		DisableFatBuffs: {
-			Label: Disable Fat Buffs
-			Tooltip: Disables fat buffs and debuffs, status buffs like 'Gaining' will still apply
+			Label: Disable Weight Effects
+			Tooltip:
+				'''
+				Removes negative (and positive) effects from players' weight.
+				Defaults to false.
+				'''
 		}
 
 		DisableFatHitbox: {
-			Label: Disable Fat Hitbox
-			Tooltip: Disables player hitbox size changes
+			Label: Disable Hitbox Changes
+			Tooltip:
+				'''
+				Prevents players' hitboxes being modified due to weight.
+				Defaults to false.
+				'''
+		}
+
+		WeightChangeMult: {
+			Label: Weight Multiplier
+			Tooltip:
+				'''
+				Multiplies BOTH weight gain and weight loss by this value, only affecting players.
+				Defaults to 1.
+				[c/676767: please dont just max this out when you want to lose weight atleast try ok? thanks]
+				'''
 		}
 	}
 
-	WgClientConfig: {
+	Client: {
 		DisplayName: Wg Client Config
-		Headers.Visual: Visual Header
+		Headers.Visual: Visual
 
 		DisableJiggle: {
 			Label: Disable Jiggle
-			Tooltip: Disables jiggle effects
+			Tooltip:
+				'''
+				Prevents players' bodies from jiggling about due to all their blubber.
+				Defaults to false.
+				'''
+		}
+
+		DetailedTooltips: {
+			Label: Detailed Tooltips
+			Tooltip:
+				'''
+				Accessories that scale with your weight will display their exact stats and scaling cap.
+				Defaults to false.
+				'''
 		}
 	}
+
+	WgServerConfig.DisplayName: Wg Server Config
+	WgClientConfig.DisplayName: Wg Client Config
 }
 
-Tiles.Treadmill.Items.Treadmill: Mods.WgMod.Tiles.Treadmill.Items.Treadmill
+Tiles.Treadmill.Items.Treadmill: Treadmill
+
+Projectiles: {
+	Girth.DisplayName: Girth
+	Girthquake.DisplayName: Girthquake
+}
+
+InfoDisplays.WeightDisplayer_Weight_Unknown.DisplayName: Current Weight

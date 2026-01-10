@@ -5,12 +5,13 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Accessories;
 
-public class WeightLossPendant : ModItem
+public class MeteorCrush : ModItem
 {
+    public override string Texture => "WgMod/Assets/Placeholder/ExampleItem";
     public override void SetDefaults()
     {
-        Item.width = 26;
-        Item.height = 32;
+        Item.width = 20;
+        Item.height = 20;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Orange;
@@ -19,8 +20,6 @@ public class WeightLossPendant : ModItem
 
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-        if (!player.TryGetModPlayer(out WgPlayer wg))
-            return;
-        wg.WeightLossRate += 5f;
+        player.WG()._crushEffect = true;
     }
 }

@@ -7,6 +7,7 @@ namespace WgMod.Content.Items;
 
 public class WeightManipulator : ModItem
 {
+    public override string Texture => "WgMod/Assets/Placeholder/ExampleItem";
     public override void SetStaticDefaults()
     {
         Item.ResearchUnlockCount = 10;
@@ -45,8 +46,8 @@ public class WeightManipulator : ModItem
         if (player.TryGetModPlayer(out WgPlayer wg))
         {
             int sign = player.altFunctionUse == 2 ? -1 : 1;
-            wg.SetWeight(wg.Weight + sign * 10f);
-            Main.NewText($"Weight: {wg.Weight} ({wg.Weight.ToPounds()} lbs), Stage: {wg.Weight.GetStage()}", 255, 255, 0);
+            wg.SetWeight(wg.Weight.Mass + sign * 10f);
+            Main.NewText($"Weight: {wg.Weight.Mass} ({wg.Weight.ToPounds()} lbs), Stage: {wg.Weight.GetStage()}", 255, 255, 0);
             return true;
         }
         return null;

@@ -28,7 +28,7 @@ public class ExoskeletonLegs : ModItem
             return;
 
         float immobility = wg.Weight.ClampedImmobility;
-        wg.MovementPenalty *= float.Lerp(1f, 0.8f, immobility);
+        wg.MovementPenaltyReduction *= float.Lerp(1f, 0.8f, immobility);
     }
 
     public override void AddRecipes()
