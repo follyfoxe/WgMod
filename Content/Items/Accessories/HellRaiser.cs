@@ -33,7 +33,7 @@ public class HellRaiser : ModItem
 
         player.maxMinions += _hellRaiserMinionCount;
         player.GetDamage(DamageClass.Summon) += _hellRaiserMinionDamage;
-        player.GetAttackSpeed(DamageClass.Melee) *= _hellRaiserWhipSpeed;
+        player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= _hellRaiserWhipSpeed;
     }
 
     public override void AddRecipes()

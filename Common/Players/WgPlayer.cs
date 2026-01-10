@@ -45,6 +45,8 @@ public class WgPlayer : ModPlayer
     internal bool _bottomlessAppetite; //BottomlessAppetite effect
     internal int _bottomlessAppetiteGrabRange; // How much BottomlessAppetite increases grab range
     public bool _vacuumSetBonus;
+    public bool _championsBelt;
+    public float _championsBeltMeleeScale;
 
     float _lastGfxOffY;
     Vector2 _prevVel;
@@ -316,6 +318,7 @@ public class WgPlayer : ModPlayer
         _ambrosiaOnHit = false;
         _queenlyGluttony = false;
         _bottomlessAppetite = false;
+        _championsBelt = false;
     }
 
     public override void OnHurt(Player.HurtInfo info)

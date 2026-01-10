@@ -118,13 +118,55 @@ Items: {
 
 	HellRaiser: {
 		DisplayName: Hell-Raiser
-		Tooltip: 
-		'''
-		Increases the maximum number of minions by 3
-		Decreases / increases summon damage by 10% - 10%
-		Decreases whip attack speed by 10% - 20%
-		Effects scale with your obesity
-		'''
+		Tooltip:
+			'''
+			Increases the maximum number of minions by 3
+			Decreases / increases summon damage by 10% - 10%
+			Decreases whip attack speed by 10% - 20%
+			Effects scale with your obesity
+			'''
+	}
+
+	CrimatriarchLeggings: {
+		DisplayName: Crimatriarch Leggings
+		Tooltip:
+			'''
+			Increases summon damage by 3% - 9%
+			Decreases whip attack speed by 2% - 6%
+			Effects scale with your obesity
+			'''
+	}
+
+	CrimatriarchHood: {
+		DisplayName: Crimatriarch Hood
+		Tooltip:
+			'''
+			Increases summon damage by 3% - 9%
+			Decreases whip attack speed by 2% - 6%
+			Effects scale with your obesity
+			'''
+		CrimatriarchSetBonus:
+			'''
+			Increases the maximum number of minions by 1
+			Increases summon damage by 5% - 10%
+			Decreases whip attack speed by 5% - 10%
+			Effects scale with your obesity
+			'''
+	}
+
+	CrimatriarchGown: {
+		DisplayName: Crimatriarch Gown
+		Tooltip:
+			'''
+			Increases summon damage by 5% - 10%
+			Increases summon critical strike chance by 3% - 9%
+			Effects scale with your obesity
+			'''
+	}
+
+	ChampionsBelt: {
+		Tooltip: ""
+		DisplayName: Champions Belt
 	}
 }
 
