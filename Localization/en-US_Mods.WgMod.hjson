@@ -165,8 +165,17 @@ Items: {
 	}
 
 	ChampionsBelt: {
-		Tooltip: ""
-		DisplayName: Champions Belt
+		DisplayName: Champion's Belt
+		Tooltip:
+			'''
+			Increases the size of melee weapons
+			Effects scale with your obesity
+			'''
+	}
+
+	WeightlessPotion: {
+		DisplayName: Weightless Potion
+		Tooltip: Reduces movement pentalty of high weights!
 	}
 }
 
@@ -207,6 +216,11 @@ Buffs: {
 			Increased defense by {1}
 			Increased life regen by {2} per second
 			'''
+	}
+
+	Weightless: {
+		DisplayName: Weightless
+		Description: Reduces movement pentalty of high weights by {0}%
 	}
 }
 
