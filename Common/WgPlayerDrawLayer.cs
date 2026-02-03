@@ -90,6 +90,22 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         float bellySquish = float.Lerp(wg._squishPos, 1f, t * t * 0.4f);
         float baseSquish = (bellySquish + 1f) * 0.5f;
 
+        ArmorLayer layer1 = new(null, drawInfo.colorArmorBody);
+        ArmorLayer layer2 = new(null, drawInfo.colorArmorBody);
+        if (drawInfo.usesCompositeTorso)
+        {
+            if (wg._lastBodySlot > 0)
+                layer1.Texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot];
+            else
+            {
+                layer1.Texture = TextureAssets.Players[drawInfo.skinVar, 4];
+                layer1.Color = drawInfo.colorUnderShirt;
+
+                layer2.Texture = TextureAssets.Players[drawInfo.skinVar, 6];
+                layer2.Color = drawInfo.colorShirt;
+            }
+        }
+
         Rectangle baseFrame = _baseTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData baseDrawData = new(
             _baseTexture.Value,
@@ -102,15 +118,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.playerEffect
         );
         drawInfo.DrawDataCache.Add(baseDrawData);
-        if (wg._lastBodySlot > 0 && drawInfo.usesCompositeTorso)
-        {
-            drawInfo.DrawDataCache.Add(baseDrawData with
-            {
-                texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot].Value,
-                color = drawInfo.colorArmorBody,
-                shader = _baseArmorShader
-            });
-        }
+        layer1.Draw(drawInfo, baseDrawData, _baseArmorShader);
+        layer2.Draw(drawInfo, baseDrawData, _baseArmorShader);
 
         Rectangle bellyFrame = _bellyTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData bellyDrawData = new(
@@ -124,20 +133,29 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.playerEffect
         );
         drawInfo.DrawDataCache.Add(bellyDrawData);
-        if (wg._lastBodySlot > 0 && drawInfo.usesCompositeTorso)
-        {
-            drawInfo.DrawDataCache.Add(bellyDrawData with
-            {
-                texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot].Value,
-                color = drawInfo.colorArmorBody,
-                shader = _bellyArmorShader
-            });
-        }
+        layer1.Draw(drawInfo, bellyDrawData, _bellyArmorShader);
+        layer2.Draw(drawInfo, bellyDrawData, _bellyArmorShader);
     }
 
     static Vector2 PrepPos(Vector2 pos)
     {
         pos.Y += 1f;
         return pos.Floor();
+    }
+
+    record struct ArmorLayer(Asset<Texture2D> Texture, Color Color)
+    {
+        public void Draw(in PlayerDrawSet drawInfo, DrawData baseDrawData, int shader)
+        {
+            if (Texture != null)
+            {
+                drawInfo.DrawDataCache.Add(baseDrawData with
+                {
+                    texture = Texture.Value,
+                    color = Color,
+                    shader = shader
+                });
+            }
+        }
     }
 }
