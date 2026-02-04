@@ -33,18 +33,37 @@ public class ExoskeletonLegs : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe()
-            .AddIngredient(ItemID.SpectreBoots)
-            .AddIngredient(ItemID.GoldBar, 12)
-            .AddIngredient(ItemID.Wire, 6)
-            .AddTile(TileID.Anvils)
-            .Register();
+        if (ModLoader.TryGetMod("CalamityFables", out Mod calamityFables))
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.SpectreBoots)
+                .AddIngredient(calamityFables.Find<ModItem>("WulfrumMetalScrap").Type, 12)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
+        else if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.SpectreBoots)
+                .AddIngredient(calamity.Find<ModItem>("WulfrumMetalScrap").Type, 12)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
+        else
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.SpectreBoots)
+                .AddIngredient(ItemID.GoldBar, 12)
+                .AddIngredient(ItemID.Wire, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
 
-        CreateRecipe()
-            .AddIngredient(ItemID.SpectreBoots)
-            .AddIngredient(ItemID.PlatinumBar, 12)
-            .AddIngredient(ItemID.Wire, 6)
-            .AddTile(TileID.Anvils)
-            .Register();
+            CreateRecipe()
+                .AddIngredient(ItemID.SpectreBoots)
+                .AddIngredient(ItemID.PlatinumBar, 12)
+                .AddIngredient(ItemID.Wire, 6)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
     }
 }

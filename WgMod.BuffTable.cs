@@ -11,8 +11,8 @@ partial class WgMod
         // Vanilla
         AddBuffs([
             (BuffID.WellFed, 4f),
-            (BuffID.WellFed2, 5f),
-            (BuffID.WellFed3, 6f),
+            (BuffID.WellFed2, 6f),
+            (BuffID.WellFed3, 8f),
             (BuffID.ObsidianSkin, 3f),
             (BuffID.Regeneration, 6f),
             (BuffID.Swiftness, 1f),
@@ -30,7 +30,7 @@ partial class WgMod
             (BuffID.Archery, 2f),
             (BuffID.Hunter, 3f),
             (BuffID.Gravitation, 2f),
-            (BuffID.PotionSickness, 24f),
+            (BuffID.PotionSickness, 18f),
             (BuffID.Tipsy, 12f),
             (BuffID.Ichor, 2f),
             (BuffID.ManaSickness, 12f),
