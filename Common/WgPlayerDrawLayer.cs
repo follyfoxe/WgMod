@@ -93,7 +93,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
 
         ArmorLayer layer1 = new(null, drawInfo.colorArmorBody);
         ArmorLayer layer2 = new(null, drawInfo.colorArmorBody);
-        if (drawInfo.usesCompositeTorso && !ModContent.GetInstance<WgClientConfig>().DisableUVClothes)
+        if (drawInfo.usesCompositeTorso && !WgClientConfig.Instance.DisableUVClothes)
         {
             if (wg._lastBodySlot > 0)
                 layer1.Texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot];

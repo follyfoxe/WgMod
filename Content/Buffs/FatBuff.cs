@@ -34,7 +34,7 @@ public class FatBuff : WgBuffBase
         if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
             return;
         buffName = this.GetLocalizedValue("Stages.Name" + wg.Weight.GetStage());
-        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs)
+        if (WgServerConfig.Instance.DisableFatBuffs)
             tip = this.GetLocalizedValue("DisabledBuffs");
         else
             tip = base.Description.Format(MathF.Round((1f - wg._finalMovementFactor) * 100f), MathF.Round(_damageReduction * 100f), _lifeIncrease);
@@ -42,7 +42,7 @@ public class FatBuff : WgBuffBase
 
     public override void Update(Player player, ref int buffIndex)
     {
-        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs || !player.TryGetModPlayer(out WgPlayer wg))
+        if (WgServerConfig.Instance.DisableFatBuffs || !player.TryGetModPlayer(out WgPlayer wg))
         {
             _damageReduction = 0f;
             _lifeIncrease = 0;

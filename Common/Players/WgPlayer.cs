@@ -125,7 +125,7 @@ public class WgPlayer : ModPlayer
 
     public override void PostUpdateRunSpeeds()
     {
-        if (ModContent.GetInstance<WgServerConfig>().DisableFatBuffs || Player.mount.Active)
+        if (WgServerConfig.Instance.DisableFatBuffs || Player.mount.Active)
             return;
 
         float basePenalty;
@@ -162,7 +162,7 @@ public class WgPlayer : ModPlayer
         // Hitbox
         int stage = Weight.GetStage();
         int targetWidth = Player.defaultWidth;
-        if (!ModContent.GetInstance<WgServerConfig>().DisableFatHitbox && !Player.mount.Active && !Player.isLockedToATile)
+        if (!WgServerConfig.Instance.DisableFatHitbox && !Player.mount.Active && !Player.isLockedToATile)
             targetWidth = WeightValues.GetHitboxWidthInTiles(stage) * 16 - 12;
         if (Player.width != targetWidth)
         {
@@ -203,7 +203,7 @@ public class WgPlayer : ModPlayer
     public override void PostUpdate()
     {
         const float dt = 1f / 60f;
-        if (Main.dedServ || ModContent.GetInstance<WgClientConfig>().DisableJiggle)
+        if (Main.dedServ || WgClientConfig.Instance.DisableJiggle)
         {
             _squishVel = 0f;
             _squishPos = 1f;

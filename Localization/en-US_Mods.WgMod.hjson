@@ -213,7 +213,7 @@ Buffs: {
 Configs: {
 	WgServerConfig: {
 		DisplayName: Wg Server Config
-		Headers.General: General Header
+		Headers.General: General settings
 
 		DisableFatBuffs: {
 			Label: Disable Fat Buffs
@@ -228,7 +228,7 @@ Configs: {
 
 	WgClientConfig: {
 		DisplayName: Wg Client Config
-		Headers.Visual: Visual Header
+		Headers.Visual: Visual settings
 
 		DisableJiggle: {
 			Label: Disable Jiggle
