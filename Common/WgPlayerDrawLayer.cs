@@ -5,7 +5,7 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
-using Terraria.Graphics.Shaders;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Configs;
 using WgMod.Common.Players;
@@ -14,34 +14,25 @@ namespace WgMod.Common;
 
 public class WgPlayerDrawLayer : PlayerDrawLayer
 {
-    // Better than having an item I suppose...
-    public const int ShaderItemId = -1000;
-
     public override bool IsHeadLayer => false;
     public override Transformation Transform => PlayerDrawLayers.TorsoGroup;
 
     Asset<Texture2D> _baseTexture;
     Asset<Texture2D> _bellyTexture;
-    int _baseArmorShader;
-    int _bellyArmorShader;
 
     public override void SetStaticDefaults()
     {
-        // TODO: Render in a separate frame buffer so that we dont have to do this hacky thing, that way it would also be able to be affected by dyes that use shaders
-        const string armorShaderPass = "MainPass";
-        Asset<Effect> armorShader = Mod.Assets.Request<Effect>("Assets/Effects/FatArmor");
-
-        Asset<Texture2D> baseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base_ArmorFem");
-        GameShaders.Armor.BindShader(ShaderItemId, new ArmorShaderData(armorShader, armorShaderPass).UseImage(baseTexture));
-        _baseArmorShader = GameShaders.Armor.GetShaderIdFromItemId(ShaderItemId);
-
-        Asset<Texture2D> bellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly_ArmorFem");
-        GameShaders.Armor.BindShader(ShaderItemId, new ArmorShaderData(armorShader, armorShaderPass).UseImage(bellyTexture));
-        _bellyArmorShader = GameShaders.Armor.GetShaderIdFromItemId(ShaderItemId);
+        if (Main.netMode == NetmodeID.Server)
+            return;
+        WgArms.SetupDrawing(Mod);
     }
 
     public override void Load()
     {
+        if (Main.netMode == NetmodeID.Server)
+            return;
+        WgArms.Load(Mod);
+        WgArmor.Load(Mod);
         _baseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base");
         _bellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly");
     }
@@ -65,7 +56,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             position.X -= WeightValues.DrawOffsetX(stage);
         else
             position.X += WeightValues.DrawOffsetX(stage);
-        
+
         float yOffset = 0f;
         yOffset -= drawInfo.seatYOffset;
         yOffset += drawInfo.mountOffSet * 0.5f;
@@ -93,19 +84,16 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         float bellySquish = float.Lerp(wg._squishPos, 1f, t * t * 0.4f);
         float baseSquish = (bellySquish + 1f) * 0.5f;
 
-        ArmorLayer layer1 = new(null, drawInfo.colorArmorBody);
-        ArmorLayer layer2 = new(null, drawInfo.colorArmorBody);
-        if (drawInfo.usesCompositeTorso && !WgClientConfig.Instance.DisableUVClothes)
+        bool drawArmor = drawInfo.usesCompositeTorso && !WgClientConfig.Instance.DisableUVClothes;
+        if (drawArmor)
         {
+            Array.Clear(wg._armorLayers);
             if (wg._lastBodySlot > 0)
-                layer1.Texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot];
+                wg._armorLayers[0] = new(TextureAssets.ArmorBodyComposite[wg._lastBodySlot], drawInfo.colorArmorBody);
             else
             {
-                layer1.Texture = TextureAssets.Players[drawInfo.skinVar, 4];
-                layer1.Color = drawInfo.colorUnderShirt;
-
-                layer2.Texture = TextureAssets.Players[drawInfo.skinVar, 6];
-                layer2.Color = drawInfo.colorShirt;
+                wg._armorLayers[0] = new(TextureAssets.Players[drawInfo.skinVar, 4], drawInfo.colorUnderShirt);
+                wg._armorLayers[1] = new(TextureAssets.Players[drawInfo.skinVar, 6], drawInfo.colorShirt);
             }
         }
 
@@ -121,8 +109,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.playerEffect
         );
         drawInfo.DrawDataCache.Add(baseDrawData);
-        layer1.Draw(drawInfo, baseDrawData, _baseArmorShader);
-        layer2.Draw(drawInfo, baseDrawData, _baseArmorShader);
+        if (drawArmor)
+            WgArmor.Draw(wg, ref drawInfo, baseDrawData, 0);
 
         Rectangle bellyFrame = _bellyTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData bellyDrawData = new(
@@ -136,29 +124,13 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             drawInfo.playerEffect
         );
         drawInfo.DrawDataCache.Add(bellyDrawData);
-        layer1.Draw(drawInfo, bellyDrawData, _bellyArmorShader);
-        layer2.Draw(drawInfo, bellyDrawData, _bellyArmorShader);
+        if (drawArmor)
+            WgArmor.Draw(wg, ref drawInfo, bellyDrawData, 1);
     }
 
     static Vector2 PrepPos(Vector2 pos, float yOffset, float gravDir)
     {
         pos.Y += (1f + yOffset) * gravDir;
         return pos.Floor();
-    }
-
-    record struct ArmorLayer(Asset<Texture2D> Texture, Color Color)
-    {
-        public void Draw(in PlayerDrawSet drawInfo, DrawData baseDrawData, int shader)
-        {
-            if (Texture != null)
-            {
-                drawInfo.DrawDataCache.Add(baseDrawData with
-                {
-                    texture = Texture.Value,
-                    color = Color,
-                    shader = shader
-                });
-            }
-        }
     }
 }

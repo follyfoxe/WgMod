@@ -31,6 +31,9 @@ public class WgPlayer : ModPlayer
     internal float _squishPos = 1f;
     internal float _squishVel;
     internal float _bellyOffset;
+
+    internal readonly WgArmor.Layer[] _armorLayers = new WgArmor.Layer[2];
+    internal RenderTarget2D _armorTarget;
     internal int _lastBodySlot;
 
     internal float _finalMovementFactor;
@@ -48,21 +51,22 @@ public class WgPlayer : ModPlayer
     float _lastGfxOffY;
     Vector2 _prevVel;
 
-    public override void Load()
-    {
-        if (Main.netMode != NetmodeID.Server)
-            WgArms.Load(Mod);
-    }
-
-    public override void SetStaticDefaults()
-    {
-        if (Main.netMode != NetmodeID.Server)
-            WgArms.SetupDrawing(Mod);
-    }
-
     public override void Initialize()
     {
         SetWeight(Weight.Base, false);
+        Main.OnPreDraw += OnPreDrawFirstFrame;
+    }
+
+    public override void Unload()
+    {
+        Main.OnPreDraw -= OnPreDrawFirstFrame;
+    }
+
+    void OnPreDrawFirstFrame(GameTime gameTime)
+    {
+        Main.OnPreDraw -= OnPreDrawFirstFrame;
+        if (!WgClientConfig.Instance.DisableUVClothes)
+            WgArmor.Render(ref _armorTarget, _armorLayers);
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -96,6 +100,8 @@ public class WgPlayer : ModPlayer
     {
         if (tag.TryGet("Weight", out float w))
             SetWeight(new Weight(w), false);
+        else
+            SetWeight(Weight.Base, false);
     }
 
     public override void SaveData(TagCompound tag)
@@ -221,6 +227,9 @@ public class WgPlayer : ModPlayer
         // Can't find a better way to change the draw position
         _lastGfxOffY = Player.gfxOffY;
         Player.gfxOffY -= WeightValues.DrawOffsetY(Weight.GetStage());
+
+        if (!WgClientConfig.Instance.DisableUVClothes)
+            WgArmor.Render(ref _armorTarget, _armorLayers);
     }
 
     public override void HideDrawLayers(PlayerDrawSet drawInfo)
@@ -236,6 +245,7 @@ public class WgPlayer : ModPlayer
         }
     }
 
+    // Being used as a PreDraw kind of thing
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
         if (drawInfo.shadow == 0f)
