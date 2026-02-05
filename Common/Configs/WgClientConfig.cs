@@ -8,4 +8,5 @@ public class WgClientConfig : ModConfig
 
     [Header("Visual")]
     public bool DisableJiggle;
+    public bool DisableUVClothes;
 }

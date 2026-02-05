@@ -115,6 +115,11 @@ Configs: {
 			Label: Disable Jiggle
 			Tooltip: Disables jiggle effects
 		}
+
+		DisableUVClothes: {
+			Label: Disable UV Clothes
+			Tooltip: "Disables dynamic armor and clothes feature"
+		}
 	}
 }
 

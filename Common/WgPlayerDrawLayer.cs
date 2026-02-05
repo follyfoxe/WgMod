@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.Graphics.Shaders;
 using Terraria.ModLoader;
+using WgMod.Common.Configs;
 using WgMod.Common.Players;
 
 namespace WgMod.Common;
@@ -92,7 +93,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
 
         ArmorLayer layer1 = new(null, drawInfo.colorArmorBody);
         ArmorLayer layer2 = new(null, drawInfo.colorArmorBody);
-        if (drawInfo.usesCompositeTorso)
+        if (drawInfo.usesCompositeTorso && !ModContent.GetInstance<WgClientConfig>().DisableUVClothes)
         {
             if (wg._lastBodySlot > 0)
                 layer1.Texture = TextureAssets.ArmorBodyComposite[wg._lastBodySlot];
