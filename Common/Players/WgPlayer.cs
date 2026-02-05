@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -12,7 +11,6 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using WgMod.Common.Configs;
 using WgMod.Content.Buffs;
-using WgMod.Content.Tiles;
 
 namespace WgMod.Common.Players;
 
@@ -28,9 +26,6 @@ public class WgPlayer : ModPlayer
     public StatModifier WeightLossFactor;
 
     public readonly int[] BuffDuration = new int[Player.MaxBuffs];
-
-    internal bool _onTreadmill;
-    internal float _treadmillX;
 
     internal float _squishRest = 1f;
     internal float _squishPos = 1f;
@@ -152,9 +147,6 @@ public class WgPlayer : ModPlayer
 
     public override void PreUpdateMovement()
     {
-        if (_onTreadmill)
-            WeightLossFactor += Treadmill.WeightLoss;
-
         Vector2 acc = Player.velocity - _prevVel;
         _prevVel = Player.velocity;
         _squishRest = 1f;
@@ -204,8 +196,6 @@ public class WgPlayer : ModPlayer
     public override void PreUpdate()
     {
         Player.gfxOffY = _lastGfxOffY;
-        if (!Player.sitting.isSitting)
-            _onTreadmill = false;
     }
 
     public override void PostUpdate()
@@ -233,9 +223,6 @@ public class WgPlayer : ModPlayer
         // Can't find a better way to change the draw position
         _lastGfxOffY = Player.gfxOffY;
         Player.gfxOffY -= WeightValues.DrawOffsetY(Weight.GetStage());
-
-        if (_onTreadmill)
-            Player.Center = new Vector2(_treadmillX, Player.Center.Y);
     }
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
@@ -246,12 +233,6 @@ public class WgPlayer : ModPlayer
         {
             Player.body = WgArms.GetArmEquipSlot(Mod, armStage);
             drawInfo.armorHidesArms = true;
-        }
-        if (_onTreadmill)
-        {
-            drawInfo.isSitting = false;
-            drawInfo.torsoOffset = 0f;
-            drawInfo.seatYOffset = 0f;
         }
     }
 

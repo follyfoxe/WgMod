@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -133,7 +131,7 @@ public partial class WgMod : Mod
         Player player
     )
     {
-        if (!player.TryGetModPlayer(out WgPlayer wg) || !wg._onTreadmill)
+        if (!player.TryGetModPlayer(out TreadmillPlayer tp) || !tp._onTreadmill)
         {
             orig(ref self, player);
             return;
@@ -165,8 +163,7 @@ public partial class WgMod : Mod
     }
 
     // This is needed for BottomlessAppetite item pickup range changes!
-    public int On_Player_GetItemGrabRange(On_Player.orig_GetItemGrabRange orig, Player self, Item item
-    )
+    public static int On_Player_GetItemGrabRange(On_Player.orig_GetItemGrabRange orig, Player self, Item item)
     {
         int num = Player.defaultItemGrabRange;
         if (self.goldRing && item.IsACoin)

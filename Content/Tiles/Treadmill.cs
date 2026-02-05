@@ -57,10 +57,10 @@ public class Treadmill : ModTile
         if (tile.TileFrameY % NextStyleHeight == 0)
             info.AnchorTilePosition.Y++;
 
-        if (info.RestingEntity is Player player && player.TryGetModPlayer(out WgPlayer wg))
+        if (info.RestingEntity is Player player && player.TryGetModPlayer(out TreadmillPlayer tp))
         {
-            wg._onTreadmill = true;
-            wg._treadmillX = info.AnchorTilePosition.X * 16f + 8f;
+            tp._onTreadmill = true;
+            tp._treadmillX = info.AnchorTilePosition.X * 16f + 8f;
         }
     }
 
@@ -69,17 +69,17 @@ public class Treadmill : ModTile
         Player player = Main.LocalPlayer;
         if (player.IsWithinSnappngRangeToTile(i, j, PlayerSittingHelper.ChairSittingMaxDistance * 2))
         {
-            if (!player.TryGetModPlayer(out WgPlayer wg))
+            if (!player.TryGetModPlayer(out TreadmillPlayer tp))
                 return false;
-            if (wg._onTreadmill)
+            if (tp._onTreadmill)
             {
                 player.sitting.SitUp(player);
                 return true;
             }
             player.GamepadEnableGrappleCooldown();
             player.sitting.SitDown(player, i, j);
-            wg._treadmillX = player.Center.X;
-            wg._onTreadmill = true;
+            tp._treadmillX = player.Center.X;
+            tp._onTreadmill = true;
         }
         return true;
     }
