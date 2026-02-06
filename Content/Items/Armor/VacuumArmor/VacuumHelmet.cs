@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
@@ -10,12 +11,15 @@ namespace WgMod.Content.Items.Armor.VacuumArmor;
 [AutoloadEquip(EquipType.Head)]
 public class VacuumHelmet : ModItem
 {
-    float _critChance;
-    int _health;
-    int _defense;
-    float _resist;
-    float _movePenalty;
-    int _setBonusRegen;
+    public const float SetBonusWeightLoss = 0.5f;
+
+    WgStat _critChance = new(1.04f, 1.08f);
+    WgStat _health = new(50, 100);
+    WgStat _defense = new(6, 12);
+    WgStat _resist = new(0.02f, 0.04f);
+    WgStat _movePenalty = new(1.1f, 0.95f);
+
+    WgStat _setBonusRegen = new(5, 20);
 
     public override void SetDefaults()
     {
@@ -28,7 +32,7 @@ public class VacuumHelmet : ModItem
 
     public override void SetStaticDefaults()
     {
-        SetBonusText = this.GetLocalization("VacuumSetBonus");
+        SetBonusText = this.GetLocalization("SetBonus");
     }
 
     public static LocalizedText SetBonusText { get; private set; }
@@ -43,8 +47,14 @@ public class VacuumHelmet : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-        wg._vacuumSetBonus = true;
-        player.setBonus = SetBonusText.Value;
+
+        float immobility = wg.Weight.ClampedImmobility;
+        _setBonusRegen.Lerp(immobility);
+
+        player.lifeRegen += _setBonusRegen;
+        wg.WeightLossRate *= SetBonusWeightLoss;
+
+        player.setBonus = SetBonusText.Format(_setBonusRegen, (1f - SetBonusWeightLoss).Percent());
     }
 
     public override void UpdateEquip(Player player)
@@ -53,11 +63,14 @@ public class VacuumHelmet : ModItem
             return;
 
         float immobility = wg.Weight.ClampedImmobility;
-        _critChance = float.Lerp(1.04f, 1.08f, immobility);
-        _health = (int)MathF.Floor((int)float.Lerp(50, 100, immobility) / 5f) * 5;
-        _defense = (int)float.Lerp(6f, 12f, immobility);
-        _resist = float.Lerp(0.02f, 0.04f, immobility);
-        _movePenalty = float.Lerp(1.1f, 0.95f, immobility);
+        _critChance.Lerp(immobility);
+        
+        _health.Lerp(immobility);
+        _health.Value = MathF.Floor(_health.Value / 5f) * 5f;
+
+        _defense.Lerp(immobility);
+        _resist.Lerp(immobility);
+        _movePenalty.Lerp(immobility);
 
         player.GetCritChance(DamageClass.Generic) *= _critChance;
         player.statLifeMax2 += _health;
@@ -66,12 +79,6 @@ public class VacuumHelmet : ModItem
         wg.MovementPenalty *= _movePenalty;
 
         player.aggro += 5;
-
-        if (!wg._vacuumSetBonus)
-            return;
-        _setBonusRegen = (int)float.Lerp(5f, 20f, immobility);
-        player.lifeRegen += _setBonusRegen;
-        wg.WeightLossRate *= 0.5f;
     }
 
     public override void AddRecipes()
@@ -84,5 +91,10 @@ public class VacuumHelmet : ModItem
             .AddIngredient(ItemID.LunarBar, 8)
             .AddTile(TileID.LunarCraftingStation)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines((_critChance - 1f).Percent(), _health, _defense, _resist.Percent(), (_movePenalty.Value - 1f).Percent());
     }
 }

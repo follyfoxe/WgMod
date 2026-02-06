@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -11,10 +12,11 @@ public class CrimatriarchHood : ModItem
 {
     public const int SetBonusMinions = 1;
 
-    float _damage;
-    float _attackSpeed;
-    float _setBonusDamage;
-    float _setBonusAttackSpeed;
+    WgStat _damage = new(0.03f, 0.09f);
+    WgStat _attackSpeed = new(0.98f, 0.94f);
+
+    WgStat _setBonusDamage = new(0.05f, 0.10f);
+    WgStat _setBonusAttackSpeed = new(0.95f, 0.9f);
 
     public override void SetDefaults()
     {
@@ -27,7 +29,7 @@ public class CrimatriarchHood : ModItem
 
     public override void SetStaticDefaults()
     {
-        SetBonusText = this.GetLocalization("CrimatriarchSetBonus");
+        SetBonusText = this.GetLocalization("SetBonus");
     }
 
     public static LocalizedText SetBonusText { get; private set; }
@@ -38,8 +40,8 @@ public class CrimatriarchHood : ModItem
             return;
         
         float immobility = wg.Weight.ClampedImmobility;
-        _damage = float.Lerp(0.03f, 0.09f, immobility);
-        _attackSpeed = float.Lerp(0.98f, 0.94f, immobility);
+        _damage.Lerp(immobility);
+        _attackSpeed.Lerp(immobility);
 
         player.GetDamage(DamageClass.Summon) += _damage;
         player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= _attackSpeed;
@@ -57,12 +59,13 @@ public class CrimatriarchHood : ModItem
             return;
 
         float immobility = wg.Weight.ClampedImmobility;
-        _setBonusDamage = float.Lerp(0.05f, 0.10f, immobility);
-        _setBonusAttackSpeed = float.Lerp(0.95f, 0.9f, immobility);
+        _setBonusDamage.Lerp(immobility);
+        _setBonusAttackSpeed.Lerp(immobility);
 
         player.GetDamage(DamageClass.Summon) += _setBonusDamage;
         player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= _setBonusAttackSpeed;
         player.maxMinions += SetBonusMinions;
+        player.setBonus = SetBonusText.Format(SetBonusMinions, _setBonusDamage.Percent(), (1f - _setBonusAttackSpeed).Percent());
     }
 
     public override void AddRecipes()
@@ -73,5 +76,10 @@ public class CrimatriarchHood : ModItem
             .AddIngredient(ItemID.TissueSample, 5)
             .AddTile(TileID.Anvils)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines(_damage.Percent(), (1f - _attackSpeed).Percent());
     }
 }

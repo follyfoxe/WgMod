@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -8,8 +9,8 @@ namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 [AutoloadEquip(EquipType.Legs)]
 public class CrimatriarchLeggings : ModItem
 {
-    float _damage;
-    float _attackSpeed;
+    WgStat _damage = new(0.03f, 0.09f);
+    WgStat _attackSpeed = new(0.98f, 0.94f);
 
     public override void SetDefaults()
     {
@@ -26,8 +27,8 @@ public class CrimatriarchLeggings : ModItem
             return;
             
         float immobility = wg.Weight.ClampedImmobility;
-        _damage = float.Lerp(0.03f, 0.09f, immobility);
-        _attackSpeed = float.Lerp(0.98f, 0.94f, immobility);
+        _damage.Lerp(immobility);
+        _attackSpeed.Lerp(immobility);
 
         player.GetDamage(DamageClass.Summon) += _damage;
         player.GetAttackSpeed(DamageClass.SummonMeleeSpeed) *= _attackSpeed;
@@ -41,5 +42,10 @@ public class CrimatriarchLeggings : ModItem
             .AddIngredient(ItemID.TissueSample, 10)
             .AddTile(TileID.Anvils)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines(_damage.Percent(), (1f - _attackSpeed).Percent());
     }
 }

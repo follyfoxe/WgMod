@@ -76,11 +76,11 @@ Items: {
 		DisplayName: Vacuum Skirt
 		Tooltip:
 			'''
-			6% - 12% increased attack speed
-			50 - 100 increased maximum life
-			8 - 16 increased defense
-			3% - 6% reduced damage taken
-			Movement effects of fatness are 10% more punishing
+			{0}% increased attack speed
+			{1} increased maximum life
+			{2} increased defense
+			{3}% reduced damage taken
+			Movement effects of fatness are {4}% more punishing
 			Effects scale with your obesity
 			'''
 	}
@@ -89,17 +89,17 @@ Items: {
 		DisplayName: Vacuum Helmet
 		Tooltip:
 			'''
-			4% - 8% increased critical strike chance
-			50 - 100 increased maximum life
-			6 - 12 increased defense
-			2% - 4% reduced damage taken
-			Movement effects of fatness are 10% more punishing
+			{0}% increased critical strike chance
+			{1} increased maximum life
+			{2} increased defense
+			{3}% reduced damage taken
+			Movement effects of fatness are {4}% more punishing
 			Effects scale with your obesity
 			'''
-		VacuumSetBonus:
+		SetBonus:
 			'''
-			5 - 20 life regenerated per second
-			Losing weight is 50% harder
+			{0} life regenerated per second
+			Losing weight is {1}% harder
 			'''
 	}
 
@@ -107,11 +107,11 @@ Items: {
 		DisplayName: Vacuum Crop
 		Tooltip:
 			'''
-			6% - 12% increased damage
-			100 - 200 increased maximum life
-			12 - 24 increased defense
-			3% - 6% reduced damage taken
-			Movement effects of fatness are 15% more punishing
+			{0}% increased damage
+			{1} increased maximum life
+			{2} increased defense
+			{3}% reduced damage taken
+			Movement effects of fatness are {4}% more punishing
 			Effects scale with your obesity
 			'''
 	}
@@ -120,9 +120,9 @@ Items: {
 		DisplayName: Hell-Raiser
 		Tooltip:
 			'''
-			Increases the maximum number of minions by 3
-			Decreases / increases summon damage by 10% - 10%
-			Decreases whip attack speed by 10% - 20%
+			Increases the maximum number of minions by {0}
+			Changes summon damage by {1}%
+			Decreases whip attack speed by {2}%
 			Effects scale with your obesity
 			'''
 	}
@@ -131,8 +131,8 @@ Items: {
 		DisplayName: Crimatriarch Leggings
 		Tooltip:
 			'''
-			Increases summon damage by 3% - 9%
-			Decreases whip attack speed by 2% - 6%
+			Increases summon damage by {0}%
+			Decreases whip attack speed by {1}%
 			Effects scale with your obesity
 			'''
 	}
@@ -141,15 +141,15 @@ Items: {
 		DisplayName: Crimatriarch Hood
 		Tooltip:
 			'''
-			Increases summon damage by 3% - 9%
-			Decreases whip attack speed by 2% - 6%
+			Increases summon damage by {0}%
+			Decreases whip attack speed by {1}%
 			Effects scale with your obesity
 			'''
-		CrimatriarchSetBonus:
+		SetBonus:
 			'''
-			Increases the maximum number of minions by 1
-			Increases summon damage by 5% - 10%
-			Decreases whip attack speed by 5% - 10%
+			Increases the maximum number of minions by {0}
+			Increases summon damage by {1}%
+			Decreases whip attack speed by {2}%
 			Effects scale with your obesity
 			'''
 	}
@@ -158,8 +158,8 @@ Items: {
 		DisplayName: Crimatriarch Gown
 		Tooltip:
 			'''
-			Increases summon damage by 5% - 10%
-			Increases summon critical strike chance by 3% - 9%
+			Increases summon damage by {0}%
+			Increases summon critical strike chance by {1}%
 			Effects scale with your obesity
 			'''
 	}

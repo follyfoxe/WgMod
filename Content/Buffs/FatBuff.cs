@@ -12,12 +12,10 @@ namespace WgMod.Content.Buffs;
 
 public class FatBuff : WgBuffBase
 {
-    public const int MaxLifeIncrease = 100;
     public const float MaxLifeIncreasePercentage = 0.2f;
-    public const float MaxDamageReduction = 0.05f;
 
-    float _damageReduction = 0f;
-    int _lifeIncrease;
+    WgStat _damageReduction = new(0f, 0.05f);
+    WgStat _lifeIncrease = new(0f, 100f);
 
     Asset<Texture2D> _stagesTexture;
 
@@ -37,33 +35,33 @@ public class FatBuff : WgBuffBase
         if (WgServerConfig.Instance.DisableFatBuffs)
             tip = this.GetLocalizedValue("DisabledBuffs");
         else
-            tip = base.Description.Format((1f - wg._finalMovementFactor).Percent(), _damageReduction.Percent(MaxDamageReduction), _lifeIncrease.OutOf(MaxLifeIncrease));
+            tip = base.Description.Format((1f - wg._finalMovementFactor).Percent(), _damageReduction.Percent(), _lifeIncrease);
     }
 
     public override void Update(Player player, ref int buffIndex)
     {
         if (WgServerConfig.Instance.DisableFatBuffs || !player.TryGetModPlayer(out WgPlayer wg))
         {
-            _damageReduction = 0f;
-            _lifeIncrease = 0;
+            _damageReduction.Reset();
+            _lifeIncrease.Reset();
             return;
         }
 
         // Calculate factors
         int stage = wg.Weight.GetStage();
         if (stage >= Weight.DamageReductionStage)
-            _damageReduction = wg.Weight.GetClampedFactor(Weight.FromStage(Weight.DamageReductionStage), Weight.Immobile) * MaxDamageReduction;
+            _damageReduction.Lerp(wg.Weight.GetClampedFactor(Weight.FromStage(Weight.DamageReductionStage), Weight.Immobile));
         else
-            _damageReduction = 0f;
+            _damageReduction.Reset();
 
         if (stage >= Weight.HeavyStage)
         {
             float t = wg.Weight.GetClampedFactor(Weight.FromStage(Weight.HeavyStage), Weight.Immobile) * MaxLifeIncreasePercentage;
-            _lifeIncrease = (int)MathF.Floor(player.statLifeMax * t / 5f) * 5;
-            _lifeIncrease = Math.Clamp(_lifeIncrease, 0, MaxLifeIncrease);
+            _lifeIncrease.Value = MathF.Floor(player.statLifeMax * t / 5f) * 5f;
+            _lifeIncrease.Clamp();
         }
         else
-            _lifeIncrease = 0;
+            _lifeIncrease.Reset();
 
         // Apply factors
         player.endurance += _damageReduction;

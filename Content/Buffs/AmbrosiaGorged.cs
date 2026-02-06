@@ -6,13 +6,9 @@ namespace WgMod.Content.Buffs;
 
 public class AmbrosiaGorged : ModBuff
 {
-    public const float MaxMoveSpeed = 1.5f;
-    public const int MaxDefense = 10;
-    public const int MaxRegen = 5;
-
-    float _moveSpeed;
-    int _defense;
-    int _regen;
+    WgStat _moveSpeed = new(1.25f, 1.5f);
+    WgStat _defense = new(1f, 10f);
+    WgStat _regen = new(1f, 5f);
 
     public override void SetStaticDefaults()
     {
@@ -27,9 +23,9 @@ public class AmbrosiaGorged : ModBuff
             return;
 
         float immobility = wg.Weight.ClampedImmobility;
-        _moveSpeed = float.Lerp(1.25f, MaxMoveSpeed, immobility);
-        _defense = (int)float.Lerp(1f, MaxDefense, immobility);
-        _regen = (int)float.Lerp(1f, MaxRegen, immobility);
+        _moveSpeed.Lerp(immobility);
+        _defense.Lerp(immobility);
+        _regen.Lerp(immobility);
 
         player.moveSpeed *= _moveSpeed;
         player.maxRunSpeed *= _moveSpeed;
@@ -41,10 +37,6 @@ public class AmbrosiaGorged : ModBuff
 
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
     {
-        tip = base.Description.Format(
-            (_moveSpeed - 1f).Percent(MaxMoveSpeed - 1f),
-            _defense.OutOf(MaxDefense),
-            _regen.OutOf(MaxRegen)
-        );
+        tip = base.Description.Format((_moveSpeed - 1f).Percent(), _defense, _regen);
     }
 }

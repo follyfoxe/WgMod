@@ -44,7 +44,6 @@ public class WgPlayer : ModPlayer
     internal bool _queenlyGluttony; // QueenlyGluttony effect
     internal bool _bottomlessAppetite; //BottomlessAppetite effect
     internal int _bottomlessAppetiteGrabRange; // How much BottomlessAppetite increases grab range
-    internal bool _vacuumSetBonus;
     internal bool _championsBelt;
     internal float _championsBeltMeleeScale;
 

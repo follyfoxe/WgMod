@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,8 +10,8 @@ public class HellRaiser : ModItem
 {
     public const int MinionCount = 3;
 
-    float _minionDamage;
-    float _whipSpeed;
+    WgStat _minionDamage = new(-0.1f, 0.1f);
+    WgStat _whipSpeed = new(0.9f, 0.8f);
 
     public override void SetDefaults()
     {
@@ -28,8 +29,8 @@ public class HellRaiser : ModItem
             return;
             
         float immobility = wg.Weight.ClampedImmobility;
-        _minionDamage = float.Lerp(-0.1f, 0.1f, immobility);
-        _whipSpeed = float.Lerp(0.9f, 0.8f, immobility);
+        _minionDamage.Lerp(immobility);
+        _whipSpeed.Lerp(immobility);
 
         player.maxMinions += MinionCount;
         player.GetDamage(DamageClass.Summon) += _minionDamage;
@@ -43,5 +44,10 @@ public class HellRaiser : ModItem
             .AddIngredient(ItemID.SoulofNight, 6)
             .AddTile(TileID.MythrilAnvil)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines(MinionCount, _minionDamage.Percent(), (1f - _whipSpeed).Percent());
     }
 }

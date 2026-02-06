@@ -8,8 +8,7 @@ namespace WgMod.Content.Buffs;
 
 public class Weightless : ModBuff
 {
-    public const float MaxPenaltyReduction = 0.8f;
-    float _movementPenalty;
+    WgStat _movementPenalty = new(1f, 0.8f);
 
     public override void SetStaticDefaults()
     {
@@ -23,12 +22,12 @@ public class Weightless : ModBuff
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
         float immobility = wg.Weight.ClampedImmobility;
-        _movementPenalty = float.Lerp(1f, MaxPenaltyReduction, immobility);
+        _movementPenalty.Lerp(immobility);
         wg.MovementPenalty *= _movementPenalty;
     }
 
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
     {
-        tip = base.Description.Format((1f - _movementPenalty).Percent(1f - MaxPenaltyReduction));
+        tip = base.Description.Format((1f - _movementPenalty).Percent());
     }
 }

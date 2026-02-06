@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,11 +10,11 @@ namespace WgMod.Content.Items.Armor.VacuumArmor;
 [AutoloadEquip(EquipType.Legs)]
 public class VacuumSkirt : ModItem
 {
-    float _attackSpeed;
-    int _health;
-    int _defense;
-    float _resist;
-    float _movePenalty;
+    WgStat _attackSpeed = new(1.06f, 1.12f);
+    WgStat _health = new(50, 100);
+    WgStat _defense = new(8, 16);
+    WgStat _resist = new(0.03f, 0.06f);
+    WgStat _movePenalty = new(1.10f, 0.95f);
 
     public override void SetDefaults()
     {
@@ -30,11 +31,14 @@ public class VacuumSkirt : ModItem
             return;
             
         float immobility = wg.Weight.ClampedImmobility;
-        _attackSpeed = float.Lerp(1.06f, 1.12f, immobility);
-        _health = (int)MathF.Floor((int)float.Lerp(50, 100, immobility) / 5f) * 5;
-        _defense = (int)float.Lerp(8f, 16f, immobility);
-        _resist = float.Lerp(0.03f, 0.06f, immobility);
-        _movePenalty = float.Lerp(1.10f, 0.95f, immobility);
+        _attackSpeed.Lerp(immobility);
+        
+        _health.Lerp(immobility);
+        _health.Value = MathF.Floor(_health.Value / 5f) * 5f;
+
+        _defense.Lerp(immobility);
+        _resist.Lerp(immobility);
+        _movePenalty.Lerp(immobility);
 
         player.GetAttackSpeed(DamageClass.Generic) *= _attackSpeed;
         player.statLifeMax2 += _health;
@@ -55,5 +59,10 @@ public class VacuumSkirt : ModItem
             .AddIngredient(ItemID.LunarBar, 12)
             .AddTile(TileID.LunarCraftingStation)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines((_attackSpeed - 1f).Percent(), _health, _defense, _resist.Percent(), (_movePenalty.Value - 1f).Percent());
     }
 }

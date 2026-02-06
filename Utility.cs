@@ -6,9 +6,21 @@ namespace WgMod;
 
 public static class Utility
 {
-    public static bool Format(this List<TooltipLine> tooltips, int line, params object[] args)
+    public static bool FormatLines(this List<TooltipLine> tooltips, params object[] args)
     {
-        return Format(tooltips, "Tooltip" + line, args);
+        int start = tooltips.FindIndex(t => t.Name == "Tooltip0");
+        if (start < 0)
+            return false;
+        for (int i = start; i < tooltips.Count; i++)
+        {
+            TooltipLine line = tooltips[i];
+            if (!line.Name.StartsWith("Tooltip"))
+                break;
+            if (!line.Text.Contains('{'))
+                continue;
+            line.Text = string.Format(line.Text, args);
+        }
+        return true;
     }
 
     public static bool Format(this List<TooltipLine> tooltips, string name, params object[] args)
@@ -32,7 +44,7 @@ public static class Utility
 
     public static string OutOf(this string value, string max)
     {
-        return $"{value}[c/676767:/{max}]";
+        return $"{value}[c/900090:/{max}]";
     }
 
     public static string Percent(this float value, bool addSign = false)

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -10,8 +11,8 @@ public class CrimatriarchGown : ModItem
 {
     public const int MinionCount = 1;
 
-    float _damage;
-    float _critChance;
+    WgStat _damage = new(0.05f, 0.1f);
+    WgStat _critChance = new(1.03f, 1.09f);
 
     public override void SetDefaults()
     {
@@ -27,8 +28,8 @@ public class CrimatriarchGown : ModItem
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
         float immobility = wg.Weight.ClampedImmobility;
-        _damage = float.Lerp(0.05f, 0.1f, immobility);
-        _critChance = float.Lerp(1.03f, 1.09f, immobility);
+        _damage.Lerp(immobility);
+        _critChance.Lerp(immobility);
 
         player.buffImmune[BuffID.Bleeding] = true;
         player.GetDamage(DamageClass.Summon) += _damage;
@@ -44,5 +45,10 @@ public class CrimatriarchGown : ModItem
             .AddIngredient(ItemID.TissueSample, 15)
             .AddTile(TileID.Anvils)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines(_damage.Percent(), (_critChance - 1f).Percent());
     }
 }
