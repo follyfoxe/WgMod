@@ -1,7 +1,17 @@
+using Terraria.ID;
+
 namespace WgMod;
 
 public static class WeightValues
 {
+    public static float GetDeathPenalty(int difficulty) => difficulty switch
+    {
+        PlayerDifficultyID.SoftCore => 0.8f,
+        PlayerDifficultyID.MediumCore => 0.85f,
+        PlayerDifficultyID.Hardcore => 0.9f,
+        _ => 1f
+    };
+
     public static int GetHitboxWidthInTiles(int stage) => stage switch
     {
         4 => 3,
