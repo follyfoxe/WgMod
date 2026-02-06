@@ -335,6 +335,11 @@ public class WgPlayer : ModPlayer
         WeightLossRate = StatModifier.Default;
     }
 
+    public override void UpdateDead()
+    {
+        _ignoreWgBuffTimer = 2;
+    }
+
     public override void OnHurt(Player.HurtInfo info)
     {
         if (_ambrosiaOnHit) // If FlaskOfAmbrosia is equipped
@@ -350,10 +355,5 @@ public class WgPlayer : ModPlayer
             else
                 target.AddBuff(BuffID.GelBalloonBuff, 2 * 60); // 49/50 chance to apply Sparkle Slime Balloon effect to enemy for 2 seconds
         }
-    }
-
-    public override void OnRespawn()
-    {
-        _ignoreWgBuffTimer = 2;
     }
 }
