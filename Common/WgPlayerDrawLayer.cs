@@ -41,6 +41,32 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     public override Position GetDefaultPosition() => new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc);
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => true;
 
+    public static void SetupArmorLayers(WgPlayer wg)
+    {
+        wg._lastBodySlot = wg.Player.body;
+        PlayerDrawSet drawInfo = new()
+        {
+            drawPlayer = wg.Player,
+            skinVar = wg.Player.skinVariant,
+            colorArmorBody = Color.White,
+            colorUnderShirt = wg.Player.underShirtColor,
+            colorShirt = wg.Player.shirtColor
+        };
+        SetupArmorLayers(wg, drawInfo);
+    }
+
+    public static void SetupArmorLayers(WgPlayer wg, in PlayerDrawSet drawInfo)
+    {
+        Array.Clear(wg._armorLayers);
+        if (wg._lastBodySlot > 0)
+            wg._armorLayers[0] = new(TextureAssets.ArmorBodyComposite[wg._lastBodySlot], drawInfo.colorArmorBody);
+        else
+        {
+            wg._armorLayers[0] = new(TextureAssets.Players[drawInfo.skinVar, 4], drawInfo.colorUnderShirt);
+            wg._armorLayers[1] = new(TextureAssets.Players[drawInfo.skinVar, 6], drawInfo.colorShirt);
+        }
+    }
+
     protected override void Draw(ref PlayerDrawSet drawInfo)
     {
         Player player = drawInfo.drawPlayer;
@@ -84,18 +110,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         float bellySquish = float.Lerp(wg._squishPos, 1f, t * t * 0.4f);
         float baseSquish = (bellySquish + 1f) * 0.5f;
 
-        bool drawArmor = drawInfo.usesCompositeTorso && !WgClientConfig.Instance.DisableUVClothes;
+        bool drawArmor = !WgClientConfig.Instance.DisableUVClothes;
         if (drawArmor)
-        {
-            Array.Clear(wg._armorLayers);
-            if (wg._lastBodySlot > 0)
-                wg._armorLayers[0] = new(TextureAssets.ArmorBodyComposite[wg._lastBodySlot], drawInfo.colorArmorBody);
-            else
-            {
-                wg._armorLayers[0] = new(TextureAssets.Players[drawInfo.skinVar, 4], drawInfo.colorUnderShirt);
-                wg._armorLayers[1] = new(TextureAssets.Players[drawInfo.skinVar, 6], drawInfo.colorShirt);
-            }
-        }
+            SetupArmorLayers(wg, drawInfo);
 
         Rectangle baseFrame = _baseTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData baseDrawData = new(

@@ -54,19 +54,14 @@ public class WgPlayer : ModPlayer
     public override void Initialize()
     {
         SetWeight(Weight.Base, false);
-        Main.OnPreDraw += OnPreDrawFirstFrame;
-    }
-
-    public override void Unload()
-    {
-        Main.OnPreDraw -= OnPreDrawFirstFrame;
-    }
-
-    void OnPreDrawFirstFrame(GameTime gameTime)
-    {
-        Main.OnPreDraw -= OnPreDrawFirstFrame;
         if (!WgClientConfig.Instance.DisableUVClothes)
-            WgArmor.Render(ref _armorTarget, _armorLayers);
+        {
+            Main.RunOnMainThread(() =>
+            {
+                WgPlayerDrawLayer.SetupArmorLayers(this);
+                WgArmor.Render(ref _armorTarget, _armorLayers);
+            });
+        }
     }
 
     public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
