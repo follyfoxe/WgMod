@@ -37,7 +37,7 @@ public class FatBuff : WgBuffBase
         if (WgServerConfig.Instance.DisableFatBuffs)
             tip = this.GetLocalizedValue("DisabledBuffs");
         else
-            tip = base.Description.Format(MathF.Round((1f - wg._finalMovementFactor) * 100f), MathF.Round(_damageReduction * 100f), _lifeIncrease);
+            tip = base.Description.Format((1f - wg._finalMovementFactor).Percent(), _damageReduction.Percent(MaxDamageReduction), _lifeIncrease.OutOf(MaxLifeIncrease));
     }
 
     public override void Update(Player player, ref int buffIndex)
