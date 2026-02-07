@@ -31,11 +31,19 @@ public class FatBuff : WgBuffBase
     {
         if (!Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
             return;
-        buffName = this.GetLocalizedValue("Stages.Name" + wg.Weight.GetStage());
+        int stage = wg.Weight.GetStage();
+        buffName = this.GetLocalizedValue("Stages.Name" + stage);
         if (WgServerConfig.Instance.DisableFatBuffs)
+        {
             tip = this.GetLocalizedValue("DisabledBuffs");
-        else
-            tip = base.Description.Format((1f - wg._finalMovementFactor).Percent(), _damageReduction.Percent(), _lifeIncrease);
+            return;
+        }
+        tip = base.Description.Format((1f - wg._finalMovementFactor).Percent(), _damageReduction.Percent(), _lifeIncrease);
+        if (!WgServerConfig.Instance.DisableFatHitbox)
+        {
+            string line = this.GetLocalization("HitboxIncrease").Format((WeightValues.GetHitboxWidthInTiles(stage) - 2).OutOf(WeightValues.GetHitboxWidthInTiles(Weight.ImmobileStage) - 2));
+            tip += "\n" + line;
+        }
     }
 
     public override void Update(Player player, ref int buffIndex)

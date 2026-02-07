@@ -44,7 +44,7 @@ public static class Utility
 
     public static string OutOf(this string value, string max)
     {
-        return $"{value}[c/900090:/{max}]";
+        return $"{value}[c/B000B0:/{max}]";
     }
 
     public static string Percent(this float value, bool addSign = false)

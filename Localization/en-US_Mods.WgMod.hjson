@@ -188,6 +188,7 @@ Buffs: {
 			Reduces damage taken by {1}%
 			Increases maximum health by {2}
 			'''
+		HitboxIncrease: Increased hitbox horizontally by {0} tiles
 		DisabledBuffs: Fat buffs and debuffs disabled
 
 		Stages: {
