@@ -1,5 +1,3 @@
-using System;
-using Humanizer;
 using Terraria;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
