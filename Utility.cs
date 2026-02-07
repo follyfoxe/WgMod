@@ -32,14 +32,21 @@ public static class Utility
         return true;
     }
 
-    public static string OutOf(this int value, int max)
+    public static string Red(this string value)
     {
-        return OutOf(value.ToString(), max.ToString());
+        return $"[c/C42254:{value}]";
     }
 
-    public static string OutOf(this float value, float max)
+    public static string Range(this int value, int min, int max)
     {
-        return OutOf(value.ToString(), max.ToString());
+        return Range(value.ToString(), min.ToString(), max.ToString());
+    }
+
+    public static string Range(this string value, string min, string max)
+    {
+        if (value.Equals(min, StringComparison.InvariantCultureIgnoreCase))
+            return OutOf(value.Red(), max);
+        return OutOf(value, max);
     }
 
     public static string OutOf(this string value, string max)
@@ -47,16 +54,16 @@ public static class Utility
         return $"{value}[c/B000B0:/{max}]";
     }
 
-    public static string Percent(this float value, bool addSign = false)
+    public static string Percent(this float value)
     {
-        string str = MathF.Round(value * 100f).ToString();
-        if (addSign)
-            str += "%";
-        return str;
+        int rounded = (int)MathF.Round(value * 100f);
+        if (rounded == 0)
+            return rounded.ToString().Red();
+        return rounded.ToString();
     }
 
-    public static string Percent(this float value, float max, bool addSign = false)
+    public static string Percent(this float value, float max)
     {
-        return value.Percent(false).OutOf(max.Percent(addSign));
+        return value.Percent().OutOf(max.Percent());
     }
 }

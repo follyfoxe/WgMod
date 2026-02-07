@@ -30,7 +30,10 @@ public struct WgStat(float min, float max)
 
     public override readonly string ToString()
     {
-        return MathF.Round(Value).OutOf(MathF.Round(Max));
+        int min = (int)MathF.Round(Min);
+        int max = (int)MathF.Round(Max);
+        int value = (int)MathF.Round(Value);
+        return value.Range(min, max);
     }
 
     public static WgStat operator *(WgStat a, float b) => new(a.Min * b, a.Max * b) { Value = a.Value * b };

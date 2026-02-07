@@ -46,7 +46,7 @@ public class FatBuff : WgBuffBase
         );
         if (!WgServerConfig.Instance.DisableFatHitbox)
         {
-            string line = this.GetLocalization("HitboxIncrease").Format((WeightValues.GetHitboxWidthInTiles(stage) - 2).OutOf(WeightValues.GetHitboxWidthInTiles(Weight.ImmobileStage) - 2));
+            string line = this.GetLocalization("HitboxIncrease").Format((WeightValues.GetHitboxWidthInTiles(stage) - 2).Range(0, WeightValues.GetHitboxWidthInTiles(Weight.ImmobileStage) - 2));
             tip += "\n" + line;
         }
     }
