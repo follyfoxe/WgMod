@@ -29,6 +29,7 @@ public partial class WgPlayer : ModPlayer
     
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
+    internal bool _displayWeight;
 
     // TODO: Split these into separate ModPlayers
     internal bool _ambrosiaOnHit; // FlaskOfAmbrosia effect
@@ -263,5 +264,16 @@ public partial class WgPlayer : ModPlayer
     public override void PostHurt(Player.HurtInfo info)
     {
         Player.noKnockback = false;
+    }
+
+    public override void ResetInfoAccessories()
+    {
+        _displayWeight = false;
+    }
+
+    public override void RefreshInfoAccessoriesFromTeamPlayers(Player otherPlayer)
+    {
+        if (otherPlayer.Wg()._displayWeight)
+            _displayWeight = true;
     }
 }
