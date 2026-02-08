@@ -8,6 +8,7 @@ namespace WgMod;
 
 public static class Utility
 {
+    // TODO: Decide if we're gonna use this or not...
     public static WgPlayer Wg(this Player player)
     {
         return player.GetModPlayer<WgPlayer>();

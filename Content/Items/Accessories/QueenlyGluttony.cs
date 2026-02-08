@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -26,6 +27,8 @@ public class QueenlyGluttony : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
+        if (!player.TryGetModPlayer(out QueenlyGluttonyPlayer qg))
+            return;
 
         float immobility = wg.Weight.ClampedImmobility;
         _damage = float.Lerp(0.05f, 0.2f, immobility);
@@ -38,7 +41,28 @@ public class QueenlyGluttony : ModItem
         player.GetCritChance(DamageClass.Melee) += _critChance;
         player.GetArmorPenetration(DamageClass.Melee) += _armorPenetration;
 
-        wg._queenlyGluttony = true;
+        qg._active = true;
+    }
+}
+
+public class QueenlyGluttonyPlayer : ModPlayer
+{
+    internal bool _active;
+
+    public override void ResetEffects()
+    {
+        _active = false;
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        if (_active && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed)) // If QueenlyGluttony is equipped and player is using melee
+        {
+            if (Main.rand.NextBool(50))
+                target.AddBuff(BuffID.Shimmer, 2 * 60); // 1/50 chance to apply shimmer to enemy for 2 seconds
+            else
+                target.AddBuff(BuffID.GelBalloonBuff, 2 * 60); // 49/50 chance to apply Sparkle Slime Balloon effect to enemy for 2 seconds
+        }
     }
 }
 
