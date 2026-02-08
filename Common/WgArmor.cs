@@ -17,12 +17,15 @@ public static class WgArmor
     public record struct Layer(Asset<Texture2D> ArmorTexture, Color Color);
 
     public static Asset<Effect> UVShader { get; private set; }
+    public static Asset<Effect> SoftenShader { get; private set; }
     public static Asset<Texture2D> BaseTexture { get; private set; }
     public static Asset<Texture2D> BellyTexture { get; private set; }
+    static BlendState _multiplyBlend;
 
     public static void Load(Mod mod)
     {
         UVShader = mod.Assets.Request<Effect>("Assets/Effects/FatArmor");
+        SoftenShader = mod.Assets.Request<Effect>("Assets/Effects/FatArmorSoften");
         BaseTexture = mod.Assets.Request<Texture2D>("Assets/Textures/Base_ArmorFem");
         BellyTexture = mod.Assets.Request<Texture2D>("Assets/Textures/Belly_ArmorFem");
     }
@@ -30,6 +33,7 @@ public static class WgArmor
     public static void Render(ref RenderTarget2D target, ReadOnlySpan<Layer> layers)
     {
         UVShader.Wait();
+        SoftenShader.Wait();
         BaseTexture.Wait();
         BellyTexture.Wait();
 
@@ -39,6 +43,7 @@ public static class WgArmor
 
         device.SetRenderTarget(target);
         device.Clear(Color.Transparent);
+
         spriteBatch.Begin(
             SpriteSortMode.Immediate,
             BlendState.AlphaBlend,
@@ -47,7 +52,6 @@ public static class WgArmor
             RasterizerState.CullCounterClockwise,
             UVShader.Value
         );
-
         foreach (Layer layer in layers)
         {
             if (layer.ArmorTexture == null)
@@ -56,8 +60,30 @@ public static class WgArmor
             spriteBatch.Draw(BaseTexture.Value, Vector2.Zero, layer.Color);
             spriteBatch.Draw(BellyTexture.Value, new Vector2(TextureWidth, 0f), layer.Color);
         }
-
         spriteBatch.End();
+
+        _multiplyBlend ??= new BlendState()
+        {
+            AlphaBlendFunction = BlendFunction.Add,
+            AlphaSourceBlend = Blend.Zero,
+            AlphaDestinationBlend = Blend.One,
+
+            ColorBlendFunction = BlendFunction.Add,
+            ColorSourceBlend = Blend.DestinationColor,
+            ColorDestinationBlend = Blend.Zero
+        };
+        spriteBatch.Begin(
+            SpriteSortMode.Deferred,
+            _multiplyBlend,
+            SamplerState.PointClamp,
+            DepthStencilState.None,
+            RasterizerState.CullCounterClockwise,
+            SoftenShader.Value
+        );
+        spriteBatch.Draw(WgPlayerDrawLayer.BaseTexture.Value, Vector2.Zero, Color.White);
+        spriteBatch.Draw(WgPlayerDrawLayer.BellyTexture.Value, new Vector2(TextureWidth, 0f), Color.White);
+        spriteBatch.End();
+
         device.SetRenderTarget(null);
     }
 
@@ -70,7 +96,7 @@ public static class WgArmor
             texture = wg._armorTarget,
             sourceRect = rect,
             shader = wg._lastBodySlot > 0 ? drawInfo.cBody : 0,
-            color = Color.White
+            color = drawInfo.drawPlayer.GetImmuneAlphaPure(Color.White, drawInfo.shadow)
         });
     }
 }
