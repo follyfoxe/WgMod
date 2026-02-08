@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
+using WgMod.Common.Players;
 
 namespace WgMod;
 
 public static class Utility
 {
+    public static WgPlayer Wg(this Player player)
+    {
+        return player.GetModPlayer<WgPlayer>();
+    }
+
     public static bool FormatLines(this List<TooltipLine> tooltips, params object[] args)
     {
         int start = tooltips.FindIndex(t => t.Name == "Tooltip0");

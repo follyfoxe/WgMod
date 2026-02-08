@@ -98,4 +98,9 @@ public class FatBuff : WgBuffBase
             return wg.Weight.GetStageFactor();
         return 1f;
     }
+
+    public override bool RightClick(int buffIndex)
+    {
+        return false;
+    }
 }

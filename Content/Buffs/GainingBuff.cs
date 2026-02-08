@@ -26,4 +26,9 @@ public class GainingBuff : WgBuffBase
         SoundEngine.PlaySound(SoundID.SplashWeak);
         return true;
     }
+
+    public override bool RightClick(int buffIndex)
+    {
+        return false;
+    }
 }
