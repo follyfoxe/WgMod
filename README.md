@@ -16,6 +16,7 @@ Weight gain mod for tModLoader.
 - Armor sets and fat accessories
 - Food items and obtaining different buffs affect weight
 - Treadmill for quickly losing weight
+- Portable scale for monitoring your weight in kg and lbs
 
 # Optional features
 These are turned on by default but can be turned off in the mod's settings
@@ -26,6 +27,9 @@ These are turned on by default but can be turned off in the mod's settings
 
 # Installation
 Currently there are no pre-packaged binaries, so you have to compile the source code by yourself. [See the thread](https://forum.weightgaming.com/t/terraria-weight-gain-mod-proof-of-concept)
+
+# Credits
+See [description.txt](description.txt)
 
 # TODO
 - Test in multiplayer (most likely broken)
