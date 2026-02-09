@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Configs;
 
@@ -22,6 +23,8 @@ public partial class WgPlayer
 
     void InitializeVisuals()
     {
+        if (Main.netMode == NetmodeID.Server)
+            return;
         if (!WgClientConfig.Instance.DisableUVClothes)
         {
             Main.RunOnMainThread(() =>
@@ -39,7 +42,7 @@ public partial class WgPlayer
 
     void PostUpdateVisuals()
     {
-        if (!WgClientConfig.Instance.DisableUVClothes)
+        if (!WgClientConfig.Instance.DisableUVClothes && Main.netMode != NetmodeID.Server)
             WgArmor.Render(ref _armorTarget, _armorLayers);
 
         // Can't find a better way to change the draw position
