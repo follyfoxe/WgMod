@@ -9,4 +9,5 @@ Discord tags of the people that helped make this possible
 - @bb_waffle_batter
 - @blowyourselfup
 [c/C42254:Contributions]
+- @ubulumn (Buff sprites)
 - @trilophyte (Accessory item sprites)
