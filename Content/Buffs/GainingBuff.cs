@@ -13,7 +13,10 @@ public class GainingBuff : WgBuffBase
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-        wg.SetWeight(wg.Weight + wg._buffTotalGain / wg.BuffDuration[buffIndex]);
+        int duration = wg.BuffDuration[buffIndex];
+        if (duration == 0)
+            return;
+        wg.SetWeight(wg.Weight + wg._buffTotalGain / duration);
     }
 
     public static bool AddBuff(WgPlayer wg, GainOptions gain)
@@ -22,5 +25,10 @@ public class GainingBuff : WgBuffBase
         wg.Player.AddBuff(ModContent.BuffType<GainingBuff>(), (int)MathF.Round(gain.Time * 60f));
         SoundEngine.PlaySound(SoundID.SplashWeak);
         return true;
+    }
+
+    public override bool RightClick(int buffIndex)
+    {
+        return false;
     }
 }

@@ -17,8 +17,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     public override bool IsHeadLayer => false;
     public override Transformation Transform => PlayerDrawLayers.TorsoGroup;
 
-    Asset<Texture2D> _baseTexture;
-    Asset<Texture2D> _bellyTexture;
+    public static Asset<Texture2D> BaseTexture { get; private set; }
+    public static Asset<Texture2D> BellyTexture { get; private set; }
 
     public override void SetStaticDefaults()
     {
@@ -33,8 +33,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             return;
         WgArms.Load(Mod);
         WgArmor.Load(Mod);
-        _baseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base");
-        _bellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly");
+        BaseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base");
+        BellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly");
     }
 
     // folly: What is OffhandAcc exactly???
@@ -116,9 +116,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         if (drawArmor)
             SetupArmorLayers(wg, drawInfo);
 
-        Rectangle baseFrame = _baseTexture.Frame(1, Weight.StageCount, 0, stage);
+        Rectangle baseFrame = BaseTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData baseDrawData = new(
-            _baseTexture.Value,
+            BaseTexture.Value,
             PrepPos(position, yOffset - MathF.Round(MathF.Abs(animOffset) / 2f) * 2f, player.gravDir),
             baseFrame,
             skinColor,
@@ -131,9 +131,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         if (drawArmor)
             WgArmor.Draw(wg, ref drawInfo, baseDrawData, 0);
 
-        Rectangle bellyFrame = _bellyTexture.Frame(1, Weight.StageCount, 0, stage);
+        Rectangle bellyFrame = BellyTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData bellyDrawData = new(
-            _bellyTexture.Value, // The texture to render.
+            BellyTexture.Value, // The texture to render.
             PrepPos(position, yOffset + MathF.Round(animOffset / 2f) * 2f, player.gravDir), // Position to render at.
             bellyFrame, // Source rectangle.
             skinColor, // Color.

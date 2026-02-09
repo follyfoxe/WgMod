@@ -177,6 +177,11 @@ Items: {
 		DisplayName: Weightless Potion
 		Tooltip: Reduces movement pentalty of high weights!
 	}
+
+	PortableScale: {
+		DisplayName: Portable Scale
+		Tooltip: Displays your current weight
+	}
 }
 
 Buffs: {
@@ -259,3 +264,4 @@ Configs: {
 }
 
 Tiles.Treadmill.Items.Treadmill: Mods.WgMod.Tiles.Treadmill.Items.Treadmill
+InfoDisplays.PortableScale_InfoDisplay.DisplayName: Current weight

@@ -2,7 +2,7 @@ using System;
 
 namespace WgMod;
 
-// Mass in Kg.
+// Mass in kg.
 public readonly record struct Weight(float Mass)
 {
     const float KgToPounds = 2.2046226218f;
@@ -20,7 +20,7 @@ public readonly record struct Weight(float Mass)
     public readonly float Immobility => GetFactor(Base, Immobile);
     public readonly float ClampedImmobility => GetClampedFactor(Base, Immobile);
 
-    public override readonly string ToString() => $"{Mass} Kg";
+    public override readonly string ToString() => $"{Mass} kg";
     public readonly float ToPounds() => Mass * KgToPounds;
     public readonly int GetStage() => (int)MathF.Floor(Immobility * ImmobileStage);
 

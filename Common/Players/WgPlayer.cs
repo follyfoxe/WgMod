@@ -29,14 +29,7 @@ public partial class WgPlayer : ModPlayer
     
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
-
-    // TODO: Split these into separate ModPlayers
-    internal bool _ambrosiaOnHit; // FlaskOfAmbrosia effect
-    internal bool _queenlyGluttony; // QueenlyGluttony effect
-    internal bool _bottomlessAppetite; //BottomlessAppetite effect
-    internal int _bottomlessAppetiteGrabRange; // How much BottomlessAppetite increases grab range
-    internal bool _championsBelt;
-    internal float _championsBeltMeleeScale;
+    internal bool _displayWeight;
 
     float _lastGfxOffY;
     Vector2 _prevVel;
@@ -65,12 +58,6 @@ public partial class WgPlayer : ModPlayer
 
     public override void ResetEffects()
     {
-        // Resets some effects
-        _ambrosiaOnHit = false;
-        _queenlyGluttony = false;
-        _bottomlessAppetite = false;
-        _championsBelt = false;
-
         // Custom stats
         MovementPenalty = StatModifier.Default;
         WeightLossRate = StatModifier.Default;
@@ -235,23 +222,6 @@ public partial class WgPlayer : ModPlayer
         SetWeight(new Weight(Weight.Mass * WeightValues.GetDeathPenalty(Player.difficulty)));
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-    {
-        if (_queenlyGluttony && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed)) // If QueenlyGluttony is equipped and player is using melee
-        {
-            if (Main.rand.NextBool(50))
-                target.AddBuff(BuffID.Shimmer, 2 * 60); // 1/50 chance to apply shimmer to enemy for 2 seconds
-            else
-                target.AddBuff(BuffID.GelBalloonBuff, 2 * 60); // 49/50 chance to apply Sparkle Slime Balloon effect to enemy for 2 seconds
-        }
-    }
-
-    public override void OnHurt(Player.HurtInfo info)
-    {
-        if (_ambrosiaOnHit) // If FlaskOfAmbrosia is equipped
-            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60); // Apply AmbrosiaGorged to player for 8 seconds when taking damage
-    }
-
     public override void ModifyHurt(ref Player.HurtModifiers modifiers)
     {
         if (Player.noKnockback)
@@ -263,5 +233,16 @@ public partial class WgPlayer : ModPlayer
     public override void PostHurt(Player.HurtInfo info)
     {
         Player.noKnockback = false;
+    }
+
+    public override void ResetInfoAccessories()
+    {
+        _displayWeight = false;
+    }
+
+    public override void RefreshInfoAccessoriesFromTeamPlayers(Player otherPlayer)
+    {
+        if (otherPlayer.Wg()._displayWeight)
+            _displayWeight = true;
     }
 }

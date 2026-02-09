@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
+using WgMod.Content.Buffs;
 
 namespace WgMod.Content.Items.Accessories;
 
@@ -21,7 +22,9 @@ public class FlaskOfAmbrosia : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-        wg._ambrosiaOnHit = true;
+        if (!player.TryGetModPlayer(out AmbrosiaPlayer ap))
+            return;
+        ap._ambrosiaOnHit = true;
         wg.WeightLossRate += 2f;
     }
 
@@ -32,5 +35,21 @@ public class FlaskOfAmbrosia : ModItem
             .AddIngredient<WeightLossPendant>()
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
+    }
+}
+
+public class AmbrosiaPlayer : ModPlayer
+{
+    internal bool _ambrosiaOnHit;
+
+    public override void ResetEffects()
+    {
+        _ambrosiaOnHit = false;
+    }
+
+    public override void OnHurt(Player.HurtInfo info)
+    {
+        if (_ambrosiaOnHit) // If FlaskOfAmbrosia is equipped
+            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60); // Apply AmbrosiaGorged to player for 8 seconds when taking damage
     }
 }
