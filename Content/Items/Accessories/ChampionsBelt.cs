@@ -9,8 +9,8 @@ public class ChampionsBelt : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 26;
-        Item.height = 32;
+        Item.width = 36;
+        Item.height = 28;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Red;

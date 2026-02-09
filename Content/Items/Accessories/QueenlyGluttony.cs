@@ -14,8 +14,8 @@ public class QueenlyGluttony : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 35;
-        Item.height = 32;
+        Item.width = 28;
+        Item.height = 30;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Pink;

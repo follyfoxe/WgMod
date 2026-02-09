@@ -10,8 +10,8 @@ public class ExoskeletonLegs : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 22;
-        Item.height = 22;
+        Item.width = 34;
+        Item.height = 28;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Orange;

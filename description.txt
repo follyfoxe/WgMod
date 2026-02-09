@@ -1,1 +1,12 @@
-A terraria mod all about gaining weight.
+A terraria mod about gaining weight.
+
+[c/EFBF00:Credits]
+Discord tags of the people that helped make this possible
+[c/B000B0:Team]
+- @follycake
+- @maimaichubs
+- @jumpsu2
+- @bb_waffle_batter
+- @blowyourselfup
+[c/C42254:Contributions]
+- @trilophyte (Accessory item sprites)

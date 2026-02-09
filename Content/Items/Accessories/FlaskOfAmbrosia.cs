@@ -10,8 +10,8 @@ public class FlaskOfAmbrosia : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 20;
-        Item.height = 26;
+        Item.width = 30;
+        Item.height = 36;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Orange;

@@ -9,7 +9,7 @@ public class WeightLossPendant : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 26;
+        Item.width = 24;
         Item.height = 32;
 
         Item.accessory = true;

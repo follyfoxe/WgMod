@@ -16,8 +16,8 @@ public class TerraskeletonLegs : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 22;
-        Item.height = 22;
+        Item.width = 38;
+        Item.height = 28;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Lime;
