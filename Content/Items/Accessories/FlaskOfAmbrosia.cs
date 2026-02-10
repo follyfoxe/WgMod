@@ -6,6 +6,8 @@ using WgMod.Content.Buffs;
 
 namespace WgMod.Content.Items.Accessories;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.trilophyte)]
 public class FlaskOfAmbrosia : ModItem
 {
     public override void SetDefaults()

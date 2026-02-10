@@ -7,6 +7,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.VacuumArmor;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Body)]
 public class VacuumCrop : ModItem
 {

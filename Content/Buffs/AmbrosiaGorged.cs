@@ -4,6 +4,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Buffs;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.ubulumn)]
 public class AmbrosiaGorged : ModBuff
 {
     WgStat _moveSpeed = new(1.25f, 1.5f);

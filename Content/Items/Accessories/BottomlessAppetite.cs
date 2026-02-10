@@ -6,6 +6,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Accessories;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.maimaichubs)]
 public class BottomlessAppetite : ModItem
 {
     public override void SetDefaults()

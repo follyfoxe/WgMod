@@ -5,6 +5,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items;
 
+[Credit(ProjectRole.Programmer, Contributor.follycake)]
 public class WeightManipulator : ModItem
 {
     public override void SetStaticDefaults()
@@ -26,7 +27,7 @@ public class WeightManipulator : ModItem
         Item.useAnimation = 5;
         Item.autoReuse = true;
         Item.noMelee = true;
-        
+
         Item.UseSound = SoundID.Item4;
     }
 

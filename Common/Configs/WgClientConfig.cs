@@ -15,4 +15,7 @@ public class WgClientConfig : ModConfig
 
     [DefaultValue(false)]
     public bool DisableUVClothes;
+
+    [DefaultValue(true)]
+    public bool ShowCredits;
 }

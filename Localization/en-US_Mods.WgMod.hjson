@@ -260,6 +260,11 @@ Configs: {
 			Label: Disable UV Clothes
 			Tooltip: Disables dynamic armor and clothes feature
 		}
+
+		ShowCredits: {
+			Label: Show Credits
+			Tooltip: Shows credits on tooltips
+		}
 	}
 }
 

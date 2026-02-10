@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 
 namespace WgMod.Content.Items.Accessories.Informational;
 
+[Credit(ProjectRole.Programmer, Contributor.jumpsu2)]
+[Credit(ProjectRole.Artist, Contributor.follycake)]
 public class PortableScale : ModItem
 {
     public override void SetDefaults()

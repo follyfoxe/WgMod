@@ -7,6 +7,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Head)]
 public class CrimatriarchHood : ModItem
 {

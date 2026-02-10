@@ -6,6 +6,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Legs)]
 public class CrimatriarchLeggings : ModItem
 {

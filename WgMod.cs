@@ -41,6 +41,7 @@ public partial class WgMod : Mod
 
     public override void Load()
     {
+        Credits.Scan(this);
         RegisterBuffs();
         RegisterHooks();
     }

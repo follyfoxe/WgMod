@@ -6,6 +6,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Accessories;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.trilophyte)]
 public class HellRaiser : ModItem
 {
     public const int MinionCount = 3;
@@ -27,7 +29,7 @@ public class HellRaiser : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-            
+
         float immobility = wg.Weight.ClampedImmobility;
         _minionDamage.Lerp(immobility);
         _whipSpeed.Lerp(immobility);

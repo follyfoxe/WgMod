@@ -6,6 +6,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Accessories;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.trilophyte)]
 [AutoloadEquip(EquipType.Shoes)]
 public class TerraskeletonLegs : ModItem
 {

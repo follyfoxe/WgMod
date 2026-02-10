@@ -5,6 +5,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Accessories;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.trilophyte)]
 public class WeightLossPendant : ModItem
 {
     public override void SetDefaults()
