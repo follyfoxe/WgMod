@@ -182,6 +182,16 @@ Items: {
 		DisplayName: Portable Scale
 		Tooltip: Displays your current weight
 	}
+
+	GlutGut: {
+		DisplayName: Glut's Gut
+		Tooltip:
+			'''
+			Stuffing your fat gut gives you power~
+			Increased damage but decreased speed after eating
+			Effects scale with your obesity
+			'''
+	}
 }
 
 Buffs: {
@@ -228,6 +238,16 @@ Buffs: {
 	Weightless: {
 		DisplayName: Weightless
 		Description: Reduces movement pentalty of high weights by {0}%
+	}
+
+	GluttedGut: {
+		DisplayName: Glutted Gut
+		Description:
+			'''
+			Decreased movement speed by {0}%
+			Increased damage by {1}%
+			Decreased attack speed by {2}%
+			'''
 	}
 }
 

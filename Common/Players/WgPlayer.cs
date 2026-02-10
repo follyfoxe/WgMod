@@ -26,7 +26,7 @@ public partial class WgPlayer : ModPlayer
 
     internal float _finalKnockbackResistance;
     internal float _finalMovementFactor;
-    
+
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
     internal bool _displayWeight;

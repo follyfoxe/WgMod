@@ -81,7 +81,7 @@ partial class WgMod
                 ("RedWineBuff", 6f),
                 ("RumBuff", 6f),
                 ("ScrewdriverBuff", 6f),
-                ("StarBreamRyeBuff", 6f),
+                ("StarBeamRyeBuff", 6f),
                 ("TequilaBuff", 6f),
                 ("VodkaBuff", 6f),
                 ("WhiskeyBuff", 6f),
