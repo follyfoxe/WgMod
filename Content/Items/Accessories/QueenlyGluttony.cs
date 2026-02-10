@@ -173,3 +173,4 @@ public class QueenlyGluttonyPlayer : ModPlayer
 //                                                                                     *%@######%%
 
 // folly: awesome!
+// Maimai: :3
