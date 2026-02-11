@@ -113,10 +113,13 @@ public partial class WgPlayer : ModPlayer
         ResizeHitbox(stage);
 
         // Weight loss
-        float factor = MathF.Abs(Player.velocity.X);
-        factor += MathF.Abs(acc.X) * 20f;
-        factor *= 0.0002f;
-        SetWeight(Weight - WeightLossRate.ApplyTo(factor));
+        if (!Player.mount.Active)
+        {
+            float factor = MathF.Abs(Player.velocity.X);
+            factor += MathF.Abs(acc.X) * 20f;
+            factor *= 0.0002f;
+            SetWeight(Weight - WeightLossRate.ApplyTo(factor));
+        }
 
         // Ice break
         if (stage >= Weight.HeavyStage)
