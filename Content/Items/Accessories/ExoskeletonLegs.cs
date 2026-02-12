@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -22,11 +23,12 @@ public class ExoskeletonLegs : ModItem
 
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
+        int prevRocketBoots = player.rocketBoots;
         player.accRunSpeed = 6.75f;
         player.rocketBoots = 2;
         player.vanityRocketBoots = 2;
 
-        if (!player.TryGetModPlayer(out WgPlayer wg))
+        if (prevRocketBoots > 0 || !player.TryGetModPlayer(out WgPlayer wg))
             return;
         float immobility = wg.Weight.ClampedImmobility;
         wg.MovementPenalty *= float.Lerp(1f, 0.8f, immobility);

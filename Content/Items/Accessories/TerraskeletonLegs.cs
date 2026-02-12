@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using System;
+using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -29,9 +30,10 @@ public class TerraskeletonLegs : ModItem
 
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
+        int prevRocketBoots = player.rocketBoots;
         player.moveSpeed += MoveSpeedBonus / 100f;
         player.accRunSpeed = 6.75f;
-        player.rocketBoots = 2;
+        player.rocketBoots = 4;
         player.vanityRocketBoots = 4;
 
         player.waterWalk2 = true;
@@ -41,7 +43,7 @@ public class TerraskeletonLegs : ModItem
         player.lavaRose = true;
         player.lavaMax += LavaImmunityTime * 60;
 
-        if (!player.TryGetModPlayer(out WgPlayer wg))
+        if (prevRocketBoots > 0 || !player.TryGetModPlayer(out WgPlayer wg))
             return;
         float immobility = wg.Weight.ClampedImmobility;
         wg.MovementPenalty *= float.Lerp(1f, 0.6f, immobility);
