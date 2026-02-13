@@ -47,7 +47,8 @@ public static class WgArmor
             RasterizerState.CullCounterClockwise,
             UVShader.Value
         );
-        UVShader.Value.Parameters["uOffset"].SetValue(male ? new Vector2(0f, -0.5f) : Vector2.Zero);
+        if (UVShader.IsLoaded)
+            UVShader.Value.Parameters["uOffset"].SetValue(male ? new Vector2(0f, -0.5f) : Vector2.Zero);
         foreach (Layer layer in layers)
         {
             if (layer.ArmorTexture == null)
