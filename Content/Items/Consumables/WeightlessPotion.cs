@@ -32,7 +32,7 @@ public class WeightlessPotion : ModItem
         Item.consumable = true;
         Item.rare = ItemRarityID.Orange;
         Item.value = Item.buyPrice(gold: 1);
-        Item.buffType = ModContent.BuffType<Buffs.Weightless>();
+        Item.buffType = ModContent.BuffType<Buffs.Consumables.Weightless>();
         Item.buffTime = 5 * 60;
     }
 

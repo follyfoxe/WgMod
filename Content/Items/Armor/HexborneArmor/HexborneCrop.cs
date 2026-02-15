@@ -39,7 +39,7 @@ public class HexborneCrop : ModItem
     {
         CreateRecipe()
             .AddIngredient(ItemID.DemoniteBar, 30)
-            .AddIngredient(ItemID.VilePowder, 20)
+            .AddIngredient(ItemID.PurificationPowder, 20)
             .AddIngredient(ItemID.ShadowScale, 15)
             .AddTile(TileID.Anvils)
             .Register();

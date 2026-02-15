@@ -70,7 +70,7 @@ public class HexborneHood : ModItem
     {
         CreateRecipe()
             .AddIngredient(ItemID.DemoniteBar, 20)
-            .AddIngredient(ItemID.VilePowder, 10)
+            .AddIngredient(ItemID.PurificationPowder, 10)
             .AddIngredient(ItemID.ShadowScale, 5)
             .AddTile(TileID.Anvils)
             .Register();

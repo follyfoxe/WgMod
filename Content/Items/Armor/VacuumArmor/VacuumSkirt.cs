@@ -11,11 +11,11 @@ namespace WgMod.Content.Items.Armor.VacuumArmor;
 [AutoloadEquip(EquipType.Legs)]
 public class VacuumSkirt : ModItem
 {
-    WgStat _attackSpeed = new(1.06f, 1.12f);
-    WgStat _health = new(50, 100);
-    WgStat _defense = new(8, 16);
-    WgStat _resist = new(0.03f, 0.06f);
-    WgStat _movePenalty = new(1.10f, 0.95f);
+    WgStat _attackSpeed = new(1.02f, 1.12f);
+    WgStat _health = new(20, 100);
+    WgStat _defense = new(0, 16 * 2);
+    WgStat _resist = new(0f, 0.02f);
+    WgStat _movePenalty = new(1.2f, 1.05f);
 
     public override void SetDefaults()
     {
@@ -23,7 +23,7 @@ public class VacuumSkirt : ModItem
         Item.height = 18;
         Item.value = Item.sellPrice(gold: 2);
         Item.rare = ItemRarityID.Red;
-        Item.defense = 32;
+        Item.defense = 32 / 2;
     }
 
     public override void UpdateEquip(Player player)

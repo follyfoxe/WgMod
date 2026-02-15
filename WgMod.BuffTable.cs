@@ -60,7 +60,7 @@ partial class WgMod
         ]);
 
         // WgMod
-        AddBuffs("WgMod", [("AmbrosiaGorged", 6f)]);
+        AddBuffs("WgMod", [("AmbrosiaGorged", 6f), ("WobWobWobWob", 8f)]);
 
         // Calamity Mod
         AddBuffs(

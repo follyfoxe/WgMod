@@ -39,7 +39,7 @@ public class HexborneSkirt : ModItem
     {
         CreateRecipe()
             .AddIngredient(ItemID.DemoniteBar, 25)
-            .AddIngredient(ItemID.VilePowder, 15)
+            .AddIngredient(ItemID.PurificationPowder, 15)
             .AddIngredient(ItemID.ShadowScale, 10)
             .AddTile(TileID.Anvils)
             .Register();

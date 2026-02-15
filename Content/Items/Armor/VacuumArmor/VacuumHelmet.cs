@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.Net;
 using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.VacuumArmor;
@@ -12,15 +13,16 @@ namespace WgMod.Content.Items.Armor.VacuumArmor;
 [AutoloadEquip(EquipType.Head)]
 public class VacuumHelmet : ModItem
 {
-    public const float SetBonusWeightLoss = 0.5f;
+    public const float SetBonusWeightLoss = 0.1f;
 
-    WgStat _critChance = new(1.04f, 1.08f);
-    WgStat _health = new(50, 100);
-    WgStat _defense = new(6, 12);
-    WgStat _resist = new(0.02f, 0.04f);
-    WgStat _movePenalty = new(1.1f, 0.95f);
+    WgStat _critChance = new(1.02f, 1.08f);
+    WgStat _health = new(10, 100);
+    WgStat _defense = new(0, 12 * 2);
+    WgStat _resist = new(0f, 0.02f);
+    WgStat _movePenalty = new(1.2f, 1.05f);
 
-    WgStat _setBonusRegen = new(5, 20);
+    WgStat _setBonusRegen = new(0, 20);
+    WgStat _setBonusHealth = new(0f, 1f);
 
     public override void SetDefaults()
     {
@@ -28,7 +30,7 @@ public class VacuumHelmet : ModItem
         Item.height = 18;
         Item.value = Item.sellPrice(gold: 2);
         Item.rare = ItemRarityID.Red;
-        Item.defense = 36;
+        Item.defense = 36 / 2;
     }
 
     public override void SetStaticDefaults()
@@ -51,11 +53,17 @@ public class VacuumHelmet : ModItem
 
         float immobility = wg.Weight.ClampedImmobility;
         _setBonusRegen.Lerp(immobility);
+        _setBonusHealth.Lerp(immobility);
 
         player.lifeRegen += _setBonusRegen;
+        player.statLifeMax2 = (int)Math.Round(player.statLifeMax2 * (1f + _setBonusHealth));
         wg.WeightLossRate *= SetBonusWeightLoss;
 
-        player.setBonus = SetBonusText.Format(_setBonusRegen, (1f - SetBonusWeightLoss).Percent());
+        player.setBonus = SetBonusText.Format(
+            _setBonusRegen,
+            _setBonusHealth.Percent(),
+            (1f - SetBonusWeightLoss).Percent()
+        );
     }
 
     public override void UpdateEquip(Player player)

@@ -11,11 +11,11 @@ namespace WgMod.Content.Items.Armor.VacuumArmor;
 [AutoloadEquip(EquipType.Body)]
 public class VacuumCrop : ModItem
 {
-    WgStat _attack = new(0.06f, 0.12f);
-    WgStat _health = new(100, 200);
-    WgStat _defense = new(12, 24);
-    WgStat _resist = new(0.03f, 0.06f);
-    WgStat _movePenalty = new(1.15f, 0.9f);
+    WgStat _attack = new(0.03f, 0.12f);
+    WgStat _health = new(20, 200);
+    WgStat _defense = new(0, 24 * 2);
+    WgStat _resist = new(0f, 0.02f);
+    WgStat _movePenalty = new(1.2f, 1.05f);
 
     public override void SetDefaults()
     {
@@ -23,7 +23,7 @@ public class VacuumCrop : ModItem
         Item.height = 18;
         Item.value = Item.sellPrice(gold: 2);
         Item.rare = ItemRarityID.Red;
-        Item.defense = 46;
+        Item.defense = 46 / 2 + 1;
     }
 
     public override void UpdateEquip(Player player)
