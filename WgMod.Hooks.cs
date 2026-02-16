@@ -20,6 +20,7 @@ public partial class WgMod
         On_PlayerDrawSet.HeadOnlySetup += PlayerDrawSet_HeadOnlySetup;
         On_Mount.Draw += Mount_Draw;
         On_Main.GetPlayerArmPosition += Main_GetPlayerArmPosition;
+        On_Main.DrawProj_DrawExtras += Main_DrawProj_DrawExtras;
     }
 
     // Always remember to unregister your hooks
@@ -30,6 +31,7 @@ public partial class WgMod
         On_PlayerDrawSet.HeadOnlySetup -= PlayerDrawSet_HeadOnlySetup;
         On_Mount.Draw -= Mount_Draw;
         On_Main.GetPlayerArmPosition -= Main_GetPlayerArmPosition;
+        On_Main.DrawProj_DrawExtras -= Main_DrawProj_DrawExtras;
     }
 
     static void Player_AddBuff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
@@ -116,5 +118,16 @@ public partial class WgMod
         if (drawPlayer.TryGetModPlayer(out WgPlayer wg) && self.Active)
             Position.Y += WeightValues.DrawOffsetY(wg.Weight.GetStage());
         orig(self, playerDrawData, drawType, drawPlayer, Position, drawColor, playerEffect, shadow);
+    }
+
+    static void Main_DrawProj_DrawExtras(On_Main.orig_DrawProj_DrawExtras orig, Main self, Projectile proj, Vector2 mountedCenter, ref float polePosX, ref float polePosY)
+    {
+        Player plr = Main.player[proj.owner];
+        if (plr.whoAmI >= 0 && plr.whoAmI < 255)
+        {
+            if (proj.aiStyle == ProjAIStyleID.Yoyo || proj.aiStyle == ProjAIStyleID.Drill)
+                proj.gfxOffY = 0f;
+        }
+        orig(self, proj, mountedCenter, ref polePosX, ref polePosY);
     }
 }
