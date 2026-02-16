@@ -98,7 +98,6 @@ partial class WgMod
                 ("ShadowBuff", 1f),
                 ("Soaring", 2f),
                 ("SulphurskinBuff", 3f),
-                ("TeslaBuff", 6f),
                 ("Zen", 6f),
                 ("Zerg", 6f),
                 ("AbsorberRegen", 2f),
