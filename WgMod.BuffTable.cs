@@ -33,7 +33,7 @@ partial class WgMod
             (BuffID.PotionSickness, 18f),
             (BuffID.Tipsy, 12f),
             (BuffID.Ichor, 2f),
-            (BuffID.ManaSickness, 12f),
+            (BuffID.ManaSickness, 6f),
             (BuffID.Mining, 1f),
             (BuffID.Heartreach, 3f),
             (BuffID.Calm, 6f),

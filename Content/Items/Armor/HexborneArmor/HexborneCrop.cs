@@ -47,6 +47,6 @@ public class HexborneCrop : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), _manaCost.Percent());
+        tooltips.FormatLines(_damage.Percent(), (1 - _manaCost).Percent());
     }
 }

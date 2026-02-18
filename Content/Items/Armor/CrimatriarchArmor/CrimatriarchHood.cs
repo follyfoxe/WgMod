@@ -12,7 +12,7 @@ namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 [AutoloadEquip(EquipType.Head)]
 public class CrimatriarchHood : ModItem
 {
-    public const int SetBonusMinions = 1;
+    public const int SetBonusMinions = 2;
 
     WgStat _damage = new(0.03f, 0.09f);
     WgStat _attackSpeed = new(0.98f, 0.94f);

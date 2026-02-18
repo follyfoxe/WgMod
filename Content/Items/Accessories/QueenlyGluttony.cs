@@ -60,12 +60,12 @@ public class QueenlyGluttonyPlayer : ModPlayer
         if (
             _active
             && (hit.DamageType == DamageClass.Melee || hit.DamageType == DamageClass.MeleeNoSpeed)
-        ) // If QueenlyGluttony is equipped and player is using melee
+        )
         {
             if (Main.rand.NextBool(50))
-                target.AddBuff(BuffID.Shimmer, 2 * 60); // 1/50 chance to apply shimmer to enemy for 2 seconds
+                target.AddBuff(BuffID.Shimmer, 2 * 60);
             else
-                target.AddBuff(BuffID.GelBalloonBuff, 2 * 60); // 49/50 chance to apply Sparkle Slime Balloon effect to enemy for 2 seconds
+                target.AddBuff(BuffID.GelBalloonBuff, 2 * 60);
         }
     }
 }

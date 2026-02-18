@@ -23,8 +23,8 @@ public class AmbrosiaGorged : ModBuff
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-
         float immobility = wg.Weight.ClampedImmobility;
+
         _moveSpeed.Lerp(immobility);
         _defense.Lerp(immobility);
         _regen.Lerp(immobility);
