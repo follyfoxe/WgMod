@@ -245,6 +245,16 @@ Items: {
 		DisplayName: Guide to Lifting Your Fat Ass
 		Tooltip: Reduces movement penalty by 50% in exchange for mana
 	}
+
+	CrispyDiscipline: {
+		DisplayName: Crispy Discipline
+		Tooltip:
+			'''
+			{$CommonItemTooltip.SummonTagDamage}
+			Strike enemies to summon a fat hellish Bee
+			Stats scale with your o[c/FFEA00:B][c/696969:E][c/FFEA00:E]sity
+			'''
+	}
 }
 
 Buffs: {
@@ -312,6 +322,20 @@ Buffs: {
 			Increased jump height and fall speed
 			'''
 	}
+
+	HellsBeesBuff: {
+		DisplayName: Hellish Bee
+		Description:
+			'''
+			The Hellish Bee will fight for you
+			She inherits your o[c/FFEA00:B][c/696969:E][c/FFEA00:E]sity
+			'''
+	}
+
+	CrispyDebuff: {
+		DisplayName: Crispy Debuff
+		Description: This must be what fried chicken feels like!
+	}
 }
 
 Configs: {
@@ -353,3 +377,8 @@ Configs: {
 
 Tiles.Treadmill.Items.Treadmill: Mods.WgMod.Tiles.Treadmill.Items.Treadmill
 InfoDisplays.PortableScale_InfoDisplay.DisplayName: Current weight
+
+Projectiles: {
+	CrispyDisciplineProjectile.DisplayName: Crispy Discipline
+	HellishBee.DisplayName: Hellish Bee
+}

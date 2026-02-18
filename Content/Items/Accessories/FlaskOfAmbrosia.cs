@@ -52,7 +52,7 @@ public class AmbrosiaPlayer : ModPlayer
 
     public override void OnHurt(Player.HurtInfo info)
     {
-        if (_ambrosiaOnHit) // If FlaskOfAmbrosia is equipped
-            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60); // Apply AmbrosiaGorged to player for 8 seconds when taking damage
+        if (_ambrosiaOnHit)
+            Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
     }
 }
