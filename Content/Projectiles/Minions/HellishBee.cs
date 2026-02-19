@@ -1,9 +1,19 @@
 using System;
+using System.Configuration;
+using System.Security.Cryptography.Pkcs;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
+using Terraria.UI;
 using WgMod.Common.Players;
+using WgMod.Content.Buffs;
+using WgMod.Content.Items.Weapons;
+using WgMod.Content.Projectiles;
 
 namespace WgMod.Content.Projectiles.Minions
 {
@@ -20,11 +30,14 @@ namespace WgMod.Content.Projectiles.Minions
 
     public class HellishBee : ModProjectile
     {
-        WgStat _speedModifier = new(0f, 0.5f);
+        public int _weightProgress = 1;
+        public int _weightStage = 1;
+        public float _speedModifier;
+        public float _damageModifier;
 
         public override void SetStaticDefaults()
         {
-            Main.projFrames[Type] = 4;
+            Main.projFrames[Type] = 8;
             ProjectileID.Sets.MinionTargettingFeature[Type] = true;
 
             Main.projPet[Type] = true;
@@ -34,8 +47,8 @@ namespace WgMod.Content.Projectiles.Minions
 
         public sealed override void SetDefaults()
         {
-            Projectile.width = 18 * 2;
-            Projectile.height = 28 * 2;
+            Projectile.width = 34;
+            Projectile.height = 40;
             Projectile.tileCollide = false;
 
             Projectile.friendly = true;
@@ -43,6 +56,34 @@ namespace WgMod.Content.Projectiles.Minions
             Projectile.DamageType = DamageClass.Summon;
             Projectile.minionSlots = 0f;
             Projectile.penetrate = -1;
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            int CrispyDebuff = ModContent.BuffType<CrispyDebuff>();
+
+            if (target.HasBuff(CrispyDebuff) && _weightStage < 4)
+            {
+                target.DelBuff(target.FindBuffIndex(CrispyDebuff));
+
+                _weightProgress++;
+
+                if (_weightProgress == 4)
+                {
+                    _weightProgress = 1;
+
+                    _weightStage++;
+                }
+            }
+
+            Projectile.scale = float.Lerp(1f, 1.1f, _weightStage);
+        }
+
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        {
+            _damageModifier = float.Lerp(1, 2, _weightStage);
+
+            modifiers.SourceDamage *= _damageModifier;
         }
 
         public override bool? CanCutTiles()
@@ -224,14 +265,10 @@ namespace WgMod.Content.Projectiles.Minions
             Vector2 vectorToIdlePosition
         )
         {
-            if (!Main.player[Projectile.owner].TryGetModPlayer(out WgPlayer wg))
-                return;
-            float immobility = wg.Weight.ClampedImmobility;
+            _speedModifier = float.Lerp(1f, 2f, _weightStage);
 
-            _speedModifier.Lerp(immobility);
-
-            float speed = 8f * _speedModifier;
-            float inertia = 20f * _speedModifier;
+            float speed = 8f / _speedModifier;
+            float inertia = 20f / _speedModifier;
 
             if (foundTarget)
             {
@@ -249,13 +286,13 @@ namespace WgMod.Content.Projectiles.Minions
             {
                 if (distanceToIdlePosition > 600f)
                 {
-                    speed = 12f * _speedModifier;
-                    inertia = 60f * _speedModifier;
+                    speed = 12f / _speedModifier;
+                    inertia = 60f / _speedModifier;
                 }
                 else
                 {
-                    speed = 4f * _speedModifier;
-                    inertia = 80f * _speedModifier;
+                    speed = 4f / _speedModifier;
+                    inertia = 80f / _speedModifier;
                 }
 
                 if (distanceToIdlePosition > 20f)
@@ -276,6 +313,15 @@ namespace WgMod.Content.Projectiles.Minions
         private void Visuals()
         {
             Projectile.rotation = Projectile.velocity.X * 0.05f;
+
+            if (Projectile.velocity.X > 0)
+            {
+                Projectile.spriteDirection = -1;
+            }
+            else
+            {
+                Projectile.spriteDirection = 1;
+            }
 
             int frameSpeed = 5;
 

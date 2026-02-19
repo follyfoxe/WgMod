@@ -15,6 +15,7 @@ namespace WgMod.Content.Projectiles
 {
     public class CrispyDisciplineProjectile : ModProjectile
     {
+        public int _beeDamage;
         WgStat _damage = new(25, 30);
         WgStat _knockback = new(4, 8);
 
@@ -113,13 +114,21 @@ namespace WgMod.Content.Projectiles
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player player = Main.player[Projectile.owner];
-
             if (!player.TryGetModPlayer(out WgPlayer wg))
                 return;
             float immobility = wg.Weight.ClampedImmobility;
 
             _damage.Lerp(immobility);
             _knockback.Lerp(immobility);
+
+            if (player.strongBees == true)
+            {
+                _beeDamage = _damage;
+            }
+            else
+            {
+                _beeDamage = _damage * 0.5f;
+            }
 
             if (!player.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
             {
@@ -128,7 +137,7 @@ namespace WgMod.Content.Projectiles
                     player.position,
                     new Vector2(0, 0),
                     ModContent.ProjectileType<HellishBee>(),
-                    _damage,
+                    _beeDamage,
                     _knockback
                 );
             }
