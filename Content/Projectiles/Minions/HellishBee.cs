@@ -1,344 +1,333 @@
 using System;
-using System.Configuration;
-using System.Security.Cryptography.Pkcs;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.ObjectData;
-using Terraria.UI;
-using WgMod.Common.Players;
 using WgMod.Content.Buffs;
-using WgMod.Content.Items.Weapons;
-using WgMod.Content.Projectiles;
 
-namespace WgMod.Content.Projectiles.Minions
+namespace WgMod.Content.Projectiles.Minions;
+
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.maimaichubs)]
+public class HellsBeesBuff : ModBuff
 {
-    [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
-    [Credit(ProjectRole.Artist, Contributor.maimaichubs)]
-    public class HellsBeesBuff : ModBuff
+    public override void SetStaticDefaults()
     {
-        public override void SetStaticDefaults()
-        {
-            Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = false;
-        }
+        Main.buffNoSave[Type] = true;
+        Main.buffNoTimeDisplay[Type] = false;
+    }
+}
+
+public class HellishBee : ModProjectile
+{
+    public int _weightProgress = 1;
+    public int _weightStage = 1;
+    public float _speedModifier;
+    public float _damageModifier;
+
+    public override void SetStaticDefaults()
+    {
+        Main.projFrames[Type] = 8;
+        ProjectileID.Sets.MinionTargettingFeature[Type] = true;
+
+        Main.projPet[Type] = true;
+
+        ProjectileID.Sets.CultistIsResistantTo[Type] = true;
     }
 
-    public class HellishBee : ModProjectile
+    public sealed override void SetDefaults()
     {
-        public int _weightProgress = 1;
-        public int _weightStage = 1;
-        public float _speedModifier;
-        public float _damageModifier;
+        Projectile.width = 34;
+        Projectile.height = 40;
+        Projectile.tileCollide = false;
 
-        public override void SetStaticDefaults()
+        Projectile.friendly = true;
+        Projectile.minion = true;
+        Projectile.DamageType = DamageClass.Summon;
+        Projectile.minionSlots = 0f;
+        Projectile.penetrate = -1;
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        int CrispyDebuff = ModContent.BuffType<CrispyDebuff>();
+
+        if (target.HasBuff(CrispyDebuff) && _weightStage < 4)
         {
-            Main.projFrames[Type] = 8;
-            ProjectileID.Sets.MinionTargettingFeature[Type] = true;
+            target.DelBuff(target.FindBuffIndex(CrispyDebuff));
 
-            Main.projPet[Type] = true;
+            _weightProgress++;
 
-            ProjectileID.Sets.CultistIsResistantTo[Type] = true;
-        }
-
-        public sealed override void SetDefaults()
-        {
-            Projectile.width = 34;
-            Projectile.height = 40;
-            Projectile.tileCollide = false;
-
-            Projectile.friendly = true;
-            Projectile.minion = true;
-            Projectile.DamageType = DamageClass.Summon;
-            Projectile.minionSlots = 0f;
-            Projectile.penetrate = -1;
-        }
-
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            int CrispyDebuff = ModContent.BuffType<CrispyDebuff>();
-
-            if (target.HasBuff(CrispyDebuff) && _weightStage < 4)
+            if (_weightProgress == 4)
             {
-                target.DelBuff(target.FindBuffIndex(CrispyDebuff));
+                _weightProgress = 1;
 
-                _weightProgress++;
-
-                if (_weightProgress == 4)
-                {
-                    _weightProgress = 1;
-
-                    _weightStage++;
-                }
+                _weightStage++;
             }
-
-            Projectile.scale = float.Lerp(1f, 1.1f, _weightStage);
         }
 
-        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+        Projectile.scale = float.Lerp(1f, 1.1f, _weightStage);
+    }
+
+    public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
+    {
+        _damageModifier = float.Lerp(1, 2, _weightStage);
+
+        modifiers.SourceDamage *= _damageModifier;
+    }
+
+    public override bool? CanCutTiles()
+    {
+        return false;
+    }
+
+    public override bool MinionContactDamage()
+    {
+        return true;
+    }
+
+    public override void AI()
+    {
+        Player owner = Main.player[Projectile.owner];
+
+        if (!CheckActive(owner))
         {
-            _damageModifier = float.Lerp(1, 2, _weightStage);
-
-            modifiers.SourceDamage *= _damageModifier;
+            return;
         }
 
-        public override bool? CanCutTiles()
-        {
-            return false;
-        }
-
-        public override bool MinionContactDamage()
-        {
-            return true;
-        }
-
-        public override void AI()
-        {
-            Player owner = Main.player[Projectile.owner];
-
-            if (!CheckActive(owner))
-            {
-                return;
-            }
-
-            GeneralBehavior(
-                owner,
-                out Vector2 vectorToIdlePosition,
-                out float distanceToIdlePosition
-            );
-            SearchForTargets(
-                owner,
-                out bool foundTarget,
-                out float distanceFromTarget,
-                out Vector2 targetCenter
-            );
-            Movement(
-                foundTarget,
-                distanceFromTarget,
-                targetCenter,
-                distanceToIdlePosition,
-                vectorToIdlePosition
-            );
-            Visuals();
-        }
-
-        private bool CheckActive(Player owner)
-        {
-            if (owner.dead || !owner.active)
-            {
-                owner.ClearBuff(ModContent.BuffType<HellsBeesBuff>());
-
-                return false;
-            }
-
-            if (owner.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
-            {
-                Projectile.timeLeft = 2;
-            }
-
-            return true;
-        }
-
-        private void GeneralBehavior(
-            Player owner,
+        GeneralBehavior(
+            owner,
             out Vector2 vectorToIdlePosition,
             out float distanceToIdlePosition
-        )
-        {
-            Vector2 idlePosition = owner.Center;
-            idlePosition.Y -= 48f;
-
-            float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
-            idlePosition.X += minionPositionOffsetX;
-
-            vectorToIdlePosition = idlePosition - Projectile.Center;
-            distanceToIdlePosition = vectorToIdlePosition.Length();
-
-            if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
-            {
-                Projectile.position = idlePosition;
-                Projectile.velocity *= 0.1f;
-                Projectile.netUpdate = true;
-            }
-
-            float overlapVelocity = 0.04f;
-
-            foreach (var other in Main.ActiveProjectiles)
-            {
-                if (
-                    other.whoAmI != Projectile.whoAmI
-                    && other.owner == Projectile.owner
-                    && Math.Abs(Projectile.position.X - other.position.X)
-                        + Math.Abs(Projectile.position.Y - other.position.Y)
-                        < Projectile.width
-                )
-                {
-                    if (Projectile.position.X < other.position.X)
-                    {
-                        Projectile.velocity.X -= overlapVelocity;
-                    }
-                    else
-                    {
-                        Projectile.velocity.X += overlapVelocity;
-                    }
-
-                    if (Projectile.position.Y < other.position.Y)
-                    {
-                        Projectile.velocity.Y -= overlapVelocity;
-                    }
-                    else
-                    {
-                        Projectile.velocity.Y += overlapVelocity;
-                    }
-                }
-            }
-        }
-
-        private void SearchForTargets(
-            Player owner,
+        );
+        SearchForTargets(
+            owner,
             out bool foundTarget,
             out float distanceFromTarget,
             out Vector2 targetCenter
-        )
+        );
+        Movement(
+            foundTarget,
+            distanceFromTarget,
+            targetCenter,
+            distanceToIdlePosition,
+            vectorToIdlePosition
+        );
+        Visuals();
+    }
+
+    private bool CheckActive(Player owner)
+    {
+        if (owner.dead || !owner.active)
         {
-            distanceFromTarget = 700f;
-            targetCenter = Projectile.position;
-            foundTarget = false;
+            owner.ClearBuff(ModContent.BuffType<HellsBeesBuff>());
 
-            if (owner.HasMinionAttackTargetNPC)
-            {
-                NPC npc = Main.npc[owner.MinionAttackTargetNPC];
-                float between = Vector2.Distance(npc.Center, Projectile.Center);
-
-                if (between < 2000f)
-                {
-                    distanceFromTarget = between;
-                    targetCenter = npc.Center;
-                    foundTarget = true;
-                }
-            }
-
-            if (!foundTarget)
-            {
-                foreach (var npc in Main.ActiveNPCs)
-                {
-                    if (npc.CanBeChasedBy())
-                    {
-                        float between = Vector2.Distance(npc.Center, Projectile.Center);
-                        bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
-                        bool inRange = between < distanceFromTarget;
-                        bool lineOfSight = Collision.CanHitLine(
-                            Projectile.position,
-                            Projectile.width,
-                            Projectile.height,
-                            npc.position,
-                            npc.width,
-                            npc.height
-                        );
-                        bool closeThroughWall = between < 100f;
-
-                        if (
-                            ((closest && inRange) || !foundTarget)
-                            && (lineOfSight || closeThroughWall)
-                        )
-                        {
-                            distanceFromTarget = between;
-                            targetCenter = npc.Center;
-                            foundTarget = true;
-                        }
-                    }
-                }
-            }
-
-            Projectile.friendly = foundTarget;
+            return false;
         }
 
-        private void Movement(
-            bool foundTarget,
-            float distanceFromTarget,
-            Vector2 targetCenter,
-            float distanceToIdlePosition,
-            Vector2 vectorToIdlePosition
-        )
+        if (owner.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
         {
-            _speedModifier = float.Lerp(1f, 2f, _weightStage);
+            Projectile.timeLeft = 2;
+        }
 
-            float speed = 8f / _speedModifier;
-            float inertia = 20f / _speedModifier;
+        return true;
+    }
 
-            if (foundTarget)
+    private void GeneralBehavior(
+        Player owner,
+        out Vector2 vectorToIdlePosition,
+        out float distanceToIdlePosition
+    )
+    {
+        Vector2 idlePosition = owner.Center;
+        idlePosition.Y -= 48f;
+
+        float minionPositionOffsetX = (10 + Projectile.minionPos * 40) * -owner.direction;
+        idlePosition.X += minionPositionOffsetX;
+
+        vectorToIdlePosition = idlePosition - Projectile.Center;
+        distanceToIdlePosition = vectorToIdlePosition.Length();
+
+        if (Main.myPlayer == owner.whoAmI && distanceToIdlePosition > 2000f)
+        {
+            Projectile.position = idlePosition;
+            Projectile.velocity *= 0.1f;
+            Projectile.netUpdate = true;
+        }
+
+        float overlapVelocity = 0.04f;
+
+        foreach (var other in Main.ActiveProjectiles)
+        {
+            if (
+                other.whoAmI != Projectile.whoAmI
+                && other.owner == Projectile.owner
+                && Math.Abs(Projectile.position.X - other.position.X)
+                    + Math.Abs(Projectile.position.Y - other.position.Y)
+                    < Projectile.width
+            )
             {
-                if (distanceFromTarget > 40f)
+                if (Projectile.position.X < other.position.X)
                 {
-                    Vector2 direction = targetCenter - Projectile.Center;
-                    direction.Normalize();
-                    direction *= speed;
-
-                    Projectile.velocity =
-                        (Projectile.velocity * (inertia - 1) + direction) / inertia;
-                }
-            }
-            else
-            {
-                if (distanceToIdlePosition > 600f)
-                {
-                    speed = 12f / _speedModifier;
-                    inertia = 60f / _speedModifier;
+                    Projectile.velocity.X -= overlapVelocity;
                 }
                 else
                 {
-                    speed = 4f / _speedModifier;
-                    inertia = 80f / _speedModifier;
+                    Projectile.velocity.X += overlapVelocity;
                 }
 
-                if (distanceToIdlePosition > 20f)
+                if (Projectile.position.Y < other.position.Y)
                 {
-                    vectorToIdlePosition.Normalize();
-                    vectorToIdlePosition *= speed;
-                    Projectile.velocity =
-                        (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                    Projectile.velocity.Y -= overlapVelocity;
                 }
-                else if (Projectile.velocity == Vector2.Zero)
+                else
                 {
-                    Projectile.velocity.X = -0.15f;
-                    Projectile.velocity.Y = -0.05f;
+                    Projectile.velocity.Y += overlapVelocity;
+                }
+            }
+        }
+    }
+
+    private void SearchForTargets(
+        Player owner,
+        out bool foundTarget,
+        out float distanceFromTarget,
+        out Vector2 targetCenter
+    )
+    {
+        distanceFromTarget = 700f;
+        targetCenter = Projectile.position;
+        foundTarget = false;
+
+        if (owner.HasMinionAttackTargetNPC)
+        {
+            NPC npc = Main.npc[owner.MinionAttackTargetNPC];
+            float between = Vector2.Distance(npc.Center, Projectile.Center);
+
+            if (between < 2000f)
+            {
+                distanceFromTarget = between;
+                targetCenter = npc.Center;
+                foundTarget = true;
+            }
+        }
+
+        if (!foundTarget)
+        {
+            foreach (var npc in Main.ActiveNPCs)
+            {
+                if (npc.CanBeChasedBy())
+                {
+                    float between = Vector2.Distance(npc.Center, Projectile.Center);
+                    bool closest = Vector2.Distance(Projectile.Center, targetCenter) > between;
+                    bool inRange = between < distanceFromTarget;
+                    bool lineOfSight = Collision.CanHitLine(
+                        Projectile.position,
+                        Projectile.width,
+                        Projectile.height,
+                        npc.position,
+                        npc.width,
+                        npc.height
+                    );
+                    bool closeThroughWall = between < 100f;
+
+                    if (
+                        ((closest && inRange) || !foundTarget)
+                        && (lineOfSight || closeThroughWall)
+                    )
+                    {
+                        distanceFromTarget = between;
+                        targetCenter = npc.Center;
+                        foundTarget = true;
+                    }
                 }
             }
         }
 
-        private void Visuals()
-        {
-            Projectile.rotation = Projectile.velocity.X * 0.05f;
+        Projectile.friendly = foundTarget;
+    }
 
-            if (Projectile.velocity.X > 0)
+    private void Movement(
+        bool foundTarget,
+        float distanceFromTarget,
+        Vector2 targetCenter,
+        float distanceToIdlePosition,
+        Vector2 vectorToIdlePosition
+    )
+    {
+        _speedModifier = float.Lerp(1f, 2f, _weightStage);
+
+        float speed = 8f / _speedModifier;
+        float inertia = 20f / _speedModifier;
+
+        if (foundTarget)
+        {
+            if (distanceFromTarget > 40f)
             {
-                Projectile.spriteDirection = -1;
+                Vector2 direction = targetCenter - Projectile.Center;
+                direction.Normalize();
+                direction *= speed;
+
+                Projectile.velocity =
+                    (Projectile.velocity * (inertia - 1) + direction) / inertia;
+            }
+        }
+        else
+        {
+            if (distanceToIdlePosition > 600f)
+            {
+                speed = 12f / _speedModifier;
+                inertia = 60f / _speedModifier;
             }
             else
             {
-                Projectile.spriteDirection = 1;
+                speed = 4f / _speedModifier;
+                inertia = 80f / _speedModifier;
             }
 
-            int frameSpeed = 5;
-
-            Projectile.frameCounter++;
-
-            if (Projectile.frameCounter >= frameSpeed)
+            if (distanceToIdlePosition > 20f)
             {
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-
-                if (Projectile.frame >= Main.projFrames[Type])
-                {
-                    Projectile.frame = 0;
-                }
+                vectorToIdlePosition.Normalize();
+                vectorToIdlePosition *= speed;
+                Projectile.velocity =
+                    (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
             }
-
-            Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+            else if (Projectile.velocity == Vector2.Zero)
+            {
+                Projectile.velocity.X = -0.15f;
+                Projectile.velocity.Y = -0.05f;
+            }
         }
+    }
+
+    private void Visuals()
+    {
+        Projectile.rotation = Projectile.velocity.X * 0.05f;
+
+        if (Projectile.velocity.X > 0)
+        {
+            Projectile.spriteDirection = -1;
+        }
+        else
+        {
+            Projectile.spriteDirection = 1;
+        }
+
+        int frameSpeed = 5;
+
+        Projectile.frameCounter++;
+
+        if (Projectile.frameCounter >= frameSpeed)
+        {
+            Projectile.frameCounter = 0;
+            Projectile.frame++;
+
+            if (Projectile.frame >= Main.projFrames[Type])
+            {
+                Projectile.frame = 0;
+            }
+        }
+
+        Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
     }
 }

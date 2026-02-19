@@ -1,9 +1,4 @@
-using System;
-using System.IO;
-using System.Numerics;
-using SteelSeries.GameSense;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
