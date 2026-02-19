@@ -32,6 +32,9 @@ public static class WgArmor
 
     public static void Render(ref RenderTarget2D target, ReadOnlySpan<Layer> layers, bool male)
     {
+        if (!UVShader.IsLoaded)
+            return;
+
         GraphicsDevice device = Main.graphics.GraphicsDevice;
         SpriteBatch spriteBatch = Main.spriteBatch;
         target ??= new RenderTarget2D(device, TextureWidth * 2, TextureHeight, false, device.PresentationParameters.BackBufferFormat, DepthFormat.None);
@@ -47,13 +50,15 @@ public static class WgArmor
             RasterizerState.CullCounterClockwise,
             UVShader.Value
         );
-        if (UVShader.IsLoaded)
-            UVShader.Value.Parameters["uOffset"].SetValue(male ? new Vector2(0f, -0.5f) : Vector2.Zero);
+        UVShader.Value.Parameters["uOffset"].SetValue(male ? new Vector2(0f, -0.5f) : Vector2.Zero);
         foreach (Layer layer in layers)
         {
             if (layer.ArmorTexture == null)
                 continue;
+
             device.Textures[1] = layer.ArmorTexture.Value;
+            UVShader.Value.Parameters["uImageSize1"].SetValue(layer.ArmorTexture.Size());
+
             spriteBatch.Draw(BaseTexture.Value, Vector2.Zero, layer.Color);
             spriteBatch.Draw(BellyTexture.Value, new Vector2(TextureWidth, 0f), layer.Color);
         }
