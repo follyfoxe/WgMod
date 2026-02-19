@@ -13,6 +13,9 @@ using WgMod.Content.Projectiles.Minions;
 
 namespace WgMod.Content.Projectiles;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
+[Credit(ProjectRole.VisualProgrammer, Contributor.follycake)]
 public class CrispyDisciplineProjectile : ModProjectile
 {
     public int _beeDamage;
@@ -40,7 +43,7 @@ public class CrispyDisciplineProjectile : ModProjectile
         Projectile.WhipSettings.RangeMultiplier = 1.5f;
     }
 
-    private float Timer
+    float Timer
     {
         get => Projectile.ai[0];
         set => Projectile.ai[0] = value;
@@ -72,12 +75,9 @@ public class CrispyDisciplineProjectile : ModProjectile
         }
 
         float swingProgress = Timer / swingTime;
-        if (
-            Utils.GetLerpValue(0.1f, 0.7f, swingProgress, clamped: true)
-                * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true)
-                > 0.5f
-            && !Main.rand.NextBool(3)
-        )
+        if (Utils.GetLerpValue(0.1f, 0.7f, swingProgress, clamped: true)
+            * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true) > 0.5f
+            && !Main.rand.NextBool(3))
         {
             List<Vector2> points = Projectile.WhipPointsForCollision;
             points.Clear();
@@ -122,13 +122,9 @@ public class CrispyDisciplineProjectile : ModProjectile
         _knockback.Lerp(immobility);
 
         if (player.strongBees == true)
-        {
             _beeDamage = _damage;
-        }
         else
-        {
             _beeDamage = _damage * 0.5f;
-        }
 
         if (!player.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
         {
@@ -149,11 +145,11 @@ public class CrispyDisciplineProjectile : ModProjectile
         Projectile.damage = (int)(Projectile.damage * 0.7f);
     }
 
-    private void DrawLine(List<Vector2> list)
+    static void DrawLine(List<Vector2> list)
     {
         Texture2D texture = TextureAssets.FishingLine.Value;
         Rectangle frame = texture.Frame();
-        Vector2 origin = new Vector2(frame.Width / 2, 2);
+        Vector2 origin = new(frame.Width / 2, 2);
 
         Vector2 pos = list[0];
         for (int i = 0; i < list.Count - 1; i++)
@@ -162,8 +158,8 @@ public class CrispyDisciplineProjectile : ModProjectile
             Vector2 diff = list[i + 1] - element;
 
             float rotation = diff.ToRotation() - MathHelper.PiOver2;
-            Color color = Lighting.GetColor(element.ToTileCoordinates(), Color.White);
-            Vector2 scale = new Vector2(1, (diff.Length() + 2) / frame.Height);
+            Color color = Lighting.GetColor(element.ToTileCoordinates(), new Color(232, 133, 4));
+            Vector2 scale = new(1, (diff.Length() + 2) / frame.Height);
 
             Main.EntitySpriteDraw(
                 texture,
@@ -176,37 +172,31 @@ public class CrispyDisciplineProjectile : ModProjectile
                 SpriteEffects.None,
                 0
             );
-
             pos += diff;
         }
     }
 
     public override bool PreDraw(ref Color lightColor)
     {
-        List<Vector2> list = new List<Vector2>();
+        List<Vector2> list = [];
         Projectile.FillWhipControlPoints(Projectile, list);
 
         DrawLine(list);
 
-        SpriteEffects flip =
-            Projectile.spriteDirection < 0
-                ? SpriteEffects.None
-                : SpriteEffects.FlipHorizontally;
-
+        SpriteEffects flip = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Texture2D texture = TextureAssets.Projectile[Type].Value;
-
         Vector2 pos = list[0];
 
         for (int i = 0; i < list.Count - 1; i++)
         {
-            Rectangle frame = new Rectangle(0, 0, 10, 26);
-            Vector2 origin = new Vector2(5, 8);
+            Rectangle frame = new(0, 0, 22, 26);
+            Vector2 origin = new(11, 8);
             float scale = 1;
 
             if (i == list.Count - 2)
             {
-                frame.Y = 74;
-                frame.Height = 18;
+                frame.Y = 66;
+                frame.Height = 20;
 
                 Projectile.GetWhipSettings(
                     Projectile,
@@ -219,23 +209,18 @@ public class CrispyDisciplineProjectile : ModProjectile
                     0.5f,
                     1.5f,
                     Utils.GetLerpValue(0.1f, 0.7f, t, true)
-                        * Utils.GetLerpValue(0.9f, 0.7f, t, true)
+                    * Utils.GetLerpValue(0.9f, 0.7f, t, true)
                 );
             }
-            else if (i > 10)
+            else if (i == list.Count - 3)
             {
-                frame.Y = 58;
-                frame.Height = 16;
-            }
-            else if (i > 5)
-            {
-                frame.Y = 42;
-                frame.Height = 16;
+                frame.Y = 46;
+                frame.Height = 20;
             }
             else if (i > 0)
             {
                 frame.Y = 26;
-                frame.Height = 16;
+                frame.Height = 20;
             }
 
             Vector2 element = list[i];

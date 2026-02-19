@@ -9,17 +9,20 @@ using WgMod.Content.Projectiles;
 namespace WgMod.Content.Items.Weapons;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
 public class CrispyDiscipline : ModItem
 {
     WgStat _damage = new(25, 35);
     WgStat _attackSpeed = new(30, 40);
     WgStat _knockback = new(1.5f, 3f);
 
-    public override LocalizedText Tooltip =>
-        base.Tooltip.WithFormatArgs(CrispyDebuff.TagDamage);
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CrispyDebuff.TagDamage);
 
     public override void SetDefaults()
     {
+        Item.width = 40;
+        Item.height = 34;
+
         Item.DamageType = DamageClass.SummonMeleeSpeed;
         Item.damage = 30;
         Item.knockBack = 2;

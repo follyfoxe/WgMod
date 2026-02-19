@@ -19,7 +19,8 @@ public class CreditAttribute(ProjectRole role, Contributor contributor) : Attrib
 public enum ProjectRole
 {
     Programmer,
-    Artist
+    Artist,
+    VisualProgrammer
 }
 
 public enum Contributor
