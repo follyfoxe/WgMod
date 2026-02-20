@@ -1,4 +1,6 @@
 using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
@@ -35,6 +37,12 @@ public class AmbrosiaGorged : ModBuff
         player.accRunSpeed *= _moveSpeed;
         player.statDefense += _defense;
         player.lifeRegen += _regen;
+
+        int _dustRate = 10;
+        if (Main.rand.NextBool(_dustRate))
+        {
+            Dust.NewDust(player.position, player.width, player.height, DustID.t_Honey, 0f, 0.5f, 150, default, 1.3f);
+        }
     }
 
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)

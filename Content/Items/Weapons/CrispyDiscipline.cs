@@ -13,7 +13,6 @@ namespace WgMod.Content.Items.Weapons;
 public class CrispyDiscipline : ModItem
 {
     WgStat _damage = new(1f, 1.4f);
-    WgStat _attackSpeed = new(30, 40);
     WgStat _knockback = new(1f, 2f);
 
     public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CrispyDebuff.TagDamage);
@@ -45,11 +44,7 @@ public class CrispyDiscipline : ModItem
             return;
         float immobility = wg.Weight.ClampedImmobility;
         _damage.Lerp(immobility);
-        _attackSpeed.Lerp(immobility);
         _knockback.Lerp(immobility);
-
-        Item.useTime = _attackSpeed;
-        Item.useAnimation = _attackSpeed;
     }
 
     public override void ModifyWeaponDamage(Player player, ref StatModifier damage)

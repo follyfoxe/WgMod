@@ -38,7 +38,11 @@ Items: {
 
 	WeightLossPendant: {
 		DisplayName: Amulet of Starving
-		Tooltip: Greatly increases the rate at which you lose weight!
+		Tooltip:
+			'''
+			Greatly increases the rate at which you lose weight
+			'Shadowflame sure burns calories fast!'
+			'''
 	}
 
 	FlaskOfAmbrosia: {
@@ -251,8 +255,17 @@ Items: {
 		Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
-			Strike enemies to summon a fat hellish Bee
+			Strike enemies to cover them in hot caramel and summon a fat hellish Bee
 			Stats scale with your o[c/FFEA00:B][c/696969:E][c/FFEA00:E]sity
+			'''
+	}
+
+	BottledCaramel: {
+		DisplayName: Bottled Caramel
+		Tooltip:
+			'''
+			Improves defense for a short time
+			Effects scale with your obesity
 			'''
 	}
 }
@@ -317,9 +330,9 @@ Buffs: {
 		DisplayName: Wob Wob Wob Wob~
 		Description:
 			'''
-			You feel like slime royalty!
 			Enemies bounce off of you
 			Increased jump height and fall speed
+			'You feel like slime royalty!'
 			'''
 	}
 
@@ -328,13 +341,20 @@ Buffs: {
 		Description:
 			'''
 			The Hellish Bee will fight for you
-			She inherits your o[c/FFEA00:B][c/696969:E][c/FFEA00:E]sity
+			She gains weight from attacking enemies covered in caramel
+			Stats scale with her o[c/FFEA00:B][c/696969:E][c/FFEA00:E]sity
+			'Who knew caramel came from bees in Hell all along!'
 			'''
 	}
 
 	CrispyDebuff: {
-		DisplayName: Crispy Debuff
-		Description: This must be what fried chicken feels like!
+		DisplayName: Caramelized
+		Description: You're covered in caramel!
+	}
+
+	Caramel: {
+		DisplayName: Caramel
+		Description: Increases defense by {0}
 	}
 }
 
