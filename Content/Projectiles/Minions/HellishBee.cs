@@ -103,7 +103,7 @@ public class HellishBee : ModProjectile
         int dustRate = 5;
         if (Main.rand.NextBool(dustRate) && _weightStage == MaxStage)
         {
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 0.7f);
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Honey, 0f, 0.5f, 100, new Color(151, 93, 15), 0.7f);
         }
 
         Player owner = Main.player[Projectile.owner];
@@ -247,7 +247,7 @@ public class HellishBee : ModProjectile
         Vector2 vectorToIdlePosition
     )
     {
-        _speedModifier = float.Lerp(1f, 2f, _weightStage / (float)MaxStage);
+        _speedModifier = float.Lerp(0.5f, 1f, _weightStage / (float)MaxStage);
 
         float speed = 8f / _speedModifier;
         float inertia = 20f / _speedModifier;

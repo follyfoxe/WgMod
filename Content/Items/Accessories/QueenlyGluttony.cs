@@ -80,7 +80,7 @@ public class QueenlyGluttonyPlayer : ModPlayer
 
         if (qg._active && (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed) && Main.rand.Next(3) != 0)
         {
-            int index = Dust.NewDust(boxPosition, boxWidth, boxHeight, DustID.PinkSlime, 0f, 0f, 150, default, 1f);
+            int index = Dust.NewDust(boxPosition, boxWidth, boxHeight, DustID.PinkSlime, 0f, 0f, 100, default, 1f);
             Main.dust[index].noGravity = true;
         }
     }

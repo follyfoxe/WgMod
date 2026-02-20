@@ -70,7 +70,8 @@ Items: {
 		DisplayName: Bottomless Appetite
 		Tooltip:
 			'''
-			Increases pickup range for dropped items
+			Creates a black hole around you, sucking in items from afar
+			Enemies within the black hole suffer the wrath of the pillars
 			Effects scale [c/FF0000:exponentially] with your obesity
 			'Your hunger knows no bounds'
 			'''
@@ -355,6 +356,11 @@ Buffs: {
 	Caramel: {
 		DisplayName: Caramel
 		Description: Increases defense by {0}
+	}
+
+	PillarWrath: {
+		DisplayName: Pillar Wrath
+		Description: "'You are overwhelmed with pain...'"
 	}
 }
 

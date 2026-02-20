@@ -51,7 +51,7 @@ public class WeightLossPendantPlayer : ModPlayer
 
         if (Main.rand.NextBool(_dustRate) && _active == true && _hidden == false)
         {
-            Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.Shadowflame, 0f, 0f, 150, default, 0.7f);
+            Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.Shadowflame, 0f, 0f, 100, default, 0.7f);
         }
     }
 }

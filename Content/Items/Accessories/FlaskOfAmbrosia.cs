@@ -63,7 +63,7 @@ public class AmbrosiaPlayer : ModPlayer
 
         if (Main.rand.NextBool(_dustRate) && _active == true && _hidden == false)
         {
-            Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.YellowTorch, 0f, 0f, 150, default, 0.7f);
+            Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.YellowTorch, 0f, 0f, 100, default, 0.7f);
         }
     }
 
@@ -76,7 +76,7 @@ public class AmbrosiaPlayer : ModPlayer
 
             for (int i = 0; i < 50; i++)
             {
-                Dust.NewDust(Player.position, Player.width, Player.height, DustID.t_Honey, 0f, 0.5f, 150, default, 1.3f);
+                Dust.NewDust(Player.position, Player.width, Player.height, DustID.t_Honey, 0f, 0.5f, 100, default, 1.3f);
             }
         }
     }

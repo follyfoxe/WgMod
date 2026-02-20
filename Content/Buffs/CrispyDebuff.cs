@@ -27,6 +27,8 @@ public class CrispyDebuff : ModBuff
         {
             Dust.NewDust(npc.position, npc.width, npc.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 1.3f);
         }
+
+        npc.GetGlobalNPC<CrispyDebuffNPC>().Caramelized = true;
     }
 
     public override void Update(Player player, ref int buffIndex)
@@ -36,11 +38,20 @@ public class CrispyDebuff : ModBuff
         {
             Dust.NewDust(player.position, player.width, player.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 1.3f);
         }
+
+        player.GetModPlayer<CrispyDebuffPlayer>().Caramelized = true;
     }
 }
 
 public class CrispyDebuffNPC : GlobalNPC
 {
+    public bool Caramelized;
+
+    public override void ResetEffects(NPC npc)
+    {
+        Caramelized = false;
+    }
+
     public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
     {
         if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
@@ -53,11 +64,47 @@ public class CrispyDebuffNPC : GlobalNPC
         }
     }
 
+    public override bool InstancePerEntity => true;
+
+    public override void UpdateLifeRegen(NPC npc, ref int damage)
+    {
+        if (!Caramelized)
+            return;
+
+        damage = 5;
+
+        if (npc.lifeRegen > 0)
+            npc.lifeRegen = 0;
+
+        npc.lifeRegen -= 20;
+    }
+
     public override void DrawEffects(NPC npc, ref Color drawColor)
     {
-        if (npc.HasBuff<CrispyDebuff>())
-        {
-            drawColor = new Color(151, 93, 15);
-        }
+        if (!Caramelized)
+            return;
+        drawColor = new Color(151, 93, 15);
+    }
+}
+
+public class CrispyDebuffPlayer : ModPlayer
+{
+    public bool Caramelized;
+
+    public override void ResetEffects()
+    {
+        Caramelized = false;
+    }
+
+    public override void UpdateBadLifeRegen()
+    {
+        if (!Caramelized)
+            return;
+
+        if (Player.lifeRegen > 0)
+            Player.lifeRegen = 0;
+
+        Player.lifeRegenTime = 0;
+        Player.lifeRegen -= 20;
     }
 }
