@@ -76,7 +76,7 @@ public class CrispyDisciplineProjectile : ModProjectile
 
         float swingProgress = Timer / swingTime;
         if (Utils.GetLerpValue(0.1f, 0.7f, swingProgress, clamped: true)
-            * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true) > 0.5f
+                * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true) > 0.5f
             && !Main.rand.NextBool(3))
         {
             List<Vector2> points = Projectile.WhipPointsForCollision;
@@ -89,7 +89,7 @@ public class CrispyDisciplineProjectile : ModProjectile
             );
             int dustType = DustID.Lava;
             if (Main.rand.NextBool(3))
-                dustType = DustID.YellowTorch;
+                dustType = DustID.t_Honey;
 
             Dust dust = Dust.NewDustDirect(
                 spawnArea.TopLeft(),
@@ -122,9 +122,9 @@ public class CrispyDisciplineProjectile : ModProjectile
         _knockback.Lerp(immobility);
 
         if (player.strongBees == true)
-            _beeDamage = _damage;
+            _beeDamage = _damage * 0.4f;
         else
-            _beeDamage = _damage * 0.5f;
+            _beeDamage = _damage * 0.2f;
 
         if (!player.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
         {
@@ -134,8 +134,9 @@ public class CrispyDisciplineProjectile : ModProjectile
                 new Vector2(0, 0),
                 ModContent.ProjectileType<HellishBee>(),
                 _beeDamage,
-                _knockback
+                _knockback * 0.25f
             );
+            SoundEngine.PlaySound(SoundID.Item76);
         }
 
         target.AddBuff(ModContent.BuffType<CrispyDebuff>(), 240);
@@ -209,7 +210,7 @@ public class CrispyDisciplineProjectile : ModProjectile
                     0.5f,
                     1.5f,
                     Utils.GetLerpValue(0.1f, 0.7f, t, true)
-                    * Utils.GetLerpValue(0.9f, 0.7f, t, true)
+                        * Utils.GetLerpValue(0.9f, 0.7f, t, true)
                 );
             }
             else if (i == list.Count - 3)
@@ -246,34 +247,3 @@ public class CrispyDisciplineProjectile : ModProjectile
         return false;
     }
 }
-
-/*public class CrispyDisciplinePlayer : ModPlayer
-{
-    public bool _hellsBeesBuff;
-
-    public override void PostUpdate()
-    {
-        if (!_hellsBeesBuff)
-            return;
-
-        Vector2 _velocity = new Vector2(0, 0);
-        if (_hellsBeesTimer == 0)
-        {
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.position,
-                _velocity,
-                ModContent.ProjectileType<HellishBee>(),
-                20,
-                20
-            );
-        }
-        _hellsBeesTimer++;
-
-        if (_hellsBeesTimer >= 4 * 60)
-        {
-            _hellsBeesTimer = 0;
-            _hellsBeesBuff = false;
-        }
-    }
-}*/

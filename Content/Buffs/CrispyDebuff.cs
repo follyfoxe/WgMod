@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -19,26 +20,28 @@ public class CrispyDebuff : ModBuff
         BuffID.Sets.LongerExpertDebuff[Type] = true;
     }
 
-    /*public override void Update(NPC npc, ref int buffIndex)
+    public override void Update(NPC npc, ref int buffIndex)
     {
-        npc.GetGlobalNPC<CrispyDebuffNPC>()._caramelizedDebuff = true;
-    }*/
+        int _dustRate = 15;
+        if (Main.rand.NextBool(_dustRate))
+        {
+            Dust.NewDust(npc.position, npc.width, npc.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 1.3f);
+        }
+    }
+
+    public override void Update(Player player, ref int buffIndex)
+    {
+        int _dustRate = 15;
+        if (Main.rand.NextBool(_dustRate))
+        {
+            Dust.NewDust(player.position, player.width, player.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 1.3f);
+        }
+    }
 }
 
 public class CrispyDebuffNPC : GlobalNPC
 {
-    /*public bool _caramelizedDebuff;
-
-    public override void ResetEffects(NPC npc)
-    {
-        _caramelizedDebuff = false;
-    }*/
-
-    public override void ModifyHitByProjectile(
-        NPC npc,
-        Projectile projectile,
-        ref NPC.HitModifiers modifiers
-    )
+    public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
     {
         if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
             return;
@@ -50,24 +53,11 @@ public class CrispyDebuffNPC : GlobalNPC
         }
     }
 
-    /*public override void UpdateLifeRegen(NPC npc, ref int damage)
-    {
-        if (_caramelizedDebuff == true)
-        {
-            if (npc.lifeRegen > 0)
-            {
-                npc.lifeRegen = 0;
-            }
-
-            npc.lifeRegen -= 16;
-        }
-    }*/
-
     public override void DrawEffects(NPC npc, ref Color drawColor)
     {
         if (npc.HasBuff<CrispyDebuff>())
         {
-            drawColor = new Color(80, 40, 20);
+            drawColor = new Color(151, 93, 15);
         }
     }
 }

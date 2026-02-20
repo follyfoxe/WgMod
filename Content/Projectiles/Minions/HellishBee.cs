@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Content.Buffs;
@@ -8,7 +9,7 @@ using WgMod.Content.Buffs;
 namespace WgMod.Content.Projectiles.Minions;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
-[Credit(ProjectRole.Artist, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
 public class HellsBeesBuff : ModBuff
 {
     public override void SetStaticDefaults()
@@ -61,10 +62,21 @@ public class HellishBee : ModProjectile
         {
             target.DelBuff(target.FindBuffIndex(CrispyDebuff));
             _weightProgress++;
-            if (_weightProgress >= 3)
+
+            SoundEngine.PlaySound(
+                new SoundStyle("WgMod/Assets/Sounds/gulp_", 4, SoundType.Sound),
+                Projectile.Center
+            );
+
+            if (_weightProgress >= 7)
             {
                 _weightProgress = 0;
                 _weightStage++;
+
+                SoundEngine.PlaySound(
+                    new SoundStyle("WgMod/Assets/Sounds/Belly_", 3, SoundType.Sound),
+                    Projectile.Center
+                );
             }
         }
         Projectile.scale = float.Lerp(1f, 1.1f, _weightStage / (float)MaxStage);
@@ -88,12 +100,29 @@ public class HellishBee : ModProjectile
 
     public override void AI()
     {
+        int dustRate = 5;
+        if (Main.rand.NextBool(dustRate) && _weightStage == MaxStage)
+        {
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 0.7f);
+        }
+
         Player owner = Main.player[Projectile.owner];
         if (!CheckActive(owner))
             return;
         GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-        SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
-        Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
+        SearchForTargets(
+            owner,
+            out bool foundTarget,
+            out float distanceFromTarget,
+            out Vector2 targetCenter
+        );
+        Movement(
+            foundTarget,
+            distanceFromTarget,
+            targetCenter,
+            distanceToIdlePosition,
+            vectorToIdlePosition
+        );
         Visuals();
     }
 
@@ -109,7 +138,11 @@ public class HellishBee : ModProjectile
         return true;
     }
 
-    void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
+    void GeneralBehavior(
+        Player owner,
+        out Vector2 vectorToIdlePosition,
+        out float distanceToIdlePosition
+    )
     {
         Vector2 idlePosition = owner.Center;
         idlePosition.Y -= 48f;
@@ -130,11 +163,13 @@ public class HellishBee : ModProjectile
         float overlapVelocity = 0.04f;
         foreach (var other in Main.ActiveProjectiles)
         {
-            if (other.whoAmI != Projectile.whoAmI 
+            if (
+                other.whoAmI != Projectile.whoAmI
                 && other.owner == Projectile.owner
                 && Math.Abs(Projectile.position.X - other.position.X)
-                + Math.Abs(Projectile.position.Y - other.position.Y)
-                < Projectile.width)
+                    + Math.Abs(Projectile.position.Y - other.position.Y)
+                    < Projectile.width
+            )
             {
                 if (Projectile.position.X < other.position.X)
                     Projectile.velocity.X -= overlapVelocity;
@@ -149,7 +184,12 @@ public class HellishBee : ModProjectile
         }
     }
 
-    void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
+    void SearchForTargets(
+        Player owner,
+        out bool foundTarget,
+        out float distanceFromTarget,
+        out Vector2 targetCenter
+    )
     {
         distanceFromTarget = 700f;
         targetCenter = Projectile.position;
@@ -199,7 +239,13 @@ public class HellishBee : ModProjectile
         Projectile.friendly = foundTarget;
     }
 
-    void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
+    void Movement(
+        bool foundTarget,
+        float distanceFromTarget,
+        Vector2 targetCenter,
+        float distanceToIdlePosition,
+        Vector2 vectorToIdlePosition
+    )
     {
         _speedModifier = float.Lerp(1f, 2f, _weightStage / (float)MaxStage);
 
@@ -234,7 +280,8 @@ public class HellishBee : ModProjectile
             {
                 vectorToIdlePosition.Normalize();
                 vectorToIdlePosition *= speed;
-                Projectile.velocity = (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
+                Projectile.velocity =
+                    (Projectile.velocity * (inertia - 1) + vectorToIdlePosition) / inertia;
             }
             else if (Projectile.velocity == Vector2.Zero)
             {
@@ -268,3 +315,68 @@ public class HellishBee : ModProjectile
         Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
     }
 }
+
+/*
+                                                                                                                                                                          :=====:
+                                                                                                                                                                   =#############*+==+-
+                                                                                                                                                              .*######################*-==
+                                                                                                                                                           -#############***#############*=*
+                                                                                                                                                        :########+                .########**+
+                                                                                                                                                      #######-                        #######*#
+                                                                                                                                                   :######.                             ########:
+                                                                                                                                                 +#####:                                  #######.
+                                                                                                                    :-======::                 +####*                                      #######
+                                                                                                             :########################=.     *####=                                         *######
+                                                                                                          #####################################%-                                            ######=
+                                                                                                       :%##%#####-                    :*#####+                                                ######
+                                                                                                      %%#%#%%=                                                                                :#####-
+                                                                                                    :%%#%#%:                                                                                   ######
+                                                                             .                     .%%%%%*                                                                                     :#####
+                                                                     -*=-:-===+++***+              %%#%%=                                                                                       #####-
+                                                                 -=.-=+***************#*          +%%%%+                                                                                        *####*
+                                                              =-:=+****+:         =*##**##        %%%%%                                                                                         :####*
+                                                            =:=+**+-                  *####+      %%%%=                                                         =@           @           *@@    .####*
+                                                         :==+***-                       *####     %%%%:                                                    -     @%=%:@      :@  %@  @@@  @+     ####+
+                                                       -==***+                            *###    %%%@.                                                      @ *@-@   =@     %@@ @@*            :####:
+                                                     -=+***=                               =###   %%%@.                                             @@*+@    @@   @@    *@@@%  *=               =####
+                      :==+++=====---::.            -++***=                                  :###*%%%%@:                                    @%=@*   @:  .=*%-  @@   @=           @               ####-
+                *#**+**********************==--::=+****@:                                    -#@@%%%%%-                            %@%    @   =@           @%  @:               @              -####
+            *##**###*##*#**+++===+***+:.-++*********#%*+=                                     =@@@%%%%*                @-        %=   @   @*@#      @@%@@@@                     @              ####:
+         =##########*-       :::::-:: .-+++:        .=**+:                             :*#*    #@@@%%%@:                @:       @::%@     @*-:=#@#                       @@%+*@*             *###+
+       =#########+                     :**+-. .:::::-=***=                             -%%#:   .@@@%%%%=        .-==:.   @#@@@@@+-@     :*                                                   -####
+      #########:                            .:-:-:-:::=-::-+**-            ..:.       :=:       #@@%%%%@:      @=    .*@:.@.    @+ .+%*:                                                    :####
+    :########=                               ::::..   ....:+*+=::-=:     :...    ::=#@@%.        @@@%%%%*      @:      :@ .@@@@%:                                                          .####
+   :%######%                             .::::....    .:-==:   :***=             --=+%%%-        #@* :%%@=     .@%:.:=@%                                                                  .%###
+   %######%                              :---:.....+#%@@@@@=   :+***:             . .+##=        =#+  :@%@-       . .                                                                    .%##%
+  *######%:                              -+*#*:   .*@@@@@@@%**#%****-. .             =##*:       :#+    %%@=                                                                            :%##%
+  %######*                           :---=%@@@=    =@@@@@@@@@%%%***#*=---         ...-*##=       :#=     %%%*.                                                                         =###*
+ :%#####%:                           .---=*@@@*.   .#@@@@#*=:====*##*+=-:.:=+=    ...:+##+       -#:      -%%@-                                                                       *##%=
+ =%#####@                             :--=+%@@@=    .:.      .-====:.     =##*:  ::...=##*:      *#         %%%%: .                                                                 .%##%
+ =%#####@                             :-===**+=.          ...-***=.       :-::-*##+:..-=:        ##           %%@*.                                                                =%###
+ :%#####@                              =***=:....   .....:-===*##*=:=++===-:..:=+=::-=-.        .#-             @%@*:                                                             %##%:
+  %#####@                              -*##*-.:::........:-===*%@@@@@@@+-::::--.   .-=-::--:    *#                %%%%:                                                         =%%#%
+  @#####@:                             .+###+===-:...::::-====+%@@@@@@@=.  .-==:.:==:..:-==-    #=                  *%%@-.                                                    :%#%%:
+  =%####%#                              =###*====---=========+*@@@@@@@@*. ..=%@@@@@@=...:===.  *#                     -%%@*:.                                               .*%%%*
+   @#####@                              :-:...-======-::...+@@@@@@@@%%##=...+@@@@@@@*.  .-==: :#:                        #%%@=.                                            +%%%%
+   -%####%*                        ::--=:.   .:===:        :%%*=:.  -*##+:::=%@@@@@@%.   :==-.#*                            %%%@=..                                      =%%%%.
+    @#####@:                    -=======-.   ..===:                 .*##*+===*@@@@@@@=   .===##                               .%%%@+:.                                 =%%%%-
+     @#####@                    :=-:.         .:-:.              ...:=###*===*@@@@@@@*   :  -#                                    %%%@%-.                            =%%%%-
+     :%####%*                 :::          ...:                  ...:=-:  :===%@@@#=:::===. #-                                       +%%%@*:.                     .*%%%%:
+      =%####@=              :===:         .:===.              ....=*#+    .-::-===:.:.:-:. #*                                            %%%%@#-.               :%%%%%:
+       =%####@+             :-::          .:=+*=          .......:+##+.    ..::-===--=-   #*                                                :%%%%@@+:.       .=@%%%%
+        :%####%%           ::          ..:-+*###:    .........::-=-        ...:=###*===. ##                                                      #%%%%@@%**%@%%%%*
+          %#####@:         :-.         .-===****++###=:..::==**###+     .......=**=:    ##                                                           -%%%%%%%%%:
+           :%#####@         -:         .=****====*#*+==**######**=:    ....::=++:      ##                                                                  :.
+             =%####%@       :-.     ...:=###*+::      :*##*=:.        ...:.:=###-     ##
+               :%#####@:     -:.   ....:=*###-                      .......:=*##+    ##
+                  %%####%#   :-.. ..:=*######+                      ..:::--==*##*. :#*
+                    =%#####@*::::-==+*###***+=.                  ....:=======+-   =#=
+                       =%#####%%+====-:   :===:              .......::==+**#*:   ##:
+                          -%%####%@+      :===-.         ......:.:-=+**+-:      ##
+                              *%#####%@+   -===:..........:.:-=***+-.         =##
+                                  *%######%@%+======-:.::=***=:              ##=
+                                      :%%#######%%#+==-::.                 -##
+                                           .+%%#######%%%+:              :##*
+                                                  =%%###########%%%%%#%%###.
+                                                          :=#%###########=
+*/

@@ -1,4 +1,8 @@
-﻿using Terraria;
+﻿using System.Configuration;
+using System.Drawing;
+using Microsoft.Xna.Framework;
+using Mono.CompilerServices.SymbolWriter;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -66,6 +70,18 @@ public class QueenlyGluttonyPlayer : ModPlayer
                 target.AddBuff(BuffID.Shimmer, 2 * 60);
             else
                 target.AddBuff(BuffID.GelBalloonBuff, 2 * 60);
+        }
+    }
+
+    public override void EmitEnchantmentVisualsAt(Projectile projectile, Vector2 boxPosition, int boxWidth, int boxHeight)
+    {
+        if (!Player.TryGetModPlayer(out QueenlyGluttonyPlayer qg))
+            return;
+
+        if (qg._active && (projectile.DamageType == DamageClass.Melee || projectile.DamageType == DamageClass.MeleeNoSpeed) && Main.rand.Next(3) != 0)
+        {
+            int index = Dust.NewDust(boxPosition, boxWidth, boxHeight, DustID.PinkSlime, 0f, 0f, 150, default, 1f);
+            Main.dust[index].noGravity = true;
         }
     }
 }

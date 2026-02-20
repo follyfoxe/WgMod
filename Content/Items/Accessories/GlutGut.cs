@@ -1,4 +1,5 @@
 ﻿using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Content.Buffs;
@@ -61,6 +62,7 @@ public class GlutGutItem : GlobalItem
                 case ItemUseStyleID.DrinkLiquid:
                 case ItemUseStyleID.DrinkLong:
                     player.AddBuff(ModContent.BuffType<GluttedGut>(), 30 * 60);
+                    SoundEngine.PlaySound(SoundID.Item33);
                     break;
             }
         }
