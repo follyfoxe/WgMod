@@ -382,7 +382,11 @@ Configs: {
 
 	WgClientConfig: {
 		DisplayName: Wg Client Config
-		Headers.Visual: Visual settings
+
+		Headers: {
+			General: General settings
+			Visual: Visual settings
+		}
 
 		DisableJiggle: {
 			Label: Disable Jiggle
@@ -397,6 +401,11 @@ Configs: {
 		ShowCredits: {
 			Label: Show Credits
 			Tooltip: Shows credits on tooltips
+		}
+
+		DisableWeightGain: {
+			Label: Disable Weight Gain
+			Tooltip: Disables gaining weight of any kind
 		}
 	}
 }

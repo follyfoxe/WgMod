@@ -18,13 +18,13 @@ public partial class WgPlayer
 
     public void ReceivePlayerSync(BinaryReader reader)
     {
-        SetWeight(new Weight(reader.ReadSingle()));
+        SetWeightForced(new Weight(reader.ReadSingle()));
     }
 
     public override void CopyClientState(ModPlayer targetCopy)
     {
         WgPlayer clone = (WgPlayer)targetCopy;
-        clone.SetWeight(Weight, false);
+        clone.SetWeightForced(Weight, false);
     }
 
     public override void SendClientChanges(ModPlayer clientPlayer)
@@ -41,10 +41,10 @@ public partial class WgPlayer
         {
             if (float.IsNaN(w) || !float.IsFinite(w))
                 w = Weight.Base.Mass;
-            SetWeight(new Weight(w), false);
+            SetWeightForced(new Weight(w), false);
         }
         else
-            SetWeight(Weight.Base, false);
+            SetWeightForced(Weight.Base, false);
     }
 
     public override void SaveData(TagCompound tag)

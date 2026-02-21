@@ -9,6 +9,9 @@ public class WgClientConfig : ModConfig
     public static WgClientConfig Instance => ModContent.GetInstance<WgClientConfig>();
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
+    [Header("General")]
+    public bool DisableWeightGain;
+
     [Header("Visual")]
     [DefaultValue(false)]
     public bool DisableJiggle;

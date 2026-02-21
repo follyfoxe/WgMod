@@ -36,7 +36,7 @@ public partial class WgPlayer : ModPlayer
 
     public override void Initialize()
     {
-        SetWeight(Weight.Base, false);
+        SetWeightForced(Weight.Base, false);
         InitializeVisuals();
     }
 
@@ -45,7 +45,21 @@ public partial class WgPlayer : ModPlayer
         _ignoreWgBuffTimer = 2;
     }
 
+    public bool CanSetWeight()
+    {
+        return !Main.dedServ && Player.whoAmI == Main.myPlayer;
+    }
+
     public void SetWeight(Weight weight, bool effects = true)
+    {
+        if (!CanSetWeight())
+            return;
+        if (WgClientConfig.Instance.DisableWeightGain)
+            weight = new Weight(Math.Min(weight.Mass, Weight.Mass));
+        SetWeightForced(weight, effects);
+    }
+
+    void SetWeightForced(Weight weight, bool effects = true)
     {
         int prevStage = Weight.GetStage();
         Weight = Weight.Clamp(weight);
