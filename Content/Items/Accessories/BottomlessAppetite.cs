@@ -48,14 +48,10 @@ public class BottomlessAppetite : ModItem
 
     public override void UpdateEquip(Player player)
     {
-        if (!player.TryGetModPlayer(out WgPlayer wg))
-            return;
         if (!player.TryGetModPlayer(out BottomlessAppetitePlayer bp))
             return;
-        float immobility = wg.Weight.ClampedImmobility;
 
         bp._active = true;
-        float distance = float.Lerp(48f, 128f, immobility);
 
         if (player.whoAmI == Main.myPlayer)
         {
@@ -69,7 +65,7 @@ public class BottomlessAppetite : ModItem
                     && !npc.dontTakeDamage
                     && !npc.buffImmune[ModContent.BuffType<PillarWrath>()]
                     && player.CanNPCBeHitByPlayerOrPlayerProjectile(npc)
-                    && Vector2.Distance(player.Center, npc.Center) <= distance
+                    && Vector2.Distance(player.Center, npc.Center) <= bp._radius + 32f
                 )
                 {
                     npc.AddBuff(ModContent.BuffType<PillarWrath>(), 120);
@@ -84,6 +80,7 @@ public class BottomlessAppetitePlayer : ModPlayer
     internal bool _active;
     internal bool _hidden;
     internal int _range;
+    public float _radius;
 
     public override void ResetEffects()
     {
@@ -99,13 +96,13 @@ public class BottomlessAppetitePlayer : ModPlayer
         ref bool fullBright
     )
     {
-        if (!Player.TryGetModPlayer(out WgPlayer wg))
+        if (!Player.TryGetModPlayer(out WgPlayer wg) || drawInfo.shadow != 0f)
             return;
         float immobility = wg.Weight.ClampedImmobility;
 
-        int dustRate = (int)float.Lerp(1, 2, immobility);
+        int dustRate = 1;
         float dustIntensity = float.Lerp(3f, 5f, immobility);
-        float dustSize = float.Lerp(0.5f, 1f, immobility);
+        float dustSize = float.Lerp(1f, 1.5f, immobility);
 
         float playerX = Player.Center.X;
         float playerY = Player.Center.Y;
@@ -113,9 +110,9 @@ public class BottomlessAppetitePlayer : ModPlayer
         float playerHeight = Player.height;
 
         if (playerWidth > playerHeight)
-            playerHeight = (playerWidth + playerHeight) * 0.5f;
+            _radius = playerWidth * 1.25f;
         else
-            playerWidth = (playerWidth + playerHeight) * 0.5f;
+            _radius = playerHeight * 1.25f;
 
         if (_active == true && _hidden == false)
         {
@@ -127,7 +124,7 @@ public class BottomlessAppetitePlayer : ModPlayer
                 Vector2 dir2 = new(MathF.Cos(angle + spin), MathF.Sin(angle + spin));
 
                 int dust = Dust.NewDust(
-                    new Vector2(playerX + dir.X * playerWidth, playerY + dir.Y * playerHeight),
+                    new Vector2(playerX + dir.X * _radius, playerY + dir.Y * _radius),
                     4,
                     4,
                     DustID.t_Slime,
@@ -138,7 +135,7 @@ public class BottomlessAppetitePlayer : ModPlayer
                     dustSize
                 );
                 int dust2 = Dust.NewDust(
-                    new Vector2(playerX + dir.X * playerWidth, playerY + dir.Y * playerHeight),
+                    new Vector2(playerX + dir.X * _radius, playerY + dir.Y * _radius),
                     4,
                     4,
                     DustID.SolarFlare,
@@ -149,7 +146,7 @@ public class BottomlessAppetitePlayer : ModPlayer
                     dustSize
                 );
                 int dust3 = Dust.NewDust(
-                    new Vector2(playerX + dir.X * playerWidth, playerY + dir.Y * playerHeight),
+                    new Vector2(playerX + dir.X * _radius, playerY + dir.Y * _radius),
                     4,
                     4,
                     DustID.SolarFlare,
