@@ -19,7 +19,7 @@ public class Girthquake : ModProjectile
         Projectile.ignoreWater = true;
         Projectile.timeLeft = 120;
         Projectile.friendly = true;
-        Projectile.hostile = true;
+        Projectile.hostile = false;
         Projectile.DamageType = DamageClass.Default;
         Projectile.penetrate = -1;
     }
@@ -102,7 +102,7 @@ public class Girth : ModProjectile
         Projectile.ignoreWater = true;
         Projectile.timeLeft = 99999;
         Projectile.friendly = true;
-        Projectile.hostile = true;
+        Projectile.hostile = false;
         Projectile.DamageType = DamageClass.Default;
         Projectile.penetrate = -1;
         Projectile.usesIDStaticNPCImmunity = true;

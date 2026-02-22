@@ -272,7 +272,7 @@ Items: {
 
 	MeteorCrush: {
 		DisplayName: Meteor Crush
-		Tooltip: "TODO"
+		Tooltip: Makes your weight able to crush your enemies
 	}
 }
 
