@@ -1,7 +1,4 @@
-﻿using System.Configuration;
-using System.Drawing;
-using Microsoft.Xna.Framework;
-using Mono.CompilerServices.SymbolWriter;
+﻿using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
