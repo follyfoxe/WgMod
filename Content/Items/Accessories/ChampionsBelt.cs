@@ -39,6 +39,14 @@ public class ChampionsBelt : ModItem
             .AddIngredient(ItemID.Amethyst, 2)
             .AddTile(TileID.Anvils)
             .Register();
+
+        CreateRecipe()
+            .AddIngredient(ItemID.PlatinumBar, 6)
+            .AddIngredient(ItemID.Ruby, 2)
+            .AddIngredient(ItemID.Emerald, 2)
+            .AddIngredient(ItemID.Amethyst, 2)
+            .AddTile(TileID.Anvils)
+            .Register();
     }
 }
 
