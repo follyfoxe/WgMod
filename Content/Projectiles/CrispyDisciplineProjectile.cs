@@ -39,7 +39,7 @@ public class CrispyDisciplineProjectile : ModProjectile
         Projectile.usesLocalNPCImmunity = true;
         Projectile.localNPCHitCooldown = -1;
         Projectile.DamageType = DamageClass.SummonMeleeSpeed;
-        Projectile.WhipSettings.Segments = 10;
+        Projectile.WhipSettings.Segments = 20;
         Projectile.WhipSettings.RangeMultiplier = 1.5f;
     }
 

@@ -231,6 +231,7 @@ Items: {
 			'''
 			Increases magic damage by {0}%
 			Increases mana cost by {1}%
+			Increases mana cost by {1}%
 			Immune to poison
 			Effects scale with your obesity
 			'''
@@ -256,7 +257,7 @@ Items: {
 		Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
-			Strike enemies to cover them in hot caramel and summon a fat hellish Bee
+			Strike enemies to cover them in hot caramel and summon a fat hellish bee to slurp it up!
 			Stats scale with your o[c/FFEA00:B][c/696969:E][c/FFEA00:E]sity
 			'''
 	}
@@ -270,6 +271,21 @@ Items: {
 			'''
 	}
 
+	LiftingTome: {
+		DisplayName: "'The Call of Cthulhu'"
+		Tooltip:
+			'''
+			Increased damage by {0}%
+			Further increased magic damage by {4}%
+			Decreased mana cost by {1}%
+			Increases maximum mana by {2}
+			Increases the maximum number of minions by {3}
+			Summons shadow hands to carry you and attack your foes
+			Your attacks are accompanied by multiple magical tomes at half power
+			Effects scale with your obesity
+			'''
+  }
+  
 	MeteorCrush: {
 		DisplayName: Meteor Crush
 		Tooltip: Makes your weight able to crush your enemies
