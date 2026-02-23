@@ -71,14 +71,29 @@ public class LiftingTome : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe()
-            .AddIngredient(ItemID.BoneHelm)
-            .AddIngredient(ItemID.WaterBolt)
-            .AddIngredient(ItemID.BookofSkulls)
-            .AddIngredient(ItemID.DemonScythe)
-            .AddTile(TileID.DemonAltar)
-            .SortBefore(Main.recipe.First(recipe => recipe.createItem.wingSlot != -1))
-            .Register();
+        if (ModLoader.TryGetMod("CalamityMod", out Mod calamity))
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.BoneHelm)
+                .AddIngredient(ItemID.WaterBolt)
+                .AddIngredient(ItemID.BookofSkulls)
+                .AddIngredient(ItemID.DemonScythe)
+                .AddIngredient(calamity.Find<ModItem>("PurifiedGel").Type, 5)
+                .AddTile(TileID.DemonAltar)
+                .SortBefore(Main.recipe.First(recipe => recipe.createItem.wingSlot != -1))
+                .Register();
+        }
+        else
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.BoneHelm)
+                .AddIngredient(ItemID.WaterBolt)
+                .AddIngredient(ItemID.BookofSkulls)
+                .AddIngredient(ItemID.DemonScythe)
+                .AddTile(TileID.DemonAltar)
+                .SortBefore(Main.recipe.First(recipe => recipe.createItem.wingSlot != -1))
+                .Register();
+        }
     }
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
