@@ -18,7 +18,7 @@ public class LiftingTome : ModItem
     WgStat _damage = new(0.04f, 0.08f);
     WgStat _magicDamage = new(0.02f, 0.04f);
     WgStat _manaCost = new(0.96f, 0.92f);
-    WgStat _maxMana = new(20, 70);
+    WgStat _maxMana = new(20, 60);
 
     public override void SetStaticDefaults()
     {
@@ -83,7 +83,7 @@ public class LiftingTome : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), (1 - _manaCost).Percent(), _maxMana - 10, _minionCount, _magicDamage.Percent());
+        tooltips.FormatLines(_damage.Percent(), (1 - _manaCost).Percent(), _maxMana, _minionCount, _magicDamage.Percent());
     }
 }
 

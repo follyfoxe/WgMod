@@ -284,8 +284,8 @@ Items: {
 			Your attacks are accompanied by multiple magical tomes at half power
 			Effects scale with your obesity
 			'''
-  }
-  
+	}
+
 	MeteorCrush: {
 		DisplayName: Meteor Crush
 		Tooltip: Makes your weight able to crush your enemies
