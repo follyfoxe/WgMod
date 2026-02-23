@@ -98,7 +98,13 @@ public class LiftingTome : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), (1 - _manaCost).Percent(), _maxMana, _minionCount, _magicDamage.Percent());
+        tooltips.FormatLines(
+            _damage.Percent(),
+            (1 - _manaCost).Percent(),
+            _maxMana,
+            _minionCount,
+            _magicDamage.Percent()
+        );
     }
 }
 
@@ -186,11 +192,7 @@ public class LiftingTomePlayer : ModPlayer
     {
         if (Player.whoAmI != Main.myPlayer)
             return;
-        Player.insanityShadowCooldown = Utils.Clamp<int>(
-            Player.insanityShadowCooldown - 1,
-            0,
-            100
-        );
+        Player.insanityShadowCooldown = Utils.Clamp<int>(Player.insanityShadowCooldown - 1, 0, 100);
         if (Player.insanityShadowCooldown > 0)
             return;
         Player.insanityShadowCooldown = Main.rand.Next(20, 101);
