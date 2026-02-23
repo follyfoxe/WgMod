@@ -291,6 +291,17 @@ Items: {
 		DisplayName: Meteor Crush
 		Tooltip: Makes your weight able to crush your enemies
 	}
+
+	HoneyedHamBat: {
+		DisplayName: Honeyed Ham Bat
+		Tooltip:
+			'''
+			Grows more powerful the more obese you are
+			Hitting enemies temporarily improves life regeneration
+			Honey globs fling off of the weapon to damage your enemies
+			'You can't go wrong dousing something in honey.'
+			'''
+	}
 }
 
 Buffs: {
@@ -440,4 +451,6 @@ Projectiles: {
 	HellishBee.DisplayName: Hellish Bee
 	Girth.DisplayName: Girth
 	Girthquake.DisplayName: Girthquake
+	HoneyStream.DisplayName: Honey Stream
+	HoneyGlob.DisplayName: Honey Glob
 }
