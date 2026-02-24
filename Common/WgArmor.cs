@@ -32,6 +32,7 @@ public static class WgArmor
 
     public static void Render(ref RenderTarget2D target, ReadOnlySpan<Layer> layers, bool male)
     {
+        return; // UV Armor is disabled
         if (!UVShader.IsLoaded)
             return;
 
@@ -91,6 +92,7 @@ public static class WgArmor
 
     public static void Draw(WgPlayer wg, ref PlayerDrawSet drawInfo, in DrawData baseDrawData, int index)
     {
+        return; // UV Armor is disabled
         Rectangle rect = baseDrawData.sourceRect.Value;
         rect.X += index * TextureWidth;
         drawInfo.DrawDataCache.Add(baseDrawData with

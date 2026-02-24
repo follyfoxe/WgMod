@@ -18,6 +18,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
 
     public static Asset<Texture2D> BaseTexture { get; private set; }
     public static Asset<Texture2D> BellyTexture { get; private set; }
+    public static Asset<Texture2D> BoobsTexture { get; private set; }
 
     public override void Load()
     {
@@ -26,10 +27,11 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         WgArmor.Load(Mod);
         BaseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base");
         BellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly");
+        BoobsTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Boobs");
     }
 
     // folly: What is OffhandAcc exactly???
-    public override Position GetDefaultPosition() => new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc);
+    public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => true;
 
     public static void SetupArmorLayers(WgPlayer wg)
@@ -143,6 +145,19 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         drawInfo.DrawDataCache.Add(bellyDrawData);
         if (drawArmor)
             WgArmor.Draw(wg, ref drawInfo, bellyDrawData, 1);
+
+        Rectangle boobsFrame = BoobsTexture.Frame(1, Weight.StageCount, 0, stage);
+        DrawData boobsDrawData = new(
+            BoobsTexture.Value,
+            bellyDrawData.position,
+            boobsFrame,
+            skinColor,
+            0f,
+            boobsFrame.Size() * 0.5f,
+            new Vector2(1f / bellySquish, 1f * bellySquish),
+            drawInfo.playerEffect
+        );
+        drawInfo.DrawDataCache.Add(boobsDrawData);
     }
 
     static Vector2 PrepPos(Vector2 pos, float xOffset, float yOffset, float gravDir)

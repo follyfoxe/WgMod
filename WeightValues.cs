@@ -38,10 +38,13 @@ public static class WeightValues
         _ => 2f * 2f
     };
 
+    // TODO: Why are these decimal?
     public static float DrawOffsetY(int stage) => stage switch
     {
-        6 => 2f * 2f,
-        7 => 8f * 2f,
+        4 => 4.5f,
+        5 => 4.5f,
+        6 => 12f,
+        7 => 23.5f,
         _ => 0f
     };
 }
