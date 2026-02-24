@@ -154,7 +154,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             skinColor,
             0f,
             boobsFrame.Size() * 0.5f,
-            new Vector2(1f / bellySquish, 1f * bellySquish),
+            new Vector2(1f * bellySquish, 1f / bellySquish),
             drawInfo.playerEffect
         );
         drawInfo.DrawDataCache.Add(boobsDrawData);
