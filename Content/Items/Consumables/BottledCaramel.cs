@@ -52,9 +52,6 @@ public class BottledCaramel : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe()
-            .AddIngredient(ItemID.BottledHoney, 2)
-            .AddTile(TileID.Hellforge)
-            .Register();
+        CreateRecipe().AddIngredient(ItemID.BottledHoney, 2).AddTile(TileID.Hellforge).Register();
     }
 }

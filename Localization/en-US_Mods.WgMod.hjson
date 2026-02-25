@@ -182,7 +182,7 @@ Items: {
 
 	WeightlessPotion: {
 		DisplayName: Weightless Potion
-		Tooltip: Reduces movement pentalty of high weights!
+		Tooltip: Reduces movement penalty of high weights!
 	}
 
 	PortableScale: {
