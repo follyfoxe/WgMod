@@ -19,6 +19,7 @@ public class LiftingTome : ModItem
     WgStat _magicDamage = new(0.02f, 0.04f);
     WgStat _manaCost = new(0.96f, 0.92f);
     WgStat _maxMana = new(20, 60);
+    WgStat _flight = new(1, 2);
 
     public override void SetStaticDefaults()
     {
@@ -67,6 +68,33 @@ public class LiftingTome : ModItem
             lt._cooldownScythe++;
 
         lt.SpawnHallucination(Item);
+    }
+
+    public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
+    {
+        if (!player.TryGetModPlayer(out WgPlayer wg))
+            return;
+        float immobility = wg.Weight.ClampedImmobility;
+
+        _flight.Lerp(immobility);
+
+        speed += _flight * 3;
+        acceleration *= _flight;
+    }
+
+    public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
+    {
+        if (!player.TryGetModPlayer(out WgPlayer wg))
+            return;
+        float immobility = wg.Weight.ClampedImmobility;
+
+        _flight.Lerp(immobility);
+
+        ascentWhenFalling *= _flight;
+        ascentWhenRising *= _flight;
+        maxCanAscendMultiplier *= _flight;
+        maxAscentMultiplier *= _flight;
+        constantAscend *= _flight;
     }
 
     public override void AddRecipes()
