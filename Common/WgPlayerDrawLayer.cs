@@ -70,11 +70,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         if (stage == 0)
             return;
 
+        int direction = ((drawInfo.playerEffect & SpriteEffects.FlipHorizontally) == 0).ToDirectionInt();
         Vector2 position = drawInfo.Center - Main.screenPosition;
-        if ((drawInfo.playerEffect & SpriteEffects.FlipHorizontally) != 0)
-            position.X -= WeightValues.DrawOffsetX(stage);
-        else
-            position.X += WeightValues.DrawOffsetX(stage);
+        position.X += WeightValues.DrawOffsetX(stage) * direction;
 
         float yOffset = 0f;
         yOffset -= drawInfo.seatYOffset;
@@ -88,15 +86,22 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         // Frame [5] - Jump
         // Frame [6 to 19] - Walk
 
-        float animOffset = 0f;
+        float legOffsetX = 0f;
+        float legOffsetY = 0f;
+        float bellyOffset = 0f;
         if (wg._finalMovementFactor > 0.01f)
         {
             if (frame == 5)
-                animOffset = Math.Clamp(player.velocity.Y * player.gravDir / 4f, -1f, 1f) * -2f;
+                bellyOffset = Math.Clamp(player.velocity.Y * player.gravDir / 4f, -1f, 1f) * -2f;
             else if (frame >= 6 && frame <= 19)
-                animOffset = float.Lerp(2f, -2f, MathF.Sin((frame - 6) / 13f * MathF.Tau * 2f) * 0.5f + 0.5f);
+            {
+                float frameTime = (frame - 6) / 13f;
+                legOffsetX = MathF.Sin(frameTime * MathF.Tau) * 2f * direction;
+                legOffsetY = MathF.Max(MathF.Cos(frameTime * MathF.Tau), 0f) * -2f;
+                bellyOffset = MathF.Sin(frameTime * MathF.Tau * 2f) * -2f;
+            }
         }
-        wg._bellyOffset = animOffset;
+        wg._bellyOffset = bellyOffset;
 
         Color skinColor = drawInfo.colorBodySkin; //player.GetImmuneAlphaPure(player.skinColor, drawInfo.shadow);
         float t = wg.Weight.ClampedImmobility;
@@ -112,7 +117,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         Rectangle baseFrame = BaseTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData baseDrawData = new(
             BaseTexture.Value,
-            PrepPos(position, yOffset - MathF.Round(MathF.Abs(animOffset) / 2f) * 2f, player.gravDir),
+            PrepPos(position, MathF.Round(legOffsetX / 2f) * 2f, yOffset + MathF.Round(legOffsetY / 2f) * 2f, player.gravDir),
             baseFrame,
             skinColor,
             0f,
@@ -127,7 +132,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         Rectangle bellyFrame = BellyTexture.Frame(1, Weight.StageCount, 0, stage);
         DrawData bellyDrawData = new(
             BellyTexture.Value, // The texture to render.
-            PrepPos(position, yOffset + MathF.Round(animOffset / 2f) * 2f, player.gravDir), // Position to render at.
+            PrepPos(position, 0f, yOffset + MathF.Round(bellyOffset / 2f) * 2f, player.gravDir), // Position to render at.
             bellyFrame, // Source rectangle.
             skinColor, // Color.
             0f, // Rotation.
@@ -140,8 +145,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             WgArmor.Draw(wg, ref drawInfo, bellyDrawData, 1);
     }
 
-    static Vector2 PrepPos(Vector2 pos, float yOffset, float gravDir)
+    static Vector2 PrepPos(Vector2 pos, float xOffset, float yOffset, float gravDir)
     {
+        pos.X += xOffset;
         pos.Y += (1f + yOffset) * gravDir;
         return pos.Floor();
     }
