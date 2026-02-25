@@ -26,6 +26,7 @@ public class CrispyDiscipline : ModItem
         Item.damage = 25;
         Item.knockBack = 1.5f;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.buyPrice(gold: 1, silver: 50);
 
         Item.shoot = ModContent.ProjectileType<CrispyDisciplineProjectile>();
         Item.shootSpeed = 4;

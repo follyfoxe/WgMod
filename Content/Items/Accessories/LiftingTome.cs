@@ -30,7 +30,7 @@ public class LiftingTome : ModItem
     {
         Item.width = 34;
         Item.height = 40;
-        Item.value = Item.buyPrice(gold: 1);
+        Item.value = Item.buyPrice(gold: 4);
         Item.rare = ItemRarityID.Orange;
         Item.accessory = true;
     }

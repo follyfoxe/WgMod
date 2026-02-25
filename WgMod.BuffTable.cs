@@ -26,11 +26,13 @@ partial class WgMod
             (BuffID.Shine, 1f),
             (BuffID.NightOwl, 1f),
             (BuffID.Battle, 2f),
+            (BuffID.WaterWalking, 2f),
+            (BuffID.Warmth, 12f),
             (BuffID.Thorns, 1f),
             (BuffID.Archery, 2f),
             (BuffID.Hunter, 3f),
             (BuffID.Gravitation, 2f),
-            (BuffID.PotionSickness, 18f),
+            (BuffID.PotionSickness, 12f),
             (BuffID.Tipsy, 12f),
             (BuffID.Ichor, 2f),
             (BuffID.ManaSickness, 6f),
@@ -55,12 +57,16 @@ partial class WgMod
             (BuffID.SoulDrain, 1f),
             (BuffID.SugarRush, 12f),
             (BuffID.Lucky, 2f),
-            (BuffID.HeartyMeal, 2f),
-            (BuffID.Honey, GainOverTime(3f, 1f)), // Gain 3 kg every 1 second
+            (BuffID.HeartyMeal, GainOverTime(2f, 1f)),
+            (BuffID.Honey, GainOverTime(3f, 1f)),
+            (BuffID.SoulDrain, GainOverTime(3f, 1f)),
         ]);
 
         // WgMod
-        AddBuffs("WgMod", [("AmbrosiaGorged", 6f), ("WobWobWobWob", 8f)]);
+        AddBuffs(
+            "WgMod",
+            [("AmbrosiaGorged", 8f), ("WobWobWobWob", 8f), ("Caramel", 20f), ("CrispyDebuff", 6f)]
+        );
 
         // Calamity Mod
         AddBuffs(

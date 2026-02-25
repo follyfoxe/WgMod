@@ -81,7 +81,7 @@ Items: {
 		DisplayName: Vacuum Skirt
 		Tooltip:
 			'''
-			{0}% increased attack speed
+			Increases attack speed by {0}%
 			{1} increased maximum life
 			{2} increased defense
 			{3}% reduced damage taken
@@ -94,7 +94,7 @@ Items: {
 		DisplayName: Vacuum Helmet
 		Tooltip:
 			'''
-			{0}% increased critical strike chance
+			Increases critical strike chance by {0}%
 			{1} increased maximum life
 			{2} increased defense
 			{3}% reduced damage taken
@@ -113,7 +113,7 @@ Items: {
 		DisplayName: Vacuum Crop
 		Tooltip:
 			'''
-			{0}% increased damage
+			Increases damage by {0}%
 			{1} increased maximum life
 			{2} increased defense
 			{3}% reduced damage taken
@@ -221,7 +221,7 @@ Items: {
 		SetBonus:
 			'''
 			Increases magic damage by {0}%
-			Increases defense by {1}
+			{1} increased defense
 			'''
 	}
 

@@ -12,13 +12,14 @@ namespace WgMod.Content.Items.Weapons;
 public class HoneyedHamBat : ModItem
 {
     WgStat _damage = new(1f, 2f);
-    WgStat _knockback = new(1f, 1.5f);
+    WgStat _knockback = new(1f, 2f);
 
     public override void SetDefaults()
     {
         Item.CloneDefaults(ItemID.HamBat);
 
         Item.rare = ItemRarityID.Pink;
+        Item.value = Item.buyPrice(gold: 10);
 
         Item.damage = (int)(Item.damage * 3f);
         Item.useTime = (int)(Item.useTime * 1.5f);
