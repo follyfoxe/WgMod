@@ -31,7 +31,7 @@ public class SlimePie : ModItem
             ModContent.BuffType<Buffs.Consumables.WobWobWobWob>(),
             10 * 60 * 60
         );
-        Item.value = Item.buyPrice(0, 3);
+        Item.value = Item.sellPrice(silver: 50);
         Item.rare = ItemRarityID.Blue;
     }
 

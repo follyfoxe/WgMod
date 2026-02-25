@@ -231,7 +231,6 @@ Items: {
 			'''
 			Increases magic damage by {0}%
 			Increases mana cost by {1}%
-			Increases mana cost by {1}%
 			Immune to poison
 			Effects scale with your obesity
 			'''
@@ -340,14 +339,14 @@ Buffs: {
 			'''
 			Your belly is laden with power
 			Increased movement speed by {0}%
-			Increased defense by {1}
+			{1} increased defense
 			Increased life regen by {2} per second
 			'''
 	}
 
 	Weightless: {
 		DisplayName: Weightless
-		Description: Reduces movement pentalty of high weights by {0}%
+		Description: Reduces movement penalty of high weights by {0}%
 	}
 
 	GluttedGut: {
@@ -366,6 +365,7 @@ Buffs: {
 			'''
 			Enemies bounce off of you
 			Increased jump height and fall speed
+			Effects scale with your obesity
 			'You feel like slime royalty!'
 			'''
 	}

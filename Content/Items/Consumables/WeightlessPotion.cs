@@ -42,6 +42,7 @@ public class WeightlessPotion : ModItem
             .AddIngredient(ItemID.BottledWater)
             .AddIngredient(ItemID.Cloud)
             .AddIngredient(ItemID.Blinkroot)
+            .AddTile(TileID.Bottles)
             .Register();
     }
 }
