@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 
 namespace WgMod.Content.Buffs;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
 public class CrispyDebuff : ModBuff
 {
     public static readonly int TagDamage = 10;

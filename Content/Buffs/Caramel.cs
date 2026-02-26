@@ -7,6 +7,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Buffs;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
 public class Caramel : ModBuff
 {
     WgStat _defense = new(5, 15);
