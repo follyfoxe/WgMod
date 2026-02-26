@@ -12,4 +12,7 @@ Discord tags of the people that helped make this possible
 [c/C42254:Contributions]
 - @ubulumn (Buff sprites)
 - @trilophyte (Accessory sprites, armor sprites)
-- @sinnerdrip (Hellish bee sprites and icons)
+- @sinnerdrip (Hellish bee sprites, icons, etc)
+
+[c/EFBF00:Full credits]
+[wgmodcred:0]

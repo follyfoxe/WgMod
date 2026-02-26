@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Core;
+using Terraria.UI.Chat;
 using WgMod.Common.Configs;
 
 namespace WgMod;
@@ -42,6 +45,7 @@ public enum Contributor
 
 public static class Credits
 {
+    public static TextSnippet AutoCredits { get; private set; }
     public static readonly Dictionary<Type, TooltipLine> Tooltips = [];
 
     public static short GetIcon(ProjectRole role) => role switch
@@ -55,6 +59,10 @@ public static class Credits
 
     public static void Scan(Mod mod)
     {
+        Dictionary<Contributor, List<string>> roles = [];
+        foreach (Contributor contributor in Enum.GetValues<Contributor>())
+            roles.Add(contributor, [$"@{contributor}"]);
+
         Type[] types = AssemblyManager.GetLoadableTypes(mod.Code);
         foreach (Type type in types)
         {
@@ -68,9 +76,22 @@ public static class Credits
                 if (i != 0)
                     text += "\n";
                 text += $"[i:{GetIcon(credit.Role)}] [c/808080:{credit.Role}: @{credit.Contributor}]";
+                roles[credit.Contributor].Add($"- {type.Name} ({credit.Role})");
             }
             Tooltips.Add(type, new TooltipLine(mod, "Credits", text));
         }
+
+        StringBuilder builder = new();
+        foreach (var list in roles.Values)
+        {
+            if (list.Count <= 1)
+                continue;
+            foreach (string item in list)
+                builder.AppendLine(item);
+            builder.AppendLine();
+        }
+        AutoCredits = new TextSnippet(builder.ToString());
+        ChatManager.Register<CreditsTagHandler>("wgmodcred");
     }
 }
 
@@ -98,5 +119,13 @@ public class CreditsGlobalBuff : GlobalBuff
             return;
         if (Credits.Tooltips.TryGetValue(buff.GetType(), out TooltipLine line))
             tip += "\n" + line.Text;
+    }
+}
+
+public class CreditsTagHandler : ITagHandler
+{
+    public TextSnippet Parse(string text, Color baseColor = default, string options = null)
+    {
+        return Credits.AutoCredits;
     }
 }
