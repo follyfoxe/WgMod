@@ -130,7 +130,7 @@ public class CrispyDisciplineProjectile : ModProjectile
         {
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
-                player.position,
+                player.Center,
                 new Vector2(0, 0),
                 ModContent.ProjectileType<HellishBee>(),
                 _beeDamage,
