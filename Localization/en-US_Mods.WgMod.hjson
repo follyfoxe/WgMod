@@ -395,6 +395,11 @@ Buffs: {
 		DisplayName: Pillar Wrath
 		Description: "'You are overwhelmed with pain...'"
 	}
+
+	ForceFed: {
+		DisplayName: Force Fed
+		Description: You are being forced to eat against your will!
+	}
 }
 
 Configs: {
