@@ -64,7 +64,7 @@ public class HellishBee : ModProjectile
             _weightProgress++;
 
             SoundEngine.PlaySound(
-                new SoundStyle("WgMod/Assets/Sounds/gulp_", 4, SoundType.Sound),
+                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
                 Projectile.Center
             );
 

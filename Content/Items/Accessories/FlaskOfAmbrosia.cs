@@ -71,7 +71,7 @@ public class AmbrosiaPlayer : ModPlayer
         if (_active)
         {
             Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
-            SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/gulp_", 4, SoundType.Sound), Player.Center);
+            SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
 
             for (int i = 0; i < 50; i++)
             {
