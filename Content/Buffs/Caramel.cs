@@ -26,7 +26,17 @@ public class Caramel : ModBuff
 
         int dustRate = 5;
         if (Main.rand.NextBool(dustRate))
-            Dust.NewDust(player.position, player.width, player.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 0.7f);
+            Dust.NewDust(
+                player.position,
+                player.width,
+                player.height,
+                DustID.t_Honey,
+                0f,
+                0.5f,
+                150,
+                new Color(151, 93, 15),
+                0.7f
+            );
     }
 
     public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)

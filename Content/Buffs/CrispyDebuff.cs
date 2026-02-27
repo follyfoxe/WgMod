@@ -23,18 +23,40 @@ public class CrispyDebuff : ModBuff
 
     public override void Update(NPC npc, ref int buffIndex)
     {
+        npc.GetGlobalNPC<CrispyDebuffNPC>().Caramelized = true;
+
         int dustRate = 15;
         if (Main.rand.NextBool(dustRate))
-            Dust.NewDust(npc.position, npc.width, npc.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 1.3f);
-        npc.GetGlobalNPC<CrispyDebuffNPC>().Caramelized = true;
+            Dust.NewDust(
+                npc.position,
+                npc.width,
+                npc.height,
+                DustID.t_Honey,
+                0f,
+                0.5f,
+                150,
+                new Color(151, 93, 15),
+                1.3f
+            );
     }
 
     public override void Update(Player player, ref int buffIndex)
     {
+        player.GetModPlayer<CrispyDebuffPlayer>().Caramelized = true;
+
         int dustRate = 15;
         if (Main.rand.NextBool(dustRate))
-            Dust.NewDust(player.position, player.width, player.height, DustID.t_Honey, 0f, 0.5f, 150, new Color(151, 93, 15), 1.3f);
-        player.GetModPlayer<CrispyDebuffPlayer>().Caramelized = true;
+            Dust.NewDust(
+                player.position,
+                player.width,
+                player.height,
+                DustID.t_Honey,
+                0f,
+                0.5f,
+                150,
+                new Color(151, 93, 15),
+                1.3f
+            );
     }
 }
 
@@ -47,7 +69,11 @@ public class CrispyDebuffNPC : GlobalNPC
         Caramelized = false;
     }
 
-    public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
+    public override void ModifyHitByProjectile(
+        NPC npc,
+        Projectile projectile,
+        ref NPC.HitModifiers modifiers
+    )
     {
         if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
             return;
