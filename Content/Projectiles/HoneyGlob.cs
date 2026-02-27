@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using WgMod.Common.Players;
 
 namespace WgMod.Content.Projectiles;
 
@@ -13,6 +14,7 @@ public class HoneyGlob : ModProjectile
     {
         Main.projFrames[Type] = 3;
     }
+
     public override void SetDefaults()
     {
         Projectile.width = 10;
@@ -91,5 +93,19 @@ public class HoneyGlob : ModProjectile
             dust.velocity *= 5f;
             dust.scale *= 0.9f;
         }
+    }
+}
+
+public class HoneyGlobPlayer : ModPlayer
+{
+    public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+    {
+        if (
+            proj.type != ModContent.ProjectileType<HoneyGlob>()
+            || !Player.TryGetModPlayer(out WgPlayer wg)
+        )
+            return;
+
+        wg.SetWeight(wg.Weight + hurtInfo.Damage / 6);
     }
 }

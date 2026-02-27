@@ -75,9 +75,12 @@ public class CrispyDisciplineProjectile : ModProjectile
         }
 
         float swingProgress = Timer / swingTime;
-        if (Utils.GetLerpValue(0.1f, 0.7f, swingProgress, clamped: true)
-                * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true) > 0.5f
-            && !Main.rand.NextBool(3))
+        if (
+            Utils.GetLerpValue(0.1f, 0.7f, swingProgress, clamped: true)
+                * Utils.GetLerpValue(0.9f, 0.7f, swingProgress, clamped: true)
+                > 0.5f
+            && !Main.rand.NextBool(3)
+        )
         {
             List<Vector2> points = Projectile.WhipPointsForCollision;
             points.Clear();
@@ -112,6 +115,40 @@ public class CrispyDisciplineProjectile : ModProjectile
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        Player player = Main.player[Projectile.owner];
+        if (!player.TryGetModPlayer(out WgPlayer wg))
+            return;
+        float immobility = wg.Weight.ClampedImmobility;
+
+        _damage.Lerp(immobility);
+        _knockback.Lerp(immobility);
+
+        if (player.strongBees == true)
+            _beeDamage = _damage * 0.4f;
+        else
+            _beeDamage = _damage * 0.2f;
+
+        if (!player.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
+        {
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                new Vector2(0, 0),
+                ModContent.ProjectileType<HellishBee>(),
+                _beeDamage,
+                _knockback * 0.25f
+            );
+            SoundEngine.PlaySound(SoundID.Item76);
+        }
+
+        target.AddBuff(ModContent.BuffType<CrispyDebuff>(), 4 * 60);
+        player.AddBuff(ModContent.BuffType<HellsBeesBuff>(), 10 * 60);
+        player.MinionAttackTargetNPC = target.whoAmI;
+        Projectile.damage = (int)(Projectile.damage * 0.7f);
+    }
+
+    public override void OnHitPlayer(Player target, Player.HurtInfo info)
     {
         Player player = Main.player[Projectile.owner];
         if (!player.TryGetModPlayer(out WgPlayer wg))
@@ -183,7 +220,8 @@ public class CrispyDisciplineProjectile : ModProjectile
 
         DrawLine(list);
 
-        SpriteEffects flip = Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
+        SpriteEffects flip =
+            Projectile.spriteDirection < 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Texture2D texture = TextureAssets.Projectile[Type].Value;
         Vector2 pos = list[0];
 
@@ -244,5 +282,19 @@ public class CrispyDisciplineProjectile : ModProjectile
             pos += diff;
         }
         return false;
+    }
+}
+
+public class CirspyDisciplinePlayer : ModPlayer
+{
+    public override void OnHitByProjectile(Projectile proj, Player.HurtInfo hurtInfo)
+    {
+        if (
+            proj.type != ModContent.ProjectileType<CrispyDisciplineProjectile>()
+            || !Player.TryGetModPlayer(out WgPlayer wg)
+        )
+            return;
+
+        wg.SetWeight(wg.Weight + hurtInfo.Damage / 6);
     }
 }
