@@ -21,8 +21,8 @@ public class Oven : ModTile
 
         RegisterItemDrop(ModContent.ItemType<Items.Placeable.Furniture.Oven>(), 1);
 
-        TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
-        TileObjectData.newTile.Origin = new Point16(0, 1);
+        TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
+        TileObjectData.newTile.Origin = new Point16(1, 1);
         TileObjectData.newTile.CoordinateHeights = [16, 18];
         TileObjectData.newTile.AnchorInvalidTiles =
         [

@@ -40,7 +40,8 @@ public enum Contributor
     [Category("Contributors")]
     ubulumn,
     trilophyte,
-    sinnerdrip
+    sinnerdrip,
+    subparnitragen
 }
 
 public static class Credits

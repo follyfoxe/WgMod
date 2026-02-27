@@ -4,13 +4,15 @@ using Terraria.ModLoader;
 
 namespace WgMod.Content.Items.Placeable.Furniture;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.subparnitragen)]
 public class Oven : ModItem
 {
     public override void SetDefaults()
     {
         Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Furniture.Oven>());
-        Item.width = 26;
-        Item.height = 22;
+        Item.width = 48;
+        Item.height = 34;
         Item.value = 500;
     }
 

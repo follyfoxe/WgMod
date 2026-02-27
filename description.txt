@@ -13,6 +13,7 @@ Discord tags of the people that helped make this possible
 - @ubulumn (Buff sprites)
 - @trilophyte (Accessory sprites, armor sprites)
 - @sinnerdrip (Hellish bee sprites, icons, etc)
+- @subparnitragen (Oven sprites)
 
 [c/EFBF00:Full credits]
 [wgmodcred:0]
