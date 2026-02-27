@@ -10,7 +10,7 @@ namespace WgMod.Content.NPCs;
 
 public class GlobalNPCPlayer : ModPlayer
 {
-    HashSet<int> Slimes = new HashSet<int>
+    HashSet<int> _slimes = new HashSet<int>
     {
         NPCID.BlueSlime,
         NPCID.GreenSlime,
@@ -54,7 +54,7 @@ public class GlobalNPCPlayer : ModPlayer
         NPCID.SlimedZombie,
     };
 
-    HashSet<int> Bees = new HashSet<int>
+    HashSet<int> _bees = new HashSet<int>
     {
         NPCID.Bee,
         NPCID.BeeSmall,
@@ -83,7 +83,7 @@ public class GlobalNPCPlayer : ModPlayer
         NPCID.VortexHornetQueen,
     };
 
-    HashSet<int> Feeders = new HashSet<int>
+    HashSet<int> _feeders = new HashSet<int>
     {
         NPCID.Demon,
         NPCID.FireImp,
@@ -142,10 +142,10 @@ public class GlobalNPCPlayer : ModPlayer
 
     public override void Load()
     {
-        AddNpcs(Slimes, "Consolaria", "ShadowSlime");
-        AddNpcs(Bees, "Consolaria", "DragonHornet");
+        AddNpcs(_slimes, "Consolaria", "ShadowSlime");
+        AddNpcs(_bees, "Consolaria", "DragonHornet");
         AddNpcs(
-            Feeders,
+            _feeders,
             "Consolaria",
             "TurkortheUngrateful",
             "TurkorNeck",
@@ -154,7 +154,7 @@ public class GlobalNPCPlayer : ModPlayer
         );
 
         AddNpcs(
-            Slimes,
+            _slimes,
             "CalamityMod",
             "PerennialSlime",
             "AeroSlime",
@@ -175,7 +175,7 @@ public class GlobalNPCPlayer : ModPlayer
         );
 
         AddNpcs(
-            Feeders,
+            _feeders,
             "CalamityMod",
             "WulfrumAmplifier",
             "WulfrumDrone",
@@ -207,7 +207,7 @@ public class GlobalNPCPlayer : ModPlayer
         );
 
         AddNpcs(
-            Feeders,
+            _feeders,
             "CalamityFables",
             "WulfrumGrappler",
             "WulfrumMagnetizer",
@@ -223,7 +223,7 @@ public class GlobalNPCPlayer : ModPlayer
         if (!Player.TryGetModPlayer(out WgPlayer wg))
             return;
 
-        if (Slimes.Contains(npc.type))
+        if (_slimes.Contains(npc.type))
         {
             Player.AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage);
             wg.SetWeight(wg.Weight + hurtInfo.Damage / 10);
@@ -234,7 +234,7 @@ public class GlobalNPCPlayer : ModPlayer
             );
         }
 
-        if (Bees.Contains(npc.type))
+        if (_bees.Contains(npc.type))
         {
             Player.AddBuff(BuffID.Honey, 10 * hurtInfo.Damage);
             wg.SetWeight(wg.Weight + hurtInfo.Damage / 8);
@@ -245,7 +245,7 @@ public class GlobalNPCPlayer : ModPlayer
             );
         }
 
-        if (Feeders.Contains(npc.type))
+        if (_feeders.Contains(npc.type))
         {
             Player.AddBuff(ModContent.BuffType<ForceFed>(), 10 * hurtInfo.Damage);
             wg.SetWeight(wg.Weight + hurtInfo.Damage / 6);
