@@ -33,7 +33,7 @@ public partial class WgMod : Mod
             if (!foundMod.TryFind(name, out ModBuff foundBuff))
             {
                 Logger.Warn($"Couldn't find buff '{name}' for mod '{mod}'");
-                return;
+                continue;
             }
             _buffTable[foundBuff.Type] = gain;
         }

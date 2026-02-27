@@ -3,15 +3,14 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WgMod.Common.Players;
 using WgMod.Content.Buffs;
 
-namespace WgMod.Content.NPCs;
+namespace WgMod.Common.Players;
 
-public class GlobalNPCPlayer : ModPlayer
+public class BuffHitPlayer : ModPlayer
 {
-    HashSet<int> _slimes = new HashSet<int>
-    {
+    readonly HashSet<int> _slimes =
+    [
         NPCID.BlueSlime,
         NPCID.GreenSlime,
         NPCID.RedSlime,
@@ -52,10 +51,10 @@ public class GlobalNPCPlayer : ModPlayer
         NPCID.QueenSlimeMinionPurple,
         NPCID.HoppinJack,
         NPCID.SlimedZombie,
-    };
+    ];
 
-    HashSet<int> _bees = new HashSet<int>
-    {
+    readonly HashSet<int> _bees =
+    [
         NPCID.Bee,
         NPCID.BeeSmall,
         NPCID.QueenBee,
@@ -81,10 +80,10 @@ public class GlobalNPCPlayer : ModPlayer
         NPCID.LittleHornetStingy,
         NPCID.VortexHornet,
         NPCID.VortexHornetQueen,
-    };
+    ];
 
-    HashSet<int> _feeders = new HashSet<int>
-    {
+    readonly HashSet<int> _feeders =
+    [
         NPCID.Demon,
         NPCID.FireImp,
         NPCID.Nymph,
@@ -130,21 +129,28 @@ public class GlobalNPCPlayer : ModPlayer
         NPCID.AncientDoom,
         NPCID.BurningSphere,
         NPCID.PresentMimic,
-    };
+    ];
 
-    void AddNpcs(HashSet<int> table, string mod, params string[] npcs)
+    void AddNPCs(HashSet<int> table, string mod, params string[] npcs)
     {
         if (!ModLoader.TryGetMod(mod, out Mod foundMod))
             return;
         foreach (string npc in npcs)
-            table.Add(foundMod.Find<ModNPC>(npc).Type);
+        {
+            if (!foundMod.TryFind(npc, out ModNPC foundNpc))
+            {
+                Mod.Logger.Warn($"Couldn't find buff '{npc}' for mod '{mod}'");
+                continue;
+            }
+            table.Add(foundNpc.Type);
+        }
     }
 
     public override void Load()
     {
-        AddNpcs(_slimes, "Consolaria", "ShadowSlime");
-        AddNpcs(_bees, "Consolaria", "DragonHornet");
-        AddNpcs(
+        AddNPCs(_slimes, "Consolaria", "ShadowSlime");
+        AddNPCs(_bees, "Consolaria", "DragonHornet");
+        AddNPCs(
             _feeders,
             "Consolaria",
             "TurkortheUngrateful",
@@ -153,7 +159,7 @@ public class GlobalNPCPlayer : ModPlayer
             "ArchDemon"
         );
 
-        AddNpcs(
+        AddNPCs(
             _slimes,
             "CalamityMod",
             "PerennialSlime",
@@ -174,7 +180,7 @@ public class GlobalNPCPlayer : ModPlayer
             "IrradiatedSlime"
         );
 
-        AddNpcs(
+        AddNPCs(
             _feeders,
             "CalamityMod",
             "WulfrumAmplifier",
@@ -206,7 +212,7 @@ public class GlobalNPCPlayer : ModPlayer
             "RenegadeWarlock"
         );
 
-        AddNpcs(
+        AddNPCs(
             _feeders,
             "CalamityFables",
             "WulfrumGrappler",
@@ -218,42 +224,22 @@ public class GlobalNPCPlayer : ModPlayer
         );
     }
 
-    public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+    void AddBuff(int type, int timeToAdd, float weightGain)
     {
         if (!Player.TryGetModPlayer(out WgPlayer wg))
             return;
+        Player.AddBuff(type, timeToAdd);
+        wg.SetWeight(wg.Weight + weightGain);
+        SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
+    }
 
+    public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
+    {
         if (_slimes.Contains(npc.type))
-        {
-            Player.AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage);
-            wg.SetWeight(wg.Weight + hurtInfo.Damage / 10);
-
-            SoundEngine.PlaySound(
-                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
-                Player.Center
-            );
-        }
-
+            AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage, hurtInfo.Damage / 10);
         if (_bees.Contains(npc.type))
-        {
-            Player.AddBuff(BuffID.Honey, 10 * hurtInfo.Damage);
-            wg.SetWeight(wg.Weight + hurtInfo.Damage / 8);
-
-            SoundEngine.PlaySound(
-                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
-                Player.Center
-            );
-        }
-
+            AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage, hurtInfo.Damage / 8);
         if (_feeders.Contains(npc.type))
-        {
-            Player.AddBuff(ModContent.BuffType<ForceFed>(), 10 * hurtInfo.Damage);
-            wg.SetWeight(wg.Weight + hurtInfo.Damage / 6);
-
-            SoundEngine.PlaySound(
-                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
-                Player.Center
-            );
-        }
+            AddBuff(ModContent.BuffType<ForceFed>(), 10 * hurtInfo.Damage, hurtInfo.Damage / 6);
     }
 }
