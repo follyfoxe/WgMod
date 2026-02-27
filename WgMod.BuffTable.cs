@@ -65,7 +65,14 @@ partial class WgMod
         // WgMod
         AddBuffs(
             "WgMod",
-            [("AmbrosiaGorged", 8f), ("WobWobWobWob", 8f), ("Caramel", 20f), ("CrispyDebuff", 6f)]
+            [
+                ("AmbrosiaGorged", 8f),
+                ("WobWobWobWob", 8f),
+                ("GnomeLuck", 8f),
+                ("SpikedSkin", 8f),
+                ("Caramel", 20f),
+                ("CrispyDebuff", 6f),
+            ]
         );
 
         // Calamity Mod
@@ -128,7 +135,7 @@ partial class WgMod
                 ("PiercingBuff", 4f),
                 ("PredatorBuff", 2f),
                 ("SteelfallBuff", 24f),
-                ("WarBuff", 4f)
+                ("WarBuff", 4f),
             ]
         );
     }
