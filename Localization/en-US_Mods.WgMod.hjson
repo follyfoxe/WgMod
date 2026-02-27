@@ -32,7 +32,7 @@ Items: {
 			Provides the ability to walk on water, honey & lava
 			Grants immunity to fire blocks and 7 seconds of immunity to lava
 			Reduces damage from touching lava
-			Reduces the movement penalty from high weights!
+			Greatly reduces the movement penalty from high weights!
 			'''
 	}
 
@@ -301,6 +301,56 @@ Items: {
 			'You can't go wrong dousing something in honey.'
 			'''
 	}
+
+	GluttonyHood: {
+		DisplayName: Gluttony Hood
+		Tooltip:
+			'''
+			Increases damage by {0}%
+			Increases critical stirike chance by {1}%
+			{2} increased defense
+			{3}% reduced damage taken
+			'''
+		SetBonus:
+			'''
+			Melee weapons are larger, ranged weapons use less ammo
+			Magic weapons cost less mana, increases the maximum number of minions by {0}
+			Slightly reduces the movement penalty from high weights!
+			Effects scale with your obesity
+			'''
+	}
+
+	GluttonyCrop: {
+		DisplayName: Gluttony Crop
+		Tooltip:
+			'''
+			Increases damage by {0}%
+			Decreased attack speed by {1}%
+			{2} increased defense
+			{3}% reduced damage taken
+			'''
+	}
+
+	GluttonySkirt: {
+		DisplayName: Gluttony Skirt
+		Tooltip:
+			'''
+			Increases damage by {0}%
+			Increases critical stirike chance by {1}%
+			{2} increased defense
+			{3}% reduced damage taken
+			'''
+	}
+
+	AcornCake: {
+		DisplayName: Acorn Cake
+		Tooltip: Eating this makes you feel lucky!
+	}
+
+	BakedNopales: {
+		DisplayName: Nopales Empanadas
+		Tooltip: Cactus can be very delicious!
+	}
 }
 
 Buffs: {
@@ -399,6 +449,25 @@ Buffs: {
 	ForceFed: {
 		DisplayName: Force Fed
 		Description: You are being forced to eat against your will!
+	}
+
+	GnomeLuck: {
+		DisplayName: Gnome Luck
+		Description:
+			'''
+			{0}
+			Effects scale with your obesity
+			'''
+	}
+
+	SpikedSkin: {
+		DisplayName: Spiked Skin
+		Description:
+			'''
+			Attackers also take damage
+			Effects scale with your obesity
+			'if sharp, why so soft?'
+			'''
 	}
 }
 

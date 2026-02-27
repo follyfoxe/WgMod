@@ -9,13 +9,6 @@ public class WobWobWobWob : ModBuff
 {
     WgStat _jumpSpeedBoost = new(5f, 15f);
 
-    public override void SetStaticDefaults()
-    {
-        Main.debuff[Type] = false;
-        Main.pvpBuff[Type] = true;
-        Main.buffNoSave[Type] = true;
-    }
-
     public override void Update(Player player, ref int buffIndex) // Todo: Add more bouncy! Make the player bounce off of walls!
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
