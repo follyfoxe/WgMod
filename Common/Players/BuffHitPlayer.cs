@@ -35,7 +35,7 @@ public partial class BuffHitPlayer : ModPlayer
             return;
         Player.AddBuff(type, timeToAdd);
         wg.SetWeight(wg.Weight + weightGain);
-        SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
+        SoundEngine.PlaySound(WgSounds.Gulp, Player.Center);
     }
 
     public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)

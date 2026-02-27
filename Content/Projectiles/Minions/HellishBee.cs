@@ -63,20 +63,14 @@ public class HellishBee : ModProjectile
             target.DelBuff(target.FindBuffIndex(crispyDebuff));
             _weightProgress++;
 
-            SoundEngine.PlaySound(
-                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
-                Projectile.Center
-            );
+            SoundEngine.PlaySound(WgSounds.Gulp, Projectile.Center);
 
             if (_weightProgress >= 7)
             {
                 _weightProgress = 0;
                 _weightStage++;
 
-                SoundEngine.PlaySound(
-                    new SoundStyle("WgMod/Assets/Sounds/Belly_", 3, SoundType.Sound),
-                    Projectile.Center
-                );
+                SoundEngine.PlaySound(WgSounds.Belly, Projectile.Center);
             }
         }
         Projectile.scale = float.Lerp(1f, 1.1f, _weightStage / (float)MaxStage);

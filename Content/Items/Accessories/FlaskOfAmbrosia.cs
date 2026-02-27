@@ -61,9 +61,7 @@ public class AmbrosiaPlayer : ModPlayer
         _dustRate = 30;
 
         if (Main.rand.NextBool(_dustRate) && _active == true && _hidden == false)
-        {
             Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.YellowTorch, 0f, 0f, 100, default, 0.7f);
-        }
     }
 
     public override void OnHurt(Player.HurtInfo info)
@@ -71,12 +69,10 @@ public class AmbrosiaPlayer : ModPlayer
         if (_active)
         {
             Player.AddBuff(ModContent.BuffType<AmbrosiaGorged>(), 8 * 60);
-            SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
+            SoundEngine.PlaySound(WgSounds.Gulp, Player.Center);
 
             for (int i = 0; i < 50; i++)
-            {
                 Dust.NewDust(Player.position, Player.width, Player.height, DustID.t_Honey, 0f, 0.5f, 100, default, 1.3f);
-            }
         }
     }
 }

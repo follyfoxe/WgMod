@@ -27,10 +27,7 @@ public class ForceFed : ModBuff
         {
             cooldown = 0;
             wg.SetWeight(wg.Weight + 3);
-            SoundEngine.PlaySound(
-                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
-                player.Center
-            );
+            SoundEngine.PlaySound(WgSounds.Gulp, player.Center);
         }
     }
 }
