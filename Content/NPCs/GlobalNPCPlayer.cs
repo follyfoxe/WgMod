@@ -225,22 +225,35 @@ public class GlobalNPCPlayer : ModPlayer
 
         if (Slimes.Contains(npc.type))
         {
-            Player.AddBuff(BuffID.Slimed, 60);
-            SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
+            Player.AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage);
+            wg.SetWeight(wg.Weight + hurtInfo.Damage / 10);
+
+            SoundEngine.PlaySound(
+                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
+                Player.Center
+            );
         }
 
         if (Bees.Contains(npc.type))
         {
-            Player.AddBuff(BuffID.Honey, 60);
-            SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
+            Player.AddBuff(BuffID.Honey, 10 * hurtInfo.Damage);
+            wg.SetWeight(wg.Weight + hurtInfo.Damage / 8);
+
+            SoundEngine.PlaySound(
+                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
+                Player.Center
+            );
         }
 
         if (Feeders.Contains(npc.type))
         {
             Player.AddBuff(ModContent.BuffType<ForceFed>(), 10 * hurtInfo.Damage);
-            SoundEngine.PlaySound(new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound), Player.Center);
+            wg.SetWeight(wg.Weight + hurtInfo.Damage / 6);
 
-            wg.SetWeight(wg.Weight + hurtInfo.Damage / 5);
+            SoundEngine.PlaySound(
+                new SoundStyle("WgMod/Assets/Sounds/Gulp_", 4, SoundType.Sound),
+                Player.Center
+            );
         }
     }
 }
