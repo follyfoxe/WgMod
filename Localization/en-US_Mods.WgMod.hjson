@@ -437,11 +437,6 @@ Buffs: {
 			'''
 	}
 
-	CrispyDebuff: {
-		DisplayName: Caramelized
-		Description: You're covered in caramel!
-	}
-
 	Caramel: {
 		DisplayName: Caramel
 		Description: Increases defense by {0}
@@ -478,7 +473,7 @@ Buffs: {
 
 	Caramelized: {
 		DisplayName: Caramelized
-		Description: Mods.WgMod.Buffs.Caramelized.Description
+		Description: You're covered in caramel!
 	}
 }
 
