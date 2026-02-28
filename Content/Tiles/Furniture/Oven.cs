@@ -19,8 +19,9 @@ public class Oven : ModTile
 
         AddMapEntry(new Color(200, 200, 200));
 
-        RegisterItemDrop(ModContent.ItemType<Items.Placeable.Furniture.Oven>(), 1);
+        RegisterItemDrop(ModContent.ItemType<Items.Placeable.Furniture.GraniteOven>(), 1);
 
+        TileObjectData.newTile.StyleHorizontal = true;
         TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
         TileObjectData.newTile.Origin = new Point16(1, 1);
         TileObjectData.newTile.CoordinateHeights = [16, 18];

@@ -6,13 +6,13 @@ namespace WgMod.Content.Items.Placeable.Furniture;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.subparnitragen)]
-public class Oven : ModItem
+public class GraniteOven : ModItem
 {
     public override void SetDefaults()
     {
-        Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Furniture.Oven>());
-        Item.width = 48;
-        Item.height = 34;
+        Item.DefaultToPlaceableTile(ModContent.TileType<Tiles.Furniture.Oven>(), 1);
+        Item.width = 36;
+        Item.height = 26;
         Item.value = 500;
     }
 
@@ -20,7 +20,7 @@ public class Oven : ModItem
     {
         CreateRecipe()
             .AddIngredient(ItemID.CookingPot)
-            .AddIngredient(ItemID.Wire, 12)
+            .AddIngredient(ItemID.Granite, 12)
             .AddIngredient(ItemID.Fireblossom, 6)
             .AddTile(TileID.Anvils)
             .Register();
