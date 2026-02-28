@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
@@ -37,24 +38,17 @@ public partial class BuffHitPlayer : ModPlayer
         Player.AddBuff(type, timeToAdd);
         wg.SetWeight(wg.Weight + weightGain);
         SoundEngine.PlaySound(WgSounds.Gulp, Player.Center);
+        if (weightGain > 0f)
+            CombatText.NewText(Player.getRect(), Color.Yellow, weightGain + " kg");
     }
 
     public override void OnHitByNPC(NPC npc, Player.HurtInfo hurtInfo)
     {
         if (_slimes.Contains(npc.type))
-        {
             AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage, hurtInfo.Damage / 10);
-            CombatText.NewText(Player.getRect(), Color.Yellow, hurtInfo.Damage / 10 + 2);
-        }
         if (_bees.Contains(npc.type))
-        {
             AddBuff(BuffID.Slimed, 10 * hurtInfo.Damage, hurtInfo.Damage / 8);
-            CombatText.NewText(Player.getRect(), Color.Yellow, hurtInfo.Damage / 10 + 3);
-        }
         if (_feeders.Contains(npc.type))
-        {
             AddBuff(ModContent.BuffType<ForceFed>(), 10 * hurtInfo.Damage, hurtInfo.Damage / 6);
-            CombatText.NewText(Player.getRect(), Color.Yellow, hurtInfo.Damage / 10);
-        }
     }
 }

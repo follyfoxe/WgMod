@@ -8,8 +8,8 @@ namespace WgMod.Content.Buffs;
 
 public class ForceFed : ModBuff
 {
+    const int FatPerCycle = 3;
     int _cooldown;
-    int _fatPerSecond = 3;
 
     public override void SetStaticDefaults()
     {
@@ -28,8 +28,8 @@ public class ForceFed : ModBuff
         else
         {
             _cooldown = 0;
-            wg.SetWeight(wg.Weight + _fatPerSecond);
-            CombatText.NewText(player.getRect(), Color.Yellow, _fatPerSecond);
+            wg.SetWeight(wg.Weight + FatPerCycle);
+            CombatText.NewText(player.getRect(), Color.Yellow, FatPerCycle + " kg");
             SoundEngine.PlaySound(WgSounds.Gulp, player.Center);
         }
     }

@@ -345,7 +345,7 @@ Items: {
 
 	AmuletOfStarving: {
 		DisplayName: Amulet Of Starving
-		Tooltip: 
+		Tooltip:
 			'''
 			Greatly increases the rate at which you lose weight
 			'Shadowflame sure burns calories fast!'
