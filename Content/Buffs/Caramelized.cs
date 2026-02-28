@@ -7,7 +7,7 @@ namespace WgMod.Content.Buffs;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
-public class CrispyDebuff : ModBuff
+public class Caramelized : ModBuff
 {
     public static readonly int TagDamage = 10;
 
@@ -23,7 +23,7 @@ public class CrispyDebuff : ModBuff
 
     public override void Update(NPC npc, ref int buffIndex)
     {
-        npc.GetGlobalNPC<CrispyDebuffNPC>().Caramelized = true;
+        npc.GetGlobalNPC<CaramelizedNPC>().CaramelizedEffect = true;
 
         int dustRate = 15;
         if (Main.rand.NextBool(dustRate))
@@ -42,7 +42,7 @@ public class CrispyDebuff : ModBuff
 
     public override void Update(Player player, ref int buffIndex)
     {
-        player.GetModPlayer<CrispyDebuffPlayer>().Caramelized = true;
+        player.GetModPlayer<CrispyDebuffPlayer>().CaramelizedEffect = true;
 
         int dustRate = 15;
         if (Main.rand.NextBool(dustRate))
@@ -60,13 +60,13 @@ public class CrispyDebuff : ModBuff
     }
 }
 
-public class CrispyDebuffNPC : GlobalNPC
+public class CaramelizedNPC : GlobalNPC
 {
-    public bool Caramelized;
+    public bool CaramelizedEffect;
 
     public override void ResetEffects(NPC npc)
     {
-        Caramelized = false;
+        CaramelizedEffect = false;
     }
 
     public override void ModifyHitByProjectile(
@@ -79,9 +79,9 @@ public class CrispyDebuffNPC : GlobalNPC
             return;
 
         var projTagMultiplier = ProjectileID.Sets.SummonTagDamageMultiplier[projectile.type];
-        if (npc.HasBuff<CrispyDebuff>())
+        if (npc.HasBuff<Caramelized>())
         {
-            modifiers.FlatBonusDamage += CrispyDebuff.TagDamage * projTagMultiplier;
+            modifiers.FlatBonusDamage += Caramelized.TagDamage * projTagMultiplier;
         }
     }
 
@@ -89,7 +89,7 @@ public class CrispyDebuffNPC : GlobalNPC
 
     public override void UpdateLifeRegen(NPC npc, ref int damage)
     {
-        if (!Caramelized)
+        if (!CaramelizedEffect)
             return;
 
         damage = 5;
@@ -102,7 +102,7 @@ public class CrispyDebuffNPC : GlobalNPC
 
     public override void DrawEffects(NPC npc, ref Color drawColor)
     {
-        if (!Caramelized)
+        if (!CaramelizedEffect)
             return;
         drawColor = new Color(151, 93, 15);
     }
@@ -110,16 +110,16 @@ public class CrispyDebuffNPC : GlobalNPC
 
 public class CrispyDebuffPlayer : ModPlayer
 {
-    public bool Caramelized;
+    public bool CaramelizedEffect;
 
     public override void ResetEffects()
     {
-        Caramelized = false;
+        CaramelizedEffect = false;
     }
 
     public override void UpdateBadLifeRegen()
     {
-        if (!Caramelized)
+        if (!CaramelizedEffect)
             return;
 
         if (Player.lifeRegen > 0)

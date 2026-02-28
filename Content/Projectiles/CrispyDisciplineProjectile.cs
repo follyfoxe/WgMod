@@ -142,7 +142,7 @@ public class CrispyDisciplineProjectile : ModProjectile
             SoundEngine.PlaySound(SoundID.Item76);
         }
 
-        target.AddBuff(ModContent.BuffType<CrispyDebuff>(), 4 * 60);
+        target.AddBuff(ModContent.BuffType<Caramelized>(), 4 * 60);
         player.AddBuff(ModContent.BuffType<HellsBeesBuff>(), 10 * 60);
         player.MinionAttackTargetNPC = target.whoAmI;
         Projectile.damage = (int)(Projectile.damage * 0.7f);
@@ -159,9 +159,9 @@ public class CrispyDisciplineProjectile : ModProjectile
         _knockback.Lerp(immobility);
 
         if (player.strongBees == true)
-            _beeDamage = _damage * 0.4f;
-        else
             _beeDamage = _damage * 0.2f;
+        else
+            _beeDamage = _damage * 0.1f;
 
         if (!player.HasBuff(ModContent.BuffType<HellsBeesBuff>()))
         {
@@ -176,7 +176,7 @@ public class CrispyDisciplineProjectile : ModProjectile
             SoundEngine.PlaySound(SoundID.Item76);
         }
 
-        target.AddBuff(ModContent.BuffType<CrispyDebuff>(), 4 * 60);
+        target.AddBuff(ModContent.BuffType<Caramelized>(), 4 * 60);
         player.AddBuff(ModContent.BuffType<HellsBeesBuff>(), 10 * 60);
         player.MinionAttackTargetNPC = target.whoAmI;
         Projectile.damage = (int)(Projectile.damage * 0.7f);

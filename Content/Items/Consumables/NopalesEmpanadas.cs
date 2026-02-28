@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace WgMod.Content.Items.Consumables;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
-public class BakedNopales : ModItem
+public class NopalesEmpanadas : ModItem
 {
     public override void SetStaticDefaults()
     {

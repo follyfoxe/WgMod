@@ -16,7 +16,7 @@ public class LootGlobalNPC : GlobalNPC
                 npcLoot.Add(
                     ItemDropRule.ByCondition(
                         Condition.DownedDeerclops.ToDropCondition(ShowItemDropInUI.Always),
-                        ModContent.ItemType<WeightLossPendant>(),
+                        ModContent.ItemType<AmuletOfStarving>(),
                         chanceDenominator: 2,
                         chanceNumerator: 1
                     )

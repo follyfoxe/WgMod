@@ -15,7 +15,7 @@ public class CrispyDiscipline : ModItem
     WgStat _damage = new(1f, 1.4f);
     WgStat _knockback = new(1f, 2f);
 
-    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(CrispyDebuff.TagDamage);
+    public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(Caramelized.TagDamage);
 
     public override void SetDefaults()
     {

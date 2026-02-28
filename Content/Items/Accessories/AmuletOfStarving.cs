@@ -8,7 +8,7 @@ namespace WgMod.Content.Items.Accessories;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.trilophyte)]
-public class WeightLossPendant : ModItem
+public class AmuletOfStarving : ModItem
 {
     public override void SetDefaults()
     {
@@ -24,7 +24,7 @@ public class WeightLossPendant : ModItem
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
-        if (!player.TryGetModPlayer(out WeightLossPendantPlayer wp))
+        if (!player.TryGetModPlayer(out AmuletOfStarvingPlayer wp))
             return;
         wg.WeightLossRate += 5f;
         wp._active = true;
@@ -32,7 +32,7 @@ public class WeightLossPendant : ModItem
     }
 }
 
-public class WeightLossPendantPlayer : ModPlayer
+public class AmuletOfStarvingPlayer : ModPlayer
 {
     internal bool _active;
     internal bool _hidden;

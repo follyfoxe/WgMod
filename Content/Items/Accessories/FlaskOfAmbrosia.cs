@@ -38,7 +38,7 @@ public class FlaskOfAmbrosia : ModItem
     {
         CreateRecipe()
             .AddIngredient(ItemID.SweetheartNecklace)
-            .AddIngredient<WeightLossPendant>()
+            .AddIngredient<AmuletOfStarving>()
             .AddTile(TileID.TinkerersWorkbench)
             .Register();
     }
