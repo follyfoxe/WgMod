@@ -39,28 +39,24 @@ public class WobWobWobWob : ModBuff
         {
             base.OnHitByNPC(npc, hurtInfo);
 
-            if (!Player.TryGetModPlayer(out WgPlayer wg))
+            if (!_wobBounce || !Player.TryGetModPlayer(out WgPlayer wg))
                 return;
-
             float immobility = wg.Weight.ClampedImmobility;
 
             _wobDamage.Lerp(immobility);
             _wobKnockback.Lerp(immobility);
-            if (_wobBounce)
-            {
-                wg._squishVel *= 0.5f;
-                wg._squishPos *= 0.5f;
+            wg._squishVel *= 0.5f;
+            wg._squishPos *= 0.5f;
 
-                Player.ApplyDamageToNPC(
-                    npc,
-                    _wobDamage,
-                    _wobKnockback,
-                    -1 * npc.direction,
-                    false,
-                    null,
-                    false
-                );
-            }
+            Player.ApplyDamageToNPC(
+                npc,
+                _wobDamage,
+                _wobKnockback,
+                -1 * npc.direction,
+                false,
+                null,
+                false
+            );
         }
     }
 }

@@ -1,5 +1,4 @@
 using Terraria;
-using Terraria.GameContent.LootSimulation.LootSimulatorConditionSetterTypes;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
@@ -9,7 +8,7 @@ namespace WgMod.Content.Buffs.Consumables;
 public class GnomeLuck : ModBuff
 {
     WgStat _luck = new(0.2f, 1f);
-    public string _tooltip;
+    private string _tooltip;
 
     public override void Update(Player player, ref int buffIndex)
     {
