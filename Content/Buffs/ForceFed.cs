@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ModLoader;
@@ -7,7 +8,8 @@ namespace WgMod.Content.Buffs;
 
 public class ForceFed : ModBuff
 {
-    int cooldown;
+    int _cooldown;
+    int _fatPerSecond = 3;
 
     public override void SetStaticDefaults()
     {
@@ -21,12 +23,13 @@ public class ForceFed : ModBuff
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
 
-        if (cooldown < 30)
-            cooldown++;
+        if (_cooldown < 30)
+            _cooldown++;
         else
         {
-            cooldown = 0;
-            wg.SetWeight(wg.Weight + 3);
+            _cooldown = 0;
+            wg.SetWeight(wg.Weight + _fatPerSecond);
+            CombatText.NewText(player.getRect(), Color.Yellow, _fatPerSecond);
             SoundEngine.PlaySound(WgSounds.Gulp, player.Center);
         }
     }
