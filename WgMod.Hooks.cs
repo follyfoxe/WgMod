@@ -17,6 +17,7 @@ public partial class WgMod
     {
         On_Player.AddBuff += Player_AddBuff;
         On_Player.DelBuff += Player_DelBuff;
+        On_Player.UpdateSocialShadow += Player_UpdateSocialShadow;
         On_PlayerDrawSet.HeadOnlySetup += PlayerDrawSet_HeadOnlySetup;
         On_Mount.Draw += Mount_Draw;
         On_Main.GetPlayerArmPosition += Main_GetPlayerArmPosition;
@@ -28,6 +29,7 @@ public partial class WgMod
     {
         On_Player.AddBuff -= Player_AddBuff;
         On_Player.DelBuff -= Player_DelBuff;
+        On_Player.UpdateSocialShadow -= Player_UpdateSocialShadow;
         On_PlayerDrawSet.HeadOnlySetup -= PlayerDrawSet_HeadOnlySetup;
         On_Mount.Draw -= Mount_Draw;
         On_Main.GetPlayerArmPosition -= Main_GetPlayerArmPosition;
@@ -87,6 +89,19 @@ public partial class WgMod
             }
         }
         orig(self, index);
+    }
+
+    static void Player_UpdateSocialShadow(On_Player.orig_UpdateSocialShadow orig, Player self)
+    {
+        if (!self.TryGetModPlayer(out WgPlayer wg))
+        {
+            orig(self);
+            return;
+        }
+        float lastOffY = self.gfxOffY;
+        self.gfxOffY += wg._addedGfxOffY;
+        orig(self);
+        self.gfxOffY = lastOffY;
     }
 
     static void PlayerDrawSet_HeadOnlySetup(On_PlayerDrawSet.orig_HeadOnlySetup orig, ref PlayerDrawSet self, Player drawPlayer2, List<DrawData> drawData, List<int> dust, List<int> gore, float X, float Y, float Alpha, float Scale)

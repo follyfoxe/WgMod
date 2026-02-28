@@ -31,7 +31,6 @@ public partial class WgPlayer : ModPlayer
     internal int _iceBreakTimer;
     internal bool _displayWeight;
 
-    float _lastGfxOffY;
     Vector2 _prevVel;
 
     public override void Initialize()

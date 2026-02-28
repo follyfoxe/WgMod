@@ -18,6 +18,9 @@ public partial class WgPlayer
     internal readonly WgArmor.Layer[] _armorLayers = new WgArmor.Layer[2];
     internal RenderTarget2D _armorTarget;
 
+    internal float _addedGfxOffY;
+    float _lastGfxOffY;
+
     void InitializeVisuals()
     {
         if (Main.dedServ)
@@ -35,13 +38,14 @@ public partial class WgPlayer
     void PreUpdateVisuals()
     {
         Player.gfxOffY = _lastGfxOffY;
+        _addedGfxOffY = WeightValues.DrawOffsetY(Weight.GetStage()) * -Player.gravDir;
     }
 
     void PostUpdateVisuals()
     {
         // Can't find a better way to change the draw position
         _lastGfxOffY = Player.gfxOffY;
-        Player.gfxOffY -= WeightValues.DrawOffsetY(Weight.GetStage()) * Player.gravDir;
+        Player.gfxOffY += _addedGfxOffY;
 
         if (Main.dedServ)
             return;
