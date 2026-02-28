@@ -36,15 +36,6 @@ Items: {
 			'''
 	}
 
-	WeightLossPendant: {
-		DisplayName: Amulet of Starving
-		Tooltip:
-			'''
-			Greatly increases the rate at which you lose weight
-			'Shadowflame sure burns calories fast!'
-			'''
-	}
-
 	FlaskOfAmbrosia: {
 		DisplayName: Flask Of Ambrosia
 		Tooltip:
@@ -342,11 +333,6 @@ Items: {
 		Tooltip: Eating this makes you feel lucky!
 	}
 
-	BakedNopales: {
-		DisplayName: Nopales Empanadas
-		Tooltip: Cactus can be very delicious!
-	}
-
 	GraniteOven: {
 		DisplayName: Granite Oven
 		Tooltip: Used for baking
@@ -359,12 +345,16 @@ Items: {
 
 	AmuletOfStarving: {
 		DisplayName: Amulet Of Starving
-		Tooltip: ""
+		Tooltip: 
+			'''
+			Greatly increases the rate at which you lose weight
+			'Shadowflame sure burns calories fast!'
+			'''
 	}
 
 	NopalesEmpanadas: {
 		DisplayName: Nopales Empanadas
-		Tooltip: ""
+		Tooltip: Cactus can be very delicious!
 	}
 }
 
