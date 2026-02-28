@@ -241,11 +241,6 @@ Items: {
 		Tooltip: A slime Delicacy!
 	}
 
-	Oven: {
-		DisplayName: Oven
-		Tooltip: Used for baking
-	}
-
 	GuideToLiftingYourFatAss: {
 		DisplayName: Guide to Lifting Your Fat Ass
 		Tooltip: Reduces movement penalty by 50% in exchange for mana
@@ -351,6 +346,26 @@ Items: {
 		DisplayName: Nopales Empanadas
 		Tooltip: Cactus can be very delicious!
 	}
+
+	GraniteOven: {
+		DisplayName: Granite Oven
+		Tooltip: Used for baking
+	}
+
+	MarbleOven: {
+		DisplayName: Marble Oven
+		Tooltip: Used for baking
+	}
+
+	AmuletOfStarving: {
+		DisplayName: Amulet Of Starving
+		Tooltip: ""
+	}
+
+	NopalesEmpanadas: {
+		DisplayName: Nopales Empanadas
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -406,6 +421,7 @@ Buffs: {
 			Decreased movement speed by {0}%
 			Increased damage by {1}%
 			Decreased attack speed by {2}%
+			Effects scale with your obesity
 			'''
 	}
 
@@ -466,8 +482,13 @@ Buffs: {
 			'''
 			Attackers also take damage
 			Effects scale with your obesity
-			'if sharp, why so soft?'
+			'If sharp, why so soft?'
 			'''
+	}
+
+	Caramelized: {
+		DisplayName: Caramelized
+		Description: Mods.WgMod.Buffs.Caramelized.Description
 	}
 }
 
