@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Content.Projectiles;
@@ -75,6 +76,7 @@ public class MeteorCrushPlayer : ModPlayer
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Girthquake>(), (int)crushPower, 0, Player.whoAmI, 0, 8f + crushPower / 12f);
                 else if (Player == Main.LocalPlayer)
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<Girthquake>(), (int)crushPower, 0, Player.whoAmI, 0, 8f + crushPower / 12f);
+                SoundEngine.PlaySound(WgSounds.Stomp, Player.Center);
             }
         }
         _yVelocityOfLastTick = Player.velocity.Y;
