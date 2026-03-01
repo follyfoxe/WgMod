@@ -13,7 +13,7 @@ public class GluttonyCrop : ModItem
     WgStat _damage = new(0f, 0.05f);
     WgStat _attackSpeed = new(1f, 0.96f);
     WgStat _defense = new(0f, 6f);
-    WgStat _resist = new(0f, 1f);
+    WgStat _resist = new(0f, 0.01f);
 
     public override void SetDefaults()
     {

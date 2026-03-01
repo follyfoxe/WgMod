@@ -13,7 +13,7 @@ public class GluttonySkirt : ModItem
     WgStat _damage = new(0f, 0.05f);
     WgStat _critChance = new(1, 1.06f);
     WgStat _defense = new(0f, 6f);
-    WgStat _resist = new(0f, 1f);
+    WgStat _resist = new(0f, 0.01f);
 
     public override void SetDefaults()
     {
