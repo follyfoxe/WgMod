@@ -2,6 +2,8 @@ using Terraria.Audio;
 
 namespace WgMod;
 
+[Credit(ProjectRole.SFX, Contributor.follycake)]
+[Credit(ProjectRole.SFX, Contributor.purple_circle)]
 public static class WgSounds
 {
     public static readonly SoundStyle Belly = new("WgMod/Assets/Sounds/Belly_", 3, SoundType.Sound);
