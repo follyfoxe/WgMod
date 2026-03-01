@@ -43,7 +43,10 @@ public enum Contributor
     trilophyte,
     sinnerdrip,
     subparnitragen,
-    haydumbb
+    haydumbb,
+
+    [Category("Other")]
+    purple_circle
 }
 
 public static class Credits
