@@ -53,7 +53,7 @@ public class BottomlessAppetite : ModItem
 
         bp._active = true;
 
-        if (player.whoAmI == Main.myPlayer)
+        if (player.whoAmI == Main.myPlayer && !player.dead)
         {
             for (int i = 0; i < 200; i++)
             {
@@ -96,7 +96,7 @@ public class BottomlessAppetitePlayer : ModPlayer
         ref bool fullBright
     )
     {
-        if (!Player.TryGetModPlayer(out WgPlayer wg) || drawInfo.shadow != 0f)
+        if (!Player.TryGetModPlayer(out WgPlayer wg) || drawInfo.shadow != 0f || Player.dead)
             return;
         float immobility = wg.Weight.ClampedImmobility;
 
@@ -110,9 +110,9 @@ public class BottomlessAppetitePlayer : ModPlayer
         float playerHeight = Player.height;
 
         if (playerWidth > playerHeight)
-            _radius = playerWidth * 1.25f;
+            _radius = playerWidth * 1.5f;
         else
-            _radius = playerHeight * 1.25f;
+            _radius = playerHeight * 1.5f;
 
         if (_active == true && _hidden == false)
         {
