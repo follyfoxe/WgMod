@@ -534,3 +534,5 @@ Projectiles: {
 	HoneyStream.DisplayName: Honey Stream
 	HoneyGlob.DisplayName: Honey Glob
 }
+
+NPCs.HomingFood.DisplayName: Cursed Food
