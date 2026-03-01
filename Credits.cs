@@ -24,7 +24,8 @@ public enum ProjectRole
     Programmer,
     Artist,
     VFX,
-    SFX
+    SFX,
+    Idea
 }
 
 public enum Contributor
@@ -41,7 +42,8 @@ public enum Contributor
     ubulumn,
     trilophyte,
     sinnerdrip,
-    subparnitragen
+    subparnitragen,
+    haydumbb
 }
 
 public static class Credits

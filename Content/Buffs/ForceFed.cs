@@ -8,7 +8,8 @@ namespace WgMod.Content.Buffs;
 
 public class ForceFed : ModBuff
 {
-    const int FatPerCycle = 3;
+    public const int TicksPerCycle = 30;
+    public const int FatPerCycle = 3;
     int _cooldown;
 
     public override void SetStaticDefaults()
@@ -18,12 +19,18 @@ public class ForceFed : ModBuff
         Main.buffNoSave[Type] = true;
     }
 
+    public override bool ReApply(Player player, int time, int buffIndex)
+    {
+        _cooldown += TicksPerCycle / 2;
+        return false;
+    }
+
     public override void Update(Player player, ref int buffIndex)
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
 
-        if (_cooldown < 30)
+        if (_cooldown < TicksPerCycle)
             _cooldown++;
         else
         {
