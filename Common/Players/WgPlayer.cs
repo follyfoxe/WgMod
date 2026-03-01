@@ -238,15 +238,7 @@ public partial class WgPlayer : ModPlayer
 
     public override void ModifyHurt(ref Player.HurtModifiers modifiers)
     {
-        if (Player.noKnockback)
-            return;
-        Player.noKnockback = true;
-        modifiers.KnockbackImmunityEffectiveness *= _finalKnockbackResistance;
-    }
-
-    public override void PostHurt(Player.HurtInfo info)
-    {
-        Player.noKnockback = false;
+        modifiers.Knockback *= 1f - _finalKnockbackResistance;
     }
 
     public override void ResetInfoAccessories()
