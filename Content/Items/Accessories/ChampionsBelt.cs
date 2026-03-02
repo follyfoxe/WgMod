@@ -15,7 +15,7 @@ public class ChampionsBelt : ModItem
         Item.height = 28;
 
         Item.accessory = true;
-        Item.rare = ItemRarityID.Red;
+        Item.rare = ItemRarityID.Green;
         Item.value = Item.buyPrice(silver: 20);
     }
 
