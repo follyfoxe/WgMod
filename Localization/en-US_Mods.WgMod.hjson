@@ -356,6 +356,18 @@ Items: {
 		DisplayName: Nopales Empanadas
 		Tooltip: Cactus can be very delicious!
 	}
+
+	DogTail.Tooltip:
+		'''
+		Attacks fire deadly explosive bouncy balls!
+		Effects scale with your obesity (and lycanthropy)
+		'Who's a good girl? You are! You are!'
+		'''
+
+	CaramelArrow: {
+		DisplayName: Caramel Arrow
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -533,6 +545,70 @@ Projectiles: {
 	Girthquake.DisplayName: Girthquake
 	HoneyStream.DisplayName: Honey Stream
 	HoneyGlob.DisplayName: Honey Glob
+	HarpyFeatherFriendly.DisplayName: Harpy Feather Friendly
+	BouncyBall.DisplayName: Bouncy Ball
+	CaramelArrowProjectile.DisplayName: Caramel Arrow Projectile
 }
 
-NPCs.HomingFood.DisplayName: Cursed Food
+NPCs: {
+	GroundedHarpy: {
+		DisplayName: Grounded Harpy
+
+		TownNPCMood: {
+			Content: I'd rather be in the sky again!
+			NoHome: If you're keeping me down here with you, at least house me! Scraw!
+			FarFromHome: I flew too far in my exercises!
+			LoveSpace: Less humans to bug me! Caw!
+			DislikeCrowded: Please make these humans stop cooing!
+			HateCrowded: Scree! Personal bubble!
+			HateBiome: I can't fly in this cave! I'll bonk my head on the ceiling!
+			LoveNPC: "{NPCName} Understands me in a way I feel no human could!"
+			LikeNPC: "{NPCName} offered to build me cog wings!"
+			DislikeNPC: UwU
+			HateNPC: Scraw! That {NPCName} painted me fat!
+			LikeNPC_Princess: "{NPCName} is my favorite human! So cheerful and fun!"
+			Princess_LovesNPC: I didn't know harpies like {NPCName} could be so kind!
+			LikeBiome: I can see the sky here... I'll return one day!
+			DislikeBiome: It's c-c-cold! I need to fly south for the winter!
+		}
+
+		Census.SpawnCondition: Use purification powder on a harpy
+	}
+
+	HomingFood.DisplayName: Cursed Food
+}
+
+Dialogue: {
+	GroundedHarpy: {
+		StandardDialogue1: Scraw! I'm still mad at you for making me this big!
+		StandardDialogue2: No wonder humans can't fly if all of their food tastes this good!
+		StandardDialogue4: Have any more of that sweet powder stuff? Why? Mind your business!
+		StandardDialogue5: Living on the ground is boring, I wanna touch the clouds again!
+		StandardDialogue6: You've killed some big baddies, did you roast their meat by the fire?
+		StandardDialogue7: No, we didn't build those sky houses! That's a harmful stereotype, scraw!
+		StandardDialogue8: Can you groom my plumage? I've had a hard time doing it myself since... you know!
+		DayDialogue1: You're interrupting my exercises! I will fly again soon!
+		PartyDialogue1: Human festivities are so fun! And tasty!
+		PartyDialogue2: Please tell {NPCName} not to pin the tail on the harpy!
+		WindyDayDialogue1: I feel like the wind's gonna take me away!
+		WindyDayDialogue2: Screech! I flew! Did you see? What? It was just the wind?
+		BloodMoonDialogue1: Come any closer and I'll use my talons! Craw!
+		BloodMoonDialogue2: SCRAW! BACK OFF!
+		BloodMoonDialogue3: Huff! Huff! Must lose weight! Scree!
+		HomelessDialogue1: Human! House me immediately!
+		HomelessDialogue2: You did this to me, you take responsibility!
+		HomelessDialogue3: Huff... huff... I need somewhere to rest...
+		HardModeDialogue1: I never liked those long dragons... they think harpies are food!
+		RainDialogue1: Screech! I can't work out in these conditions!
+		RainDialogue2: I guess I'll stay home and eat today...
+		RainDialogue3: Today's just a cheat day! What? I'm not over my weekly limit!
+		StormDialogue1: SCRAW! PANIC! SCRAW!
+		SlimeRainDialogue1: How do you think slimes taste?
+		LoveStruckDialogue1: Human... you look tastier than usual...
+		QuestFishDialogue1: No, I won't carry you up to the sky lakes for your fish!
+		CatDialogue1: Hey... can I watch {0} today? No reason! It just looks so yummy- I mean cute!
+		DogDialogue1: "{0} barks at me all the time! I'm not a bird!"
+	}
+}
+
+Bestiary.GroundedHarpy: A previously free and carefree harpy, fattened until she cannot fly! She will begrudgingly provide you with useful materials from the sky.
