@@ -373,6 +373,36 @@ Items: {
 		DisplayName: Powdered Sugar
 		Tooltip: Fattens the evil
 	}
+
+	BellyGrave: {
+		DisplayName: Belly Grave
+		Tooltip: ""
+	}
+
+	ButtGrave: {
+		DisplayName: Butt Grave
+		Tooltip: ""
+	}
+
+	CakeGrave: {
+		DisplayName: Cake Grave
+		Tooltip: ""
+	}
+
+	PieGrave: {
+		DisplayName: Pie Grave
+		Tooltip: ""
+	}
+
+	StatueGrave: {
+		DisplayName: Statue Grave
+		Tooltip: ""
+	}
+
+	TurkeyGrave: {
+		DisplayName: Turkey Grave
+		Tooltip: ""
+	}
 }
 
 Buffs: {
