@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -80,39 +79,39 @@ public static class Utility
     /// </summary>
     /// <param name="tooltips">The list of TooltipLine to look in.</param>
     /// <param name="line">The TooltipLine that would be directly above the "tooltip" line.</param>
-    public static bool LineBeforeTooltip(List<TooltipLine> tooltips, out TooltipLine line)
+    public static bool LineBeforeTooltip(this List<TooltipLine> tooltips, out TooltipLine line)
     {
-        line = tooltips.FirstOrDefault(x => x.Name == "Material")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Consumable")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Ammo")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Placeable")
-            ?? tooltips.FirstOrDefault(x => x.Name == "UseMana")
-            ?? tooltips.FirstOrDefault(x => x.Name == "HealMana")
-            ?? tooltips.FirstOrDefault(x => x.Name == "HealLife")
-            ?? tooltips.FirstOrDefault(x => x.Name == "TileBoost")
-            ?? tooltips.FirstOrDefault(x => x.Name == "HammerPower")
-            ?? tooltips.FirstOrDefault(x => x.Name == "AxePower")
-            ?? tooltips.FirstOrDefault(x => x.Name == "PickPower")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Defense")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Vanity")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Quest")
-            ?? tooltips.FirstOrDefault(x => x.Name == "WandConsumes")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Equipable")
-            ?? tooltips.FirstOrDefault(x => x.Name == "BaitPower")
-            ?? tooltips.FirstOrDefault(x => x.Name == "NeedsBait")
-            ?? tooltips.FirstOrDefault(x => x.Name == "FishingPower")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Knockback")
-            ?? tooltips.FirstOrDefault(x => x.Name == "SpecialSpeedScaling")
-            ?? tooltips.FirstOrDefault(x => x.Name == "NoSpeedScaling")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Speed")
-            ?? tooltips.FirstOrDefault(x => x.Name == "CritChance")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Damage")
-            ?? tooltips.FirstOrDefault(x => x.Name == "SocialDesc")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Social")
-            ?? tooltips.FirstOrDefault(x => x.Name == "NoTransfer")
-            ?? tooltips.FirstOrDefault(x => x.Name == "FavoriteDesc")
-            ?? tooltips.FirstOrDefault(x => x.Name == "Favorite")
-            ?? tooltips.FirstOrDefault(x => x.Name == "ItemName");
+        line = tooltips.Find(x => x.Name == "Material")
+            ?? tooltips.Find(x => x.Name == "Consumable")
+            ?? tooltips.Find(x => x.Name == "Ammo")
+            ?? tooltips.Find(x => x.Name == "Placeable")
+            ?? tooltips.Find(x => x.Name == "UseMana")
+            ?? tooltips.Find(x => x.Name == "HealMana")
+            ?? tooltips.Find(x => x.Name == "HealLife")
+            ?? tooltips.Find(x => x.Name == "TileBoost")
+            ?? tooltips.Find(x => x.Name == "HammerPower")
+            ?? tooltips.Find(x => x.Name == "AxePower")
+            ?? tooltips.Find(x => x.Name == "PickPower")
+            ?? tooltips.Find(x => x.Name == "Defense")
+            ?? tooltips.Find(x => x.Name == "Vanity")
+            ?? tooltips.Find(x => x.Name == "Quest")
+            ?? tooltips.Find(x => x.Name == "WandConsumes")
+            ?? tooltips.Find(x => x.Name == "Equipable")
+            ?? tooltips.Find(x => x.Name == "BaitPower")
+            ?? tooltips.Find(x => x.Name == "NeedsBait")
+            ?? tooltips.Find(x => x.Name == "FishingPower")
+            ?? tooltips.Find(x => x.Name == "Knockback")
+            ?? tooltips.Find(x => x.Name == "SpecialSpeedScaling")
+            ?? tooltips.Find(x => x.Name == "NoSpeedScaling")
+            ?? tooltips.Find(x => x.Name == "Speed")
+            ?? tooltips.Find(x => x.Name == "CritChance")
+            ?? tooltips.Find(x => x.Name == "Damage")
+            ?? tooltips.Find(x => x.Name == "SocialDesc")
+            ?? tooltips.Find(x => x.Name == "Social")
+            ?? tooltips.Find(x => x.Name == "NoTransfer")
+            ?? tooltips.Find(x => x.Name == "FavoriteDesc")
+            ?? tooltips.Find(x => x.Name == "Favorite")
+            ?? tooltips.Find(x => x.Name == "ItemName");
         return line != null;
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -39,9 +38,7 @@ public class DogTail : GlobalItem
         dt._damageModifier = _damageModifier;
 
         if (dt._cooldown < 120)
-        {
             dt._cooldown++;
-        }
 
         if (Main.hardMode)
             dt._damage = 77;
@@ -54,7 +51,7 @@ public class DogTail : GlobalItem
         if (item.type != ItemID.DogTail)
             return;
 
-        LineBeforeTooltip(tooltips, out TooltipLine line);
+        tooltips.LineBeforeTooltip(out TooltipLine line);
         tooltips.Insert(
             tooltips.IndexOf(line) + 1,
             new TooltipLine(
@@ -63,12 +60,6 @@ public class DogTail : GlobalItem
                 Language.GetTextValue("Mods.WgMod.Items.DogTail.Tooltip")
             )
         );
-    }
-
-    public static bool LineBeforeTooltip(List<TooltipLine> tooltips, out TooltipLine line)
-    {
-        line = tooltips.FirstOrDefault(x => x.Name == "Defense");
-        return line != null;
     }
 }
 
