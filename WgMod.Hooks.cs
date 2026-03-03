@@ -7,6 +7,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using WgMod.Common.Players;
 using WgMod.Content.Buffs;
+using WgMod.Content.Tiles;
 
 namespace WgMod;
 
@@ -22,6 +23,7 @@ public partial class WgMod
         On_Mount.Draw += Mount_Draw;
         On_Main.GetPlayerArmPosition += Main_GetPlayerArmPosition;
         On_Main.DrawProj_DrawExtras += Main_DrawProj_DrawExtras;
+        On_TileObject.CanPlace += TileObject_CanPlace;
     }
 
     // Always remember to unregister your hooks
@@ -34,6 +36,7 @@ public partial class WgMod
         On_Mount.Draw -= Mount_Draw;
         On_Main.GetPlayerArmPosition -= Main_GetPlayerArmPosition;
         On_Main.DrawProj_DrawExtras -= Main_DrawProj_DrawExtras;
+        On_TileObject.CanPlace -= TileObject_CanPlace;
     }
 
     static void Player_AddBuff(On_Player.orig_AddBuff orig, Player self, int type, int timeToAdd, bool quiet, bool foodHack)
@@ -148,5 +151,13 @@ public partial class WgMod
                 proj.gfxOffY = 0f;
         }
         orig(self, proj, mountedCenter, ref polePosX, ref polePosY);
+    }
+
+    // For custom tombstones (temporary)
+    static bool TileObject_CanPlace(On_TileObject.orig_CanPlace orig, int x, int y, int type, int style, int dir, out TileObject objectData, bool onlyCheck, int? forcedRandom, bool checkStay)
+    {
+        if (type == TileID.Tombstones && !Main.dedServ && Main.LocalPlayer.dead)
+            FatTombstones.ReplaceTombstone(Main.LocalPlayer, ref type, ref style);
+        return orig(x, y, type, style, dir, out objectData, onlyCheck, forcedRandom, checkStay);
     }
 }
