@@ -578,7 +578,7 @@ NPCs: {
 			DislikeBiome: It's c-c-cold! I need to fly south for the winter!
 		}
 
-		Census.SpawnCondition: Use purification powder on a harpy
+		Census.SpawnCondition: Use powdered sugar on a harpy
 	}
 
 	HomingFood.DisplayName: Cursed Food
