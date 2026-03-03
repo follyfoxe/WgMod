@@ -1,9 +1,9 @@
+using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Content.Projectiles;
-using Microsoft.Xna.Framework;
-using System;
 
 namespace WgMod.Content.Items.Ammo;
 

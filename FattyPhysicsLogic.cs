@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace WgMod;
+
 public static class FattyPhysicsLogic
 {
     public static float CompareSizeTo(this Entity entity1, Entity entity2)
     {
         return entity1.Size.Length() / entity2.Size.Length();
     }
+
     public static void ActuallyPush(Entity fatty, Entity target, float mult)
     {
         if (target.Center.X < fatty.Center.X && target.velocity.X > -6)
@@ -43,16 +40,16 @@ public static class FattyPhysicsLogic
             target.velocity.Y += Math.Min(0.15f * mult, 1f);
         }
     }
+
     public static void DoPush(Entity fatty, Entity target)
     {
         float sizeComparison = fatty.CompareSizeTo(target);
-        if (sizeComparison > 1.75 && target.velocity.Length() > 40) //bounce away
+        if (sizeComparison > 1.75 && target.velocity.Length() > 40) // bounce away
         {
             Vector2 dir = fatty.Center.DirectionTo(target.Center);
             float velocity = target.velocity.Length();
             target.velocity = velocity * dir;
-            Player playerTarget = target as Player;
-            if (playerTarget != null)
+            if (target is Player playerTarget)
             {
                 if (playerTarget.velocity.Y < -4)
                 {
@@ -61,7 +58,7 @@ public static class FattyPhysicsLogic
                 }
             }
         }
-        else if (sizeComparison > 1.15) //push away
+        else if (sizeComparison > 1.15) // push away
         {
             ActuallyPush(fatty, target, sizeComparison);
         }
@@ -71,9 +68,11 @@ public static class FattyPhysicsLogic
             ActuallyPush(target, fatty, 1);
         }
     }
+
     public static void PushAwayFromMe(this Entity entity)
     {
-        if (!entity.active) return;
+        if (!entity.active)
+            return;
         foreach (Player plr in Main.ActivePlayers)
         {
             if (!plr.active)
