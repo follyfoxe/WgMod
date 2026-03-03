@@ -18,8 +18,11 @@ public partial class WgPlayer : ModPlayer
     /// <summary> How much movement will be reduced because of the player's weight, multiply this </summary>
     public StatModifier MovementPenalty;
 
-    /// <summary> How fast the player will lose weight when walking, add or subtract to this </summary>
+    /// <summary> How fast the player will lose weight due to movement, add or subtract to this </summary>
     public StatModifier WeightLossRate;
+
+    /// <summary> How much weight the player will gain due to food, multiply this </summary>
+    public StatModifier FoodAbsorption;
 
     public readonly int[] BuffDuration = new int[Player.MaxBuffs];
     internal int _ignoreWgBuffTimer = 2;
@@ -74,6 +77,7 @@ public partial class WgPlayer : ModPlayer
         // Custom stats
         MovementPenalty = StatModifier.Default;
         WeightLossRate = StatModifier.Default;
+        FoodAbsorption = StatModifier.Default;
     }
 
     public override void PreUpdateBuffs()

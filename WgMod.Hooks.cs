@@ -60,8 +60,9 @@ public partial class WgMod
         if (wg._ignoreWgBuffTimer > 0)
             return;
 
-        if (_buffTable.TryGetValue(type, out var gain))
+        if (_buffTable.TryGetValue(type, out GainOptions gain))
         {
+            gain.TotalGain = wg.FoodAbsorption.ApplyTo(gain.TotalGain);
             if (gain.IsInstant)
             {
                 if (previousTime < timeToAdd - 2) // Apply once (2 ticks of leeway)
