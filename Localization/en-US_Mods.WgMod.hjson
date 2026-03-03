@@ -368,6 +368,11 @@ Items: {
 		DisplayName: Caramel Arrow
 		Tooltip: ""
 	}
+
+	PowderedSugar: {
+		DisplayName: Powdered Sugar
+		Tooltip: Fattens the evil
+	}
 }
 
 Buffs: {
@@ -548,6 +553,7 @@ Projectiles: {
 	HarpyFeatherFriendly.DisplayName: Harpy Feather Friendly
 	BouncyBall.DisplayName: Bouncy Ball
 	CaramelArrowProjectile.DisplayName: Caramel Arrow Projectile
+	PowderedSugarProjectile.DisplayName: Powdered Sugar Projectile
 }
 
 NPCs: {
