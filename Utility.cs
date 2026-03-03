@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
@@ -73,5 +75,45 @@ public static class Utility
     public static string Percent(this float value, float max)
     {
         return value.Percent().OutOf(max.Percent());
+    }
+    /// <summary>
+    /// Attempts to get the TooltipLine of the list right before where the "tooltip" line should be.
+    /// </summary>
+    /// <param name="tooltips">The list of TooltipLine to look in.</param>
+    /// <param name="line">The TooltipLine that would be directly above the "tooltip" line.</param>
+    public static bool LineBeforeTooltip(List<TooltipLine> tooltips, out TooltipLine line)
+    {
+        line = tooltips.FirstOrDefault(x => x.Name == "Material")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Consumable")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Ammo")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Placeable")
+            ?? tooltips.FirstOrDefault(x => x.Name == "UseMana")
+            ?? tooltips.FirstOrDefault(x => x.Name == "HealMana")
+            ?? tooltips.FirstOrDefault(x => x.Name == "HealLife")
+            ?? tooltips.FirstOrDefault(x => x.Name == "TileBoost")
+            ?? tooltips.FirstOrDefault(x => x.Name == "HammerPower")
+            ?? tooltips.FirstOrDefault(x => x.Name == "AxePower")
+            ?? tooltips.FirstOrDefault(x => x.Name == "PickPower")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Defense")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Vanity")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Quest")
+            ?? tooltips.FirstOrDefault(x => x.Name == "WandConsumes")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Equipable")
+            ?? tooltips.FirstOrDefault(x => x.Name == "BaitPower")
+            ?? tooltips.FirstOrDefault(x => x.Name == "NeedsBait")
+            ?? tooltips.FirstOrDefault(x => x.Name == "FishingPower")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Knockback")
+            ?? tooltips.FirstOrDefault(x => x.Name == "SpecialSpeedScaling")
+            ?? tooltips.FirstOrDefault(x => x.Name == "NoSpeedScaling")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Speed")
+            ?? tooltips.FirstOrDefault(x => x.Name == "CritChance")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Damage")
+            ?? tooltips.FirstOrDefault(x => x.Name == "SocialDesc")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Social")
+            ?? tooltips.FirstOrDefault(x => x.Name == "NoTransfer")
+            ?? tooltips.FirstOrDefault(x => x.Name == "FavoriteDesc")
+            ?? tooltips.FirstOrDefault(x => x.Name == "Favorite")
+            ?? tooltips.FirstOrDefault(x => x.Name == "ItemName");
+        return line != null;
     }
 }

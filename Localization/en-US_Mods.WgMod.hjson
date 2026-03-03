@@ -1,4 +1,6 @@
 Items: {
+	Wings.Extra: "{0}% reduced movement penalty from weight while midair"
+
 	WeightManipulator: {
 		DisplayName: Weight Manipulator
 		Tooltip:
