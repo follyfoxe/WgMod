@@ -17,13 +17,13 @@ public class CaramelArrow : ModItem
         Item.width = 14;
         Item.height = 36;
 
-        Item.damage = 14;
+        Item.damage = 11;
         Item.DamageType = DamageClass.Ranged;
 
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
         Item.knockBack = 2f;
-        Item.value = Item.sellPrice(copper: 16);
+        Item.value = Item.sellPrice(copper: 4);
         Item.shoot = ModContent.ProjectileType<Projectiles.CaramelArrowProjectile>();
         Item.shootSpeed = 3.5f;
         Item.ammo = AmmoID.Arrow;
