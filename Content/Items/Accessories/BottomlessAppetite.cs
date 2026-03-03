@@ -68,7 +68,7 @@ public class BottomlessAppetite : ModItem
                     && Vector2.Distance(player.Center, npc.Center) <= bp._radius + 32f
                 )
                 {
-                    npc.AddBuff(ModContent.BuffType<PillarWrath>(), 120);
+                    npc.AddBuff(ModContent.BuffType<PillarWrath>(), 2 * 60);
                 }
             }
         }
