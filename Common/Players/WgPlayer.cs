@@ -24,11 +24,15 @@ public partial class WgPlayer : ModPlayer
     /// <summary> How much weight the player will gain due to food, multiply this </summary>
     public StatModifier FoodAbsorption;
 
+    /// <summary> The maximum weight stage that the player can reach </summary>
+    public int MaxStage;
+
     public readonly int[] BuffDuration = new int[Player.MaxBuffs];
     internal int _ignoreWgBuffTimer = 2;
 
     internal float _finalKnockbackResistance;
     internal float _finalMovementFactor = 1f;
+    internal int _finalMaxStage = Weight.ImmobileStage;
 
     internal float _buffTotalGain;
     internal int _iceBreakTimer;
@@ -64,7 +68,7 @@ public partial class WgPlayer : ModPlayer
     void SetWeightForced(Weight weight, bool effects = true)
     {
         int prevStage = Weight.GetStage();
-        Weight = Weight.Clamp(weight);
+        Weight = Weight.Clamp(weight, _finalMaxStage);
         if (Weight.GetStage() != prevStage && effects)
         {
             SoundEngine.PlaySound(WgSounds.Belly, Player.Center);
@@ -78,6 +82,7 @@ public partial class WgPlayer : ModPlayer
         MovementPenalty = StatModifier.Default;
         WeightLossRate = StatModifier.Default;
         FoodAbsorption = StatModifier.Default;
+        MaxStage = Weight.ImmobileStage;
     }
 
     public override void PreUpdateBuffs()
@@ -185,6 +190,7 @@ public partial class WgPlayer : ModPlayer
         UpdateJiggle();
         PostUpdateVisuals();
 
+        _finalMaxStage = Math.Clamp(MaxStage, 0, Weight.MaxStage);
         if (_ignoreWgBuffTimer > 0)
             _ignoreWgBuffTimer--;
     }
