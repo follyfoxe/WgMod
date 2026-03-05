@@ -7,6 +7,7 @@ using WgMod.Common.Players;
 namespace WgMod.Content.Items.Armor.GluttonyArmor;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [AutoloadEquip(EquipType.Body)]
 public class GluttonyCrop : ModItem
 {
@@ -17,8 +18,8 @@ public class GluttonyCrop : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 22;
-        Item.height = 18;
+        Item.width = 34;
+        Item.height = 14;
         Item.value = Item.sellPrice(silver: 60);
         Item.rare = ItemRarityID.Orange;
         Item.defense = 11;

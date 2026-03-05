@@ -7,6 +7,7 @@ using WgMod.Common.Players;
 namespace WgMod.Content.Items.Armor.GluttonyArmor;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [AutoloadEquip(EquipType.Legs)]
 public class GluttonySkirt : ModItem
 {
@@ -17,7 +18,7 @@ public class GluttonySkirt : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 30;
+        Item.width = 22;
         Item.height = 20;
         Item.value = Item.sellPrice(gold: 1, silver: 20);
         Item.rare = ItemRarityID.Orange;

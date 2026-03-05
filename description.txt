@@ -14,6 +14,7 @@ Discord tags of the people that helped make this possible
 - @trilophyte (Accessory sprites, armor sprites)
 - @sinnerdrip (Hellish bee sprites, icons, etc)
 - @subparnitragen (Oven sprites)
+- @divine_lumine (Armor sprites)
 
 [c/EFBF00:Full credits]
 [wgmodcred:0]

@@ -44,6 +44,7 @@ public enum Contributor
     sinnerdrip,
     subparnitragen,
     haydumbb,
+    divine_lumine,
 
     [Category("Other")]
     purple_circle

@@ -8,6 +8,7 @@ using WgMod.Common.Players;
 namespace WgMod.Content.Items.Armor.GluttonyArmor;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [AutoloadEquip(EquipType.Head)]
 public class GluttonyHood : ModItem
 {
@@ -16,7 +17,7 @@ public class GluttonyHood : ModItem
     WgStat _defense = new(0f, 6f);
     WgStat _resist = new(0f, 0.01f);
 
-    public static int _setBonusSummoner = 1;
+    public const int SetBonusSummoner = 1;
     WgStat _setBonusSpeed = new(1f, 0.9f);
     WgStat _setBonusMelee = new(1f, 1.2f);
     WgStat _setBonusMage = new(1f, 0.8f);
@@ -78,9 +79,9 @@ public class GluttonyHood : ModItem
         wg.MovementPenalty *= _setBonusSpeed;
         player.ammoCost80 = true;
         player.manaCost *= _setBonusMage;
-        player.maxMinions += _setBonusSummoner;
+        player.maxMinions += SetBonusSummoner;
 
-        player.setBonus = SetBonusText.Format(_setBonusSummoner);
+        player.setBonus = SetBonusText.Format(SetBonusSummoner);
     }
 
     public override void AddRecipes()
