@@ -1,5 +1,4 @@
 ﻿using Terraria;
-using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -9,7 +8,7 @@ namespace WgMod.Content.Items.Accessories;
 [Credit(ProjectRole.Programmer, Contributor.jumpsu2)]
 public class HeliumTank : ModItem
 {
-    WgStat _gravity = new (1f, 0.1f);
+    WgStat _gravity = new(1f, 0.1f);
     public override void SetDefaults()
     {
         Item.width = 24;
