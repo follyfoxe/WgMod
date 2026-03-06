@@ -436,6 +436,15 @@ Items: {
 			Reduces the cooldown of healing potions by {1}%
 			'''
 	}
+	
+	HeliumTank: {
+		DisplayName: Helium Tank
+		Tooltip:
+			'''
+			Decreases gravity at higher weights
+			[c/963232:Don't expect this to be actually useful.]
+			'''
+	}
 }
 
 Buffs: {
@@ -560,8 +569,8 @@ Buffs: {
 		DisplayName: CRASHING DOWN
 		Description:
 			'''
-			Decreased movement speed
-			Increased weight penalty from weight
+			15% decreased movement speed
+			33% increased movement penalty from weight
 			'However, the future's threats won't cease to exist.'
 			'''
 	}
@@ -570,8 +579,9 @@ Buffs: {
 		DisplayName: Gift of Void
 		Description:
 			'''
-			Increased movement speed and jump height
-			Decreased weight penalty from weight
+			{0}% increased movement speed
+			{1}% increased jump height
+			{2}% decreased movement penalty from weight
 			'Ignorance is bliss.'
 			'''
 	}

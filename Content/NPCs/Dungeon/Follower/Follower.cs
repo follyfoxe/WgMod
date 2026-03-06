@@ -43,9 +43,15 @@ public class Follower : ModNPC
         NPC.dontTakeDamage = true;
         NPC.knockBackResist = 0f;
         NPC.value = 900;
-        NPC.lifeMax = 225;
+        NPC.lifeMax = 180;
         NPC.npcSlots = 0.5f;
         NPC.damage = 38;
+
+        if (NPC.downedPlantBoss)
+        {
+            NPC.lifeMax = 380;
+            NPC.damage = 64;
+        }
 
         NPC.HitSound = SoundID.NPCHit7;
         NPC.DeathSound = SoundID.Zombie5;
@@ -361,7 +367,7 @@ public class Follower : ModNPC
 
     public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
     {
-        modifiers.FinalDamage *= Math.Min((NPC.ai[3] - 60) / 240, 1f);
+        modifiers.FinalDamage *= Math.Min((NPC.ai[3] - 60) / 180, 1f);
     }
 
     public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)

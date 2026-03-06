@@ -193,6 +193,12 @@ public partial class WgPlayer : ModPlayer
         _finalMaxStage = Math.Clamp(MaxStage, 0, Weight.MaxStage);
         if (_ignoreWgBuffTimer > 0)
             _ignoreWgBuffTimer--;
+
+        if (Player.sleeping.isSleeping && Weight.GetStage() >= 4)
+        {
+            Player.fullRotation = 0;
+            Player.gfxOffY -= 16;
+        }
     }
 
     public override void UpdateDead()

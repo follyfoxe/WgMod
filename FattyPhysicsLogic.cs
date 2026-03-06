@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace WgMod;
@@ -85,6 +86,8 @@ public static class FattyPhysicsLogic
         foreach (NPC npc in Main.ActiveNPCs)
         {
             if (!npc.active)
+                continue;
+            if (npc.type == NPCID.TargetDummy)
                 continue;
             if (npc.Hitbox.Intersects(entity.Hitbox))
             {

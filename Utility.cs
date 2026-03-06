@@ -123,4 +123,5 @@ public static class Utility
         hours *= 60 * 60 * 60;
         return ticks + seconds + minutes + hours;
     }
+    public static float GetJumpSpeedIncrease(float speed) => speed / 6.51f;
 }
