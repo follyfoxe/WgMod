@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.Utilities;
@@ -33,8 +34,6 @@ public class HomingFood : ModNPC
         ItemID.Milkshake
     ];
 
-    public override string Texture => "WgMod/Assets/Textures/Invisible";
-
     int _itemIndex;
     int _itemId;
 
@@ -57,6 +56,14 @@ public class HomingFood : ModNPC
         AIType = NPCID.CursedSkull;
         _itemIndex = 0;
         _itemId = _items[_itemIndex];
+    }
+
+    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+    {
+        bestiaryEntry.Info.AddRange([
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundDesert,
+            new FlavorTextBestiaryInfoElement(Mod.GetLocalizationKey("Bestiary." + nameof(HomingFood)))
+        ]);
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)

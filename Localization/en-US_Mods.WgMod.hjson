@@ -490,10 +490,11 @@ Buffs: {
 
 	Weightless: {
 		DisplayName: Weightless
-		Description: '''
-		Reduces movement penalty of high weights by {0}%
-		5 minute duration
-		'''
+		Description:
+			'''
+			Reduces movement penalty of high weights by {0}%
+			5 minute duration
+			'''
 	}
 
 	GluttedGut: {
@@ -718,4 +719,5 @@ Dialogue: {
 Bestiary: {
 	GroundedHarpy: A previously free and carefree harpy, fattened until she cannot fly! She will begrudgingly provide you with useful materials from the sky.
 	Follower: Don't you know it's rude to say no? These were made just for you! Just open your mouth, and...
+	HomingFood: Food cursed by a malevolent spirit to seek out and fatten up adventurers until they're defenseless.
 }
