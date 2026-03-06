@@ -72,7 +72,10 @@ public class BouncyBall : ModProjectile
         {
             if (IsValidTarget(target))
             {
-                float sqrDistanceToTarget = Vector2.DistanceSquared(target.Center, Projectile.Center);
+                float sqrDistanceToTarget = Vector2.DistanceSquared(
+                    target.Center,
+                    Projectile.Center
+                );
 
                 if (sqrDistanceToTarget < sqrMaxDetectDistance)
                 {
@@ -87,7 +90,15 @@ public class BouncyBall : ModProjectile
 
     public bool IsValidTarget(NPC target)
     {
-        return target.CanBeChasedBy() && Collision.CanHit(Projectile.Center, 1, 1, target.position, target.width, target.height);
+        return target.CanBeChasedBy()
+            && Collision.CanHit(
+                Projectile.Center,
+                1,
+                1,
+                target.position,
+                target.width,
+                target.height
+            );
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity)
@@ -102,7 +113,11 @@ public class BouncyBall : ModProjectile
             float length = Projectile.velocity.Length();
             float targetAngle = Projectile.AngleTo(HomingTarget.Center);
 
-            Projectile.velocity = Projectile.velocity.ToRotation().AngleTowards(targetAngle, MathHelper.ToRadians(360)).ToRotationVector2() * length;
+            Projectile.velocity =
+                Projectile
+                    .velocity.ToRotation()
+                    .AngleTowards(targetAngle, MathHelper.ToRadians(360))
+                    .ToRotationVector2() * length;
             Projectile.velocity.Y += -oldVelocity.Y * 0.5f;
         }
         else
@@ -120,7 +135,17 @@ public class BouncyBall : ModProjectile
             }
             for (int i = 0; i < 5; i++)
             {
-                Dust cute = Dust.NewDustDirect(Projectile.position, 12, 12, ModContent.DustType<CutieHeart>(), 0, 0, 100, default, 1);
+                Dust cute = Dust.NewDustDirect(
+                    Projectile.position,
+                    12,
+                    12,
+                    ModContent.DustType<CutieHeart>(),
+                    0,
+                    0,
+                    100,
+                    default,
+                    1
+                );
                 cute.noGravity = true;
             }
         }
@@ -139,7 +164,17 @@ public class BouncyBall : ModProjectile
 
         for (int i = 0; i < 5; i++)
         {
-            Dust cute = Dust.NewDustDirect(Projectile.position, 12, 12, ModContent.DustType<CutieHeart>(), 0, 0, 100, default, 1);
+            Dust cute = Dust.NewDustDirect(
+                Projectile.position,
+                12,
+                12,
+                ModContent.DustType<CutieHeart>(),
+                0,
+                0,
+                100,
+                default,
+                1
+            );
             cute.noGravity = true;
         }
 
@@ -167,7 +202,17 @@ public class BouncyBall : ModProjectile
         SoundEngine.PlaySound(SoundID.Item14, Projectile.position);
         for (int i = 0; i < 50; i++)
         {
-            Dust cute = Dust.NewDustDirect(Projectile.position, 77, 77, DustID.GemRuby, 0, 0, 100, default, 1);
+            Dust cute = Dust.NewDustDirect(
+                Projectile.position,
+                77,
+                77,
+                DustID.GemRuby,
+                0,
+                0,
+                100,
+                default,
+                1
+            );
             cute.noGravity = true;
         }
     }
@@ -179,9 +224,25 @@ public class BouncyBall : ModProjectile
         Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, Projectile.height * 0.5f);
         for (int k = Projectile.oldPos.Length - 1; k > 0; k--)
         {
-            Vector2 drawPos = Projectile.oldPos[k] - Main.screenPosition + drawOrigin + new Vector2(0f, Projectile.gfxOffY);
-            Color color = Projectile.GetAlpha(lightColor) * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
-            Main.EntitySpriteDraw(texture, drawPos, null, color, Projectile.rotation, drawOrigin, Projectile.scale, SpriteEffects.None, 0);
+            Vector2 drawPos =
+                Projectile.oldPos[k]
+                - Main.screenPosition
+                + drawOrigin
+                + new Vector2(0f, Projectile.gfxOffY);
+            Color color =
+                Projectile.GetAlpha(lightColor)
+                * ((Projectile.oldPos.Length - k) / (float)Projectile.oldPos.Length);
+            Main.EntitySpriteDraw(
+                texture,
+                drawPos,
+                null,
+                color,
+                Projectile.rotation,
+                drawOrigin,
+                Projectile.scale,
+                SpriteEffects.None,
+                0
+            );
         }
 
         return true;

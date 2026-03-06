@@ -28,7 +28,11 @@ public class DogTail : GlobalItem
 
     public override void UpdateAccessory(Item item, Player player, bool hideVisual)
     {
-        if (item.type != ItemID.DogTail || !player.TryGetModPlayer(out DogTailPlayer dt) || !player.TryGetModPlayer(out WgPlayer wg))
+        if (
+            item.type != ItemID.DogTail
+            || !player.TryGetModPlayer(out DogTailPlayer dt)
+            || !player.TryGetModPlayer(out WgPlayer wg)
+        )
             return;
         float immobility = wg.Weight.ClampedImmobility;
 
@@ -80,7 +84,12 @@ public class DogTailItem : GlobalItem
 {
     public override void UseAnimation(Item item, Player player)
     {
-        if (!player.TryGetModPlayer(out DogTailPlayer dt) || !dt._active || dt._cooldown < 120)
+        if (
+            !player.TryGetModPlayer(out DogTailPlayer dt)
+            || !dt._active
+            || dt._cooldown < 120
+            || item.damage < 1
+        )
             return;
 
         if (Main.hardMode)

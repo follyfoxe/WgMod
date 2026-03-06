@@ -56,12 +56,29 @@ public class AmbrosiaPlayer : ModPlayer
         _hidden = false;
     }
 
-    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+    public override void DrawEffects(
+        PlayerDrawSet drawInfo,
+        ref float r,
+        ref float g,
+        ref float b,
+        ref float a,
+        ref bool fullBright
+    )
     {
         _dustRate = 30;
 
         if (Main.rand.NextBool(_dustRate) && _active == true && _hidden == false)
-            Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.YellowTorch, 0f, 0f, 100, default, 0.7f);
+            Dust.NewDust(
+                Player.position,
+                Player.width,
+                Player.height - 1,
+                DustID.YellowTorch,
+                0f,
+                0f,
+                100,
+                default,
+                0.7f
+            );
     }
 
     public override void OnHurt(Player.HurtInfo info)
@@ -72,7 +89,17 @@ public class AmbrosiaPlayer : ModPlayer
             SoundEngine.PlaySound(WgSounds.Gulp, Player.Center);
 
             for (int i = 0; i < 50; i++)
-                Dust.NewDust(Player.position, Player.width, Player.height, DustID.t_Honey, 0f, 0.5f, 100, default, 1.3f);
+                Dust.NewDust(
+                    Player.position,
+                    Player.width,
+                    Player.height,
+                    DustID.t_Honey,
+                    0f,
+                    0.5f,
+                    100,
+                    default,
+                    1.3f
+                );
         }
     }
 }

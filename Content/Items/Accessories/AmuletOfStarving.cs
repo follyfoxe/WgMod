@@ -44,13 +44,30 @@ public class AmuletOfStarvingPlayer : ModPlayer
         _hidden = false;
     }
 
-    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+    public override void DrawEffects(
+        PlayerDrawSet drawInfo,
+        ref float r,
+        ref float g,
+        ref float b,
+        ref float a,
+        ref bool fullBright
+    )
     {
         _dustRate = 30;
 
         if (Main.rand.NextBool(_dustRate) && _active == true && _hidden == false)
         {
-            Dust.NewDust(Player.position, Player.width, Player.height - 1, DustID.Shadowflame, 0f, 0f, 100, default, 0.7f);
+            Dust.NewDust(
+                Player.position,
+                Player.width,
+                Player.height - 1,
+                DustID.Shadowflame,
+                0f,
+                0f,
+                100,
+                default,
+                0.7f
+            );
         }
     }
 }

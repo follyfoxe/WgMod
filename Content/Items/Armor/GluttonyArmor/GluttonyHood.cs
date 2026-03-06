@@ -97,7 +97,12 @@ public class GluttonyHood : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), (_critChance - 1f).Percent(), _defense, _resist.Percent());
+        tooltips.FormatLines(
+            _damage.Percent(),
+            (_critChance - 1f).Percent(),
+            _defense,
+            _resist.Percent()
+        );
     }
 
     public class GluttonyArmorPlayer : ModPlayer
