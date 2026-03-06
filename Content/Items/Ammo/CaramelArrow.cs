@@ -5,6 +5,7 @@ using WgMod.Content.Items.Consumables;
 
 namespace WgMod.Content.Items.Ammo;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class CaramelArrow : ModItem
 {
     public override void SetStaticDefaults()

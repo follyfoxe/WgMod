@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 
 namespace WgMod.Content.Dusts;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class CutieHeart : ModDust
 {
     public override void OnSpawn(Dust dust)

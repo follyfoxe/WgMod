@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 
 namespace WgMod.Content.Items.Consumables;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class BottledCaramel : ModItem
 {
     public override void SetStaticDefaults()

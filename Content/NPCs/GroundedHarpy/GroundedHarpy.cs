@@ -14,6 +14,9 @@ using WgMod.Content.Projectiles;
 namespace WgMod.Content.NPCs;
 
 [AutoloadHead]
+
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
 public class GroundedHarpy : ModNPC
 {
     public override string Texture

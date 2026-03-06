@@ -10,6 +10,7 @@ using WgMod.Content.Dusts;
 
 namespace WgMod.Content.Projectiles;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class BouncyBall : ModProjectile
 {
     NPC HomingTarget

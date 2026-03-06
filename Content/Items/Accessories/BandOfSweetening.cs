@@ -9,6 +9,7 @@ namespace WgMod.Content.Items.Accessories;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.the_trueterrafox)]
+[Credit(ProjectRole.Idea, Contributor.the_trueterrafox)]
 public class BandOfSweetening : ModItem
 {
     WgStat _regen = new(2f, 8f);

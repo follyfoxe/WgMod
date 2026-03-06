@@ -7,6 +7,7 @@ using WgMod.Content.Buffs;
 
 namespace WgMod.Content.Projectiles;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class CaramelArrowProjectile : ModProjectile
 {
     public override void SetDefaults()

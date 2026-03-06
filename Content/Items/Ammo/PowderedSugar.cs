@@ -7,6 +7,7 @@ using WgMod.Content.Projectiles;
 
 namespace WgMod.Content.Items.Ammo;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class PowderedSugar : ModItem
 {
     public override void SetDefaults()

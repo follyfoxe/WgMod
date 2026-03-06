@@ -9,6 +9,7 @@ namespace WgMod.Content.Items.Accessories;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.the_trueterrafox)]
+[Credit(ProjectRole.Idea, Contributor.the_trueterrafox)]
 public class CharmOfSweets : ModItem
 {
     WgStat _regen = new(4f, 16f);
