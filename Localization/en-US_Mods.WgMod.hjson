@@ -422,6 +422,20 @@ Items: {
 			2 minute duration
 			'''
 	}
+
+	BandOfSweetening: {
+		DisplayName: Band Of Sweetening
+		Tooltip: Increased life regeneration by {0} per second
+	}
+
+	CharmOfSweets: {
+		DisplayName: Charm Of Sweets
+		Tooltip:
+			'''
+			Increased life regeneration by {0} per second
+			Reduces the cooldown of healing potions by {1}%
+			'''
+	}
 }
 
 Buffs: {

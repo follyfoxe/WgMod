@@ -45,6 +45,7 @@ public enum Contributor
     subparnitragen,
     haydumbb,
     divine_lumine,
+    the_trueterrafox,
 
     [Category("Other")]
     purple_circle
