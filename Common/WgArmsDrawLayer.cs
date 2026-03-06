@@ -10,7 +10,7 @@ namespace WgMod.Common;
 
 public class WgArmsDrawLayer : PlayerDrawLayer
 {
-    public const int ArmStageCount = 3;
+    public const int ArmStageCount = 4;
     public static readonly Asset<Texture2D>[] ArmTextures = new Asset<Texture2D>[ArmStageCount];
 
     public override bool IsHeadLayer => false;
