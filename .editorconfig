@@ -12,10 +12,12 @@ insert_final_newline = true
 # Rules
 csharp_prefer_braces = false
 csharp_style_namespace_declarations = file_scoped:warning
+dotnet_style_require_accessibility_modifiers = omit_if_default:warning
 
 # Formatting
 dotnet_sort_system_directives_first = true
 csharp_preserve_single_line_statements = false
+csharp_preserve_single_line_blocks = true
 
 # Naming styles
 dotnet_naming_style.underscored.capitalization = camel_case

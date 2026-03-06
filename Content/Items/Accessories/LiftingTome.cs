@@ -178,7 +178,7 @@ public class LiftingTomePlayer : ModPlayer
 
         Vector2 mousePosition = Main.MouseWorld;
         float angle = Utils.AngleTo(Player.Center, mousePosition);
-        Vector2 velocity = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+        Vector2 velocity = new(MathF.Cos(angle), MathF.Sin(angle));
 
         if (_cooldownScythe == _cooldownScytheMax)
         {
@@ -257,17 +257,13 @@ public class LiftingTomePlayer : ModPlayer
         }
         if (_hallucinationCandidates.Count == 0)
             return;
-        Vector2 spawnposition;
-        Vector2 spawnvelocity;
-        float ai0;
-        float ai1;
         Projectile.RandomizeInsanityShadowFor(
             Main.rand.NextFromCollection(_hallucinationCandidates),
             false,
-            out spawnposition,
-            out spawnvelocity,
-            out ai0,
-            out ai1
+            out Vector2 spawnposition,
+            out Vector2 spawnvelocity,
+            out float ai0,
+            out float ai1
         );
         Projectile.NewProjectile(
             new EntitySource_ItemUse(Player, item),
@@ -282,5 +278,5 @@ public class LiftingTomePlayer : ModPlayer
         );
     }
 
-    private static List<NPC> _hallucinationCandidates = new List<NPC>();
+    static readonly List<NPC> _hallucinationCandidates = [];
 }

@@ -12,7 +12,7 @@ namespace WgMod.Content.Projectiles;
 
 public class BouncyBall : ModProjectile
 {
-    private NPC HomingTarget
+    NPC HomingTarget
     {
         get => Projectile.ai[1] == 0 ? null : Main.npc[(int)Projectile.ai[1] - 1];
         set { Projectile.ai[1] = value == null ? 0 : value.whoAmI + 1; }

@@ -27,10 +27,9 @@ public partial class WgMod
         On_Main.DrawProj_DrawExtras += Main_DrawProj_DrawExtras;
         On_TileObject.CanPlace += TileObject_CanPlace;
 
+        // folly: Move this elsewhere, this doesn't belong here. Do it inside of a Load and Unload of a ModType
         On_Main.DrawDust += DrawFollowerDust;
     }
-
-    
 
     // Always remember to unregister your hooks
     static void UnregisterHooks()

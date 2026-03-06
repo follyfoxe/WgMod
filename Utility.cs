@@ -74,6 +74,7 @@ public static class Utility
     {
         return value.Percent().OutOf(max.Percent());
     }
+
     /// <summary>
     /// Attempts to get the TooltipLine of the list right before where the "tooltip" line should be.
     /// </summary>
@@ -114,6 +115,7 @@ public static class Utility
             ?? tooltips.Find(x => x.Name == "ItemName");
         return line != null;
     }
+
     public static int TimeToTicks(int hours = 0, int minutes = 0, int seconds = 0, int ticks = 0)
     {
         seconds *= 60;

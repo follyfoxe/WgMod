@@ -19,10 +19,10 @@ namespace WgMod.Content.NPCs.Dungeon.Follower;
 [Credit(ProjectRole.Programmer, Contributor.jumpsu2)]
 public class Follower : ModNPC
 {
-    public static int BestiaryColor = 1;
+    public static int BestiaryColor { get; private set; } = 1;
 
-    public List<(Vector2, int)> FollowingList = new List<(Vector2, int)> ();
-    public List<(Vector2, Rectangle)> TrailList = new List<(Vector2, Rectangle)>();
+    public List<(Vector2, int)> FollowingList = [];
+    public List<(Vector2, Rectangle)> TrailList = [];
 
     public float spawnDustAngle = -1f;
 
@@ -33,6 +33,7 @@ public class Follower : ModNPC
         NPCID.Sets.CantTakeLunchMoney[NPC.type] = true;
         BestiaryColor = Main.rand.Next(1, 19);
     }
+
     public override void SetDefaults()
     {
         NPC.width = 16;
@@ -52,22 +53,22 @@ public class Follower : ModNPC
         Banner = Type;
         BannerItem = ModContent.ItemType<FollowerBanner>();
     }
+
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
     {
         bestiaryEntry.Info.AddRange([
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheDungeon,
-			new FlavorTextBestiaryInfoElement("Mods.WgMod.Bestiary.Follower")
+            new FlavorTextBestiaryInfoElement("Mods.WgMod.Bestiary.Follower")
         ]);
     }
 
-    private static Color GetFollowerColor(int ID)
+    static Color GetFollowerColor(int ID)
     {
         int colorIndex = ID % 18;
         if (colorIndex == 0)
             colorIndex = 18;
 
-        Color color = new Color(1f, 0f, 0f);
-
+        Color color = new(1f, 0f, 0f);
         if (colorIndex <= 3)
         {
             color = Color.Lerp(new Color(1f, 0f, 0f), new Color(1f, 1f, 0f), colorIndex / 3f);
@@ -97,19 +98,20 @@ public class Follower : ModNPC
             colorIndex -= 15;
             color = Color.Lerp(new Color(1f, 0f, 1f), new Color(1f, 0f, 0f), colorIndex / 3f);
         }
-
         return color;
     }
 
-    private void SmallDust(Vector2 Position, Vector2 Velocity, float Scale)
+    void SmallDust(Vector2 Position, Vector2 Velocity, float Scale)
     {
         Dust.NewDustPerfect(Position, ModContent.DustType<FollowerDustSmall>(), Velocity, 0, GetFollowerColor((int)NPC.ai[0]), Scale);
     }
-    private void BigDust(Vector2 Position, Vector2 Velocity, float Scale)
+
+    void BigDust(Vector2 Position, Vector2 Velocity, float Scale)
     {
         Dust.NewDustPerfect(Position, ModContent.DustType<FollowerDustBig>(), Velocity, 0, GetFollowerColor((int)NPC.ai[0]), Scale);
     }
-    private void Poof(float Base, int Max, Vector2? At = null)
+
+    void Poof(float Base, int Max, Vector2? At = null)
     {
         if (At == null)
             At = NPC.Center;
@@ -123,7 +125,8 @@ public class Follower : ModNPC
             degrees += 12.76f;
         }
     }
-    private void TeleportFX(Vector2 At, Vector2 To)
+
+    void TeleportFX(Vector2 At, Vector2 To)
     {
         Poof(1, 30, At);
         Poof(1, 30, To);
@@ -156,8 +159,10 @@ public class Follower : ModNPC
         bool[] takenIndexes = new bool[200];
         foreach (NPC follower in Main.ActiveNPCs)
         {
-            if (follower.type != NPC.type) continue;
-            if (follower.target != NPC.target) continue;
+            if (follower.type != NPC.type)
+                continue;
+            if (follower.target != NPC.target)
+                continue;
             takenIndexes[(int)follower.ai[0]] = true;
         }
         for (int i = 0; i < takenIndexes.Length; i++)
@@ -237,11 +242,9 @@ public class Follower : ModNPC
         }
 
         if (!NPC.dontTakeDamage && NPC.ai[3] > 900)
-        {
             NPC.npcSlots = 0f;
-        }
-
     }
+
     public override void PostAI()
     {
         NPC.velocity = Vector2.Zero;
@@ -253,14 +256,14 @@ public class Follower : ModNPC
             float scale = Main.rand.Next(0, 15) / 10f + 1f;
             SmallDust(PosWithinNPC(), velocity * power, scale);
         }
-            
     }
+
     public override void FindFrame(int frameHeight)
     {
         NPC.frameCounter++;
-        int frameToUse = 0;
         int yOffset = 0;
 
+        int frameToUse;
         switch (NPC.ai[1])
         {
             case 1:
@@ -282,6 +285,7 @@ public class Follower : ModNPC
         if (TrailList.Count > 15)
             TrailList.RemoveAt(0);
     }
+
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         if (NPC.dontTakeDamage && !NPC.IsABestiaryIconDummy)
@@ -302,10 +306,9 @@ public class Follower : ModNPC
         Main.spriteBatch.End();
         Main.spriteBatch.Begin(0, BlendState.NonPremultiplied, Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer, null, Main.Transform);
 
-
         for (int i = TrailList.Count - 1; i > 0; i--)
         {
-            SpriteEffects effect2 = SpriteEffects.None;
+            SpriteEffects effect2;
             if (i == 0)
                 effect2 = TrailList[i].Item1.X > NPC.position.X ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             else
@@ -322,6 +325,7 @@ public class Follower : ModNPC
         spriteBatch.Draw(sprite, NPC.Center - screenPos - new Vector2(36, 35), NPC.frame, color, 0f, Vector2.Zero, 1f, effect, 0f);
         return false;
     }
+
     public override void HitEffect(NPC.HitInfo hit)
     {
         if (Main.netMode == NetmodeID.Server)
@@ -346,17 +350,20 @@ public class Follower : ModNPC
         }
     }
 
-    private Vector2 PosWithinNPC()
+    Vector2 PosWithinNPC()
     {
         return NPC.position + new Vector2(Main.rand.Next(0, NPC.width), Main.rand.Next(0, NPC.height));
     }
 
     public override bool CanHitNPC(NPC target) => !NPC.dontTakeDamage && NPC.ai[3] > 75;
+
     public override bool CanHitPlayer(Player target, ref int cooldownSlot) => !NPC.dontTakeDamage && NPC.ai[3] > 75;
+
     public override void ModifyIncomingHit(ref NPC.HitModifiers modifiers)
     {
         modifiers.FinalDamage *= Math.Min((NPC.ai[3] - 60) / 240, 1f);
     }
+
     public override void OnHitPlayer(Player target, Player.HurtInfo hurtInfo)
     {
         FollowerExplode(NPC);
@@ -372,7 +379,9 @@ public class Follower : ModNPC
             packet.Send();
         }
     }
+
     public static Vector2 ExplosionDustPos(NPC npc) => npc.Center + new Vector2(Main.rand.Next(-48, 49), Main.rand.Next(-48, 49));
+
     public static void FollowerExplode(NPC npc)
     {
         float angleA = 45f;
@@ -389,9 +398,9 @@ public class Follower : ModNPC
             }
             angleA += 90f;
         }
-
         npc.active = false;
     }
+
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
         npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<VoidCakes>(), 3));
@@ -402,6 +411,7 @@ public class Follower : ModNPC
 public class FollowerSpawner : ModNPC
 {
     public override string Texture => "WgMod/Assets/Textures/Invisible";
+
     public override void SetStaticDefaults()
     {
         NPCID.Sets.DoesntDespawnToInactivityAndCountsNPCSlots[NPC.type] = true;
@@ -413,6 +423,7 @@ public class FollowerSpawner : ModNPC
         };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, bestiaryData);
     }
+
     public override void SetDefaults()
     {
         NPC.width = 16;
@@ -423,6 +434,7 @@ public class FollowerSpawner : ModNPC
         NPC.knockBackResist = 0f;
         NPC.lifeMax = 999;
     }
+
     public override void AI()
     {
         if (Main.netMode != NetmodeID.MultiplayerClient)
@@ -435,12 +447,11 @@ public class FollowerSpawner : ModNPC
                 amountToSpawn += Main.rand.Next(2, 6);
 
             for (int i = 0; i < amountToSpawn; i++)
-            {
                 NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.position.X, (int)NPC.position.Y, ModContent.NPCType<Follower>());
-            }
         }
         NPC.active = false;
     }
+
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         return SpawnCondition.Dungeon.Chance * 0.06f;
