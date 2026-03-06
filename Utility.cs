@@ -114,4 +114,11 @@ public static class Utility
             ?? tooltips.Find(x => x.Name == "ItemName");
         return line != null;
     }
+    public static int TimeToTicks(int hours = 0, int minutes = 0, int seconds = 0, int ticks = 0)
+    {
+        seconds *= 60;
+        minutes *= 60 * 60;
+        hours *= 60 * 60 * 60;
+        return ticks + seconds + minutes + hours;
+    }
 }
