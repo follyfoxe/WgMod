@@ -5,6 +5,7 @@ using WgMod.Common.Players;
 namespace WgMod.Content.Buffs.Consumables;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor._d_u_m_m_y_)]
 public class GnomeLuck : ModBuff
 {
     WgStat _luck = new(0.2f, 1f);

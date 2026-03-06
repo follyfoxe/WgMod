@@ -6,6 +6,8 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Buffs;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor._d_u_m_m_y_)]
 public class ForceFed : ModBuff
 {
     public const int TicksPerCycle = 30;

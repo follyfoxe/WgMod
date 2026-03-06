@@ -4,125 +4,125 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace WgMod.Content.Buffs
+namespace WgMod.Content.Buffs;
+
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+public class PillarWrath : ModBuff
 {
-    public class PillarWrath : ModBuff
+    public override void SetStaticDefaults()
     {
-        public override void SetStaticDefaults()
-        {
-            Main.debuff[Type] = true;
-            Main.pvpBuff[Type] = true;
-            Main.buffNoSave[Type] = true;
-            BuffID.Sets.LongerExpertDebuff[Type] = true;
-        }
-
-        public override void Update(Player player, ref int buffIndex)
-        {
-            player.GetModPlayer<PillarWrathPlayer>().PillarWrath = true;
-        }
-
-        public override void Update(NPC npc, ref int buffIndex)
-        {
-            npc.GetGlobalNPC<PillarWrathNPC>().PillarWrath = true;
-        }
+        Main.debuff[Type] = true;
+        Main.pvpBuff[Type] = true;
+        Main.buffNoSave[Type] = true;
+        BuffID.Sets.LongerExpertDebuff[Type] = true;
     }
 
-    public class PillarWrathNPC : GlobalNPC
+    public override void Update(Player player, ref int buffIndex)
     {
-        public override bool InstancePerEntity => true;
+        player.GetModPlayer<PillarWrathPlayer>().PillarWrath = true;
+    }
 
-        public bool PillarWrath;
+    public override void Update(NPC npc, ref int buffIndex)
+    {
+        npc.GetGlobalNPC<PillarWrathNPC>().PillarWrath = true;
+    }
+}
 
-        public override void ResetEffects(NPC npc)
+public class PillarWrathNPC : GlobalNPC
+{
+    public override bool InstancePerEntity => true;
+
+    public bool PillarWrath;
+
+    public override void ResetEffects(NPC npc)
+    {
+        PillarWrath = false;
+    }
+
+    public override void UpdateLifeRegen(NPC npc, ref int damage)
+    {
+        if (!PillarWrath)
+            return;
+
+        damage = 50;
+        if (npc.lifeRegen > 0)
+            npc.lifeRegen = 0;
+
+        npc.lifeRegen -= 200;
+    }
+
+    public override void DrawEffects(NPC npc, ref Color drawColor)
+    {
+        if (!PillarWrath)
+            return;
+
+        int dustRate = 15;
+
+        if (Main.rand.NextBool(dustRate))
         {
-            PillarWrath = false;
+            int vortex = Dust.NewDust(
+                npc.position,
+                npc.width,
+                npc.height,
+                DustID.Vortex,
+                0f,
+                0f,
+                100,
+                default,
+                1f
+            );
+
+            Main.dust[vortex].noGravity = true;
         }
 
-        public override void UpdateLifeRegen(NPC npc, ref int damage)
+        if (Main.rand.NextBool(dustRate))
         {
-            if (!PillarWrath)
-                return;
+            int stardust = Dust.NewDust(
+                npc.position,
+                npc.width,
+                npc.height,
+                DustID.Electric,
+                0f,
+                0f,
+                100,
+                default,
+                1f
+            );
 
-            damage = 50;
-            if (npc.lifeRegen > 0)
-                npc.lifeRegen = 0;
-
-            npc.lifeRegen -= 200;
+            Main.dust[stardust].noGravity = true;
         }
 
-        public override void DrawEffects(NPC npc, ref Color drawColor)
+        if (Main.rand.NextBool(dustRate))
         {
-            if (!PillarWrath)
-                return;
+            int solar = Dust.NewDust(
+                npc.position,
+                npc.width,
+                npc.height,
+                DustID.SolarFlare,
+                0f,
+                0.25f,
+                100,
+                default,
+                1f
+            );
+        }
 
-            int dustRate = 15;
+        if (Main.rand.NextBool(dustRate))
+        {
+            int nebula = Dust.NewDust(
+                npc.position,
+                npc.width,
+                npc.height,
+                DustID.CrystalPulse,
+                0f,
+                0f,
+                100,
+                default,
+                1f
+            );
 
-            if (Main.rand.NextBool(dustRate))
-            {
-                int vortex = Dust.NewDust(
-                    npc.position,
-                    npc.width,
-                    npc.height,
-                    DustID.Vortex,
-                    0f,
-                    0f,
-                    100,
-                    default,
-                    1f
-                );
-
-                Main.dust[vortex].noGravity = true;
-            }
-
-            if (Main.rand.NextBool(dustRate))
-            {
-                int stardust = Dust.NewDust(
-                    npc.position,
-                    npc.width,
-                    npc.height,
-                    DustID.Electric,
-                    0f,
-                    0f,
-                    100,
-                    default,
-                    1f
-                );
-
-                Main.dust[stardust].noGravity = true;
-            }
-
-            if (Main.rand.NextBool(dustRate))
-            {
-                int solar = Dust.NewDust(
-                    npc.position,
-                    npc.width,
-                    npc.height,
-                    DustID.SolarFlare,
-                    0f,
-                    0.25f,
-                    100,
-                    default,
-                    1f
-                );
-            }
-
-            if (Main.rand.NextBool(dustRate))
-            {
-                int nebula = Dust.NewDust(
-                    npc.position,
-                    npc.width,
-                    npc.height,
-                    DustID.CrystalPulse,
-                    0f,
-                    0f,
-                    100,
-                    default,
-                    1f
-                );
-
-                Main.dust[nebula].noGravity = true;
-                Main.dust[nebula].velocity = new Vector2(0, 0);
-            }
+            Main.dust[nebula].noGravity = true;
+            Main.dust[nebula].velocity = new Vector2(0, 0);
         }
     }
 }
