@@ -147,8 +147,8 @@ public class LiftingTomePlayer : ModPlayer
     public int _cooldownSkullMax = 120;
     public int _cooldownScytheMax = 180;
 
-    WgStat damageModifier = new(1f, 2f);
-    WgStat velocityModifier = new(1f, 0.8f);
+    WgStat _damageModifier = new(1f, 2f);
+    WgStat _velocityModifier = new(1f, 0.8f);
 
     public override void ResetEffects()
     {
@@ -162,12 +162,12 @@ public class LiftingTomePlayer : ModPlayer
             return;
         float immobility = wg.Weight.ClampedImmobility;
 
-        damageModifier.Lerp(immobility);
-        velocityModifier.Lerp(immobility);
+        _damageModifier.Lerp(immobility);
+        _velocityModifier.Lerp(immobility);
 
         Vector2 mousePosition = Main.MouseWorld;
         float angle = Utils.AngleTo(Player.Center, mousePosition);
-        Vector2 velocity = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+        Vector2 velocity = new(MathF.Cos(angle), MathF.Sin(angle));
 
         if (_cooldownScythe == _cooldownScytheMax)
         {
@@ -176,9 +176,9 @@ public class LiftingTomePlayer : ModPlayer
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
                 Player.Center,
-                velocity * 0.2f * velocityModifier,
+                velocity * 0.2f * _velocityModifier,
                 ProjectileID.DemonScythe,
-                17 * damageModifier,
+                17 * _damageModifier,
                 5
             );
 
@@ -192,9 +192,9 @@ public class LiftingTomePlayer : ModPlayer
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
                 Player.Center,
-                velocity * 3.5f * velocityModifier,
+                velocity * 3.5f * _velocityModifier,
                 ProjectileID.BookOfSkullsSkull,
-                14 * damageModifier,
+                14 * _damageModifier,
                 3.5f
             );
 
@@ -208,9 +208,9 @@ public class LiftingTomePlayer : ModPlayer
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
                 Player.Center,
-                velocity * 4.5f * velocityModifier,
+                velocity * 4.5f * _velocityModifier,
                 ProjectileID.WaterBolt,
-                9 * damageModifier,
+                9 * _damageModifier,
                 5
             );
         }
@@ -225,7 +225,7 @@ public class LiftingTomePlayer : ModPlayer
             return;
         Player.insanityShadowCooldown = Main.rand.Next(20, 101);
         float num = 500f;
-        int Damage = 18;
+        int damage = 18;
         _hallucinationCandidates.Clear();
         for (int index = 0; index < 200; ++index)
         {
@@ -246,24 +246,20 @@ public class LiftingTomePlayer : ModPlayer
         }
         if (_hallucinationCandidates.Count == 0)
             return;
-        Vector2 spawnposition;
-        Vector2 spawnvelocity;
-        float ai0;
-        float ai1;
         Projectile.RandomizeInsanityShadowFor(
             Main.rand.NextFromCollection(_hallucinationCandidates),
             false,
-            out spawnposition,
-            out spawnvelocity,
-            out ai0,
-            out ai1
+            out Vector2 spawnposition,
+            out Vector2 spawnvelocity,
+            out float ai0,
+            out float ai1
         );
         Projectile.NewProjectile(
             new EntitySource_ItemUse(Player, item),
             spawnposition,
             spawnvelocity,
             ProjectileID.InsanityShadowFriendly,
-            Damage,
+            damage,
             0.0f,
             Player.whoAmI,
             ai0,
@@ -271,5 +267,5 @@ public class LiftingTomePlayer : ModPlayer
         );
     }
 
-    private static List<NPC> _hallucinationCandidates = new List<NPC>();
+    static readonly List<NPC> _hallucinationCandidates = [];
 }
