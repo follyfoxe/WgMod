@@ -69,11 +69,7 @@ public class CaramelizedNPC : GlobalNPC
         CaramelizedEffect = false;
     }
 
-    public override void ModifyHitByProjectile(
-        NPC npc,
-        Projectile projectile,
-        ref NPC.HitModifiers modifiers
-    )
+    public override void ModifyHitByProjectile(NPC npc, Projectile projectile, ref NPC.HitModifiers modifiers)
     {
         if (projectile.npcProj || projectile.trap || !projectile.IsMinionOrSentryRelated)
             return;

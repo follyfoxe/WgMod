@@ -87,14 +87,7 @@ public class BottomlessAppetitePlayer : ModPlayer
         _active = false;
     }
 
-    public override void DrawEffects(
-        PlayerDrawSet drawInfo,
-        ref float r,
-        ref float g,
-        ref float b,
-        ref float a,
-        ref bool fullBright
-    )
+    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
     {
         if (!Player.TryGetModPlayer(out WgPlayer wg) || drawInfo.shadow != 0f || Player.dead)
             return;

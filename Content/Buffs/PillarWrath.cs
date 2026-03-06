@@ -148,14 +148,7 @@ public class PillarWrathPlayer : ModPlayer
         Player.lifeRegen -= 200;
     }
 
-    public override void DrawEffects(
-        PlayerDrawSet drawInfo,
-        ref float r,
-        ref float g,
-        ref float b,
-        ref float a,
-        ref bool fullBright
-    )
+    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
     {
         if (!PillarWrath)
             return;
