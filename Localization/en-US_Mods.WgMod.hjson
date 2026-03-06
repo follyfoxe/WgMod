@@ -415,7 +415,7 @@ Items: {
 		DisplayName: Voidcakes
 		Tooltip:
 			'''
-			Increases mobility and decreases weight penalty from weight
+			Increases mobility and decreases movement penalty from weight
 			Buff duration can be stacked
 			...However, you become debuffed when the effect ends
 			Cannot be consumed while under said debuff
