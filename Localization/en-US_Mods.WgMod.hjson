@@ -436,7 +436,7 @@ Items: {
 			Reduces the cooldown of healing potions by {1}%
 			'''
 	}
-	
+
 	HeliumTank: {
 		DisplayName: Helium Tank
 		Tooltip:
@@ -490,7 +490,10 @@ Buffs: {
 
 	Weightless: {
 		DisplayName: Weightless
-		Description: Reduces movement penalty of high weights by {0}%
+		Description: '''
+		Reduces movement penalty of high weights by {0}%
+		5 minute duration
+		'''
 	}
 
 	GluttedGut: {
