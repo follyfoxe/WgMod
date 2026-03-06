@@ -10,6 +10,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Buffs;
 
+[Credit(ProjectRole.Programmer, Contributor.jumpsu2)]
 public class GiftOfVoid : ModBuff
 {
     float _movementSpeed = 0.3f;
@@ -54,6 +55,7 @@ public class GiftOfVoid : ModBuff
     }
 }
 
+[Credit(ProjectRole.Programmer, Contributor.jumpsu2)]
 public class CrashDown : ModBuff
 {
     public override void SetStaticDefaults()
