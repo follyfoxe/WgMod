@@ -37,7 +37,6 @@ public class GiftOfVoid : ModBuff
         {
             _stale = MathHelper.Lerp(1f, 0.25f, Math.Clamp((float)(gov._giftOfVoidTimer - Utility.TimeToTicks(minutes: 1)) / Utility.TimeToTicks(minutes: 3), 0f, 1f));
         }
-        Main.NewText(_stale);
         player.moveSpeed += _movementSpeed * _stale;
         player.jumpSpeedBoost += _jumpHeight * _stale;
         wg.MovementPenalty *= 1f - _movementPenalty * _stale;
