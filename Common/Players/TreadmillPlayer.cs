@@ -42,6 +42,8 @@ public class TreadmillPlayer : ModPlayer
 
     public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
     {
+        if (!_onTreadmill)
+            return;
         drawInfo.isSitting = false;
         drawInfo.torsoOffset = 0f;
         drawInfo.seatYOffset = 0f;
