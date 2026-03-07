@@ -365,6 +365,24 @@ Items: {
 		Effects scale with your obesity (and lycanthropy)
 		'Who's a good girl? You are! You are!'
 		'''
+	TurtleHelmet.Tooltip:
+		'''
+		Increases damage by {0}%
+		{1} increased max life
+		{2} additional defense
+		'''
+	TurtleScaleMail.Tooltip:
+		'''
+		Increases damage and critical strike chance by {0}%
+		{1} increased max life
+		{2} additional defense
+		'''
+	TurtleLeggings.Tooltip:
+		'''
+		Increases critical strike chance by {0}%
+		{1} increased max life
+		{2} additional defense
+		'''
 
 	CaramelArrow: {
 		DisplayName: Caramel Arrow
@@ -493,7 +511,7 @@ Buffs: {
 		Description:
 			'''
 			Reduces movement penalty of high weights by {0}%
-			5 minute duration
+			8 minute duration
 			'''
 	}
 
