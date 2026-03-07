@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
@@ -70,11 +73,7 @@ public class LiftingTome : ModItem
         lt.SpawnHallucination(Item);
     }
 
-    public override void HorizontalWingSpeeds(
-        Player player,
-        ref float speed,
-        ref float acceleration
-    )
+    public override void HorizontalWingSpeeds(Player player, ref float speed, ref float acceleration)
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
@@ -86,14 +85,7 @@ public class LiftingTome : ModItem
         acceleration *= _flight;
     }
 
-    public override void VerticalWingSpeeds(
-        Player player,
-        ref float ascentWhenFalling,
-        ref float ascentWhenRising,
-        ref float maxCanAscendMultiplier,
-        ref float maxAscentMultiplier,
-        ref float constantAscend
-    )
+    public override void VerticalWingSpeeds(Player player, ref float ascentWhenFalling, ref float ascentWhenRising, ref float maxCanAscendMultiplier, ref float maxAscentMultiplier, ref float constantAscend)
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
             return;
@@ -278,5 +270,77 @@ public class LiftingTomePlayer : ModPlayer
         );
     }
 
+    public override void HideDrawLayers(PlayerDrawSet drawInfo)
+    {
+        if (_active && Player.velocity.Y == 0f)
+            PlayerDrawLayers.Wings.Hide();
+    }
+
     static readonly List<NPC> _hallucinationCandidates = [];
+}
+
+// folly: There surely must be a better way...
+public class LiftingTomeWingLayer : PlayerDrawLayer
+{
+    static readonly Vector2[] _offsets =
+    [
+        new Vector2(6, 0),
+        new Vector2(-6, 0),
+        new Vector2(0, 6),
+        new Vector2(0, -6)
+    ];
+
+    public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
+
+    protected override void Draw(ref PlayerDrawSet drawInfo)
+    {
+        Player player = drawInfo.drawPlayer;
+        if (!player.TryGetModPlayer(out LiftingTomePlayer lt) || !lt._active)
+            return;
+
+        // Hides the effects when grounded
+        if (player.velocity.Y == 0f)
+            return;
+
+        int wingSlot = player.wingsLogic;
+        if (wingSlot <= 0)
+            return;
+
+        Asset<Texture2D> wingTexture = TextureAssets.Wings[wingSlot];
+        Rectangle sourceRect = wingTexture.Frame(1, 4);
+        Vector2 drawPos = drawInfo.Position + new Vector2(player.width / 2f - 9f * player.direction, player.height / 2f + player.gfxOffY) - Main.screenPosition;
+
+        Vector2 origin = sourceRect.Size() / 2f;
+        SpriteEffects effects = player.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+        Color baseColor = new(112, 33, 117, 50); // Base purple colour
+        foreach (Vector2 offset in _offsets)
+        {
+            Vector2 pos = drawPos + offset;
+            drawInfo.DrawDataCache.Add(new DrawData(
+                wingTexture.Value,
+                pos,
+                sourceRect,
+                baseColor,
+                0f,
+                origin,
+                1f,
+                effects,
+                0
+            ));
+        }
+
+        // Tints the middle hand black
+        drawInfo.DrawDataCache.Add(new DrawData(
+            wingTexture.Value,
+            drawPos,
+            sourceRect,
+            new Color(68, 61, 69, 255),
+            0f,
+            origin,
+            1f,
+            effects,
+            0
+        ));
+    }
 }
