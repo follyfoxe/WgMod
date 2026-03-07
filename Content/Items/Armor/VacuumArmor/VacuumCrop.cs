@@ -64,12 +64,6 @@ public class VacuumCrop : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(
-            _attack.Percent(),
-            _health,
-            _defense,
-            _resist.Percent(),
-            (_movePenalty.Value - 1f).Percent()
-        );
+        tooltips.FormatLines(_attack.Percent(), _health, _defense, _resist.Percent(), (_movePenalty.Value - 1f).Percent());
     }
 }

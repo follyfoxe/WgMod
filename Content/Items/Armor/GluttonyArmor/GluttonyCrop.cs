@@ -55,11 +55,6 @@ public class GluttonyCrop : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(
-            _damage.Percent(),
-            (1f - _attackSpeed).Percent(),
-            _defense,
-            _resist.Percent()
-        );
+        tooltips.FormatLines(_damage.Percent(), (1f - _attackSpeed).Percent(), _defense, _resist.Percent());
     }
 }

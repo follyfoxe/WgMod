@@ -58,11 +58,7 @@ public class VacuumHelmet : ModItem
         player.statLifeMax2 = (int)Math.Round(player.statLifeMax2 * (1f + _setBonusHealth));
         wg.WeightLossRate *= SetBonusWeightLoss;
 
-        player.setBonus = SetBonusText.Format(
-            _setBonusRegen,
-            _setBonusHealth.Percent(),
-            (1f - SetBonusWeightLoss).Percent()
-        );
+        player.setBonus = SetBonusText.Format(_setBonusRegen, _setBonusHealth.Percent(), (1f - SetBonusWeightLoss).Percent());
     }
 
     public override void UpdateEquip(Player player)
@@ -103,12 +99,6 @@ public class VacuumHelmet : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(
-            (_critChance - 1f).Percent(),
-            _health,
-            _defense,
-            _resist.Percent(),
-            (_movePenalty.Value - 1f).Percent()
-        );
+        tooltips.FormatLines((_critChance - 1f).Percent(), _health, _defense, _resist.Percent(), (_movePenalty.Value - 1f).Percent());
     }
 }
