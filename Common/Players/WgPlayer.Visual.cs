@@ -88,4 +88,14 @@ public partial class WgPlayer
                 drawLayer.Hide();
         }
     }
+
+    public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+    {
+        if (Player.mount.Active)
+        {
+            /*drawInfo.Position.Y += drawInfo.mountOffSet;
+            drawInfo.mountOffSet *= WeightValues.GetMountScale(Weight.GetStage());
+            drawInfo.Position.Y -= drawInfo.mountOffSet;*/
+        }
+    }
 }

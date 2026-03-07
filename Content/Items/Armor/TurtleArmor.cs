@@ -1,9 +1,8 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using WgMod.Common.Players;
 using System.Collections.Generic;
-using Terraria.Localization;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor;
 

@@ -71,14 +71,10 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             return;
 
         int direction = ((drawInfo.playerEffect & SpriteEffects.FlipHorizontally) == 0).ToDirectionInt();
-        Vector2 position = drawInfo.Center - Main.screenPosition;
+        Vector2 position = new Vector2((int)(drawInfo.Position.X - Main.screenPosition.X - drawInfo.drawPlayer.bodyFrame.Width / 2 + drawInfo.drawPlayer.width / 2), (int)(drawInfo.Position.Y - Main.screenPosition.Y + drawInfo.drawPlayer.height - drawInfo.drawPlayer.bodyFrame.Height + 4f)) + drawInfo.drawPlayer.bodyPosition + new Vector2(drawInfo.drawPlayer.bodyFrame.Width / 2, drawInfo.drawPlayer.bodyFrame.Height / 2);
         position.X += WeightValues.DrawOffsetX(stage) * direction;
 
-        float yOffset = 0f;
-        if (!drawInfo.isSitting)
-            yOffset -= drawInfo.seatYOffset;
-        yOffset += drawInfo.mountOffSet * 0.5f;
-
+        float yOffset = 4f;
         Rectangle legFrame = player.legFrame;
         int frame = legFrame.Y / legFrame.Height;
         // Frame [0] - Idle
@@ -147,7 +143,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     static Vector2 PrepPos(Vector2 pos, float xOffset, float yOffset, float gravDir)
     {
         pos.X += xOffset;
-        pos.Y += (1f + yOffset) * gravDir;
+        pos.Y += yOffset * gravDir;
         return pos.Floor();
     }
 }

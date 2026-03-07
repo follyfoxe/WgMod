@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -145,9 +146,24 @@ public partial class WgMod
 
     static void Mount_Draw(On_Mount.orig_Draw orig, Mount self, List<DrawData> playerDrawData, int drawType, Player drawPlayer, Vector2 Position, Color drawColor, SpriteEffects playerEffect, float shadow)
     {
+        float scale = 1f;
         if (drawPlayer.TryGetModPlayer(out WgPlayer wg) && self.Active)
-            Position.Y += WeightValues.DrawOffsetY(wg.Weight.GetStage());
+        {
+            int stage = wg.Weight.GetStage();
+            Position.Y += WeightValues.DrawOffsetY(stage);
+            scale = WeightValues.GetMountScale(stage);
+        }
+        int start = playerDrawData.Count;
         orig(self, playerDrawData, drawType, drawPlayer, Position, drawColor, playerEffect, shadow);
+        if (scale > 1f)
+        {
+            Span<DrawData> span = CollectionsMarshal.AsSpan(playerDrawData);
+            for (int i = start; i < playerDrawData.Count; i++)
+            {
+                ref DrawData data = ref span[i];
+                data.scale *= scale;
+            }
+        }
     }
 
     static void Main_DrawProj_DrawExtras(On_Main.orig_DrawProj_DrawExtras orig, Main self, Projectile proj, Vector2 mountedCenter, ref float polePosX, ref float polePosY)
