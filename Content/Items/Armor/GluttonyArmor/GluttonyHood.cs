@@ -13,7 +13,7 @@ namespace WgMod.Content.Items.Armor.GluttonyArmor;
 public class GluttonyHood : ModItem
 {
     WgStat _damage = new(0f, 0.05f);
-    WgStat _critChance = new(1, 1.06f);
+    WgStat _critChance = new(0f, 6f);
     WgStat _defense = new(0f, 6f);
     WgStat _resist = new(0f, 0.01f);
 
@@ -50,7 +50,7 @@ public class GluttonyHood : ModItem
         _resist.Lerp(immobility);
 
         player.GetDamage(DamageClass.Generic) += _damage;
-        player.GetCritChance(DamageClass.Generic) *= _critChance;
+        player.GetCritChance(DamageClass.Generic) += _critChance;
         player.statDefense += _defense;
         player.endurance += _resist;
     }
@@ -97,7 +97,7 @@ public class GluttonyHood : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), (_critChance - 1f).Percent(), _defense, _resist.Percent());
+        tooltips.FormatLines(_damage.Percent(), _critChance, _defense, _resist.Percent());
     }
 
     public class GluttonyArmorPlayer : ModPlayer

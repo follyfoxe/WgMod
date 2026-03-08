@@ -16,7 +16,7 @@ public class TurtleArmor : GlobalItem
     WgStat _scaleMailDefense = new(5, 9);
     WgStat _scaleMailHealth = new(10, 20);
 
-    WgStat _leggingsCrit = new(0.02f, 0.06f);
+    WgStat _leggingsCrit = new(2f, 6f);
     WgStat _leggingsDefense = new(2, 6);
     WgStat _leggingsHealth = new(5, 10);
 
@@ -56,21 +56,21 @@ public class TurtleArmor : GlobalItem
         if (item.type == ItemID.TurtleScaleMail)
         {
             player.GetDamage(DamageClass.Melee) -= 0.08f;
-            player.GetCritChance(DamageClass.Melee) -= 0.08f;
+            player.GetCritChance(DamageClass.Melee) -= 8f;
 
             _scaleMailDamageCrit.Lerp(immobility);
             _scaleMailDefense.Lerp(immobility);
             _scaleMailHealth.Lerp(immobility);
 
             player.GetDamage(DamageClass.Generic) += _scaleMailDamageCrit;
-            player.GetCritChance(DamageClass.Generic) += _scaleMailDamageCrit;
+            player.GetCritChance(DamageClass.Generic) += _scaleMailDamageCrit * 100;
             player.statDefense += _scaleMailDefense;
             player.statLifeMax2 += _scaleMailHealth;
         }
 
         if (item.type == ItemID.TurtleLeggings)
         {
-            player.GetCritChance(DamageClass.Melee) -= 0.04f;
+            player.GetCritChance(DamageClass.Melee) -= 4f;
 
             _leggingsCrit.Lerp(immobility);
             _leggingsDefense.Lerp(immobility);
@@ -88,7 +88,7 @@ public class TurtleArmor : GlobalItem
         {
             tooltips.Find(t => t.Name == "Tooltip0")
             .Text = Mod.GetLocalization("Items.TurtleLeggings.Tooltip")
-            .Format(_leggingsCrit.Percent(), _leggingsHealth, _leggingsDefense);
+            .Format(_leggingsCrit, _leggingsHealth, _leggingsDefense);
         }
 
         if (item.type == ItemID.TurtleScaleMail)

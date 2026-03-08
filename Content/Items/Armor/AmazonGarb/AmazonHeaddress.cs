@@ -17,7 +17,7 @@ public class AmazonHeaddress : ModItem
 {
     WgStat _damage = new(0.05f, 0.1f);
     WgStat _setBonusDamage = new(0.09f, 0.22f);
-    WgStat _setBonusCritChance = new(0.18f, 0.36f);
+    WgStat _setBonusCritChance = new(18f, 36f);
 
     public override void SetStaticDefaults()
     {

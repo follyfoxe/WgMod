@@ -14,7 +14,7 @@ public class VacuumHelmet : ModItem
 {
     public const float SetBonusWeightLoss = 0.1f;
 
-    WgStat _critChance = new(1.02f, 1.08f);
+    WgStat _critChance = new(2f, 8f);
     WgStat _health = new(10, 100);
     WgStat _defense = new(0, 12 * 2);
     WgStat _resist = new(0f, 0.02f);
@@ -76,7 +76,7 @@ public class VacuumHelmet : ModItem
         _resist.Lerp(immobility);
         _movePenalty.Lerp(immobility);
 
-        player.GetCritChance(DamageClass.Generic) *= _critChance;
+        player.GetCritChance(DamageClass.Generic) += _critChance;
         player.statLifeMax2 += _health;
         player.statDefense += _defense;
         player.endurance += _resist;
@@ -99,6 +99,6 @@ public class VacuumHelmet : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines((_critChance - 1f).Percent(), _health, _defense, _resist.Percent(), (_movePenalty.Value - 1f).Percent());
+        tooltips.FormatLines(_critChance, _health, _defense, _resist.Percent(), (_movePenalty.Value - 1f).Percent());
     }
 }

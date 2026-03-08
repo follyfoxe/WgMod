@@ -14,7 +14,6 @@ public class CrimatriarchGown : ModItem
     public const int MinionCount = 1;
 
     WgStat _damage = new(0.05f, 0.1f);
-    WgStat _critChance = new(1.03f, 1.09f);
 
     public override void SetDefaults()
     {
@@ -31,11 +30,9 @@ public class CrimatriarchGown : ModItem
             return;
         float immobility = wg.Weight.ClampedImmobility;
         _damage.Lerp(immobility);
-        _critChance.Lerp(immobility);
 
         player.buffImmune[BuffID.Bleeding] = true;
         player.GetDamage(DamageClass.Summon) += _damage;
-        player.GetCritChance(DamageClass.Summon) *= _critChance;
         player.maxMinions += MinionCount;
     }
 
@@ -51,6 +48,6 @@ public class CrimatriarchGown : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), (_critChance - 1f).Percent());
+        tooltips.FormatLines(_damage.Percent());
     }
 }

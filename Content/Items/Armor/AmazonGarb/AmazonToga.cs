@@ -10,7 +10,7 @@ namespace WgMod.Content.Items.Armor.AmazonGarb;
 public class AmazonToga : ModItem
 {
     WgStat _damage = new(0.06f, 0.12f);
-    WgStat _critChance = new(0.12f, 0.24f);
+    WgStat _critChance = new(12f, 24f);
 
     public override void SetDefaults()
     {
@@ -36,7 +36,7 @@ public class AmazonToga : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_damage.Percent(), _critChance.Percent());
+        tooltips.FormatLines(_damage.Percent(), _critChance);
     }
 
     public override void AddRecipes()

@@ -9,7 +9,7 @@ namespace WgMod.Content.Items.Armor.AmazonGarb;
 [AutoloadEquip(EquipType.Legs)]
 public class AmazonSandals : ModItem
 {
-    WgStat _critChance = new(0.06f, 0.12f);
+    WgStat _critChance = new(6f, 12f);
 
     public override void SetDefaults()
     {
@@ -33,7 +33,7 @@ public class AmazonSandals : ModItem
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
-        tooltips.FormatLines(_critChance.Percent());
+        tooltips.FormatLines(_critChance);
     }
 
     public override void AddRecipes()
