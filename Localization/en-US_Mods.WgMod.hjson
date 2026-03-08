@@ -262,12 +262,12 @@ Items: {
 		DisplayName: "'The Call of Cthulhu'"
 		Tooltip:
 			'''
+			Allows for flight and slow fall
 			Increased damage by {0}%
 			Further increased magic damage by {4}%
 			Decreased mana cost by {1}%
 			Increases maximum mana by {2}
 			Increases the maximum number of minions by {3}
-			Counts as wings
 			Summons shadow hands to carry you and attack your foes
 			Your attacks are accompanied by multiple magical tomes at half power
 			Effects scale with your obesity
@@ -463,6 +463,36 @@ Items: {
 			[c/963232:Don't expect this to be actually useful.]
 			'''
 	}
+
+	Sunrise: {
+		Tooltip: ""
+		DisplayName: Sunrise
+	}
+
+	AmazonHeaddress: {
+		DisplayName: Amazon Headdress
+		Tooltip: Increased melee damage by {0}%
+		SetBonus:
+			'''
+			Dodge attacks every 15 seconds
+			Ranged weapons count as melee
+			'''
+	}
+
+	AmazonSandals: {
+		DisplayName: Amazon Sandals
+		Tooltip: Increased melee critical strike chance by {0}%
+	}
+
+	AmazonToga: {
+		DisplayName: Amazon Toga
+		Tooltip:
+			'''
+			Increased melee damage by {0}%
+			Increased melee critical strike chance by {1}%
+			'Low in defense, but it makes you feel like a hero'
+			'''
+	}
 }
 
 Buffs: {
@@ -607,6 +637,11 @@ Buffs: {
 			'Ignorance is bliss.'
 			'''
 	}
+
+	Sunrising: {
+		DisplayName: Sunrising
+		Description: Mods.WgMod.Buffs.Sunrising.Description
+	}
 }
 
 Configs: {
@@ -669,6 +704,7 @@ Projectiles: {
 	BouncyBall.DisplayName: Bouncy Ball
 	CaramelArrowProjectile.DisplayName: Caramel Arrow Projectile
 	PowderedSugarProjectile.DisplayName: Powdered Sugar Projectile
+	SunriseProjectile.DisplayName: Sunrise Projectile
 }
 
 NPCs: {
