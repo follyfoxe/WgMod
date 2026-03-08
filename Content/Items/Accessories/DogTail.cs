@@ -90,7 +90,6 @@ public class DogTailItem : GlobalItem
 
         if (player.wereWolf)
         {
-            dt._damageModifier += 1.7f;
             dt._cooldown += 30;
         }
 
