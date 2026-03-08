@@ -230,23 +230,26 @@ public class LiftingTomeWingLayer : PlayerDrawLayer
         new Vector2(0, -6)
     ];
 
+    static int _equipSlot;
+
+    public override void SetStaticDefaults()
+    {
+        _equipSlot = EquipLoader.GetEquipSlot(Mod, nameof(LiftingTome), EquipType.Wings);
+    }
+
     public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Wings);
+    public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => true;
 
     protected override void Draw(ref PlayerDrawSet drawInfo)
     {
+        if (!PlayerDrawLayers.Wings.Visible)
+            return;
+
         Player player = drawInfo.drawPlayer;
-        if (!player.TryGetModPlayer(out LiftingTomePlayer lt) || !lt._active)
+        if (player.wings != _equipSlot)
             return;
 
-        // Hides the effects when grounded
-        if (player.velocity.Y == 0f)
-            return;
-
-        int wingSlot = player.wingsLogic;
-        if (wingSlot <= 0)
-            return;
-
-        Asset<Texture2D> wingTexture = TextureAssets.Wings[wingSlot];
+        Asset<Texture2D> wingTexture = TextureAssets.Wings[_equipSlot];
         Rectangle sourceRect = wingTexture.Frame(1, 4);
         Vector2 drawPos = drawInfo.Position + new Vector2(player.width / 2f - 9f * player.direction, player.height / 2f + player.gfxOffY) - Main.screenPosition;
 
