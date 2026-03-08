@@ -666,6 +666,7 @@ Configs: {
 		Headers: {
 			General: General settings
 			Visual: Visual settings
+			Sprites: Sprites
 		}
 
 		DisableJiggle: {
@@ -686,6 +687,11 @@ Configs: {
 		DisableWeightGain: {
 			Label: Disable Weight Gain
 			Tooltip: Disables gaining weight of any kind
+		}
+
+		PlayerSpriteSet: {
+			Label: Player Sprite Set
+			Tooltip: Controls the aspect of fat player sprites
 		}
 	}
 }

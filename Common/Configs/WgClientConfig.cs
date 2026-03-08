@@ -21,4 +21,9 @@ public class WgClientConfig : ModConfig
 
     [DefaultValue(true)]
     public bool ShowCredits;
+
+    [Header("Sprites")]
+    [CustomModConfigItem(typeof(SpriteSetElement))]
+    [DefaultValue("Default"), ReloadRequired]
+    public string PlayerSpriteSet;
 }

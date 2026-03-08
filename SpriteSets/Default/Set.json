@@ -1,0 +1,44 @@
+{
+    "Author": "folly",
+    "ArmCount": 3,
+    "Layers": [
+        {
+            "Name": "Base",
+            "Type": "Legs"
+        },
+        {
+            "Name": "Belly",
+            "Type": "Belly"
+        }
+    ],
+    "Stages": {
+        "1": {
+            "OffsetX": 4
+        },
+        "2": {
+            "OffsetX": 4
+        },
+        "3": {
+            "Arm": 0,
+            "OffsetX": 4
+        },
+        "4": {
+            "Arm": 0,
+            "OffsetX": 4
+        },
+        "5": {
+            "Arm": 1,
+            "OffsetX": 4
+        },
+        "6": {
+            "Arm": 1,
+            "OffsetX": 4,
+            "OffsetY": 4
+        },
+        "7": {
+            "Arm": 2,
+            "OffsetX": 6,
+            "OffsetY": 16
+        }
+    }
+}

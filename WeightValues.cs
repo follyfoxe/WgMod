@@ -27,27 +27,7 @@ public static class WeightValues
         _ => 2,
     };
 
-    public static int GetArmStage(int stage) => stage switch
-    {
-        3 => 0,
-        4 => 0,
-        5 => 1,
-        6 => 1,
-        7 => 2,
-        _ => -1
-    };
-
-    // TODO
-    public static float DrawOffsetX(int stage) => stage switch
-    {
-        7 => 3f * 2f,
-        _ => 2f * 2f
-    };
-
-    public static float DrawOffsetY(int stage) => stage switch
-    {
-        6 => 2f * 2f,
-        7 => 8f * 2f,
-        _ => 0f
-    };
+    public static int GetArmStage(int stage) => SpriteSet.Current.GetStage(stage).Arm;
+    public static float DrawOffsetX(int stage) => SpriteSet.Current.GetStage(stage).OffsetX;
+    public static float DrawOffsetY(int stage) => SpriteSet.Current.GetStage(stage).OffsetY;
 }

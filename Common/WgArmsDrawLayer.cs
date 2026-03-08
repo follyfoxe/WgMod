@@ -10,19 +10,8 @@ namespace WgMod.Common;
 
 public class WgArmsDrawLayer : PlayerDrawLayer
 {
-    public const int ArmStageCount = 3;
-    public static readonly Asset<Texture2D>[] ArmTextures = new Asset<Texture2D>[ArmStageCount];
-
     public override bool IsHeadLayer => false;
     public override Transformation Transform => PlayerDrawLayers.TorsoGroup;
-
-    public override void Load()
-    {
-        if (Main.dedServ)
-            return;
-        for (int i = 0; i < ArmTextures.Length; i++)
-            ArmTextures[i] = Mod.Assets.Request<Texture2D>("Assets/Textures/Arms" + i);
-    }
 
     public override Position GetDefaultPosition() => new Between(PlayerDrawLayers.ArmOverItem, PlayerDrawLayers.HandOnAcc);
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => true;
@@ -51,7 +40,7 @@ public class WgArmsDrawLayer : PlayerDrawLayer
             vector -= new Vector2(drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
 
         drawInfo.DrawDataCache.Add(new DrawData(
-            ArmTextures[armStage].Value,
+            SpriteSet.Current.ArmTextures[armStage].Value,
             vector,
             drawInfo.compFrontArmFrame,
             drawInfo.colorBodySkin,

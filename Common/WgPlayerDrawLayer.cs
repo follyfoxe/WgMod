@@ -16,16 +16,11 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     public override bool IsHeadLayer => false;
     public override Transformation Transform => PlayerDrawLayers.TorsoGroup;
 
-    public static Asset<Texture2D> BaseTexture { get; private set; }
-    public static Asset<Texture2D> BellyTexture { get; private set; }
-
     public override void Load()
     {
         if (Main.dedServ)
             return;
         WgArmor.Load(Mod);
-        BaseTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Base");
-        BellyTexture = Mod.Assets.Request<Texture2D>("Assets/Textures/Belly");
     }
 
     // folly: What is OffhandAcc exactly???
@@ -67,7 +62,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             return;
 
         int stage = wg.Weight.GetStage();
-        if (stage == 0)
+        if (stage <= 0)
             return;
 
         int direction = ((drawInfo.playerEffect & SpriteEffects.FlipHorizontally) == 0).ToDirectionInt();
@@ -103,41 +98,44 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         float bellySquish = float.Lerp(wg._squishPos, 1f, t * t * 0.4f);
         float baseSquish = (bellySquish + 1f) * 0.5f;
 
-        bool drawArmor = !WgClientConfig.Instance.DisableUVClothes;
+        SpriteSet set = SpriteSet.Current;
+        bool drawArmor = WgArmor.Enabled;
         if (drawInfo.shadow != 0f && player.body <= 0)
             drawArmor = false;
         if (drawArmor)
             SetupArmorLayers(wg, drawInfo);
 
-        Rectangle baseFrame = BaseTexture.Frame(1, Weight.StageCount, 0, stage);
-        DrawData baseDrawData = new(
-            BaseTexture.Value,
-            PrepPos(position, MathF.Round(legOffsetX / 2f) * 2f, yOffset + MathF.Round(legOffsetY / 2f) * 2f, player.gravDir),
-            baseFrame,
-            skinColor,
-            0f,
-            baseFrame.Size() * 0.5f,
-            new Vector2(1f * baseSquish, 1f / baseSquish),
-            drawInfo.playerEffect
-        );
-        drawInfo.DrawDataCache.Add(baseDrawData);
-        if (drawArmor)
-            WgArmor.Draw(wg, ref drawInfo, baseDrawData, 0);
-
-        Rectangle bellyFrame = BellyTexture.Frame(1, Weight.StageCount, 0, stage);
-        DrawData bellyDrawData = new(
-            BellyTexture.Value, // The texture to render.
-            PrepPos(position, 0f, yOffset + MathF.Round(bellyOffset / 2f) * 2f, player.gravDir), // Position to render at.
-            bellyFrame, // Source rectangle.
-            skinColor, // Color.
-            0f, // Rotation.
-            bellyFrame.Size() * 0.5f, // Origin. Uses the texture's center.
-            new Vector2(1f / bellySquish, 1f * bellySquish), // Scale.
-            drawInfo.playerEffect
-        );
-        drawInfo.DrawDataCache.Add(bellyDrawData);
-        if (drawArmor)
-            WgArmor.Draw(wg, ref drawInfo, bellyDrawData, 1);
+        int stageFrame = set.GetStage(stage).Frame;
+        foreach (SpriteSet.Layer layer in set.Layers)
+        {
+            Vector2 pos;
+            Vector2 scale;
+            switch (layer.Type)
+            {
+                case SpriteSet.LayerType.Legs:
+                    pos = PrepPos(position, MathF.Round(legOffsetX / 2f) * 2f, yOffset + MathF.Round(legOffsetY / 2f) * 2f, player.gravDir);
+                    scale = new Vector2(1f * baseSquish, 1f / baseSquish);
+                    break;
+                default:
+                    pos = PrepPos(position, 0f, yOffset + MathF.Round(bellyOffset / 2f) * 2f, player.gravDir);
+                    scale = new Vector2(1f / bellySquish, 1f * bellySquish);
+                    break;
+            }
+            Rectangle layerFrame = layer.Texture.Frame(1, set.FrameCount, 0, stageFrame);
+            DrawData drawData = new(
+                layer.Texture.Value, // The texture to render.
+                pos, // Position to render at.
+                layerFrame, // Source rectangle.
+                skinColor, // Color.
+                0f, // Rotation.
+                layerFrame.Size() * 0.5f, // Origin. Uses the texture's center.
+                scale, // Scale.
+                drawInfo.playerEffect
+            );
+            drawInfo.DrawDataCache.Add(drawData);
+            if (drawArmor)
+                WgArmor.Draw(wg, ref drawInfo, drawData, layer);
+        }
     }
 
     static Vector2 PrepPos(Vector2 pos, float xOffset, float yOffset, float gravDir)
