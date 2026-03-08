@@ -11,10 +11,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 
+
 namespace WgMod.Content.Items.Accessories;
 
 [AutoloadEquip(EquipType.Wings)]
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor._d_u_m_m_y_)]
+[Credit(ProjectRole.VFX, Contributor._d_u_m_m_y_)]
 public class LiftingTome : ModItem
 {
     public const int _minionCount = 1;
@@ -23,6 +26,7 @@ public class LiftingTome : ModItem
     WgStat _manaCost = new(0.96f, 0.92f);
     WgStat _maxMana = new(20, 60);
     WgStat _flight = new(1, 2);
+    public string _texture;
 
     public override void SetStaticDefaults()
     {
@@ -59,7 +63,6 @@ public class LiftingTome : ModItem
         player.maxMinions += _minionCount;
 
         lt._active = true;
-        lt._onHit = true;
 
         if (lt._cooldownBolt < lt._cooldownBoltMax)
             lt._cooldownBolt++;
@@ -142,7 +145,6 @@ public class LiftingTome : ModItem
 public class LiftingTomePlayer : ModPlayer
 {
     public bool _active;
-    public bool _onHit;
     public int _cooldownBolt;
     public int _cooldownSkull;
     public int _cooldownScythe;
@@ -150,80 +152,19 @@ public class LiftingTomePlayer : ModPlayer
     public int _cooldownSkullMax = 120;
     public int _cooldownScytheMax = 180;
 
-    WgStat _damageModifier = new(1f, 2f);
-    WgStat _velocityModifier = new(1f, 0.8f);
+    public WgStat _damageModifier = new(1f, 2f);
+    public WgStat _velocityModifier = new(1f, 0.8f);
 
     public override void ResetEffects()
     {
         _active = false;
-        _onHit = false;
-    }
-
-    public override void OnHitAnything(float x, float y, Entity victim)
-    {
-        if (!Player.TryGetModPlayer(out WgPlayer wg) || !_onHit)
-            return;
-        float immobility = wg.Weight.ClampedImmobility;
-
-        _damageModifier.Lerp(immobility);
-        _velocityModifier.Lerp(immobility);
-
-        Vector2 mousePosition = Main.MouseWorld;
-        float angle = Utils.AngleTo(Player.Center, mousePosition);
-        Vector2 velocity = new(MathF.Cos(angle), MathF.Sin(angle));
-
-        if (_cooldownScythe == _cooldownScytheMax)
-        {
-            _cooldownScythe = (int)float.Lerp(30, 0, immobility);
-
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                velocity * 0.2f * _velocityModifier,
-                ProjectileID.DemonScythe,
-                17 * _damageModifier,
-                5
-            );
-
-            return;
-        }
-
-        if (_cooldownSkull == _cooldownSkullMax)
-        {
-            _cooldownSkull = (int)float.Lerp(30, 0, immobility);
-
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                velocity * 3.5f * _velocityModifier,
-                ProjectileID.BookOfSkullsSkull,
-                14 * _damageModifier,
-                3.5f
-            );
-
-            return;
-        }
-
-        if (_cooldownBolt == _cooldownBoltMax)
-        {
-            _cooldownBolt = (int)float.Lerp(30, 0, immobility);
-
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                velocity * 4.5f * _velocityModifier,
-                ProjectileID.WaterBolt,
-                9 * _damageModifier,
-                5
-            );
-        }
     }
 
     public void SpawnHallucination(Item item)
     {
         if (Player.whoAmI != Main.myPlayer)
             return;
-        Player.insanityShadowCooldown = Utils.Clamp<int>(Player.insanityShadowCooldown - 1, 0, 100);
+        Player.insanityShadowCooldown = Utils.Clamp(Player.insanityShadowCooldown - 1, 0, 100);
         if (Player.insanityShadowCooldown > 0)
             return;
         Player.insanityShadowCooldown = Main.rand.Next(20, 101);
@@ -279,7 +220,6 @@ public class LiftingTomePlayer : ModPlayer
     static readonly List<NPC> _hallucinationCandidates = [];
 }
 
-// folly: There surely must be a better way...
 public class LiftingTomeWingLayer : PlayerDrawLayer
 {
     static readonly Vector2[] _offsets =
@@ -342,5 +282,81 @@ public class LiftingTomeWingLayer : PlayerDrawLayer
             effects,
             0
         ));
+    }
+}
+public class LiftingTomeItem : GlobalItem
+{
+    public override void UseAnimation(Item item, Player player)
+    {
+        if (!player.TryGetModPlayer(out LiftingTomePlayer lt) || !player.TryGetModPlayer(out WgPlayer wg) || !lt._active || item.damage < 1)
+            return;
+
+        float immobility = wg.Weight.ClampedImmobility;
+
+        Vector2 mousePosition = Main.MouseWorld;
+        float angle = Utils.AngleTo(player.Center, mousePosition);
+        Vector2 velocity = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+
+        lt._damageModifier.Lerp(immobility);
+        lt._velocityModifier.Lerp(immobility);
+
+        switch (item.useStyle)
+        {
+            case ItemUseStyleID.Swing:
+            case ItemUseStyleID.Thrust:
+            case ItemUseStyleID.Shoot:
+            case ItemUseStyleID.Guitar:
+            case ItemUseStyleID.Rapier:
+            case ItemUseStyleID.RaiseLamp:
+
+                if (lt._cooldownScythe == lt._cooldownScytheMax)
+                {
+                    lt._cooldownScythe = (int)float.Lerp(30, 0, immobility);
+
+                    Projectile.NewProjectile(
+                        player.GetSource_FromThis(),
+                        player.Center,
+                        velocity * 0.2f * lt._velocityModifier,
+                        ProjectileID.DemonScythe,
+                        17 * lt._damageModifier,
+                        5
+                    );
+
+                    return;
+                }
+
+                if (lt._cooldownSkull == lt._cooldownSkullMax)
+                {
+                    lt._cooldownSkull = (int)float.Lerp(30, 0, immobility);
+
+                    Projectile.NewProjectile(
+                        player.GetSource_FromThis(),
+                        player.Center,
+                        velocity * 3.5f * lt._velocityModifier,
+                        ProjectileID.BookOfSkullsSkull,
+                        14 * lt._damageModifier,
+                        3.5f
+                    );
+
+                    return;
+                }
+
+
+                if (lt._cooldownBolt == lt._cooldownBoltMax)
+                {
+                    lt._cooldownBolt = (int)float.Lerp(30, 0, immobility);
+
+                    Projectile.NewProjectile(
+                        player.GetSource_FromThis(),
+                        player.Center,
+                        velocity * 4.5f * lt._velocityModifier,
+                        ProjectileID.WaterBolt,
+                        9 * lt._damageModifier,
+                        5
+                    );
+                }
+
+                break;
+        }
     }
 }
