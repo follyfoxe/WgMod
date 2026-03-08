@@ -287,6 +287,7 @@ public class LiftingTomeWingLayer : PlayerDrawLayer
         ));
     }
 }
+
 public class LiftingTomeItem : GlobalItem
 {
     public override void UseAnimation(Item item, Player player)
