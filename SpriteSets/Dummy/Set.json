@@ -1,0 +1,51 @@
+{
+    "Author": "dummy",
+    "ArmCount": 4,
+    "OnTop": true,
+    "Layers": [
+        {
+            "Name": "Base",
+            "Type": "Legs"
+        },
+        {
+            "Name": "Belly",
+            "Type": "Belly"
+        },
+        {
+            "Name": "Boobs",
+            "Type": "Breasts"
+        }
+    ],
+    "Stages": {
+        "1": {
+            "OffsetX": 4
+        },
+        "2": {
+            "OffsetX": 4
+        },
+        "3": {
+            "Arm": 0,
+            "OffsetX": 4
+        },
+        "4": {
+            "Arm": 0,
+            "OffsetX": 4,
+            "OffsetY": 2
+        },
+        "5": {
+            "Arm": 1,
+            "OffsetX": 4,
+            "OffsetY": 4
+        },
+        "6": {
+            "Arm": 2,
+            "OffsetX": 4,
+            "OffsetY": 12
+        },
+        "7": {
+            "Arm": 3,
+            "OffsetX": 6,
+            "OffsetY": 23.5
+        }
+    }
+}

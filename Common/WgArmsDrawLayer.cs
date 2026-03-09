@@ -39,10 +39,18 @@ public class WgArmsDrawLayer : PlayerDrawLayer
         if (drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width >= 7)
             vector -= new Vector2(drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
 
+        Asset<Texture2D> texture = SpriteSet.Current.ArmTextures[armStage];
+        int frameX = drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width;
+        int frameY = drawInfo.compFrontArmFrame.Y / drawInfo.compFrontArmFrame.Height;
+        Rectangle frame = texture.Frame(9, 4, frameX, frameY);
+
+        bodyVect -= drawInfo.compFrontArmFrame.Size() * 0.5f;
+        bodyVect += frame.Size() * 0.5f;
+
         drawInfo.DrawDataCache.Add(new DrawData(
-            SpriteSet.Current.ArmTextures[armStage].Value,
+            texture.Value,
             vector,
-            drawInfo.compFrontArmFrame,
+            frame,
             drawInfo.colorBodySkin,
             rotation,
             bodyVect,

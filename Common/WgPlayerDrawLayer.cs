@@ -24,7 +24,13 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     }
 
     // folly: What is OffhandAcc exactly???
-    public override Position GetDefaultPosition() => new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc);
+    public override Position GetDefaultPosition()
+    {
+        if (SpriteSet.Current.OnTop)
+            return new AfterParent(PlayerDrawLayers.Head);
+        return new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc);
+    }
+
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => true;
 
     public static void SetupArmorLayers(WgPlayer wg)
@@ -114,6 +120,10 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
             {
                 case SpriteSet.LayerType.Legs:
                     pos = PrepPos(position, MathF.Round(legOffsetX / 2f) * 2f, yOffset + MathF.Round(legOffsetY / 2f) * 2f, player.gravDir);
+                    scale = new Vector2(1f * baseSquish, 1f / baseSquish);
+                    break;
+                case SpriteSet.LayerType.Breasts:
+                    pos = PrepPos(position, 0f, yOffset + MathF.Round(bellyOffset / 2f) * 2f, player.gravDir);
                     scale = new Vector2(1f * baseSquish, 1f / baseSquish);
                     break;
                 default:

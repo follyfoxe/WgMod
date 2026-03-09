@@ -20,6 +20,7 @@ public class SpriteSet
 
     public string Author = "Unknown";
     public int ArmCount;
+    public bool OnTop;
     public Layer[] Layers = [];
     public Dictionary<int, Stage> Stages = [];
 
@@ -103,7 +104,8 @@ public class SpriteSet
     public enum LayerType
     {
         Belly = 0,
-        Legs
+        Legs,
+        Breasts
     }
 
     public class Layer
