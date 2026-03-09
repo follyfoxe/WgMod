@@ -58,20 +58,26 @@ public class SpriteSetElement : ConfigElement<string>
             ManualSortMethod = _ => { }
         };
         for (int i = 0; i < Sets.Length; i++)
-        {
-            int j = i;
-            UIAutoScaleTextTextPanel<string> optionElement = new(Sets[i]);
-            optionElement.Width.Set(120, 0f);
-            optionElement.Height.Set(30, 0f);
-            optionElement.OnLeftClick += (_, _) =>
-            {
-                Value = Sets[j];
-                _expanded = false;
-                _needsUpdate = true;
-            };
-            _chooserList.Add(optionElement);
-        }
+            _chooserList.Add(CreateButton(Sets[i]));
         _chooserPanel.Append(_chooserList);
+    }
+
+    UIAutoScaleTextTextPanel<string> CreateButton(string name)
+    {
+        string text = name;
+        if (name == SpriteSet.DefaultSet)
+            text += " (Default)";
+
+        UIAutoScaleTextTextPanel<string> element = new(text);
+        element.Width.Set(120, 0f);
+        element.Height.Set(30, 0f);
+        element.OnLeftClick += (_, _) =>
+        {
+            Value = name;
+            _expanded = false;
+            _needsUpdate = true;
+        };
+        return element;
     }
 
     public override void LeftClick(UIMouseEvent evt)

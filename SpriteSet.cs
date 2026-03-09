@@ -14,6 +14,7 @@ public class SpriteSet
 {
     public const string BasePath = "SpriteSets";
     public const string JsonFileName = "Set.json";
+    public const string DefaultSet = "Folly";
 
     public static SpriteSet Current { get; private set; }
     public static string[] FoundSets { get; private set; }
@@ -42,7 +43,7 @@ public class SpriteSet
     {
         FoundSets = [.. FindSets(mod)];
         if (!Exists(mod, name))
-            name = "Default";
+            name = DefaultSet;
         Current = Load(mod, name);
     }
 
