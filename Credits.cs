@@ -12,13 +12,6 @@ using WgMod.Common.Configs;
 
 namespace WgMod;
 
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-public class CreditAttribute(ProjectRole role, Contributor contributor) : Attribute
-{
-    public ProjectRole Role { get; } = role;
-    public Contributor Contributor { get; } = contributor;
-}
-
 public enum ProjectRole
 {
     Programmer,
@@ -49,6 +42,13 @@ public enum Contributor
 
     [Category("Other")]
     purple_circle
+}
+
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+public class CreditAttribute(ProjectRole role, Contributor contributor) : Attribute
+{
+    public ProjectRole Role { get; } = role;
+    public Contributor Contributor { get; } = contributor;
 }
 
 public static class Credits
