@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ModLoader;
+using WgMod.Common.Configs;
 
 namespace WgMod;
 
@@ -44,6 +46,9 @@ public partial class WgMod : Mod
         Credits.Scan(this);
         RegisterBuffs();
         RegisterHooks();
+
+        if (!Main.dedServ)
+            SpriteSet.Initialize(this, WgClientConfig.Instance.PlayerSpriteSet);
     }
 
     public override void Unload()

@@ -25,7 +25,7 @@ public partial class WgPlayer
     {
         if (Main.dedServ)
             return;
-        if (!WgClientConfig.Instance.DisableUVClothes)
+        if (WgArmor.Enabled)
         {
             Main.RunOnMainThread(() =>
             {
@@ -49,7 +49,7 @@ public partial class WgPlayer
 
         if (Main.dedServ)
             return;
-        if (!WgClientConfig.Instance.DisableUVClothes)
+        if (WgArmor.Enabled)
             WgArmor.Render(ref _armorTarget, _armorLayers, Player.Male);
     }
 
