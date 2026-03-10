@@ -1,12 +1,10 @@
 ﻿using WgMod.Content.Dusts;
-using WgMod.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Steamworks;
 
 namespace WgMod.Content.Projectiles;
 
