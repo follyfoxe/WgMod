@@ -493,6 +493,15 @@ Items: {
 			'Low in defense, but it makes you feel like a hero'
 			'''
 	}
+
+	StuffedTruffle: {
+		DisplayName: Stuffed Truffle
+		Tooltip:
+			'''
+			Ranged weapons unleash damaging mushroom spores
+			Stats scale with your obesity
+			'''
+	}
 }
 
 Buffs: {
@@ -642,6 +651,11 @@ Buffs: {
 		DisplayName: Sunrising
 		Description: Mods.WgMod.Buffs.Sunrising.Description
 	}
+
+	SporeStuffed: {
+		DisplayName: Spore Stuffed
+		Description: Mods.WgMod.Buffs.SporeStuffed.Description
+	}
 }
 
 Configs: {
@@ -711,6 +725,7 @@ Projectiles: {
 	CaramelArrowProjectile.DisplayName: Caramel Arrow Projectile
 	PowderedSugarProjectile.DisplayName: Powdered Sugar Projectile
 	SunriseProjectile.DisplayName: Sunrise Projectile
+	SporeCloud.DisplayName: Spore Cloud
 }
 
 NPCs: {
