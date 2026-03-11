@@ -75,9 +75,9 @@ public class SpriteSet
         foreach (Layer layer in set.Layers)
         {
             layer.Texture = mod.Assets.Request<Texture2D>(Path.Combine(path, layer.Name));
+            layer.ArmorAtlasX = set.ArmorAltasWidth;
             if (mod.RequestAssetIfExists(Path.Combine(path, layer.Name + "_Armor"), out layer.ArmorTexture))
             {
-                layer.ArmorAtlasX = set.ArmorAltasWidth;
                 set.ArmorAltasWidth += layer.ArmorTexture.Width();
                 set.ArmorAltasHeight = Math.Max(set.ArmorAltasHeight, layer.ArmorTexture.Height());
                 set.UVArmor = true;
@@ -117,6 +117,8 @@ public class SpriteSet
         [JsonIgnore] public Asset<Texture2D> Texture;
         [JsonIgnore] public Asset<Texture2D> ArmorTexture;
         [JsonIgnore] public int ArmorAtlasX;
+
+        [JsonIgnore] public bool UVArmor => ArmorTexture != null;
     }
 
     public class Stage

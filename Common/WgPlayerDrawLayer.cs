@@ -143,7 +143,7 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
                 drawInfo.playerEffect
             );
             drawInfo.DrawDataCache.Add(drawData);
-            if (drawArmor)
+            if (drawArmor && layer.UVArmor)
                 WgArmor.Draw(wg, ref drawInfo, drawData, layer);
         }
     }

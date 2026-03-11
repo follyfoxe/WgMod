@@ -56,7 +56,11 @@ public static class WgArmor
             UVShader.Value.Parameters["uImageSize1"].SetValue(layer.ArmorTexture.Size());
 
             foreach (SpriteSet.Layer spriteLayer in set.Layers)
+            {
+                if (!spriteLayer.UVArmor)
+                    continue;
                 spriteBatch.Draw(spriteLayer.ArmorTexture.Value, new Vector2(spriteLayer.ArmorAtlasX, 0f), layer.Color);
+            }
         }
         spriteBatch.End();
 
@@ -79,7 +83,11 @@ public static class WgArmor
             SoftenShader.Value
         );
         foreach (SpriteSet.Layer layer in set.Layers)
+        {
+            if (!layer.UVArmor)
+                continue;
             spriteBatch.Draw(layer.Texture.Value, new Vector2(layer.ArmorAtlasX, 0f), Color.White);
+        }
         spriteBatch.End();
 
         device.SetRenderTarget(null);
