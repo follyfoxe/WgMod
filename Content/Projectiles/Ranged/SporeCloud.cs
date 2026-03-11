@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria.ID;
 
 namespace WgMod.Content.Projectiles.Ranged;
 
@@ -51,10 +52,20 @@ public class SporeCloud : ModProjectile
 
         float t = MathF.Sin(_time);
 
+        Projectile.Opacity = t;
         Projectile.scale = t;
-        Projectile.Opacity = t; //* 0.5f;
-        //Projectile.width = (int)float.Lerp(0, 160, t); // Scaling the height and width causes the projectile to spawn above the player
-        //Projectile.height = (int)float.Lerp(0, 160, t); // Figure out a fix later
+
+        /*Projectile.position = Projectile.Center; 
+        Projectile.Size = new Vector2(160f, 160f) * t; // If someone else wants to try this go ahead, I give up
+        Projectile.Center = Projectile.position;*/
+
+        if (Main.rand.NextBool(2))
+        {
+            float angle = (float)(Main.rand.NextDouble() * Math.Tau);
+            Vector2 dir = new(MathF.Cos(angle), MathF.Sin(angle));
+
+            Dust.NewDustDirect(new Vector2(Projectile.Center.X - 80f * t, Projectile.Center.Y - 80f * t), (int)(160f * t), (int)(160f * t), DustID.GlowingMushroom, dir.X * t, dir.Y * t, (int)(100f * t), default, t);
+        }
 
         if (_time > MathF.PI)
             Projectile.Kill();
