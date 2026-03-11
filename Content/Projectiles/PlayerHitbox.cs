@@ -2,7 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using WgMod.Content.Items.Accessories;
+using WgMod.Content.Items.Accessories.Fat;
 
 namespace WgMod.Content.Projectiles;
 

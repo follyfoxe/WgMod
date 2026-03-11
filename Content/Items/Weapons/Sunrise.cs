@@ -1,9 +1,8 @@
-using Microsoft.Xna.Framework;
-using Steamworks;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
+using WgMod.Content.Projectiles.Melee;
 
 namespace WgMod.Content.Items.Weapons;
 
@@ -31,7 +30,7 @@ public class Sunrise : ModItem
         Item.DamageType = DamageClass.Melee;
 
         Item.shootSpeed = 12f;
-        Item.shoot = ModContent.ProjectileType<Projectiles.SunriseProjectile>();
+        Item.shoot = ModContent.ProjectileType<SunriseProjectile>();
     }
 
     public override void UpdateInventory(Player player)

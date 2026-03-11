@@ -2,7 +2,8 @@ using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
-using WgMod.Content.Items.Accessories;
+using WgMod.Content.Items.Accessories.Fat;
+using WgMod.Content.Items.Accessories.Melee;
 
 namespace WgMod.Common.GlobalNPCs;
 

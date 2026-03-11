@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using WgMod.Content.Buffs.Consumables;
 
 namespace WgMod.Content.Items.Consumables;
 
@@ -37,7 +38,7 @@ public class BottledCaramel : ModItem
         Item.rare = ItemRarityID.Green;
         Item.value = Item.buyPrice(silver: 15);
 
-        Item.buffType = ModContent.BuffType<Buffs.Caramel>();
+        Item.buffType = ModContent.BuffType<Caramel>();
         Item.buffTime = 30 * 60;
 
         Item.healLife = 120;

@@ -3,8 +3,8 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
-using WgMod.Content.Buffs;
-using WgMod.Content.Projectiles;
+using WgMod.Content.Buffs.Debuffs;
+using WgMod.Content.Projectiles.Whip;
 
 namespace WgMod.Content.Items.Weapons;
 

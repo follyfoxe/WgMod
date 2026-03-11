@@ -2,6 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Content.Items.Consumables;
+using WgMod.Content.Projectiles.Ranged;
 
 namespace WgMod.Content.Items.Ammo;
 
@@ -25,7 +26,7 @@ public class CaramelArrow : ModItem
         Item.consumable = true;
         Item.knockBack = 2f;
         Item.value = Item.sellPrice(copper: 4);
-        Item.shoot = ModContent.ProjectileType<Projectiles.CaramelArrowProjectile>();
+        Item.shoot = ModContent.ProjectileType<CaramelArrowProjectile>();
         Item.shootSpeed = 3.5f;
         Item.ammo = AmmoID.Arrow;
     }
