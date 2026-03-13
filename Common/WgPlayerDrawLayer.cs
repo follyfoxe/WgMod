@@ -1,12 +1,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using WgMod.Common.Configs;
 using WgMod.Common.Players;
 
 namespace WgMod.Common;
@@ -26,7 +24,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     // folly: What is OffhandAcc exactly???
     public override Position GetDefaultPosition()
     {
-        if (SpriteSet.Current.OnTop)
+        // TODO: Use Multiple() instead
+        if (!Main.dedServ && SpriteSet.Current.OnTop)
             return new AfterParent(PlayerDrawLayers.Head);
         return new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc);
     }
