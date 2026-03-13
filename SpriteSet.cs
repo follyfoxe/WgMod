@@ -21,7 +21,6 @@ public class SpriteSet
 
     public string Author = "Unknown";
     public int ArmCount;
-    public bool OnTop;
     public Layer[] Layers = [];
     public Dictionary<int, Stage> Stages = [];
 
