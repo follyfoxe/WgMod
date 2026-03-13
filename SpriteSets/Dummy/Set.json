@@ -1,7 +1,6 @@
 {
     "Author": "dummy",
     "ArmCount": 4,
-    "OnTop": true,
     "Layers": [
         {
             "Name": "Base",
@@ -18,32 +17,39 @@
     ],
     "Stages": {
         "1": {
+            "OnTop": false,
             "OffsetX": 4
         },
         "2": {
+            "OnTop": true,
             "OffsetX": 4
         },
         "3": {
             "Arm": 0,
+            "OnTop": true,
             "OffsetX": 4
         },
         "4": {
             "Arm": 0,
+            "OnTop": true,
             "OffsetX": 4,
             "OffsetY": 2
         },
         "5": {
             "Arm": 1,
+            "OnTop": true,
             "OffsetX": 4,
             "OffsetY": 4
         },
         "6": {
             "Arm": 2,
+            "OnTop": true,
             "OffsetX": 4,
             "OffsetY": 12
         },
         "7": {
             "Arm": 3,
+            "OnTop": true,
             "OffsetX": 6,
             "OffsetY": 23.5
         }

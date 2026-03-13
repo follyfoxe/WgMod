@@ -126,6 +126,7 @@ public class SpriteSet
         public static readonly Stage Fallback = new();
 
         public int Arm = -1;
+        public bool OnTop;
         public float OffsetX;
         public float OffsetY;
 

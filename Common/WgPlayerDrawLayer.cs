@@ -22,12 +22,17 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
     }
 
     // folly: What is OffhandAcc exactly???
-    public override Position GetDefaultPosition()
+    public override Position GetDefaultPosition() => new Multiple()
     {
-        // TODO: Use Multiple() instead
-        if (!Main.dedServ && SpriteSet.Current.OnTop)
-            return new AfterParent(PlayerDrawLayers.Head);
-        return new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc);
+        { new Between(PlayerDrawLayers.Torso, PlayerDrawLayers.OffhandAcc), drawInfo => !CheckTop(drawInfo) },
+        { new Between(PlayerDrawLayers.Head, PlayerDrawLayers.ArmOverItem), CheckTop }
+    };
+
+    static bool CheckTop(PlayerDrawSet drawInfo)
+    {
+        if (Main.dedServ || !drawInfo.drawPlayer.TryGetModPlayer(out WgPlayer wg))
+            return false;
+        return SpriteSet.Current.GetStage(wg.Weight.GetStage()).OnTop;
     }
 
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) => true;
