@@ -4,11 +4,13 @@
     "Layers": [
         {
             "Name": "Base",
-            "Type": "Legs"
+            "Type": "Legs",
+            "SimpleArmor": false
         },
         {
             "Name": "Belly",
-            "Type": "Belly"
+            "Type": "Belly",
+            "SimpleArmor": false
         }
     ],
     "Stages": {
