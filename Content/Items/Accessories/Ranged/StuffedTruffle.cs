@@ -34,6 +34,16 @@ class StuffedTruffle : ModItem
         if (st._cooldown < StuffedTrufflePlayer.CooldownMax)
             st._cooldown++;
     }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.GlowingMushroom)
+            .AddRecipeGroup(RecipeGroupID.Fruit, 5)
+            .AddTile(TileID.TinkerersWorkbench)
+            .Register();
+    }
+
 }
 
 public class StuffedTrufflePlayer : ModPlayer
