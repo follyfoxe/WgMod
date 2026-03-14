@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using ReLogic.Content;
 using Terraria;
 using Terraria.ModLoader;
+using WgMod.Common;
 
 namespace WgMod;
 
@@ -75,10 +76,15 @@ public class SpriteSet
         {
             layer.Texture = mod.Assets.Request<Texture2D>(Path.Combine(path, layer.Name));
             layer.ArmorAtlasX = set.ArmorAltasWidth;
-            if (mod.RequestAssetIfExists(Path.Combine(path, layer.Name + "_Armor"), out layer.ArmorTexture))
+
+            string armorName = Path.Combine(path, layer.Name + "_Armor");
+            if (mod.HasAsset(armorName))
             {
-                set.ArmorAltasWidth += layer.ArmorTexture.Width();
-                set.ArmorAltasHeight = Math.Max(set.ArmorAltasHeight, layer.ArmorTexture.Height());
+                layer.ArmorTexture = mod.Assets.Request<Texture2D>(armorName, AssetRequestMode.ImmediateLoad).Value;
+                if (layer.SimpleArmor)
+                    Main.RunOnMainThread(() => WgArmor.ConvertSimple(layer.ArmorTexture));
+                set.ArmorAltasWidth += layer.ArmorTexture.Width;
+                set.ArmorAltasHeight = Math.Max(set.ArmorAltasHeight, layer.ArmorTexture.Height);
                 set.UVArmor = true;
             }
         }
@@ -112,9 +118,10 @@ public class SpriteSet
     {
         public string Name;
         public LayerType Type;
+        public bool SimpleArmor = true;
 
         [JsonIgnore] public Asset<Texture2D> Texture;
-        [JsonIgnore] public Asset<Texture2D> ArmorTexture;
+        [JsonIgnore] public Texture2D ArmorTexture;
         [JsonIgnore] public int ArmorAtlasX;
 
         [JsonIgnore] public bool UVArmor => ArmorTexture != null;
