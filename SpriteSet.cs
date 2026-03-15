@@ -114,10 +114,19 @@ public class SpriteSet
         Breasts
     }
 
+    public enum RenderType
+    {
+        Show = 0,
+        Hide,
+        FemaleOnly,
+        MaleOnly
+    }
+
     public class Layer
     {
         public string Name;
         public LayerType Type;
+        public RenderType Render;
         public bool SimpleArmor = true;
 
         [JsonIgnore] public Asset<Texture2D> Texture;
@@ -125,6 +134,15 @@ public class SpriteSet
         [JsonIgnore] public int ArmorAtlasX;
 
         [JsonIgnore] public bool UVArmor => ArmorTexture != null;
+
+        public bool ShouldRender(Player player) => Render switch
+        {
+            RenderType.Show => true,
+            RenderType.Hide => false,
+            RenderType.FemaleOnly => !player.Male,
+            RenderType.MaleOnly => player.Male,
+            _ => true,
+        };
     }
 
     public class Stage

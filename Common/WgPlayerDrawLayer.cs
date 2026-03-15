@@ -118,6 +118,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         int stageFrame = set.GetStage(stage).Frame;
         foreach (SpriteSet.Layer layer in set.Layers)
         {
+            if (!layer.ShouldRender(player))
+                continue;
             Vector2 pos;
             Vector2 scale;
             switch (layer.Type)
