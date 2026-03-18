@@ -15,7 +15,7 @@ public partial class WgPlayer
     internal float _squishVel;
     internal float _bellyOffset;
 
-    internal readonly WgArmor.Layer[] _armorLayers = new WgArmor.Layer[2];
+    internal readonly WgArmor.Layer[] _armorLayers = new WgArmor.Layer[4];
     internal RenderTarget2D _armorTarget;
 
     internal float _addedGfxOffY;

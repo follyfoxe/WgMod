@@ -58,7 +58,9 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         else
         {
             wg._armorLayers[0] = new(TextureAssets.Players[drawInfo.skinVar, 4], drawInfo.colorUnderShirt);
-            wg._armorLayers[1] = new(TextureAssets.Players[drawInfo.skinVar, 6], drawInfo.colorShirt);
+            wg._armorLayers[1] = new(TextureAssets.Players[drawInfo.skinVar, 8], drawInfo.colorUnderShirt);
+            wg._armorLayers[2] = new(TextureAssets.Players[drawInfo.skinVar, 13], drawInfo.colorShirt);
+            wg._armorLayers[3] = new(TextureAssets.Players[drawInfo.skinVar, 6], drawInfo.colorShirt);
         }
     }
 

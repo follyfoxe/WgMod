@@ -47,7 +47,7 @@ public static class WgArmor
             RasterizerState.CullCounterClockwise,
             UVShader.Value
         );
-        UVShader.Value.Parameters["uOffset"].SetValue(male ? new Vector2(0f, -0.5f) : Vector2.Zero);
+        Vector2 baseOffset = male ? new Vector2(0f, -0.5f) : Vector2.Zero;
         foreach (Layer layer in layers)
         {
             if (layer.ArmorTexture == null)
@@ -57,7 +57,10 @@ public static class WgArmor
             UVShader.Value.Parameters["uImageSize1"].SetValue(layer.ArmorTexture.Size());
 
             foreach (SpriteSet.Layer spriteLayer in set.ArmorLayers)
+            {
+                UVShader.Value.Parameters["uOffset"].SetValue(spriteLayer.Type == SpriteSet.LayerType.Arms ? Vector2.Zero : baseOffset);
                 spriteBatch.Draw(spriteLayer.ArmorTexture, new Vector2(spriteLayer.ArmorAtlasX, 0f), layer.Color);
+            }
         }
         spriteBatch.End();
 
