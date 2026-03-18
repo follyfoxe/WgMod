@@ -26,9 +26,10 @@ public class SpriteSet
     public Dictionary<int, Stage> Stages = [];
 
     [JsonIgnore] public int FrameCount { get; private set; }
-    [JsonIgnore] public Asset<Texture2D>[] ArmTextures;
+    [JsonIgnore] public Layer[] ArmLayers { get; private set; }
+    [JsonIgnore] public Layer[] ArmorLayers { get; private set; }
 
-    [JsonIgnore] public bool UVArmor { get; private set; }
+    [JsonIgnore] public bool UVArmor => ArmorLayers.Length > 0;
     [JsonIgnore] public int ArmorAltasWidth { get; private set; }
     [JsonIgnore] public int ArmorAltasHeight { get; private set; }
 
@@ -70,9 +71,9 @@ public class SpriteSet
         string path = Path.Combine(BasePath, name);
         SpriteSet set = JsonConvert.DeserializeObject<SpriteSet>(GetFileText(mod, Path.Combine(path, JsonFileName)));
 
-        set.UVArmor = false;
+        List<Layer> armorLayers = [];
         set.ArmorAltasWidth = 0;
-        foreach (Layer layer in set.Layers)
+        void LoadTextures(Layer layer)
         {
             layer.Texture = mod.Assets.Request<Texture2D>(Path.Combine(path, layer.Name));
             layer.ArmorAtlasX = set.ArmorAltasWidth;
@@ -85,8 +86,19 @@ public class SpriteSet
                     Main.RunOnMainThread(() => WgArmor.ConvertSimple(layer.ArmorTexture));
                 set.ArmorAltasWidth += layer.ArmorTexture.Width;
                 set.ArmorAltasHeight = Math.Max(set.ArmorAltasHeight, layer.ArmorTexture.Height);
-                set.UVArmor = true;
+                armorLayers.Add(layer);
             }
+        }
+
+        foreach (Layer layer in set.Layers)
+            LoadTextures(layer);
+
+        set.ArmLayers = new Layer[set.ArmCount];
+        for (int i = 0; i < set.ArmLayers.Length; i++)
+        {
+            Layer arm = new() { Name = "Arms" + i, Type = LayerType.Arms, SimpleArmor = false };
+            LoadTextures(arm);
+            set.ArmLayers[i] = arm;
         }
 
         int frame = 0;
@@ -94,9 +106,7 @@ public class SpriteSet
             stage.Frame = frame++;
         set.FrameCount = frame;
 
-        set.ArmTextures = new Asset<Texture2D>[set.ArmCount];
-        for (int i = 0; i < set.ArmTextures.Length; i++)
-            set.ArmTextures[i] = mod.Assets.Request<Texture2D>(Path.Combine(path, "Arms" + i));
+        set.ArmorLayers = [.. armorLayers];
         return set;
     }
 
@@ -111,7 +121,8 @@ public class SpriteSet
     {
         Belly = 0,
         Legs,
-        Breasts
+        Breasts,
+        Arms
     }
 
     public enum RenderType

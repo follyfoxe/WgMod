@@ -39,7 +39,8 @@ public class WgArmsDrawLayer : PlayerDrawLayer
         if (drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width >= 7)
             vector -= new Vector2(drawInfo.playerEffect.HasFlag(SpriteEffects.FlipHorizontally).ToDirectionInt(), drawInfo.playerEffect.HasFlag(SpriteEffects.FlipVertically).ToDirectionInt());
 
-        Asset<Texture2D> texture = SpriteSet.Current.ArmTextures[armStage];
+        SpriteSet.Layer layer = SpriteSet.Current.ArmLayers[armStage];
+        Asset<Texture2D> texture = layer.Texture;
         int frameX = drawInfo.compFrontArmFrame.X / drawInfo.compFrontArmFrame.Width;
         int frameY = drawInfo.compFrontArmFrame.Y / drawInfo.compFrontArmFrame.Height;
         Rectangle frame = texture.Frame(9, 4, frameX, frameY);
@@ -47,7 +48,7 @@ public class WgArmsDrawLayer : PlayerDrawLayer
         bodyVect -= drawInfo.compFrontArmFrame.Size() * 0.5f;
         bodyVect += frame.Size() * 0.5f;
 
-        drawInfo.DrawDataCache.Add(new DrawData(
+        DrawData drawData = new(
             texture.Value,
             vector,
             frame,
@@ -58,6 +59,10 @@ public class WgArmsDrawLayer : PlayerDrawLayer
             drawInfo.playerEffect)
         {
             shader = drawInfo.skinDyePacked
-        });
+        };
+        drawInfo.DrawDataCache.Add(drawData);
+
+        if (WgArmor.ShouldDraw(drawInfo) && layer.UVArmor)
+            WgArmor.Draw(wg, ref drawInfo, drawData, layer);
     }
 }

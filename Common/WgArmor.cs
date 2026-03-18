@@ -56,12 +56,8 @@ public static class WgArmor
             device.Textures[1] = layer.ArmorTexture.Value;
             UVShader.Value.Parameters["uImageSize1"].SetValue(layer.ArmorTexture.Size());
 
-            foreach (SpriteSet.Layer spriteLayer in set.Layers)
-            {
-                if (!spriteLayer.UVArmor)
-                    continue;
+            foreach (SpriteSet.Layer spriteLayer in set.ArmorLayers)
                 spriteBatch.Draw(spriteLayer.ArmorTexture, new Vector2(spriteLayer.ArmorAtlasX, 0f), layer.Color);
-            }
         }
         spriteBatch.End();
 
@@ -83,15 +79,18 @@ public static class WgArmor
             RasterizerState.CullCounterClockwise,
             SoftenShader.Value
         );
-        foreach (SpriteSet.Layer layer in set.Layers)
-        {
-            if (!layer.UVArmor)
-                continue;
+        foreach (SpriteSet.Layer layer in set.ArmorLayers)
             spriteBatch.Draw(layer.Texture.Value, new Vector2(layer.ArmorAtlasX, 0f), Color.White);
-        }
         spriteBatch.End();
 
         device.SetRenderTarget(null);
+    }
+
+    public static bool ShouldDraw(in PlayerDrawSet drawInfo)
+    {
+        if (drawInfo.shadow != 0f && drawInfo.drawPlayer.body <= 0)
+            return false;
+        return Enabled;
     }
 
     public static void Draw(WgPlayer wg, ref PlayerDrawSet drawInfo, in DrawData baseDrawData, SpriteSet.Layer layer)
