@@ -184,93 +184,50 @@ public class GroundedHarpy : ModNPC
         else
         {
             if (Main.hardMode)
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.HardModeDialogue1")
-                ); // "I never liked those long dragons... they think harpies are food!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.HardModeDialogue1")); // "I never liked those long dragons... they think harpies are food!"
 
             if (Main.IsItRaining)
             {
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.RainDialogue1", 2)
-                ); // "Screech! I can't work out in these conditions!"
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.RainDialogue2", 2)
-                ); // "I guess I'll stay home and eat today..."
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.RainDialogue3", 2)
-                ); // "Today's just a cheat day! What? I'm not over my weekly limit!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.RainDialogue1", 2)); // "Screech! I can't work out in these conditions!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.RainDialogue2", 2)); // "I guess I'll stay home and eat today..."
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.RainDialogue3", 2)); // "Today's just a cheat day! What? I'm not over my weekly limit!"
             }
             else if (Main.IsItStorming)
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StormDialogue1", 10)
-                ); // "SCRAW! PANIC! SCRAW!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StormDialogue1", 10)); // "SCRAW! PANIC! SCRAW!"
             else if (Main.dayTime)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.DayDialogue1")); // "You're interrupting my exercises! I will fly again soon!"
 
             if (Main.slimeRain)
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SlimeRainDialogue1", 2)
-                ); // "How do you think slimes taste?"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SlimeRainDialogue1", 2)); // "How do you think slimes taste?"
 
             if (NPC.loveStruck)
-                chat.Add(
-                    Language.GetTextValue(
-                        "Mods.WgMod.Dialogue.GroundedHarpy.LoveStruckDialogue1",
-                        10
-                    )
-                ); // "Human... you look tastier than usual..."
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.LoveStruckDialogue1", 10)); // "Human... you look tastier than usual..."
 
-            if (
-                Main.anglerQuest == ItemID.Cloudfish
-                || Main.anglerQuest == ItemID.Angelfish
-                || Main.anglerQuest == ItemID.Harpyfish
-                || Main.anglerQuest == ItemID.Wyverntail
-            )
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.QuestFishDialogue1", 5)
-                ); // "No, I won't carry you up to the sky lakes for your fish!"
+            if (Main.anglerQuest == ItemID.Cloudfish || Main.anglerQuest == ItemID.Angelfish || Main.anglerQuest == ItemID.Harpyfish || Main.anglerQuest == ItemID.Wyverntail)
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.QuestFishDialogue1", 5)); // "No, I won't carry you up to the sky lakes for your fish!"
 
             if (Main.IsItAHappyWindyDay)
             {
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.WindyDayDialogue1", 2)
-                ); // "I feel like the wind's gonna take me away!"
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.WindyDayDialogue2", 2)
-                ); // "Screech! I flew! Did you see? What? It was just the wind?"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.WindyDayDialogue1", 2)); // "I feel like the wind's gonna take me away!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.WindyDayDialogue2", 2)); // "Screech! I flew! Did you see? What? It was just the wind?"
             }
 
             if (BirthdayParty.PartyIsUp)
             {
-                chat.Add(
-                    Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue1", 2)
-                ); // "Human festivities are so fun! And tasty!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue1", 2)); // "Human festivities are so fun! And tasty!"
 
                 if (partyGirl >= 0)
-                    chat.Add(
-                        Language.GetTextValue(
-                            "Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue2",
-                            2,
-                            Main.npc[partyGirl].GivenName
-                        )
-                    ); // "Please tell {NPCName} not to pin the tail on the harpy!"
+                    chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue2", 2, Main.npc[partyGirl].GivenName)); // "Please tell {NPCName} not to pin the tail on the harpy!"
             }
 
             if (cat >= 0)
-                chat.Add(
-                    Language.GetTextValue(
-                        "Mods.WgMod.Dialogue.GroundedHarpy.CatDialogue1",
-                        Main.npc[cat].GivenName
-                    )
-                ); // "Hey... can I watch your cat today? No reason! It just looks so yummy- I mean cute!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.CatDialogue1", Main.npc[cat].GivenName)); // "Hey... can I watch your cat today? No reason! It just looks so yummy- I mean cute!"
 
             if (dog >= 0)
-                chat.Add(
-                    Language.GetTextValue(
-                        "Mods.WgMod.Dialogue.GroundedHarpy.DogDialogue1",
-                        Main.npc[dog].GivenName
-                    )
-                ); // "Your dog barks at me all the time! I'm not a bird!"
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.DogDialogue1", Main.npc[dog].GivenName)); // "Your dog barks at me all the time! I'm not a bird!"
+
+            if (NPC.downedBoss2)
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!"
 
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue1")); // "Scraw! I'm still mad at you for making me this big!"
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue2")); // "No wonder humans can't fly if all of their food tastes this good!"

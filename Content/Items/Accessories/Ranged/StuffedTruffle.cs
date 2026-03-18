@@ -21,7 +21,7 @@ class StuffedTruffle : ModItem
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Blue;
-        Item.value = Item.buyPrice(silver: 20);
+        Item.value = Item.buyPrice(silver: 50);
     }
 
     public override void UpdateAccessory(Player player, bool hideVisual)

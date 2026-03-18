@@ -502,6 +502,11 @@ Items: {
 			Stats scale with your obesity
 			'''
 	}
+
+	HornOfMore: {
+		DisplayName: Horn O' More
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -785,6 +790,7 @@ Dialogue: {
 		StormDialogue1: SCRAW! PANIC! SCRAW!
 		SlimeRainDialogue1: How do you think slimes taste?
 		LoveStruckDialogue1: Human... you look tastier than usual...
+		EvilBossDialogue1: Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!
 		QuestFishDialogue1: No, I won't carry you up to the sky lakes for your fish!
 		CatDialogue1: Hey... can I watch {0} today? No reason! It just looks so yummy- I mean cute!
 		DogDialogue1: "{0} barks at me all the time! I'm not a bird!"
