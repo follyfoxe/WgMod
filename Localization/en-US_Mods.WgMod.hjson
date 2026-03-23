@@ -505,7 +505,27 @@ Items: {
 
 	HornOfMore: {
 		DisplayName: Horn O' More
-		Tooltip: ""
+		Tooltip: Effects scale with your obesity
+	}
+
+	Endocannon: {
+		DisplayName: Endocannon
+		Tooltip: 
+		'''
+		Every fifth shot becomes a high damage but low velocity dinner plate
+		Stats scale with your obesity
+		'''
+	}
+
+	HarpyStormbow: {
+		DisplayName: Harpy Stormbow
+		Tooltip:
+			'''
+			Shoots arrows from the sky
+			Stats and arrows fired scale with your obesity
+			A traditional harpy stormbow
+			It has a heart engraved on it
+			'''
 	}
 }
 
@@ -731,6 +751,7 @@ Projectiles: {
 	PowderedSugarProjectile.DisplayName: Powdered Sugar Projectile
 	SunriseProjectile.DisplayName: Sunrise Projectile
 	SporeCloud.DisplayName: Spore Cloud
+	Plate.DisplayName: Plate
 }
 
 NPCs: {
@@ -791,6 +812,8 @@ Dialogue: {
 		SlimeRainDialogue1: How do you think slimes taste?
 		LoveStruckDialogue1: Human... you look tastier than usual...
 		EvilBossDialogue1: Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!
+		SketronDialogue1: I'd love to make you a traditional harpy stormbow, but I'd need some really big bones to do it!
+		SketronDialogue2: Caw! That skull baddie you killed was perfect for crafting a traditional harpy stormbow!
 		QuestFishDialogue1: No, I won't carry you up to the sky lakes for your fish!
 		CatDialogue1: Hey... can I watch {0} today? No reason! It just looks so yummy- I mean cute!
 		DogDialogue1: "{0} barks at me all the time! I'm not a bird!"

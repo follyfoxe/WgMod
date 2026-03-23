@@ -9,6 +9,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using WgMod.Common.Systems;
+using WgMod.Content.Items.Weapons;
 using WgMod.Content.Projectiles;
 
 namespace WgMod.Content.NPCs;
@@ -122,42 +123,12 @@ public class GroundedHarpy : ModNPC
     {
         return new List<string>()
         {
-            "Keeth",
-            "Orrit",
-            "Elun",
-            "Ari",
-            "Tweety",
-            "Dewey",
-            "Archimedes",
-            "Gunter",
-            "Condor",
-            "Quetzal",
-            "Macaw",
-            "Nightingale",
-            "Kingfisher",
-            "Hoopoe",
-            "Griffin",
-            "Cockatrice",
-            "Ra",
-            "Thoth",
-            "Horus",
-            "Axex",
-            "Zu",
-            "Huma",
-            "Odin",
-            "Cher Ami",
-            "Thunderbird",
-            "Ibis",
-            "Raven",
-            "Athena",
-            "Daffy",
-            "Illo",
-            "Ceen",
-            "Issot",
-            "Quassice",
-            "Zhonu",
-            "Qhueen",
-            "Obeth",
+            "Keeth", "Orrit", "Elun", "Ari", "Tweety", "Dewey",
+            "Archimedes", "Gunter", "Condor", "Quetzal", "Macaw", "Nightingale",
+            "Kingfisher", "Hoopoe", "Griffin", "Cockatrice", "Ra", "Thoth",
+            "Horus", "Axex", "Zu", "Huma", "Odin", "Cher Ami",
+            "Thunderbird", "Ibis", "Raven", "Athena", "Daffy", "Illo",
+            "Ceen", "Issot", "Quassice", "Zhonu", "Qhueen", "Obeth",
         };
     }
 
@@ -229,6 +200,11 @@ public class GroundedHarpy : ModNPC
             if (NPC.downedBoss2)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!"
 
+            if (!NPC.downedBoss3)
+                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SketronDialogue1"));
+            else
+                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SketronDialogue2"));
+
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue1")); // "Scraw! I'm still mad at you for making me this big!"
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue2")); // "No wonder humans can't fly if all of their food tastes this good!"
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue4")); // "Have any more of that sweet powder stuff? Why? Mind your business!"
@@ -257,6 +233,7 @@ public class GroundedHarpy : ModNPC
     public override void AddShops()
     {
         var harpyShop = new NPCShop(Type, ShopName)
+            .Add(ModContent.ItemType<HarpyStormbow>(), Condition.DownedSkeletron)
             .Add(new Item(ItemID.CreativeWings) { shopCustomPrice = Item.buyPrice(gold: 30) })
             .Add(ItemID.ShinyRedBalloon)
             .Add(ItemID.LuckyHorseshoe)
@@ -265,23 +242,18 @@ public class GroundedHarpy : ModNPC
             .Add(new Item(ItemID.SunplateBlock) { shopCustomPrice = Item.buyPrice(copper: 50) })
             .Add(new Item(ItemID.Cloud) { shopCustomPrice = Item.buyPrice(copper: 50) })
             .Add(new Item(ItemID.RainCloud) { shopCustomPrice = Item.buyPrice(copper: 50) })
-            .Add(ItemID.Feather);
-
-        if (Main.hardMode)
-            harpyShop
-                .Add(ItemID.SoulofFlight)
-                .Add(ItemID.RainbowBrick)
-                .Add(ItemID.GiantHarpyFeather);
-
-        if (Main.moonPhase <= 2)
-            harpyShop.Add(ItemID.SunBanner).Add(ItemID.WorldBanner).Add(ItemID.GravityBanner);
-        else if (Main.moonPhase >= 5)
-            harpyShop
-                .Add(ItemID.SeeTheWorldForWhatItIs)
-                .Add(ItemID.HighPitch)
-                .Add(ItemID.BlessingfromTheHeavens);
-        else
-            harpyShop.Add(ItemID.Constellation).Add(ItemID.LoveisintheTrashSlot);
+            .Add(ItemID.Feather)
+            .Add(ItemID.SoulofFlight, Condition.Hardmode)
+            .Add(ItemID.RainbowBrick, Condition.Hardmode)
+            .Add(ItemID.GiantHarpyFeather, Condition.Hardmode)
+            .Add(ItemID.SunBanner, Condition.MoonPhaseFull)
+            .Add(ItemID.WorldBanner, Condition.MoonPhaseWaningGibbous)
+            .Add(ItemID.GravityBanner, Condition.MoonPhaseThirdQuarter)
+            .Add(ItemID.SeeTheWorldForWhatItIs, Condition.MoonPhaseWaningCrescent)
+            .Add(ItemID.HighPitch, Condition.MoonPhaseNew)
+            .Add(ItemID.BlessingfromTheHeavens, Condition.MoonPhaseWaxingCrescent)
+            .Add(ItemID.Constellation, Condition.MoonPhaseFirstQuarter)
+            .Add(ItemID.LoveisintheTrashSlot, Condition.MoonPhaseWaxingGibbous);
 
         harpyShop.Register();
     }
