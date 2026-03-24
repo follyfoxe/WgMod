@@ -510,11 +510,11 @@ Items: {
 
 	Endocannon: {
 		DisplayName: Endocannon
-		Tooltip: 
-		'''
-		Every fifth shot becomes a high damage but low velocity dinner plate
-		Stats scale with your obesity
-		'''
+		Tooltip:
+			'''
+			Every fifth shot becomes a high damage but low velocity dinner plate
+			Stats scale with your obesity
+			'''
 	}
 
 	HarpyStormbow: {
