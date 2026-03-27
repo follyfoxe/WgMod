@@ -101,7 +101,7 @@ public class AmazonGarbPlayer : ModPlayer
     public const int CooldownMax = 15 * 60;
     public bool _active;
     public int _cooldown = CooldownMax;
-    public int _visual;
+    //public int _visual;
 
     public override void ResetEffects()
     {
@@ -147,7 +147,7 @@ public class AmazonGarbPlayer : ModPlayer
             proj.DamageType = DamageClass.Melee;
     }
 
-    public override void PostUpdateEquips()
+    /*public override void PostUpdateEquips()
     {
         _visual = Math.Clamp(_visual + (_active ? 1 : -1), 0, 30);
     }
@@ -155,8 +155,6 @@ public class AmazonGarbPlayer : ModPlayer
     public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
     {
         if (_visual > 0)
-        {
             g = Math.Max(0, g - _visual * 0.03f);
-        }
-    }
+    }*/
 }
