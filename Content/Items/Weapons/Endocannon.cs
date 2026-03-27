@@ -20,6 +20,7 @@ public class Endocannon : ModItem
 		Item.width = 62;
 		Item.height = 32;
 		Item.rare = ItemRarityID.Green;
+		Item.value = Item.buyPrice(gold: 1);
 
 		Item.useTime = 8;
 		Item.useAnimation = 8;

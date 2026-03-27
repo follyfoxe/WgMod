@@ -20,12 +20,12 @@ public class HarpyStormbow : ModItem
         Item.height = 30;
         Item.scale = 1f;
         Item.rare = ItemRarityID.Green;
+        Item.value = Item.buyPrice(gold: 2);
 
         Item.useTime = 20;
         Item.useAnimation = 20;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.autoReuse = true;
-        Item.value = Item.buyPrice(gold: 2);
 
         Item.DamageType = DamageClass.Ranged;
         Item.damage = 20;
