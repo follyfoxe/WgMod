@@ -201,9 +201,9 @@ public class GroundedHarpy : ModNPC
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!"
 
             if (!NPC.downedBoss3)
-                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SketronDialogue1"));
+                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue1"));
             else
-                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SketronDialogue2"));
+                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue2"));
 
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue1")); // "Scraw! I'm still mad at you for making me this big!"
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue2")); // "No wonder humans can't fly if all of their food tastes this good!"
