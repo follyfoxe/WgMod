@@ -795,7 +795,7 @@ Dialogue: {
 		StandardDialogue8: Can you groom my plumage? I've had a hard time doing it myself since... you know!
 		DayDialogue1: You're interrupting my exercises! I will fly again soon!
 		PartyDialogue1: Human festivities are so fun! And tasty!
-		PartyDialogue2: Please tell {NPCName} not to pin the tail on the harpy!
+		PartyDialogue2: Please tell {1} not to pin the tail on the harpy!
 		WindyDayDialogue1: I feel like the wind's gonna take me away!
 		WindyDayDialogue2: Screech! I flew! Did you see? What? It was just the wind?
 		BloodMoonDialogue1: Come any closer and I'll use my talons! Craw!

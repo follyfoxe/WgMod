@@ -197,13 +197,13 @@ public class GroundedHarpy : ModNPC
             if (dog >= 0)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.DogDialogue1", Main.npc[dog].GivenName)); // "Your dog barks at me all the time! I'm not a bird!"
 
-            if (NPC.downedBoss2)
-                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!"
+            /*if (NPC.downedBoss2)
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!" */
 
             if (!NPC.downedBoss3)
-                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue1"));
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue1")); // "I'd love to make you a traditional harpy stormbow, but I'd need some really big bones to do it!"
             else
-                chat.Add(Language.GetTextValue("mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue2"));
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue2")); // "Caw! That skull baddie you killed was perfect for crafting a traditional harpy stormbow!"
 
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue1")); // "Scraw! I'm still mad at you for making me this big!"
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.StandardDialogue2")); // "No wonder humans can't fly if all of their food tastes this good!"
