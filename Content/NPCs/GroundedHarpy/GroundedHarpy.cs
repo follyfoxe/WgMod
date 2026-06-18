@@ -40,7 +40,7 @@ public class GroundedHarpy : ModNPC
         NPCID.Sets.HatOffsetY[Type] = 4;
 
         NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers =
-            new NPCID.Sets.NPCBestiaryDrawModifiers() { Velocity = -1f, Direction = -1 };
+            new() { Velocity = -1f, Direction = -1 };
 
         NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
