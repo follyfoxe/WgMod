@@ -30,7 +30,7 @@ public class Endocannon : ModItem
 		Item.UseSound = SoundID.Item11;
 
 		Item.DamageType = DamageClass.Ranged;
-		Item.damage = 16;
+		Item.damage = 14;
 		Item.knockBack = 5f;
 		Item.noMelee = true;
 
@@ -63,6 +63,14 @@ public class Endocannon : ModItem
 		CreateRecipe()
 			.AddIngredient(ItemID.IllegalGunParts)
 			.AddIngredient(ItemID.Marble, 12)
+			.AddIngredient(ItemID.GoldBar, 12)
+			.AddTile(TileID.Furnaces)
+			.Register();
+
+		CreateRecipe()
+			.AddIngredient(ItemID.IllegalGunParts)
+			.AddIngredient(ItemID.Marble, 12)
+			.AddIngredient(ItemID.PlatinumBar, 12)
 			.AddTile(TileID.Furnaces)
 			.Register();
 	}
