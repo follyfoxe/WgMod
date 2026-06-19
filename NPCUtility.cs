@@ -1,9 +1,21 @@
 using Terraria;
+using Terraria.ModLoader;
 
 namespace WgMod;
 
 public static class NPCUtility
 {
+    public static bool Exists<T>() where T : ModNPC
+    {
+        int type = ModContent.NPCType<T>();
+        foreach (NPC npc in Main.ActiveNPCs)
+        {
+            if (npc.type == type)
+                return true;
+        }
+        return false;
+    }
+
     static readonly bool[] _preHardmodeBosses =
     [
         NPC.downedBoss1,
