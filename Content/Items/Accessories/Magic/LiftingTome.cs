@@ -35,8 +35,8 @@ public class LiftingTome : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 34;
-        Item.height = 40;
+        Item.width = 28;
+        Item.height = 30;
         Item.value = Item.buyPrice(gold: 4);
         Item.rare = ItemRarityID.Orange;
         Item.accessory = true;
