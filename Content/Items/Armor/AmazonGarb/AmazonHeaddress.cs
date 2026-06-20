@@ -1,14 +1,12 @@
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.Localization;
-using System.Collections.Generic;
 using Terraria.ModLoader;
-using System;
-using Terraria.DataStructures;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
-using WgMod.Content.Dusts;
 using WgMod.Common.Players;
+using WgMod.Content.Dusts;
 
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
