@@ -24,7 +24,7 @@ public class TransformGlobalNPC : GlobalNPC
                 )
                 {
                     NPC.NewNPC(
-                        NPC.GetSource_TownSpawn(),
+                        Entity.GetSource_TownSpawn(),
                         (int)npc.Center.X,
                         (int)npc.Center.Y,
                         ModContent.NPCType<GroundedHarpy>()
