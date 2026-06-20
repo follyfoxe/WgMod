@@ -54,12 +54,12 @@ partial class WgMod
             (BuffID.Sonar, 1f),
             (BuffID.Crate, 1f),
             (BuffID.SoulDrain, 1f),
-            (BuffID.SugarRush, 12f),
+            (BuffID.SugarRush, 6f),
             (BuffID.Lucky, 1f),
-            (BuffID.Slimed, GainOverTime(2f, 1f)),
-            (BuffID.HeartyMeal, GainOverTime(2f, 1f)),
-            (BuffID.Honey, GainOverTime(3f, 1f)),
-            (BuffID.SoulDrain, GainOverTime(3f, 1f)),
+            (BuffID.Slimed, GainOverTime(1f, 1f)),
+            (BuffID.HeartyMeal, GainOverTime(1f, 1f)),
+            (BuffID.Honey, GainOverTime(2f, 1f)),
+            (BuffID.SoulDrain, GainOverTime(2f, 1f)),
         ]);
 
         // WgMod
