@@ -19,8 +19,8 @@ public class HoneyGlob : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.width = 10;
-        Projectile.height = 10;
+        Projectile.width = 30;
+        Projectile.height = 30;
 
         Projectile.friendly = true;
         Projectile.DamageType = DamageClass.Melee;
@@ -71,12 +71,14 @@ public class HoneyGlob : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
-        target.AddBuff(BuffID.Honey, 2 * 60);
+        if (Main.rand.NextBool(3))
+            target.AddBuff(BuffID.Honey, 2 * 60);
     }
 
     public override void OnHitPlayer(Player target, Player.HurtInfo info)
     {
-        target.AddBuff(BuffID.Honey, 2 * 60);
+        if (Main.rand.NextBool(3))
+            target.AddBuff(BuffID.Honey, 2 * 60);
     }
 
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)

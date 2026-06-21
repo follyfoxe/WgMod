@@ -30,8 +30,8 @@ public class WeightlessPotion : ModItem
         Item.UseSound = SoundID.Item3;
         Item.maxStack = Item.CommonMaxStack;
         Item.consumable = true;
-        Item.rare = ItemRarityID.Orange;
-        Item.value = Item.buyPrice(gold: 1);
+        Item.rare = ItemRarityID.Blue;
+        Item.value = Item.buyPrice(silver: 2);
         Item.buffType = ModContent.BuffType<Buffs.Consumables.Weightless>();
         Item.buffTime = 8 * 60 * 60;
     }

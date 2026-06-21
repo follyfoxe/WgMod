@@ -7,6 +7,7 @@ using WgMod.Content.NPCs;
 
 namespace WgMod.Content.Items.Consumables;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class HornOfMore : ModItem
 {
     WgStat _healBonus = new(100, 150);

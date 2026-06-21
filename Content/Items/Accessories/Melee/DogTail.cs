@@ -10,6 +10,7 @@ using WgMod.Content.Projectiles.Melee;
 
 namespace WgMod.Content.Items.Accessories.Melee;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class DogTail : GlobalItem
 {
     WgStat _damageModifier = new(1f, 1.7f);

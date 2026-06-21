@@ -21,7 +21,7 @@ public class HoneyedHamBat : ModItem
         Item.rare = ItemRarityID.Pink;
         Item.value = Item.buyPrice(gold: 10);
 
-        Item.damage = (int)(Item.damage * 3f);
+        Item.damage = (int)(Item.damage * 2f);
         Item.useTime = (int)(Item.useTime * 1.5f);
         Item.useAnimation = (int)(Item.useAnimation * 1.5f);
         Item.scale *= 1.5f;
@@ -66,7 +66,7 @@ public class HoneyedHamBat : ModItem
                 player.Center,
                 velocity * 10,
                 ModContent.ProjectileType<HoneyGlob>(),
-                (int)(Item.damage * 0.25f),
+                (int)(Item.damage * 0.66666666),
                 Item.knockBack * 0.25f
             );
         }

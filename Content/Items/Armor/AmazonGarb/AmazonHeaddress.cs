@@ -10,6 +10,7 @@ using WgMod.Content.Dusts;
 
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Head)]
 public class AmazonHeaddress : ModItem
 {

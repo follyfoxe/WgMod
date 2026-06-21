@@ -7,12 +7,13 @@ using WgMod.Content.Buffs;
 namespace WgMod.Content.Items.Accessories.Fat;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.maimaichubs)]
 public class GlutGut : ModItem
 {
     public override void SetDefaults()
     {
         Item.width = 34;
-        Item.height = 28;
+        Item.height = 30;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.LightRed;

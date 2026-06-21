@@ -6,6 +6,7 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class TurtleArmor : GlobalItem
 {
     WgStat _helmetDamage = new(0.03f, 0.09f);
