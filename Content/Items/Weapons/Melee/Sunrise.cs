@@ -4,8 +4,10 @@ using Terraria.ModLoader;
 using WgMod.Common.Players;
 using WgMod.Content.Projectiles.Melee;
 
-namespace WgMod.Content.Items.Weapons;
+namespace WgMod.Content.Items.Weapons.Melee;
 
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.maimaichubs)]
 public class Sunrise : ModItem
 {
     WgStat _damage = new(1f, 1.25f);

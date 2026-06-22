@@ -447,8 +447,11 @@ Items: {
 	}
 
 	Sunrise: {
-		Tooltip: ""
 		DisplayName: Sunrise
+		Tooltip: 
+		'''
+		Stats scale with your obesity
+		'''
 	}
 
 	AmazonHeaddress: {
@@ -508,6 +511,21 @@ Items: {
 			A traditional harpy stormbow
 			It has a heart engraved on it
 			'''
+	}
+
+	BlackRiderChest: {
+		DisplayName: Black Rider Chest
+		Tooltip: ""
+	}
+
+	BlackRiderHair: {
+		DisplayName: Black Rider Hair
+		Tooltip: ""
+	}
+
+	BlackRiderSkirt: {
+		DisplayName: Black Rider Skirt
+		Tooltip: ""
 	}
 }
 
@@ -716,7 +734,7 @@ Projectiles: {
 }
 
 NPCs: {
-	GroundedHarpy: {
+	GroundedHarpyNPC: {
 		DisplayName: Grounded Harpy
 
 		TownNPCMood: {
@@ -737,7 +755,7 @@ NPCs: {
 			DislikeBiome: It's c-c-cold! I need to fly south for the winter!
 		}
 
-		Census.SpawnCondition: Use powdered sugar on a harpy
+		Census.SpawnCondition: Use {$ItemName.PowderedSugar} [i:PowderedSugar] on a harpy
 	}
 
 	HomingFood.DisplayName: Cursed Food
@@ -783,3 +801,5 @@ Bestiary: {
 	GroundedHarpy: A previously free and carefree harpy, fattened until she cannot fly! She will begrudgingly provide you with useful materials from the sky.
 	HomingFood: Food cursed by a malevolent spirit to seek out and fatten up adventurers until they're defenseless.
 }
+
+Conditions.BlackRiderDev: Mods.WgMod.Conditions.BlackRiderDev
