@@ -10,15 +10,16 @@ using Terraria.ModLoader;
 using Terraria.Utilities;
 using WgMod.Common.Systems;
 using WgMod.Content.Items.Weapons;
+using WgMod.Content.NPCs.Sanguist;
 using WgMod.Content.Projectiles;
 
-namespace WgMod.Content.NPCs;
+namespace WgMod.Content.NPCs.GroundedHarpy;
 
 [AutoloadHead]
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
-public class GroundedHarpy : ModNPC
+public class GroundedHarpyNPC : ModNPC
 {
     public override string Texture
     {
@@ -136,9 +137,10 @@ public class GroundedHarpy : ModNPC
 
     public override string GetChat()
     {
-        WeightedRandom<string> chat = new WeightedRandom<string>();
+        WeightedRandom<string> chat = new();
 
         int partyGirl = NPC.FindFirstNPC(NPCID.PartyGirl);
+        int sanguist = NPC.FindFirstNPC(ModContent.NPCType<SanguistNPC>());
         int cat = NPC.FindFirstNPC(NPCID.TownCat);
         int dog = NPC.FindFirstNPC(NPCID.TownDog);
 

@@ -9,10 +9,10 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using WgMod.Common.Systems;
-using WgMod.Content.NPCs.GroundedHarpy;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using WgMod.Content.Items.Weapons.Melee;
+using WgMod.Content.NPCs.GroundedHarpy;
 
 namespace WgMod.Content.NPCs.Sanguist;
 
