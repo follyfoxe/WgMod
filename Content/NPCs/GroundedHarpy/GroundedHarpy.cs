@@ -193,6 +193,9 @@ public class GroundedHarpy : ModNPC
                     chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue2", 2, Main.npc[partyGirl].GivenName)); // "Please tell {NPCName} not to pin the tail on the harpy!"
             }
 
+            if (sanguist >= 0)
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SanguistDialogue1", 2, Main.npc[sanguist].GivenName)); // "{1} keeps making fun of me for being fat! She should know it's not my fault!"
+
             if (cat >= 0)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.CatDialogue1", Main.npc[cat].GivenName)); // "Hey... can I watch your cat today? No reason! It just looks so yummy- I mean cute!"
 

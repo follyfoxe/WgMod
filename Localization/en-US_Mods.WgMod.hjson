@@ -526,6 +526,15 @@ Items: {
 			It has a heart engraved on it
 			'''
 	}
+
+	NightcrawlerSlashes: {
+		DisplayName: Nightcrawler Slashes
+		Tooltip:
+			'''
+			Stats scale with your obesity
+			"I love the taste of iron!!!"
+			'''
+	}
 }
 
 Buffs: {
@@ -751,6 +760,7 @@ Projectiles: {
 	SunriseProjectile.DisplayName: Sunrise Projectile
 	SporeCloud.DisplayName: Spore Cloud
 	Plate.DisplayName: Plate
+	NightcrawlerSlashEnergy.DisplayName: Nightcrawler Slash Energy
 }
 
 NPCs: {
@@ -773,6 +783,7 @@ NPCs: {
 			Princess_LovesNPC: I didn't know harpies like {NPCName} could be so kind!
 			LikeBiome: I can see the sky here... I'll return one day!
 			DislikeBiome: It's c-c-cold! I need to fly south for the winter!
+			Dryad_HatesNPC: "{NPCName} needs to get herself together."
 		}
 
 		Census.SpawnCondition: Use powdered sugar on a harpy
@@ -781,6 +792,32 @@ NPCs: {
 	HomingFood.DisplayName: Cursed Food
 	Follower.DisplayName: Follower
 	FollowerSpawner.DisplayName: Follower Spawner
+	WanderingVampire.DisplayName: Wandering Vampire
+
+	SanguistNPC: {
+		TownNPCMood: {
+			Princess_LovesNPC: "{NPCName} is so funny! I heard vampires are immortal, is that true?"
+			LikeNPC_Princess: "{NPCName} is a sweetheart."
+			HateNPC: I'm not sure what {NPCName}'s problem is with me.
+			LikeNPC: I empathize with {NPCName}, it's not easy living with a curse for so long...
+			DisikeNPC: I think {NPCName}'s pickup lines sound better in his head.
+			LoveNPC: "{NPCName} gives mer her extra blood, I think she's into me!"
+			DislikeBiome: I've spent enough time underground, don't you think?
+			LikeBiome: There's lots of shade in {BiomeName}, makes it safer for me.
+			LoveBiome: I've never had a beach day until now, I love this!
+			HateCrowded: I feel like I'm back in the blood moon!
+			DislikeCrowded: I appreciate the company after all this time, but isn't this a bit much?
+			LoveSpace: Being alone helps. Less people to freak out seeing me drinking blood!
+			FarFromHome: Hey, I got a little lost, hehe...
+			NoHome: I could use a roof over my head, the sun and all.
+			Content: I'm fine. Thanks for asking.
+			Dryad_DislikesNPC: That vampire you let in... why?
+			DislikeNPC: I dislike {NPCName}.
+		}
+
+		DisplayName: Sanguist
+		Census.SpawnCondition: Find her during a blood moon and offer her an {$ItemName.Umbrella} [i:Umbrella] or a {$ItemName.TragicUmbrella} [i:TragicUmbrella]
+	}
 }
 
 Dialogue: {
@@ -816,6 +853,74 @@ Dialogue: {
 		QuestFishDialogue1: No, I won't carry you up to the sky lakes for your fish!
 		CatDialogue1: Hey... can I watch {0} today? No reason! It just looks so yummy- I mean cute!
 		DogDialogue1: "{0} barks at me all the time! I'm not a bird!"
+		SanguistDialogue1: "{1} keeps making fun of me for being fat! She should know it's not my fault!"
+	}
+
+	Sanguist: {
+		WanderingDialogue1: I vant to suck your blood! Snrk, nah, I'm just messin' with ya.
+		WanderingDialogue2: You DO know what kinda night it is, right?
+		WanderingDialogue3: I wish I could be out during day, if only I had something to give me shade wherever I went.
+		WanderingDialogue4: I don't bite, usually.
+		WanderingDialogue5: You should probably look for shelter, unless you're here to see widdle ol' me!
+		WanderingDialogue6: I enjoy the company, but isn't it a bit too dangerous to be walking about all willy nilly?
+		WanderingDialogue7: Sunscreen? I tried it, doesn't work. I would need something to block the sun above me. I'm stuck in a cave all day! It sucks!
+		WanderingDialogue8: Bleh Bleh Bleh!! Heheheh.
+		DenyOfferDialogue1: I appreciate the offer, really, but you don't have anything I want right now. Something to avoid the sunlight would be nice, though.
+		StandardDialogue1: .
+		StandardDialogue2: .
+		StandardDialogue3: .
+		StandardDialogue4: .
+		StandardDialogue5: .
+		StandardDialogue6: .
+		StandardDialogue7: .
+		StandardDialogue8: .
+		WeightDialogue1: .
+		WeightDialogue2: I{0}may be going too{1}far, but I'm so{2}hungry...
+		WeightDialogue3: .
+		PartyDialogue1: .
+		PartyDialogue2: .
+		WindyDayDialogue1: .
+		WindyDayDialogue2: .
+		WindyDayDialogue3: .
+		BloodMoonDialogue1: .
+		BloodMoonDialogue2: .
+		BloodMoonDialogue3: .
+		HomelessDialogue1: .
+		HomelessDialogue2: .
+		HomelessDialogue3: .
+		RainDialogue1: .
+		RainDialogue2: .
+		RainDialogue3: .
+		StormDialogue1: .
+		LoveStruckDialogue1: .
+		HarpyDialogue1: Gosh! That fat lardy bird brain thinks she's oh so high and mighty!! Calling ME fat!?
+
+		Drink: {
+			Drink11: Pwuah~ Oh, how I've missed the taste of blood... You're sure this is okay, right?
+			Drink12: Ahh~ Thanks to those life crystals, I've been given enough life to keep going for awhile...
+			Drink13: Mmm... Thank you so much for this again! Tah tah~
+			Drink21: Delicious! thanks to you, I've had more blood than I know what to do with! Why hasn't anyone done this before...?
+			Drink22: Mmmm.. Thank you. H-Hold on a second... my corset feels tighter for some reason... Ngh there we go.
+			Drink23: think i'll stop for now, I don't wanna leave behind anything permeant~
+			Drink31: BEEEWWWOOORRRPPP..!? Uhm... Here t-take this! S-Shoo! Shoo!!
+			Drink32: Ngh... Come back again soon... Urp!
+			Drink33: Ourp... oof... I might've accidentally taken more than I thought...
+			Drink41: Ahh~ ... You think with huff... My corset popping off like that, I'd stop while I'm ahead...
+			Drink42: BbbBBuuEEOuRpp...! It's getting... Harder and harder to get to- Uroup!? T-To Your neck with all this in the way...
+			Drink43: I've had enough but... come back tommorrow okay?
+			Drink51: OUUURRUURRRRPPPP!!!!!! huff... huff... hrk... pahhhhh T-Thanks...
+			Drink52: Mmmgh... I t-told myself I was gonna, Bworp... S-Stop, I can't even see my feet at this point... But I need more...
+			Drink53: Beeourp!? Urp!? I- ooh... oof... You gotta be- UUURRRPPPP!!! D-Doing this on purpose... I don't mind...
+			DrinkDeny1: You're too{0}gaunt! I couldn't{1}take more from you in{2}good conscience!
+			DrinkDeny2: I'm not so{0}greedy as to{1}take from you twice{2}today! Shoo!
+			DrinkDeny3: Huff, huff, You've given me enough for the next hundreds of years! I couldn't- OUUURP, take more! Wheeze...
+		}
+
+		Belches: {
+			Belch1: "- Urp, "
+			Belch2: "- Uuurp... "
+			Belch3: "- Huff, "
+		}
 	}
 }
 
@@ -824,3 +929,14 @@ Bestiary: {
 	Follower: Don't you know it's rude to say no? These were made just for you! Just open your mouth, and...
 	HomingFood: Food cursed by a malevolent spirit to seek out and fatten up adventurers until they're defenseless.
 }
+
+Interface.Offer: Offer
+
+Conditions: {
+	SanguistWeight1: Plump Sanguist
+	SanguistWeight2: Fat Sanguist
+	SanguistWeight3: Obese Sanguist
+	SanguistWeight4: Blob Sanguist
+}
+
+Announcements.SanguistHunger: The Sanguist hungers
