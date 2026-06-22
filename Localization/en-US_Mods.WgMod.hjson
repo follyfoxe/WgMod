@@ -754,7 +754,7 @@ Projectiles: {
 }
 
 NPCs: {
-	GroundedHarpy: {
+	GroundedHarpyNPC: {
 		DisplayName: Grounded Harpy
 
 		TownNPCMood: {
@@ -775,7 +775,7 @@ NPCs: {
 			DislikeBiome: It's c-c-cold! I need to fly south for the winter!
 		}
 
-		Census.SpawnCondition: Use powdered sugar on a harpy
+		Census.SpawnCondition: Use {$ItemName.PowderedSugar} [i:PowderedSugar] on a harpy
 	}
 
 	HomingFood.DisplayName: Cursed Food

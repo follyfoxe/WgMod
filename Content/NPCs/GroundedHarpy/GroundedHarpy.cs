@@ -9,21 +9,24 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.Utilities;
 using WgMod.Common.Systems;
-using WgMod.Content.Items.Weapons;
+using WgMod.Content.Items.Weapons.Ranged;
 using WgMod.Content.Projectiles;
+using WgMod.Content.NPCs.Sanguist;
 
-namespace WgMod.Content.NPCs;
+namespace WgMod.Content.NPCs.GroundedHarpy;
 
 [AutoloadHead]
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
-public class GroundedHarpy : ModNPC
+public class GroundedHarpyNPC : ModNPC
 {
     public override string Texture
     {
         get { return "WgMod/Content/NPCs/GroundedHarpy/GroundedHarpy"; }
     }
+
+    public override bool CanGoToStatue(bool toQueenStatue) => toQueenStatue;
 
     public const string ShopName = "Shop";
 
@@ -136,9 +139,10 @@ public class GroundedHarpy : ModNPC
 
     public override string GetChat()
     {
-        WeightedRandom<string> chat = new WeightedRandom<string>();
+        WeightedRandom<string> chat = new();
 
         int partyGirl = NPC.FindFirstNPC(NPCID.PartyGirl);
+        int sanguist = NPC.FindFirstNPC(ModContent.NPCType<SanguistNPC>());
         int cat = NPC.FindFirstNPC(NPCID.TownCat);
         int dog = NPC.FindFirstNPC(NPCID.TownDog);
 
@@ -190,7 +194,7 @@ public class GroundedHarpy : ModNPC
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue1", 2)); // "Human festivities are so fun! And tasty!"
 
                 if (partyGirl >= 0)
-                    chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue2", 2, Main.npc[partyGirl].GivenName)); // "Please tell {NPCName} not to pin the tail on the harpy!"
+                    chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.PartyDialogue2", 2, Main.npc[partyGirl].GivenName)); // "Please tell {1} not to pin the tail on the harpy!"
             }
 
             if (cat >= 0)
@@ -199,8 +203,8 @@ public class GroundedHarpy : ModNPC
             if (dog >= 0)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.DogDialogue1", Main.npc[dog].GivenName)); // "Your dog barks at me all the time! I'm not a bird!"
 
-            /*if (NPC.downedBoss2)
-                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!" */
+            if (NPC.downedBoss2)
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.EvilBossDialogue1")); // "Scraw! I took the liberty to turn that big evil baddie into food for you! Scraw!"
 
             if (!NPC.downedBoss3)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SkeletronDialogue1")); // "I'd love to make you a traditional harpy stormbow, but I'd need some really big bones to do it!"
