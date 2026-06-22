@@ -11,7 +11,6 @@ using Terraria.Utilities;
 using WgMod.Common.Systems;
 using WgMod.Content.Items.Weapons.Ranged;
 using WgMod.Content.Projectiles;
-using WgMod.Content.NPCs.Sanguist;
 
 namespace WgMod.Content.NPCs.GroundedHarpy;
 
@@ -142,7 +141,6 @@ public class GroundedHarpyNPC : ModNPC
         WeightedRandom<string> chat = new();
 
         int partyGirl = NPC.FindFirstNPC(NPCID.PartyGirl);
-        int sanguist = NPC.FindFirstNPC(ModContent.NPCType<SanguistNPC>());
         int cat = NPC.FindFirstNPC(NPCID.TownCat);
         int dog = NPC.FindFirstNPC(NPCID.TownDog);
 
