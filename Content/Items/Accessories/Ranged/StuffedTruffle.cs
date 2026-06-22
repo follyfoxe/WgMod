@@ -1,10 +1,10 @@
+using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using WgMod.Content.Projectiles.Ranged;
-using System;
 using WgMod.Common.Players;
+using WgMod.Content.Projectiles.Ranged;
 
 namespace WgMod.Content.Items.Accessories.Ranged;
 

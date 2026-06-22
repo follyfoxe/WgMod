@@ -1,8 +1,8 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using WgMod.Common.Players;
 using System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using WgMod.Common.Players;
 using WgMod.Content.NPCs;
 
 namespace WgMod.Content.Items.Consumables;

@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
-using System.Collections.Generic;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 

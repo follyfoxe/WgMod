@@ -1,9 +1,9 @@
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
 using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace WgMod.Content.Projectiles.Ranged;
 

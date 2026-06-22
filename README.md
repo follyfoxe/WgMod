@@ -10,6 +10,7 @@ Weight gain mod for tModLoader.
 [More info](https://forum.weightgaming.com/t/terraria-weight-gain-mod-in-development)
 - Some elements are inspired by [StarPounds](https://github.com/StarPounds/StarPounds)
 - Contributions are very much welcome
+- Do check out the [mod's wiki](https://docs.google.com/document/d/18aau-alSJu0qZohi3YxSXRVZWvEs_h7iqypBFznBjGI/edit?usp=sharing)
 
 # Features
 - Basic weight gain mechanics
