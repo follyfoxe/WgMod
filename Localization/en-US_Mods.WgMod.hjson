@@ -527,6 +527,78 @@ Items: {
 		DisplayName: Black Rider Skirt
 		Tooltip: ""
 	}
+
+	LesserWeightLossPotion: {
+		DisplayName: Lesser Weight Loss Potion
+		Tooltip:
+			'''
+			Lose {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	GreaterWeightLossPotion: {
+		DisplayName: Greater Weight Loss Potion
+		Tooltip:
+			'''
+			Lose {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	SuperWeightLossPotion: {
+		DisplayName: Super Weight Loss Potion
+		Tooltip:
+			'''
+			Lose {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	WeightLossPotion: {
+		DisplayName: Weight Loss Potion
+		Tooltip:
+			'''
+			Lose {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	GreaterWeightGainPotion: {
+		DisplayName: Greater Weight Gain Potion
+		Tooltip:
+			'''
+			Gain {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	LesserWeightGainPotion: {
+		DisplayName: Lesser Weight Gain Potion
+		Tooltip:
+			'''
+			Gain {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	SuperWeightGainPotion: {
+		DisplayName: Super Weight Gain Potion
+		Tooltip:
+			'''
+			Gain {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	WeightGainPotion: {
+		DisplayName: Weight Gain Potion
+		Tooltip:
+			'''
+			Gain {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
 }
 
 Buffs: {
@@ -648,12 +720,16 @@ Buffs: {
 
 	Sunrising: {
 		DisplayName: Sunrising
-		Description: Mods.WgMod.Buffs.Sunrising.Description
+		Description: "'The morning sun has vanquished the horrible night.'"
 	}
 
-	SporeStuffed: {
-		DisplayName: Spore Stuffed
-		Description: Mods.WgMod.Buffs.SporeStuffed.Description
+	MilkshakeSickness: {
+		DisplayName: Milkshake Sickness
+		Description:
+			'''
+			Weight changing potions are significantly less effective
+			'Ooourrrrpp...'
+			'''
 	}
 
 	Caramelized: {
