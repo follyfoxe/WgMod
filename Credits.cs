@@ -21,6 +21,7 @@ public enum ProjectRole
     Idea
 }
 
+// Discord handles
 public enum Contributor
 {
     [Category("Team")]
@@ -62,6 +63,7 @@ public static class Credits
         ProjectRole.Artist => ItemID.PaintRoller,
         ProjectRole.VFX => ItemID.HallowBossDye,
         ProjectRole.SFX => ItemID.Megaphone,
+        ProjectRole.Idea => ItemID.Candle,
         _ => ItemID.None
     };
 
