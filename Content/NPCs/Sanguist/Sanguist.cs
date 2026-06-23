@@ -35,9 +35,9 @@ public class SanguistNPC : ModNPC
     public const int WeightProgressMax = 3;
     public const string ShopName = "Shop";
 
-    public int weightLevel;
-    public int weightProgress;
-    public bool drankToday;
+    public static int weightLevel;
+    public static int weightProgress;
+    public static bool drankToday;
 
     readonly int _prize1 = ItemID.BloodButcherer;
     readonly int _prize2 = ModContent.ItemType<NightcrawlerSlashes>();
@@ -285,10 +285,10 @@ public class SanguistNPC : ModNPC
     {
         var sanguistShop = new NPCShop(Type, ShopName)
             .Add(ItemID.BloodbathDye)
-            .Add(_prize1, new Condition("Mods.WgMod.Conditions.SanguistWeight1", () => weightLevel > 1))
-            .Add(_prize2, new Condition("Mods.WgMod.Conditions.SanguistWeight2", () => weightLevel > 2))
-            .Add(_prize3, new Condition("Mods.WgMod.Conditions.SanguistWeight3", () => weightLevel > 3))
-            .Add(_prize4, new Condition("Mods.WgMod.Conditions.SanguistWeight4", () => weightLevel > 4));
+            .Add(_prize1, new Condition("Mods.WgMod.Conditions.SanguistWeight1", () => weightLevel >= 1))
+            .Add(_prize2, new Condition("Mods.WgMod.Conditions.SanguistWeight2", () => weightLevel >= 2))
+            .Add(_prize3, new Condition("Mods.WgMod.Conditions.SanguistWeight3", () => weightLevel >= 3))
+            .Add(_prize4, new Condition("Mods.WgMod.Conditions.SanguistWeight4", () => weightLevel >= 4));
 
         sanguistShop.Register();
     }
