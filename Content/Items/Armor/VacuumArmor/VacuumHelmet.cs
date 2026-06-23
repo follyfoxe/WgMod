@@ -8,8 +8,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.VacuumArmor;
 
-[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Head)]
+
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 public class VacuumHelmet : ModItem
 {
     public const float SetBonusWeightLoss = 0.1f;

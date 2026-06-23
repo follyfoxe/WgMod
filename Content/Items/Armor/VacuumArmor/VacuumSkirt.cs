@@ -7,8 +7,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.VacuumArmor;
 
-[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Legs)]
+
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 public class VacuumSkirt : ModItem
 {
     WgStat _attackSpeed = new(1.02f, 1.12f);

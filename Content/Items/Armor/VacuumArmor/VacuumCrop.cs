@@ -7,8 +7,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.VacuumArmor;
 
-[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [AutoloadEquip(EquipType.Body)]
+
+[Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 public class VacuumCrop : ModItem
 {
     WgStat _attack = new(0.03f, 0.12f);
