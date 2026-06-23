@@ -448,10 +448,7 @@ Items: {
 
 	Sunrise: {
 		DisplayName: Sunrise
-		Tooltip: 
-		'''
-		Stats scale with your obesity
-		'''
+		Tooltip: Stats scale with your obesity
 	}
 
 	AmazonHeaddress: {
