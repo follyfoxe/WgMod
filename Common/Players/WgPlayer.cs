@@ -95,8 +95,11 @@ public partial class WgPlayer : ModPlayer
 
     public override void PostUpdateRunSpeeds()
     {
-        if (WgServerConfig.Instance.DisableFatBuffs || Player.mount.Active)
+        if (WgServerConfig.Instance.DisableFatBuffs)
             return;
+
+        if (Player.mount.Active)
+            MovementPenalty *= 0.8f;
 
         int stage = Weight.GetStage();
         if (stage >= Weight.DamageReductionStage)
