@@ -11,22 +11,30 @@ using WgMod.Content.Items.Consumables.Potions.WeightLossPotions;
 
 namespace WgMod.Common.Systems;
 
-public class ChestLoot : ModSystem
+public class ChestLootSystem : ModSystem
 {
+    record struct LootEntry(int Type, int Chance, int MinAmount = 1, int MaxAmount = 1);
+
     public override void PostWorldGen()
     {
-        for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
+        int[] lesserWeightPotions = [ModContent.ItemType<LesserWeightGainPotion>(), ModContent.ItemType<LesserWeightLossPotion>()];
+        int[] weightPotions = [ModContent.ItemType<WeightGainPotion>(), ModContent.ItemType<WeightLossPotion>()];
+
+        for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
         {
             Chest chest = Main.chest[chestIndex];
-            int[] lesserWeightPotions = [ModContent.ItemType<LesserWeightGainPotion>(), ModContent.ItemType<LesserWeightLossPotion>()];
-            int[] weightPotions = [ModContent.ItemType<WeightGainPotion>(), ModContent.ItemType<WeightLossPotion>()];
+            if (chest == null)
+                continue;
+            Tile tile = Main.tile[chest.x, chest.y];
+
             int weightPotionAmount = Main.rand.Next(3, 6);
             int arrowAmount = Main.rand.Next(25, 51);
             int buffPotionAmount = Main.rand.Next(1, 3);
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX == 11 * 36)
+            // Ice chest
+            if (tile.TileFrameX == 11 * 36)
             {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+                for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
                 {
                     if (chest.item[inventoryIndex].type == ItemID.None)
                     {
@@ -40,7 +48,8 @@ public class ChestLoot : ModSystem
                 }
             }
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX == 13 * 36)
+            // Skyware chest
+            if (tile.TileFrameX == 13 * 36)
             {
                 for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                 {
@@ -61,7 +70,8 @@ public class ChestLoot : ModSystem
                 }
             }
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX == 32 * 36)
+            // Mushroom chest
+            if (tile.TileFrameX == 32 * 36)
             {
                 for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                 {
@@ -77,7 +87,8 @@ public class ChestLoot : ModSystem
                 }
             }
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX == 12 * 36)
+            // Living wood chest
+            if (tile.TileFrameX == 12 * 36)
             {
                 for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                 {
@@ -93,7 +104,8 @@ public class ChestLoot : ModSystem
                 }
             }
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX != 16 * 36)
+            // Not lihzahrd chest
+            if (tile.TileFrameX != 16 * 36)
             {
                 for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                 {
@@ -114,7 +126,8 @@ public class ChestLoot : ModSystem
                 }
             }
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX == 16 * 36)
+            // Lihzahrd chest
+            if (tile.TileFrameX == 16 * 36)
             {
                 for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                 {
@@ -135,7 +148,8 @@ public class ChestLoot : ModSystem
                 }
             }
 
-            if (chest != null && Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
+            // Gold chest
+            if (tile.TileFrameX == 1 * 36)
             {
                 for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
                 {
@@ -149,6 +163,29 @@ public class ChestLoot : ModSystem
                         break;
                     }
                 }
+            }
+        }
+    }
+
+    static void FillChest(Chest chest, LootEntry[] loot)
+    {
+        int lootIndex = 0;
+        for (int i = 0; i < Chest.maxItems && lootIndex < loot.Length; i++)
+        {
+            Item item = chest.item[i];
+            if (item.type != ItemID.None)
+                continue;
+            for (; lootIndex < loot.Length; lootIndex++)
+            {
+                LootEntry entry = loot[lootIndex];
+                if (!Main.rand.NextBool(entry.Chance))
+                    continue;
+                int amount = Main.rand.Next(entry.MinAmount, entry.MaxAmount + 1);
+                if (amount <= 0)
+                    continue;
+                item.SetDefaults(entry.Type);
+                item.stack = amount;
+                break;
             }
         }
     }
