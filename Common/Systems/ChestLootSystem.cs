@@ -1,3 +1,4 @@
+using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,180 +14,114 @@ namespace WgMod.Common.Systems;
 
 public class ChestLootSystem : ModSystem
 {
-    record struct LootEntry(int Type, int Chance, int MinAmount = 1, int MaxAmount = 1);
+    record struct LootEntry(int Type, int Chance, int MinAmount = 1, int MaxAmount = 1, bool Ignore = false);
 
     public override void PostWorldGen()
     {
-        int[] lesserWeightPotions = [ModContent.ItemType<LesserWeightGainPotion>(), ModContent.ItemType<LesserWeightLossPotion>()];
-        int[] weightPotions = [ModContent.ItemType<WeightGainPotion>(), ModContent.ItemType<WeightLossPotion>()];
-
         for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
         {
             Chest chest = Main.chest[chestIndex];
             if (chest == null)
                 continue;
+
             Tile tile = Main.tile[chest.x, chest.y];
-
-            int weightPotionAmount = Main.rand.Next(3, 6);
-            int arrowAmount = Main.rand.Next(25, 51);
-            int buffPotionAmount = Main.rand.Next(1, 3);
-
-            // Ice chest
-            if (tile.TileFrameX == 11 * 36)
+            switch (tile.TileFrameX)
             {
-                for (int inventoryIndex = 0; inventoryIndex < Chest.maxItems; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AmuletOfStarving>());
-                            chest.item[inventoryIndex].stack = 1;
-                        }
-                        break;
-                    }
-                }
-            }
+                // Ice chest
+                case 11 * 36:
+                    FillChest(chest, [new(ModContent.ItemType<AmuletOfStarving>(), 3)]);
+                    break;
 
-            // Skyware chest
-            if (tile.TileFrameX == 13 * 36)
-            {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<MeteorCrush>());
-                            chest.item[inventoryIndex].stack = 1;
-                        }
-                        else if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<HeliumTank>());
-                            chest.item[inventoryIndex].stack = 1;
-                        }
-                        break;
-                    }
-                }
-            }
+                // Skyware chest
+                case 13 * 36:
+                    FillChest(chest, [
+                        new(ModContent.ItemType<MeteorCrush>(), 3),
+                        new(ModContent.ItemType<HeliumTank>(), 3)
+                    ]);
+                    break;
 
-            // Mushroom chest
-            if (tile.TileFrameX == 32 * 36)
-            {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<StuffedTruffle>());
-                            chest.item[inventoryIndex].stack = 1;
-                        }
-                        break;
-                    }
-                }
-            }
+                // Mushroom chest
+                case 32 * 36:
+                    FillChest(chest, [new(ModContent.ItemType<StuffedTruffle>(), 3)]);
+                    break;
 
-            // Living wood chest
-            if (tile.TileFrameX == 12 * 36)
-            {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(2))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<AcornCake>());
-                            chest.item[inventoryIndex].stack = buffPotionAmount;
-                        }
-                        break;
-                    }
-                }
+                // Living wood chest
+                case 12 * 36:
+                    FillChest(chest, [new(ModContent.ItemType<AcornCake>(), 2, 1, 2)]);
+                    break;
+
+                // Lihzahrd chest
+                case 16 * 36:
+                    FillChest(chest, [
+                        new(ModContent.ItemType<WeightlessPotion>(), 3, 1, 2),
+                        new(ModContent.ItemType<WeightGainPotion>(), 2, 3, 5),
+                        new(ModContent.ItemType<WeightLossPotion>(), 2, 3, 5)
+                    ]);
+                    break;
+
+                // Gold chest
+                case 1 * 36:
+                    FillChest(chest, [new(ModContent.ItemType<CaramelArrow>(), 3, 25, 50)]);
+                    break;
             }
 
             // Not lihzahrd chest
             if (tile.TileFrameX != 16 * 36)
             {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<WeightlessPotion>());
-                            chest.item[inventoryIndex].stack = buffPotionAmount;
-                        }
-                        else if (Main.rand.NextBool(2))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(lesserWeightPotions[Main.rand.Next(0, 2)]);
-                            chest.item[inventoryIndex].stack = weightPotionAmount;
-                        }
-                        break;
-                    }
-                }
-            }
-
-            // Lihzahrd chest
-            if (tile.TileFrameX == 16 * 36)
-            {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<WeightlessPotion>());
-                            chest.item[inventoryIndex].stack = buffPotionAmount;
-                        }
-                        else if (Main.rand.NextBool(2))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(weightPotions[Main.rand.Next(0, 2)]);
-                            chest.item[inventoryIndex].stack = weightPotionAmount;
-                        }
-                        break;
-                    }
-                }
-            }
-
-            // Gold chest
-            if (tile.TileFrameX == 1 * 36)
-            {
-                for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
-                {
-                    if (chest.item[inventoryIndex].type == ItemID.None)
-                    {
-                        if (Main.rand.NextBool(3))
-                        {
-                            chest.item[inventoryIndex].SetDefaults(ModContent.ItemType<CaramelArrow>());
-                            chest.item[inventoryIndex].stack = arrowAmount;
-                        }
-                        break;
-                    }
-                }
+                FillChest(chest, [
+                    new(ModContent.ItemType<WeightlessPotion>(), 3, 1, 2),
+                    new(ModContent.ItemType<LesserWeightGainPotion>(), 2, 3, 5),
+                    new(ModContent.ItemType<LesserWeightLossPotion>(), 2, 3, 5)
+                ]);
             }
         }
     }
 
-    static void FillChest(Chest chest, LootEntry[] loot)
+    static void FillChest(Chest chest, Span<LootEntry> loot)
     {
         int lootIndex = 0;
-        for (int i = 0; i < Chest.maxItems && lootIndex < loot.Length; i++)
+        for (int i = 0; i < Chest.maxItems; i++)
         {
             Item item = chest.item[i];
             if (item.type != ItemID.None)
                 continue;
-            for (; lootIndex < loot.Length; lootIndex++)
+            while (lootIndex < loot.Length)
             {
                 LootEntry entry = loot[lootIndex];
                 if (!Main.rand.NextBool(entry.Chance))
+                {
+                    lootIndex++;
                     continue;
+                }
                 int amount = Main.rand.Next(entry.MinAmount, entry.MaxAmount + 1);
                 if (amount <= 0)
+                {
+                    lootIndex++;
                     continue;
+                }
                 item.SetDefaults(entry.Type);
                 item.stack = amount;
+                lootIndex++;
                 break;
             }
         }
+
+        /*int slotIndex = 0;
+        for (int i = 0; i < loot.Length; i++)
+        {
+            LootEntry entry = loot[i];
+            if (!Main.rand.NextBool(entry.Chance))
+                continue;
+            int amount = Main.rand.Next(entry.MinAmount, entry.MaxAmount + 1);
+            if (amount <= 0)
+                continue;
+            while (slotIndex < Chest.maxItems && chest.item[slotIndex].type != ItemID.None)
+                slotIndex++;
+            if (slotIndex >= Chest.maxItems)
+                break;
+            Item item = chest.item[slotIndex];
+            item.SetDefaults(entry.Type);
+            item.stack = amount;
+        }*/
     }
 }
