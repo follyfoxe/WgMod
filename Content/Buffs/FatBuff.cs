@@ -92,7 +92,7 @@ public class FatBuff : WgBuffBase
         if (Main.LocalPlayer.TryGetModPlayer(out WgPlayer wg))
         {
             drawParams.Texture = _stagesTexture.Value;
-            drawParams.SourceRectangle = drawParams.Texture.Frame(1, Weight.StageCount, 0, wg.Weight.GetStage());
+            drawParams.SourceRectangle = drawParams.Texture.Frame(1, Weight.ImmobileStage + 1, 0, Math.Clamp(wg.Weight.GetStage(), 0, Weight.ImmobileStage));
         }
         return base.PreDraw(spriteBatch, buffIndex, ref drawParams);
     }

@@ -620,6 +620,8 @@ Buffs: {
 			Name5: Morbidly obese
 			Name6: Barely mobile
 			Name7: Immobile
+			Name8: Encombered
+			Name9: Blob
 		}
 	}
 

@@ -21,6 +21,8 @@ public class SpriteSet
     public static string[] FoundSets { get; private set; }
 
     public string Author = "Unknown";
+    public float DrawOffsetX;
+    public float DrawOffsetY;
     public int ArmCount;
     public Layer[] Layers = [];
     public Dictionary<int, Stage> Stages = [];

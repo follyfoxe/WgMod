@@ -1,0 +1,60 @@
+{
+    "Author": "igobee_",
+    "DrawOffsetX": 2,
+    "DrawOffsetY": 7,
+    "ArmCount": 4,
+    "Layers": [
+        {
+            "Name": "Base",
+            "Type": "Legs"
+        },
+        {
+            "Name": "Belly",
+            "Type": "Belly"
+        },
+        {
+            "Name": "Boobs",
+            "Type": "Breasts"
+        }
+    ],
+    "Stages": {
+        "1": {
+            "OnTop": false
+        },
+        "2": {
+            "OnTop": true
+        },
+        "3": {
+            "Arm": 0,
+            "OnTop": true
+        },
+        "4": {
+            "Arm": 0,
+            "OnTop": true
+        },
+        "5": {
+            "Arm": 1,
+            "OnTop": true
+        },
+        "6": {
+            "Arm": 2,
+            "OnTop": true,
+            "OffsetY": 4
+        },
+        "7": {
+            "Arm": 3,
+            "OnTop": true,
+            "OffsetY": 8
+        },
+        "8": {
+            "Arm": 3,
+            "OnTop": true,
+            "OffsetY": 12
+        },
+        "9": {
+            "Arm": 3,
+            "OnTop": true,
+            "OffsetY": 18
+        }
+    }
+}

@@ -111,6 +111,8 @@ public class WgPlayerDrawLayer : PlayerDrawLayer
         float baseSquish = (bellySquish + 1f) * 0.5f;
 
         SpriteSet set = SpriteSet.Current;
+        position += new Vector2(set.DrawOffsetX * direction, set.DrawOffsetY);
+
         bool drawArmor = WgArmor.ShouldDraw(drawInfo);
         if (drawArmor)
             SetupArmorLayers(wg, drawInfo);
