@@ -16,6 +16,10 @@ public class ChestLootSystem : ModSystem
 {
     record struct LootEntry(int Type, int Chance, int MinAmount = 1, int MaxAmount = 1, bool Ignore = false);
 
+    const int AccessoryChance = 6;
+    const int BuffPotionChance = 4;
+    const int TieredPotionChance = 3;
+
     public override void PostWorldGen()
     {
         for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
@@ -29,33 +33,33 @@ public class ChestLootSystem : ModSystem
             {
                 // Ice chest
                 case 11 * 36:
-                    FillChest(chest, [new(ModContent.ItemType<AmuletOfStarving>(), 3)]);
+                    FillChest(chest, [new(ModContent.ItemType<AmuletOfStarving>(), AccessoryChance)]);
                     break;
 
                 // Skyware chest
                 case 13 * 36:
                     FillChest(chest, [
-                        new(ModContent.ItemType<MeteorCrush>(), 3),
-                        new(ModContent.ItemType<HeliumTank>(), 3)
+                        new(ModContent.ItemType<MeteorCrush>(), AccessoryChance),
+                        new(ModContent.ItemType<HeliumTank>(), AccessoryChance)
                     ]);
                     break;
 
                 // Mushroom chest
                 case 32 * 36:
-                    FillChest(chest, [new(ModContent.ItemType<StuffedTruffle>(), 3)]);
+                    FillChest(chest, [new(ModContent.ItemType<StuffedTruffle>(), AccessoryChance)]);
                     break;
 
                 // Living wood chest
                 case 12 * 36:
-                    FillChest(chest, [new(ModContent.ItemType<AcornCake>(), 2, 1, 2)]);
+                    FillChest(chest, [new(ModContent.ItemType<AcornCake>(), BuffPotionChance, 1, 2)]);
                     break;
 
                 // Lihzahrd chest
                 case 16 * 36:
                     FillChest(chest, [
-                        new(ModContent.ItemType<WeightlessPotion>(), 3, 1, 2),
-                        new(ModContent.ItemType<WeightGainPotion>(), 2, 3, 5),
-                        new(ModContent.ItemType<WeightLossPotion>(), 2, 3, 5)
+                        new(ModContent.ItemType<WeightlessPotion>(), BuffPotionChance, 1, 2),
+                        new(ModContent.ItemType<WeightGainPotion>(), TieredPotionChance, 3, 5),
+                        new(ModContent.ItemType<WeightLossPotion>(), TieredPotionChance, 3, 5)
                     ]);
                     break;
 
@@ -69,9 +73,9 @@ public class ChestLootSystem : ModSystem
             if (tile.TileFrameX != 16 * 36)
             {
                 FillChest(chest, [
-                    new(ModContent.ItemType<WeightlessPotion>(), 3, 1, 2),
-                    new(ModContent.ItemType<LesserWeightGainPotion>(), 2, 3, 5),
-                    new(ModContent.ItemType<LesserWeightLossPotion>(), 2, 3, 5)
+                    new(ModContent.ItemType<WeightlessPotion>(), BuffPotionChance, 1, 2),
+                    new(ModContent.ItemType<LesserWeightGainPotion>(), TieredPotionChance, 3, 5),
+                    new(ModContent.ItemType<LesserWeightLossPotion>(), TieredPotionChance, 3, 5)
                 ]);
             }
         }
