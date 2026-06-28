@@ -22,8 +22,8 @@ public class LesserWeightGainPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 20;
+		Item.height = 24;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
@@ -74,8 +74,8 @@ public class WeightGainPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 30;
+		Item.height = 24;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
@@ -126,8 +126,8 @@ public class GreaterWeightGainPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 32;
+		Item.height = 32;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
@@ -177,8 +177,8 @@ public class SuperWeightGainPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 64;
+		Item.height = 58;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
