@@ -22,8 +22,8 @@ public class LesserWeightLossPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 16;
+		Item.height = 26;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
@@ -74,8 +74,8 @@ public class WeightLossPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 16;
+		Item.height = 24;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
@@ -117,7 +117,7 @@ public class GreaterWeightLossPotion : ModItem
 {
 	public static LocalizedText RestoreLifeText { get; private set; }
 
-	float WeightEffect = -30;
+	const float WeightEffect = -30;
 
 	public override void SetStaticDefaults()
 	{
@@ -126,8 +126,8 @@ public class GreaterWeightLossPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 18;
+		Item.height = 30;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
@@ -177,8 +177,8 @@ public class SuperWeightLossPotion : ModItem
 
 	public override void SetDefaults()
 	{
-		Item.width = 24;
-		Item.height = 40;
+		Item.width = 22;
+		Item.height = 32;
 		Item.useStyle = ItemUseStyleID.DrinkLiquid;
 		Item.useAnimation = 17;
 		Item.useTime = 17;
