@@ -596,6 +596,61 @@ Items: {
 			Less effective if used repeatedly
 			'''
 	}
+
+	BarnChair: {
+		DisplayName: Barn Chair
+		Tooltip: ""
+	}
+
+	BarnWorkbench: {
+		DisplayName: Barn Workbench
+		Tooltip: ""
+	}
+
+	BarnTable: {
+		DisplayName: Barn Table
+		Tooltip: ""
+	}
+
+	BarnBed: {
+		DisplayName: Barn Bed
+		Tooltip: ""
+	}
+
+	BarnChest: {
+		DisplayName: Barn Chest
+		Tooltip: ""
+	}
+
+	BarnClock: {
+		DisplayName: Barn Clock
+		Tooltip: ""
+	}
+
+	BarnDoor: {
+		DisplayName: Barn Door
+		Tooltip: ""
+	}
+
+	BarnDresser: {
+		DisplayName: Barn Dresser
+		Tooltip: ""
+	}
+
+	BarnSink: {
+		DisplayName: Barn Sink
+		Tooltip: ""
+	}
+
+	BarnToilet: {
+		DisplayName: Barn Toilet
+		Tooltip: ""
+	}
+
+	BarnWorktable: {
+		DisplayName: Barn Worktable
+		Tooltip: Used in special crafting
+	}
 }
 
 Buffs: {
@@ -787,7 +842,12 @@ Configs: {
 	}
 }
 
-Tiles.Treadmill.Items.Treadmill: Mods.WgMod.Tiles.Treadmill.Items.Treadmill
+Tiles: {
+	Treadmill.Items.Treadmill: Mods.WgMod.Tiles.Treadmill.Items.Treadmill
+	BarnChest.MapEntry0: Barn Chest
+	BarnDresser.MapEntry: Barn Dresser
+}
+
 InfoDisplays.PortableScale_InfoDisplay.DisplayName: Current weight
 
 Projectiles: {
@@ -808,7 +868,6 @@ Projectiles: {
 
 NPCs: {
 	GroundedHarpyNPC: {
-		
 		DisplayName: Grounded Harpy
 
 		TownNPCMood: {
@@ -833,6 +892,31 @@ NPCs: {
 	}
 
 	HomingFood.DisplayName: Cursed Food
+
+	MilkmaidNPC: {
+		DisplayName: Milkmaid
+
+		TownNPCMood: {
+			Princess_LovesNPC: "{NPCName} is so big and soft!"
+			LikeNPC_Princess: That {NPCName} is a precious lil' lady.
+			HateNPC: Tell {NPCName} that if he comes knockin' again, I'm getting the gun.
+			LikeNPC: "{NPCName} and I have a good business relationship."
+			LoveNPC: "{NPCName} provides a real service, not many people can say that these days."
+			DislikeNPC: Every time I see {NPCName} she criticizes my hair. I'd like to see her keep up that hairdo on the ranch.
+			HateBiome: It's too damn hot in the {BiomeName}! No good for crops or animals!
+			DislikeBiome: How do ya expect me to grow crop beside the {BiomeName}?
+			LikeBiome: It's chilly in the {BiomeName}, bovines like me are plump y'know.
+			LoveBiome: Ah, the {BiomeName}... not ideal, but the best place to start a farm on this island.
+			HateCrowded: I already have a hard time fittin' through these doors, how do ya think it goes with all these folks?
+			DislikeCrowded: This much crowding ain't good for crop, get 'em out.
+			LoveSpace: Wide pastures, ideal fer a big cow like me!
+			FarFromHome: Y'ever heard that phrase about the cows comin' home? Well I don't think this cow is tonight...
+			NoHome: What's a cow without a barn? Nothin', that's what.
+			Content: I ain't complainin'.
+		}
+
+		Census.SpawnCondition: Reach a weight of at least Fat
+	}
 }
 
 Dialogue: {
@@ -869,6 +953,43 @@ Dialogue: {
 		CatDialogue1: Hey... can I watch {0} today? No reason! It just looks so yummy- I mean cute!
 		DogDialogue1: "{0} barks at me all the time! I'm not a bird!"
 	}
+
+	Milkmaid: {
+		StandardDialogue1: I heard there was a hero here who couldn't keep their weight in check. I suppose that's you, doll?
+		StandardDialogue2: My breasts produce some unique concoctions. One sip'll have ya bedbound or a string bean.
+		StandardDialogue3: Ya need some milk? I'm yer gal.
+		StandardDialogue4: Yer a pretty little thing, could use some weight though.
+		StandardDialogue5: How'd I get this big? Let's see... now was it the custard machine or the feeder cult?
+		StandardDialogue6: People look at my horns n' think I'm a man. They never heard of a butch.
+		StandardDialogue7: Y'know, all the dang monstrosities ya see 'round here, where're all the animals?
+		StandardDialogue8: My damn overalls, they keep shrinkin' or somethin'.
+		BloodMoonDialogue1: Hmph.
+		BloodMoonDialogue2: Yer face ain't as endearing as it usually is, back up.
+		BloodMoonDialogue3: Not enough milk for ya? Too bad.
+		HomelessDialogue1: Have ya got a spare barn I can crash in?
+		HomelessDialogue2: Yer a hero, save a little farm gal and give her some cheap property.
+		HomelessDialogue3: I ain't sure if this land is good fer crops, but with how plump the ladies get it's gonna be great fer animals.
+		ArmsDealerDialogue1: Ya'd think {0} would get off my back when I told 'im I was a lesbian, he started talkin' to {1} about hormone replacement.
+		DryadDialogue1: I offered {0} an apple from one a' my trees, she looked at me like my fat's contagious.
+		MechanicDialogue1: "{0} told me she could build a machine to care fer my crops fer me, I told 'er they wouldn't be my crops if I didn't do it myself."
+		PartyDialogue1: Hey, the frosting on the cake? Yer welcome.
+		StormDialogue1: Jeez, I sure hope my cattle got home safe...
+		StormDialogue2: Whatever god's in charge a the weather, she ain't too joyful.
+		RainDialogue1: A lil' rain is good fer the crops, don't mean I gotta like it myself.
+		RainDialogue2: When I was young, ma always told me not to drink the raindrops.
+		WindyDayDialogue1: Ahh, the sound of the weather vane always reminds me of better times...
+		WindyDayDialogue2: Sometimes I like to lay down in a field and feel the wind blow... 's hard to get up afterwards, though.
+		DayDialogue1: Huff, huff... phew! Sun's cookin' me today!
+		DayDialogue2: Babydoll, can ya get me somethin' cold to drink? Er, maybe a few things?
+		Milked1: Mrooo~
+		Milked2: Hrmph... yer too gentle.
+		Milked3: Uhf, that's it? Dang...
+		MilkedDeny: Come back tomorrow, hun.
+		BloodMilked1: Hrmph. Off me.
+		BloodMilked2: BACK OFF!
+		BloodMilked3: Next time I'm kickin'.
+		BloodMilkedDeny: Ya already had yer fill, beat it hoss.
+	}
 }
 
 Bestiary: {
@@ -877,3 +998,4 @@ Bestiary: {
 }
 
 Conditions.BlackRiderDev: Mods.WgMod.Conditions.BlackRiderDev
+Interface.Milk: Milk

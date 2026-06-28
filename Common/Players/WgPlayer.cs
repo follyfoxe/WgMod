@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Configs;
+using WgMod.Common.Systems;
 using WgMod.Content.Buffs;
 
 namespace WgMod.Common.Players;
@@ -197,11 +198,15 @@ public partial class WgPlayer : ModPlayer
         if (_ignoreWgBuffTimer > 0)
             _ignoreWgBuffTimer--;
 
+        int stage = Weight.GetStage();
         if (Player.sleeping.isSleeping && Weight.GetStage() >= 4)
         {
             Player.fullRotation = 0;
             Player.gfxOffY -= 16;
         }
+
+        if (stage >= 3)
+            TownNPCRespawnSystem.unlockMilkmaid = true;
     }
 
     public override void UpdateDead()
