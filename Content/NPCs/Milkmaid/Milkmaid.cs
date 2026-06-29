@@ -64,7 +64,7 @@ public class MilkmaidNPC : ModNPC
     {
         NPC.townNPC = true;
         NPC.friendly = true;
-        NPC.height = 52;
+        NPC.height = 48;
         NPC.width = 24;
         NPC.aiStyle = NPCAIStyleID.Passive;
         NPC.damage = 8;
