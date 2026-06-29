@@ -844,7 +844,12 @@ Configs: {
 
 Tiles: {
 	Treadmill.Items.Treadmill: Mods.WgMod.Tiles.Treadmill.Items.Treadmill
-	BarnChest.MapEntry0: Barn Chest
+
+	BarnChest: {
+		MapEntry0: Barn Chest
+		MapEntry: Mods.WgMod.Tiles.BarnChest.MapEntry
+	}
+
 	BarnDresser.MapEntry: Barn Dresser
 }
 
@@ -999,3 +1004,4 @@ Bestiary: {
 
 Conditions.BlackRiderDev: Mods.WgMod.Conditions.BlackRiderDev
 Interface.Milk: Milk
+DeathReason.Milkmaid: Next time listen, honey.

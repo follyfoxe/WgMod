@@ -245,7 +245,7 @@ public class MilkmaidNPC : ModNPC
                 Main.npcChatText = Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid." + bloodMoon + "Milked" + Main.rand.Next(1, 4));
 
                 if (Main.bloodMoon)
-                    player.Hurt(PlayerDeathReason.ByCustomReason("{PlayerName} was bucked."), Main.rand.Next(25, 51), NPC.direction * -1, false, false, -1, false, 20, 20, 9f);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.WgMod.DeathReason.Milkmaid")), Main.rand.Next(25, 101), NPC.direction * -1, false, false, -1, false, 20, 20, 9f);
             }
             else
             {
