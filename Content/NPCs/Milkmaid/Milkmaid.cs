@@ -22,10 +22,7 @@ namespace WgMod.Content.NPCs.Milkmaid;
 [Credit(ProjectRole.Artist, Contributor._d_u_m_m_y_)]
 public class MilkmaidNPC : ModNPC
 {
-    public override string Texture
-    {
-        get { return "WgMod/Content/NPCs/Milkmaid/Milkmaid"; }
-    }
+    public override string Texture => "WgMod/Content/NPCs/Milkmaid/Milkmaid";
 
     public override bool CanGoToStatue(bool toQueenStatue) => toQueenStatue;
 
@@ -33,10 +30,10 @@ public class MilkmaidNPC : ModNPC
 
     public const string ShopName = "Shop";
 
-    public int[] LesserWeightPotions = [ModContent.ItemType<LesserWeightGainPotion>(), ModContent.ItemType<LesserWeightLossPotion>()];
-    public int[] WeightPotions = [ModContent.ItemType<WeightGainPotion>(), ModContent.ItemType<WeightLossPotion>()];
-    public int[] GreaterWeightPotions = [ModContent.ItemType<GreaterWeightGainPotion>(), ModContent.ItemType<GreaterWeightLossPotion>()];
-    public int[] SuperWeightPotions = [ModContent.ItemType<SuperWeightGainPotion>(), ModContent.ItemType<SuperWeightLossPotion>()];
+    /*public readonly int[] LesserWeightPotions = [ModContent.ItemType<LesserWeightGainPotion>(), ModContent.ItemType<LesserWeightLossPotion>()];
+    public readonly int[] WeightPotions = [ModContent.ItemType<WeightGainPotion>(), ModContent.ItemType<WeightLossPotion>()];
+    public readonly int[] GreaterWeightPotions = [ModContent.ItemType<GreaterWeightGainPotion>(), ModContent.ItemType<GreaterWeightLossPotion>()];
+    public readonly int[] SuperWeightPotions = [ModContent.ItemType<SuperWeightGainPotion>(), ModContent.ItemType<SuperWeightLossPotion>()];*/
 
     public override void SetStaticDefaults()
     {
@@ -50,9 +47,7 @@ public class MilkmaidNPC : ModNPC
         NPCID.Sets.AttackAverageChance[Type] = 5;
         NPCID.Sets.HatOffsetY[Type] = 4;
 
-        NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers =
-            new() { Velocity = -1f, Direction = -1 };
-
+        NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = -1f, Direction = -1 };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
         NPC.Happiness.SetBiomeAffection<ForestBiome>(AffectionLevel.Love)
@@ -84,14 +79,10 @@ public class MilkmaidNPC : ModNPC
         AnimationType = NPCID.Guide;
 
         if (Main.expertMode)
-        {
             NPC.damage = 12;
-        }
 
         if (Main.masterMode)
-        {
             NPC.damage = 14;
-        }
 
         NPC.ApplyTownNPCModifiers();
     }
@@ -107,17 +98,12 @@ public class MilkmaidNPC : ModNPC
     public override void OnSpawn(IEntitySource source)
     {
         if (source is EntitySource_SpawnNPC)
-        {
             TownNPCRespawnSystem.unlockMilkmaid = true;
-        }
     }
 
     public override bool CanTownNPCSpawn(int numTownNPCs)
     {
-        if (TownNPCRespawnSystem.unlockMilkmaid)
-            return true;
-
-        return false;
+        return TownNPCRespawnSystem.unlockMilkmaid;
     }
 
     public override List<string> SetNPCNameList()
@@ -254,23 +240,17 @@ public class MilkmaidNPC : ModNPC
                 Main.npcChatText = Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid." + bloodMoon + "Milked" + Main.rand.Next(1, 4));
 
                 if (Main.bloodMoon)
-                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetTextValue("Mods.WgMod.DeathReason.Milkmaid")), Main.rand.Next(25, 101), NPC.direction * -1, false, false, -1, false, 20, 20, 9f);
+                    player.Hurt(PlayerDeathReason.ByCustomReason(Language.GetOrRegister("Mods.WgMod.DeathReason.Milkmaid").ToNetworkText()), Main.rand.Next(25, 101), NPC.direction * -1, false, false, -1, false, 20, 20, 9f);
             }
             else
-            {
                 Main.npcChatText = Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid." + bloodMoon + "MilkedDeny");
-            }
         }
     }
 
     public override bool PreAI()
     {
-
         if (Main.dayTime && Main.time == 0)
-        {
             milkedToday = false;
-        }
-
         return true;
     }
 
@@ -294,17 +274,6 @@ public class MilkmaidNPC : ModNPC
             .Add(ModContent.ItemType<SuperWeightGainPotion>(), Condition.DownedCultist);
 
         milkyShop.Register();
-    }
-
-    public override void ModifyActiveShop(string shopName, Item[] items)
-    {
-        foreach (Item item in items)
-        {
-            if (item == null || item.type == ItemID.None)
-            {
-                continue;
-            }
-        }
     }
 
     public override void TownNPCAttackStrength(ref int damage, ref float knockback)

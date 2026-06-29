@@ -20,10 +20,7 @@ namespace WgMod.Content.NPCs.GroundedHarpy;
 [Credit(ProjectRole.Artist, Contributor.sinnerdrip)]
 public class GroundedHarpyNPC : ModNPC
 {
-    public override string Texture
-    {
-        get { return "WgMod/Content/NPCs/GroundedHarpy/GroundedHarpy"; }
-    }
+    public override string Texture => "WgMod/Content/NPCs/GroundedHarpy/GroundedHarpy";
 
     public override bool CanGoToStatue(bool toQueenStatue) => toQueenStatue;
 
@@ -41,9 +38,7 @@ public class GroundedHarpyNPC : ModNPC
         NPCID.Sets.AttackAverageChance[Type] = 5;
         NPCID.Sets.HatOffsetY[Type] = 4;
 
-        NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers =
-            new() { Velocity = -1f, Direction = -1 };
-
+        NPCID.Sets.NPCBestiaryDrawModifiers drawModifiers = new() { Velocity = -1f, Direction = -1 };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, drawModifiers);
 
         NPC.Happiness.SetBiomeAffection<ForestBiome>(AffectionLevel.Like)
@@ -110,17 +105,12 @@ public class GroundedHarpyNPC : ModNPC
     public override void OnSpawn(IEntitySource source)
     {
         if (source is EntitySource_SpawnNPC)
-        {
             TownNPCRespawnSystem.unlockGroundedHarpy = true;
-        }
     }
 
     public override bool CanTownNPCSpawn(int numTownNPCs)
     {
-        if (TownNPCRespawnSystem.unlockGroundedHarpy)
-            return true;
-
-        return false;
+        return TownNPCRespawnSystem.unlockGroundedHarpy;
     }
 
     public override List<string> SetNPCNameList()
@@ -228,9 +218,7 @@ public class GroundedHarpyNPC : ModNPC
     public override void OnChatButtonClicked(bool firstButton, ref string shop)
     {
         if (firstButton)
-        {
             shop = ShopName;
-        }
     }
 
     public override void AddShops()
@@ -261,17 +249,6 @@ public class GroundedHarpyNPC : ModNPC
         harpyShop.Register();
     }
 
-    public override void ModifyActiveShop(string shopName, Item[] items)
-    {
-        foreach (Item item in items)
-        {
-            if (item == null || item.type == ItemID.None)
-            {
-                continue;
-            }
-        }
-    }
-
     public override void TownNPCAttackStrength(ref int damage, ref float knockback)
     {
         damage = 30;
@@ -290,11 +267,7 @@ public class GroundedHarpyNPC : ModNPC
         attackDelay = 1;
     }
 
-    public override void TownNPCAttackProjSpeed(
-        ref float multiplier,
-        ref float gravityCorrection,
-        ref float randomOffset
-    )
+    public override void TownNPCAttackProjSpeed(ref float multiplier, ref float gravityCorrection, ref float randomOffset)
     {
         multiplier = 6f;
         randomOffset = 1f;
