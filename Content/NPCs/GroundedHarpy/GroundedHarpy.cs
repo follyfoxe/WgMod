@@ -150,6 +150,8 @@ public class GroundedHarpyNPC : ModNPC
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.BloodMoonDialogue2")); // "SCRAW! BACK OFF!"
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.BloodMoonDialogue3")); // "Huff! Huff! Must lose weight! Scree!"
         }
+        else if (NPC.loveStruck)
+            chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.LoveStruckDialogue1")); // "Human... you look tastier than usual..."
         else if (NPC.homeless)
         {
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.HomelessDialogue1")); // "Human! House me immediately!"
@@ -174,9 +176,6 @@ public class GroundedHarpyNPC : ModNPC
 
             if (Main.slimeRain)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.SlimeRainDialogue1", 2)); // "How do you think slimes taste?"
-
-            if (NPC.loveStruck)
-                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.LoveStruckDialogue1", 10)); // "Human... you look tastier than usual..."
 
             if (Main.anglerQuest == ItemID.Cloudfish || Main.anglerQuest == ItemID.Angelfish || Main.anglerQuest == ItemID.Harpyfish || Main.anglerQuest == ItemID.Wyverntail)
                 chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.GroundedHarpy.QuestFishDialogue1", 5)); // "No, I won't carry you up to the sky lakes for your fish!"

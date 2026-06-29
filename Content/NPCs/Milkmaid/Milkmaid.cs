@@ -142,6 +142,7 @@ public class MilkmaidNPC : ModNPC
         int dryad = NPC.FindFirstNPC(NPCID.Dryad);
         int mechanic = NPC.FindFirstNPC(NPCID.Mechanic);
         int nurse = NPC.FindFirstNPC(NPCID.Nurse);
+        Player player = Main.LocalPlayer;
 
         if (Main.bloodMoon)
         {
@@ -149,6 +150,11 @@ public class MilkmaidNPC : ModNPC
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid.BloodMoonDialogue2")); // "Yer face ain't as endearing as it usually is, back up."
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid.BloodMoonDialogue3")); // "Not enough milk for ya? Too bad."
         }
+        else if (NPC.loveStruck)
+            if (!player.Male)
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid.LoveStruckDialogue1")); // "Mroo~ Why don't ya come meet me behind my barn, hun~?"
+            else
+                chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid.LoveStruckDialogue2")); // "Mmph... I think I'm in heat all of a sudden... Can ya give me some alone time?"
         else if (NPC.homeless)
         {
             chat.Add(Language.GetTextValue("Mods.WgMod.Dialogue.Milkmaid.HomelessDialogue1")); // "Have ya got a spare barn I can crash in?"
