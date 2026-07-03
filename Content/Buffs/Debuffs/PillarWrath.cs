@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 namespace WgMod.Content.Buffs.Debuffs;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.follycake)]
 public class PillarWrath : ModBuff
 {
     public override void SetStaticDefaults()
