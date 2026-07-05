@@ -9,12 +9,13 @@ using WgMod.Content.Projectiles;
 namespace WgMod.Content.Items.Accessories.Fat;
 
 [Credit(ProjectRole.Programmer, Contributor.jumpsu2)]
+[Credit(ProjectRole.Artist, Contributor._d_u_m_m_y_)]
 public class MeteorCrush : ModItem
 {
     public override void SetDefaults()
     {
-        Item.width = 20;
-        Item.height = 20;
+        Item.width = 40;
+        Item.height = 40;
 
         Item.accessory = true;
         Item.rare = ItemRarityID.Orange;
