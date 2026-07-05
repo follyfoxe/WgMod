@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
 using WgMod.Content.Buffs.Debuffs;
@@ -11,8 +10,6 @@ namespace WgMod.Content.Items.Consumables.Potions.WeightLossPotions;
 
 public class LesserWeightLossPotion : ModItem
 {
-	public static LocalizedText RestoreLifeText { get; private set; }
-
 	const float WeightEffect = -10;
 
 	public override void SetStaticDefaults()
@@ -33,38 +30,36 @@ public class LesserWeightLossPotion : ModItem
 		Item.consumable = true;
 		Item.rare = ItemRarityID.White;
 		Item.value = Item.buyPrice(silver: 3);
-
-		Item.buffType = ModContent.BuffType<MilkshakeSickness>();
-		Item.buffTime = 1 * 60 * 30;
 	}
 
-	public override void UseAnimation(Player player)
+	public override bool? UseItem(Player player)
 	{
 		if (!player.TryGetModPlayer(out WgPlayer wg))
-			return;
+			return null;
 		float weightChange;
 
 		if (player.HasBuff<MilkshakeSickness>())
 			weightChange = WeightEffect * 0.1f;
 		else
+		{
 			weightChange = WeightEffect;
+			player.AddBuff(ModContent.BuffType<MilkshakeSickness>(), 1 * 60 * 30);
+		}
 
 		wg.SetWeight(wg.Weight + weightChange);
 
 		CombatText.NewText(player.getRect(), Color.Yellow, weightChange + " kg");
+		return null;
 	}
 
 	public override void ModifyTooltips(List<TooltipLine> tooltips)
 	{
 		tooltips.FormatLines(WeightEffect * -1);
-		tooltips.RemoveAt(4);
 	}
 }
 
 public class WeightLossPotion : ModItem
 {
-	public static LocalizedText RestoreLifeText { get; private set; }
-
 	const float WeightEffect = -20;
 
 	public override void SetStaticDefaults()
@@ -85,38 +80,36 @@ public class WeightLossPotion : ModItem
 		Item.consumable = true;
 		Item.rare = ItemRarityID.Blue;
 		Item.value = Item.buyPrice(silver: 6);
-
-		Item.buffType = ModContent.BuffType<MilkshakeSickness>();
-		Item.buffTime = 1 * 60 * 30;
 	}
 
-	public override void UseAnimation(Player player)
+	public override bool? UseItem(Player player)
 	{
 		if (!player.TryGetModPlayer(out WgPlayer wg))
-			return;
+			return null;
 		float weightChange;
 
 		if (player.HasBuff<MilkshakeSickness>())
 			weightChange = WeightEffect * 0.1f;
 		else
+		{
 			weightChange = WeightEffect;
+			player.AddBuff(ModContent.BuffType<MilkshakeSickness>(), 1 * 60 * 30);
+		}
 
 		wg.SetWeight(wg.Weight + weightChange);
 
 		CombatText.NewText(player.getRect(), Color.Yellow, weightChange + " kg");
+		return null;
 	}
 
 	public override void ModifyTooltips(List<TooltipLine> tooltips)
 	{
 		tooltips.FormatLines(WeightEffect * -1);
-		tooltips.RemoveAt(4);
 	}
 }
 
 public class GreaterWeightLossPotion : ModItem
 {
-	public static LocalizedText RestoreLifeText { get; private set; }
-
 	const float WeightEffect = -30;
 
 	public override void SetStaticDefaults()
@@ -137,37 +130,35 @@ public class GreaterWeightLossPotion : ModItem
 		Item.consumable = true;
 		Item.rare = ItemRarityID.Orange;
 		Item.value = Item.buyPrice(silver: 10);
-
-		Item.buffType = ModContent.BuffType<MilkshakeSickness>();
-		Item.buffTime = 1 * 60 * 30;
 	}
 
-	public override void UseAnimation(Player player)
+	public override bool? UseItem(Player player)
 	{
 		if (!player.TryGetModPlayer(out WgPlayer wg))
-			return;
+			return null;
 		float weightChange;
 
 		if (player.HasBuff<MilkshakeSickness>())
 			weightChange = WeightEffect * 0.1f;
 		else
+		{
 			weightChange = WeightEffect;
+			player.AddBuff(ModContent.BuffType<MilkshakeSickness>(), 1 * 60 * 30);
+		}
 
 		wg.SetWeight(wg.Weight + weightChange);
 
 		CombatText.NewText(player.getRect(), Color.Yellow, weightChange + " kg");
+		return null;
 	}
 
 	public override void ModifyTooltips(List<TooltipLine> tooltips)
 	{
 		tooltips.FormatLines(WeightEffect * -1);
-		tooltips.RemoveAt(4);
 	}
 }
 public class SuperWeightLossPotion : ModItem
 {
-	public static LocalizedText RestoreLifeText { get; private set; }
-
 	const float WeightEffect = -40;
 
 	public override void SetStaticDefaults()
@@ -188,30 +179,30 @@ public class SuperWeightLossPotion : ModItem
 		Item.consumable = true;
 		Item.rare = ItemRarityID.Lime;
 		Item.value = Item.buyPrice(silver: 30);
-
-		Item.buffType = ModContent.BuffType<MilkshakeSickness>();
-		Item.buffTime = 1 * 60 * 30;
 	}
 
-	public override void UseAnimation(Player player)
+	public override bool? UseItem(Player player)
 	{
 		if (!player.TryGetModPlayer(out WgPlayer wg))
-			return;
+			return null;
 		float weightChange;
 
 		if (player.HasBuff<MilkshakeSickness>())
 			weightChange = WeightEffect * 0.1f;
 		else
+		{
 			weightChange = WeightEffect;
+			player.AddBuff(ModContent.BuffType<MilkshakeSickness>(), 1 * 60 * 30);
+		}
 
 		wg.SetWeight(wg.Weight + weightChange);
 
 		CombatText.NewText(player.getRect(), Color.Yellow, weightChange + " kg");
+		return null;
 	}
 
 	public override void ModifyTooltips(List<TooltipLine> tooltips)
 	{
 		tooltips.FormatLines(WeightEffect * -1);
-		tooltips.RemoveAt(4);
 	}
 }
