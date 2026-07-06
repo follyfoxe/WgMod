@@ -55,7 +55,7 @@ public class MeteorCrushPlayer : ModPlayer
         Projectile hitbox = null;
         foreach (var proj in Main.ActiveProjectiles)
         {
-            if (proj.active && proj.type == ModContent.ProjectileType<Girth>() && proj.ai[0] == Player.whoAmI)
+            if (proj.active && proj.type == ModContent.ProjectileType<Girth>() && proj.owner == Player.whoAmI)
             {
                 hitbox = proj;
                 break;
