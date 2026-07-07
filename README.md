@@ -14,7 +14,8 @@ Weight gain mod for tModLoader.
 
 # Features
 - Basic weight gain mechanics
-- Armor sets and fat accessories
+- Armor sets, weapons and fat accessories
+- Various fat related NPCs
 - Food items and obtaining different buffs affect weight
 - Treadmill for quickly losing weight
 - Portable scale for monitoring your weight in kg and lbs

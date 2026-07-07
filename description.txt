@@ -9,6 +9,7 @@ Discord tags of the people that helped make this possible
 - @bb_waffle_batter
 - @_d_u_m_m_y_
 - @igobee_
+- @minty0985
 [c/C42254:Contributions]
 - @ubulumn (Buff sprites)
 - @trilophyte (Accessory sprites, armor sprites)
