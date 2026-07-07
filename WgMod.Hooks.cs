@@ -6,10 +6,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
-using Terraria.ModLoader;
 using WgMod.Common.Players;
 using WgMod.Content.Buffs;
-using WgMod.Content.Dusts;
 using WgMod.Content.Tiles;
 
 namespace WgMod;

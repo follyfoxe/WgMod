@@ -1,5 +1,3 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -11,7 +9,6 @@ namespace WgMod.Content.Buffs.Debuffs;
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class MilkshakeSickness : ModBuff
 {
-
     public override void SetStaticDefaults()
     {
         Main.debuff[Type] = true;

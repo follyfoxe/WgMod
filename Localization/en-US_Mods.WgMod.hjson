@@ -534,6 +534,15 @@ Items: {
 			'''
 	}
 
+	WeightLossPotion: {
+		DisplayName: Weight Loss Potion
+		Tooltip:
+			'''
+			Lose {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
 	GreaterWeightLossPotion: {
 		DisplayName: Greater Weight Loss Potion
 		Tooltip:
@@ -552,11 +561,20 @@ Items: {
 			'''
 	}
 
-	WeightLossPotion: {
-		DisplayName: Weight Loss Potion
+	LesserWeightGainPotion: {
+		DisplayName: Lesser Weight Gain Potion
 		Tooltip:
 			'''
-			Lose {0} kg!
+			Gain {0} kg!
+			Less effective if used repeatedly
+			'''
+	}
+
+	WeightGainPotion: {
+		DisplayName: Weight Gain Potion
+		Tooltip:
+			'''
+			Gain {0} kg!
 			Less effective if used repeatedly
 			'''
 	}
@@ -570,26 +588,8 @@ Items: {
 			'''
 	}
 
-	LesserWeightGainPotion: {
-		DisplayName: Lesser Weight Gain Potion
-		Tooltip:
-			'''
-			Gain {0} kg!
-			Less effective if used repeatedly
-			'''
-	}
-
 	SuperWeightGainPotion: {
 		DisplayName: Super Weight Gain Potion
-		Tooltip:
-			'''
-			Gain {0} kg!
-			Less effective if used repeatedly
-			'''
-	}
-
-	WeightGainPotion: {
-		DisplayName: Weight Gain Potion
 		Tooltip:
 			'''
 			Gain {0} kg!

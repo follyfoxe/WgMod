@@ -1,7 +1,6 @@
 using System.IO;
 using Terraria;
 using Terraria.ID;
-using Terraria.ModLoader;
 using WgMod.Common.Players;
 
 namespace WgMod;
