@@ -7,6 +7,7 @@ using WgMod.Common.Players;
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [AutoloadEquip(EquipType.Legs)]
 public class AmazonSandals : ModItem
 {
@@ -14,7 +15,7 @@ public class AmazonSandals : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 18;
+        Item.width = 22;
         Item.height = 18;
         Item.value = Item.sellPrice(gold: 1);
         Item.rare = ItemRarityID.Orange;

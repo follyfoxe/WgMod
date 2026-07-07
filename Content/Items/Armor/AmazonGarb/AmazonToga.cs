@@ -7,6 +7,7 @@ using WgMod.Common.Players;
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [AutoloadEquip(EquipType.Body)]
 public class AmazonToga : ModItem
 {
@@ -15,8 +16,8 @@ public class AmazonToga : ModItem
 
     public override void SetDefaults()
     {
-        Item.width = 18;
-        Item.height = 18;
+        Item.width = 30;
+        Item.height = 28;
         Item.value = Item.sellPrice(gold: 1);
         Item.rare = ItemRarityID.Orange;
         Item.defense = 1;

@@ -11,6 +11,7 @@ using WgMod.Content.Dusts;
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
+[Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [AutoloadEquip(EquipType.Head)]
 public class AmazonHeaddress : ModItem
 {
@@ -30,7 +31,7 @@ public class AmazonHeaddress : ModItem
     public override void SetDefaults()
     {
         Item.width = 18;
-        Item.height = 18;
+        Item.height = 10;
         Item.value = Item.sellPrice(gold: 1);
         Item.rare = ItemRarityID.Orange;
         Item.defense = 1;
