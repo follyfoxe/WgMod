@@ -11,6 +11,7 @@ Weight gain mod for tModLoader.
 - Some elements are inspired by [StarPounds](https://github.com/StarPounds/StarPounds)
 - Contributions are very much welcome
 - Do check out the [mod's wiki](https://docs.google.com/document/d/18aau-alSJu0qZohi3YxSXRVZWvEs_h7iqypBFznBjGI/edit?usp=sharing)
+- [Steam workshop page](https://steamcommunity.com/sharedfiles/filedetails/?id=3761310742)
 
 # Features
 - Basic weight gain mechanics
@@ -29,7 +30,7 @@ These are turned on by default but can be turned off in the mod's settings
 - Dynamic clothing
 
 # Installation
-Currently there are no pre-packaged binaries, so you have to compile the source code by yourself. [See the thread](https://forum.weightgaming.com/t/terraria-weight-gain-mod-in-development)
+[See the thread](https://forum.weightgaming.com/t/terraria-weight-gain-mod-in-development)
 
 # For the devs
 The [.editorconfig](.editorconfig) has some explicit rules about the naming of variables and such.
