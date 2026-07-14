@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -47,5 +48,17 @@ public class AmazonToga : ModItem
             .AddIngredient(ItemID.HellstoneBar, 8)
             .AddIngredient(ItemID.Silk, 16)
             .Register();
+    }
+
+    public override void ArmorArmGlowMask(Player drawPlayer, float shadow, ref int glowMask, ref Color color)
+    {
+        glowMask = 1;
+        color = Color.White;
+    }
+
+    public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)
+    {
+        glowMask = 1;
+        glowMaskColor = Color.White;
     }
 }
