@@ -1034,4 +1034,7 @@ DeathReason.Milkmaid: Next time listen, honey.
 Emotes: {
 	GroundedHarpyEmote.Command: groundedharpy
 	MilkmaidEmote.Command: milkmaid
+	WeightLossEmote.Command: weightlosspotion
+	WeightGainEmote.Command: weightgainpotion
+	HellishBeeEmote.Command: hellishbee
 }
