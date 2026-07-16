@@ -12,6 +12,7 @@ using WgMod.Common.Configs;
 
 namespace WgMod;
 
+/// <summary> The role a contributor played </summary>
 public enum ProjectRole
 {
     Programmer,
@@ -21,11 +22,12 @@ public enum ProjectRole
     Idea
 }
 
-// Discord handles
+/// <summary> A contributor's Discord handle </summary>
 public enum Contributor
 {
     [Category("Team")]
     follycake,
+    /// <summary> Haiiii :3 </summary>
     maimaichubs,
     jumpsu2,
     _d_u_m_m_y_,
@@ -52,6 +54,7 @@ public class CreditAttribute(ProjectRole role, Contributor contributor) : Attrib
     public Contributor Contributor { get; } = contributor;
 }
 
+/// <summary> A class to quickly and efficiently add credits to an item's tooltip using the role the contributor played and their Discord handle </summary>
 public static class Credits
 {
     public static TextSnippet AutoCredits { get; private set; }
