@@ -13,6 +13,7 @@ namespace WgMod.Content.Items.Accessories.Melee;
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class DogTail : GlobalItem
 {
+
     WgStat _damageModifier = new(1f, 1.7f);
 
     public override bool InstancePerEntity => true;
@@ -38,7 +39,7 @@ public class DogTail : GlobalItem
         _damageModifier.Lerp(immobility);
         dt._damageModifier = _damageModifier;
 
-        if (dt._cooldown < 120)
+        if (dt._cooldown < 180)
             dt._cooldown++;
 
         if (Main.hardMode)
@@ -67,7 +68,7 @@ public class DogTail : GlobalItem
 public class DogTailPlayer : ModPlayer
 {
     public bool _active;
-    public int _cooldown = 120;
+    public int _cooldown = 180;
     public int _damage;
     public float _damageModifier;
 
@@ -81,11 +82,11 @@ public class DogTailItem : GlobalItem
 {
     public override void UseAnimation(Item item, Player player)
     {
-        if (!player.TryGetModPlayer(out DogTailPlayer dt) || !dt._active || dt._cooldown < 120 || item.damage < 1 || player.whoAmI != Main.myPlayer)
+        if (!player.TryGetModPlayer(out DogTailPlayer dt) || !dt._active || dt._cooldown < 180 || item.damage < 1 || player.whoAmI != Main.myPlayer)
             return;
 
         if (Main.hardMode)
-            dt._cooldown = 60;
+            dt._cooldown = 30;
         else
             dt._cooldown = 0;
 
@@ -96,7 +97,7 @@ public class DogTailItem : GlobalItem
 
         Vector2 mousePosition = Main.MouseWorld;
         float angle = Utils.AngleTo(player.Center, mousePosition);
-        Vector2 velocity = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+        Vector2 velocity = new(MathF.Cos(angle), MathF.Sin(angle));
 
         {
             switch (item.useStyle)
