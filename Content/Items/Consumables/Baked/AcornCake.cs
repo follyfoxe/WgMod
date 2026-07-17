@@ -32,6 +32,9 @@ public class AcornCake : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemID.Acorn, 6).AddTile<Tiles.Furniture.Oven>().Register();
+        CreateRecipe()
+            .AddIngredient(ItemID.Acorn, 6)
+            .AddTile<Tiles.Furniture.Oven>()
+            .Register();
     }
 }
