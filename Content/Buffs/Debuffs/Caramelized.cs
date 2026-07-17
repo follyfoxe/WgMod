@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -18,7 +19,6 @@ public class Caramelized : ModBuff
         Main.debuff[Type] = true;
         Main.pvpBuff[Type] = true;
         Main.buffNoSave[Type] = true;
-        BuffID.Sets.LongerExpertDebuff[Type] = true;
     }
 
     public override void Update(NPC npc, ref int buffIndex)
@@ -123,5 +123,15 @@ public class CrispyDebuffPlayer : ModPlayer
 
         Player.lifeRegenTime = 0;
         Player.lifeRegen -= 20;
+    }
+
+    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+    {
+        if (!CaramelizedEffect)
+            return;
+
+        r = 151f / 255f;
+        g = 93f / 255f;
+        b = 15f / 255f;
     }
 }
