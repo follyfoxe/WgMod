@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Graphics.Light;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;

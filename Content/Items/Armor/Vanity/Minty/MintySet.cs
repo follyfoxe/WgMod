@@ -3,7 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Players;
-using WgMod.Content.Buffs;
 
 namespace WgMod.Content.Items.Armor.Vanity.Minty;
 

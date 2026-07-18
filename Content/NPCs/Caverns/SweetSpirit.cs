@@ -1,6 +1,4 @@
-using System;
 using System.IO;
-using Humanizer;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
