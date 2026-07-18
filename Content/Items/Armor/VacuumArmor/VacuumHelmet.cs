@@ -67,6 +67,11 @@ public class VacuumHelmet : ModItem
         player.setBonus = SetBonusText.Format(_setBonusRegen, _setBonusHealth.Percent(), (1f - SetBonusWeightLoss).Percent());
     }
 
+    public override void ArmorSetShadows(Player player)
+    {
+        player.armorEffectDrawOutlines = true;
+    }
+
     public override void UpdateEquip(Player player)
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
