@@ -37,6 +37,7 @@ public class ForceFed : ModBuff
         else
         {
             _cooldown = 0;
+
             wg.SetWeight(wg.Weight + FatPerCycle);
             CombatText.NewText(player.getRect(), Color.Yellow, FatPerCycle + " kg");
             SoundEngine.PlaySound(WgSounds.Gulp, player.Center);
