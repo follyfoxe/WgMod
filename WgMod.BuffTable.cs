@@ -70,6 +70,7 @@ partial class WgMod
                 ("WobWobWobWob", 6f),
                 ("GnomeLuck", 6f),
                 ("SpikedSkin", 6f),
+                ("FullOfSpider", 6f),
                 ("Caramel", 12f),
                 ("CrispyDebuff", 4f),
             ]

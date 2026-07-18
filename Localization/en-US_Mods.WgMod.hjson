@@ -671,6 +671,11 @@ Items: {
 		DisplayName: Cozy Afternoons
 		Tooltip: "'C. Maimai'"
 	}
+
+	SpiderDonut: {
+		DisplayName: Spider Donut
+		Tooltip: Don't worry. Spider didn't.
+	}
 }
 
 Buffs: {
@@ -807,6 +812,16 @@ Buffs: {
 	Caramelized: {
 		DisplayName: Caramelized
 		Description: You're covered in caramel!
+	}
+
+	FullOfSpider: {
+		DisplayName: Full Of Spider
+		Description:
+			'''
+			Increases the maximum number of minions by {1}
+			Increases summon damage by {0}%
+			'... I think purple is a better look on you! Ahuhuhu~'
+			'''
 	}
 }
 
