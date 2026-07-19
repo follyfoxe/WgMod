@@ -6,9 +6,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 
+[AutoloadEquip(EquipType.Body)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.trilophyte)]
-[AutoloadEquip(EquipType.Body)]
 public class CrimatriarchGown : ModItem
 {
     public const int MinionCount = 1;

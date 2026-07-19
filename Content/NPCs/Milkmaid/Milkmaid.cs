@@ -30,11 +30,6 @@ public class MilkmaidNPC : ModNPC
 
     public const string ShopName = "Shop";
 
-    /*public readonly int[] LesserWeightPotions = [ModContent.ItemType<LesserWeightGainPotion>(), ModContent.ItemType<LesserWeightLossPotion>()];
-    public readonly int[] WeightPotions = [ModContent.ItemType<WeightGainPotion>(), ModContent.ItemType<WeightLossPotion>()];
-    public readonly int[] GreaterWeightPotions = [ModContent.ItemType<GreaterWeightGainPotion>(), ModContent.ItemType<GreaterWeightLossPotion>()];
-    public readonly int[] SuperWeightPotions = [ModContent.ItemType<SuperWeightGainPotion>(), ModContent.ItemType<SuperWeightLossPotion>()];*/
-
     public override void SetStaticDefaults()
     {
         Main.npcFrameCount[Type] = 26;

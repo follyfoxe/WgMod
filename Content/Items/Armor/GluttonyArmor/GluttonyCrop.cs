@@ -6,9 +6,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.GluttonyArmor;
 
+[AutoloadEquip(EquipType.Body)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
-[AutoloadEquip(EquipType.Body)]
 public class GluttonyCrop : ModItem
 {
     WgStat _damage = new(0f, 0.05f);

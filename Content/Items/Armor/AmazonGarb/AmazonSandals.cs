@@ -7,9 +7,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
+[AutoloadEquip(EquipType.Legs)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
-[AutoloadEquip(EquipType.Legs)]
 public class AmazonSandals : ModItem
 {
     WgStat _critChance = new(6f, 12f);

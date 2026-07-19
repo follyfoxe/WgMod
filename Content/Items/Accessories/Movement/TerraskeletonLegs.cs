@@ -6,9 +6,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Accessories.Movement;
 
+[AutoloadEquip(EquipType.Shoes)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.trilophyte)]
-[AutoloadEquip(EquipType.Shoes)]
 public class TerraskeletonLegs : ModItem
 {
     public const int MoveSpeedBonus = 8;

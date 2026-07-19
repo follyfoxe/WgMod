@@ -6,9 +6,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.HexborneArmor;
 
+[AutoloadEquip(EquipType.Body)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor._d_u_m_m_y_)]
-[AutoloadEquip(EquipType.Body)]
 public class HexborneCrop : ModItem
 {
     WgStat _damage = new(0.03f, 0.09f);

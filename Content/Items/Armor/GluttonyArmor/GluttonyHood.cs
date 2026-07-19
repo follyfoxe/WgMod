@@ -7,9 +7,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.GluttonyArmor;
 
+[AutoloadEquip(EquipType.Head)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
-[AutoloadEquip(EquipType.Head)]
 public class GluttonyHood : ModItem
 {
     WgStat _damage = new(0f, 0.05f);

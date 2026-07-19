@@ -10,12 +10,16 @@ namespace WgMod.Content.Items.Ammo;
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 public class PowderedSugar : ModItem
 {
+    public override void SetStaticDefaults()
+    {
+        Item.ResearchUnlockCount = 99;
+    }
+
     public override void SetDefaults()
     {
         Item.CloneDefaults(ItemID.PurificationPowder);
 
         Item.shoot = ModContent.ProjectileType<PowderedSugarProjectile>();
-        Item.ResearchUnlockCount = 99;
     }
 
     public override void UseAnimation(Player player)

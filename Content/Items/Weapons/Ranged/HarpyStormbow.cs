@@ -42,7 +42,6 @@ public class HarpyStormbow : ModItem
         return new Vector2(-1f, 0f);
     }
 
-
     public override void UpdateInventory(Player player)
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))

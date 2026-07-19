@@ -18,6 +18,7 @@ public class CozyAfternoons : ModTile
         Main.tileFrameImportant[Type] = true;
 
         DustType = DustID.WoodFurniture;
+
         AdjTiles = [TileID.Painting6X4];
 
         TileObjectData.newTile.CopyFrom(TileObjectData.Style3x3Wall);

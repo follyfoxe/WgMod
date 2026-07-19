@@ -7,9 +7,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.AmazonGarb;
 
+[AutoloadEquip(EquipType.Body)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
-[AutoloadEquip(EquipType.Body)]
 public class AmazonToga : ModItem
 {
     WgStat _damage = new(0.06f, 0.12f);

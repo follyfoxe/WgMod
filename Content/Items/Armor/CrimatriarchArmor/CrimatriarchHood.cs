@@ -7,9 +7,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 
+[AutoloadEquip(EquipType.Head)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.trilophyte)]
-[AutoloadEquip(EquipType.Head)]
 public class CrimatriarchHood : ModItem
 {
     public const int SetBonusMinions = 2;

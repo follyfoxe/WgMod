@@ -6,9 +6,10 @@ using WgMod.Common.Players;
 
 namespace WgMod.Content.Items.Armor.CrimatriarchArmor;
 
+[AutoloadEquip(EquipType.Legs)]
+
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.trilophyte)]
-[AutoloadEquip(EquipType.Legs)]
 public class CrimatriarchLeggings : ModItem
 {
     WgStat _damage = new(0.03f, 0.09f);

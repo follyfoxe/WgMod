@@ -8,7 +8,6 @@ using WgMod.Content.Projectiles.Ranged;
 
 namespace WgMod.Content.Items.Accessories.Ranged;
 
-
 [Credit(ProjectRole.Programmer, Contributor.maimaichubs)]
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 [Credit(ProjectRole.Idea, Contributor.divine_lumine)]

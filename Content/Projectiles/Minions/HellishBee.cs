@@ -27,12 +27,12 @@ public class HellishBee : ModProjectile
     public const int StageCount = 4;
     public const int MaxStage = StageCount - 1;
 
-    int _weightProgress;
-    int _weightStage;
-    int _flyFrame;
+    public int _weightProgress;
+    public int _weightStage;
+    public int _flyFrame;
 
-    float _speedModifier;
-    float _damageModifier;
+    public float _speedModifier;
+    public float _damageModifier;
 
     public override void SetStaticDefaults()
     {
@@ -43,7 +43,7 @@ public class HellishBee : ModProjectile
         ProjectileID.Sets.CultistIsResistantTo[Type] = true;
     }
 
-    public sealed override void SetDefaults()
+    public override void SetDefaults()
     {
         Projectile.width = 34;
         Projectile.height = 40;
@@ -97,28 +97,20 @@ public class HellishBee : ModProjectile
     public override void AI()
     {
         int dustRate = 5;
+
         if (Main.rand.NextBool(dustRate) && _weightStage == MaxStage)
         {
             Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.t_Honey, 0f, 0.5f, 100, new Color(151, 93, 15), 0.7f);
         }
 
         Player owner = Main.player[Projectile.owner];
+
         if (!CheckActive(owner))
             return;
+
         GeneralBehavior(owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition);
-        SearchForTargets(
-            owner,
-            out bool foundTarget,
-            out float distanceFromTarget,
-            out Vector2 targetCenter
-        );
-        Movement(
-            foundTarget,
-            distanceFromTarget,
-            targetCenter,
-            distanceToIdlePosition,
-            vectorToIdlePosition
-        );
+        SearchForTargets(owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter);
+        Movement(foundTarget, distanceFromTarget, targetCenter, distanceToIdlePosition, vectorToIdlePosition);
         Visuals();
     }
 
@@ -134,11 +126,7 @@ public class HellishBee : ModProjectile
         return true;
     }
 
-    void GeneralBehavior(
-        Player owner,
-        out Vector2 vectorToIdlePosition,
-        out float distanceToIdlePosition
-    )
+    void GeneralBehavior(Player owner, out Vector2 vectorToIdlePosition, out float distanceToIdlePosition)
     {
         Vector2 idlePosition = owner.Center;
         idlePosition.Y -= 48f;
@@ -180,12 +168,7 @@ public class HellishBee : ModProjectile
         }
     }
 
-    void SearchForTargets(
-        Player owner,
-        out bool foundTarget,
-        out float distanceFromTarget,
-        out Vector2 targetCenter
-    )
+    void SearchForTargets(Player owner, out bool foundTarget, out float distanceFromTarget, out Vector2 targetCenter)
     {
         distanceFromTarget = 700f;
         targetCenter = Projectile.position;
@@ -232,16 +215,11 @@ public class HellishBee : ModProjectile
                 }
             }
         }
+
         Projectile.friendly = foundTarget;
     }
 
-    void Movement(
-        bool foundTarget,
-        float distanceFromTarget,
-        Vector2 targetCenter,
-        float distanceToIdlePosition,
-        Vector2 vectorToIdlePosition
-    )
+    void Movement(bool foundTarget, float distanceFromTarget, Vector2 targetCenter, float distanceToIdlePosition, Vector2 vectorToIdlePosition)
     {
         _speedModifier = float.Lerp(0.5f, 1f, _weightStage / (float)MaxStage);
 
@@ -297,6 +275,7 @@ public class HellishBee : ModProjectile
             Projectile.spriteDirection = 1;
 
         const int flyFrameSpeed = 5;
+
         Projectile.frameCounter++;
 
         if (Projectile.frameCounter >= flyFrameSpeed)
