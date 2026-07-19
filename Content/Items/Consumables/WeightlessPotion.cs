@@ -14,9 +14,9 @@ public class WeightlessPotion : ModItem
         Item.ResearchUnlockCount = 20;
         ItemID.Sets.DrinkParticleColors[Type] =
         [
-            new Color(240, 240, 240),
-            new Color(200, 200, 200),
-            new Color(140, 140, 140),
+            new Color(183, 116, 255),
+            new Color(205, 159, 255),
+            new Color(145, 44, 255),
         ];
     }
 
