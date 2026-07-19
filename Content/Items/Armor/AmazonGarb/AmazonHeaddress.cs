@@ -60,6 +60,11 @@ public class AmazonHeaddress : ModItem
         _damage.Lerp(immobility);
 
         player.GetDamage(DamageClass.Melee) += _damage;
+
+        Vector3 light = new(100f / 255f, 50f / 255f, 0f);
+
+        if (!Main.dedServ)
+            Lighting.AddLight(player.Center, light);
     }
 
     public override bool IsArmorSet(Item head, Item body, Item legs)
@@ -115,7 +120,6 @@ public class AmazonGarbPlayer : ModPlayer
     public const int CooldownMax = 15 * 60;
     public bool _active;
     public int _cooldown = CooldownMax;
-    //public int _visual;
 
     public override void ResetEffects()
     {
@@ -169,15 +173,4 @@ public class AmazonGarbPlayer : ModPlayer
                 wg._headOverride = AmazonHeaddress.LavaTexture;
         }
     }
-
-    /*public override void PostUpdateEquips()
-    {
-        _visual = Math.Clamp(_visual + (_active ? 1 : -1), 0, 30);
-    }
-
-    public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
-    {
-        if (_visual > 0)
-            g = Math.Max(0, g - _visual * 0.03f);
-    }*/
 }

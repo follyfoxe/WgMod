@@ -39,6 +39,11 @@ public class AmazonSandals : ModItem
         _critChance.Lerp(immobility);
 
         player.GetCritChance(DamageClass.Melee) += _critChance;
+
+        Vector3 light = new(100f / 255f, 50f / 255f, 0f);
+
+        if (!Main.dedServ)
+            Lighting.AddLight(player.Center, light);
     }
 
     public override void ModifyTooltips(List<TooltipLine> tooltips)
