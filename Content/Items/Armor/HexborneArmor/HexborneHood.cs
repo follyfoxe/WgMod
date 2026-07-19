@@ -19,6 +19,13 @@ public class HexborneHood : ModItem
     WgStat _setBonusDamage = new(0.05f, 0.15f);
     WgStat _setBonusDefense = new(3f, 5f);
 
+    public static LocalizedText SetBonusText { get; private set; }
+
+    public override void SetStaticDefaults()
+    {
+        SetBonusText = this.GetLocalization("SetBonus");
+    }
+
     public override void SetDefaults()
     {
         Item.width = 22;
@@ -27,13 +34,6 @@ public class HexborneHood : ModItem
         Item.rare = ItemRarityID.Orange;
         Item.defense = 5;
     }
-
-    public override void SetStaticDefaults()
-    {
-        SetBonusText = this.GetLocalization("SetBonus");
-    }
-
-    public static LocalizedText SetBonusText { get; private set; }
 
     public override void UpdateEquip(Player player)
     {

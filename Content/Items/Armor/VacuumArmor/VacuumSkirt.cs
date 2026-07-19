@@ -14,13 +14,13 @@ namespace WgMod.Content.Items.Armor.VacuumArmor;
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 public class VacuumSkirt : ModItem
 {
+    static int _glowMask;
+
     WgStat _attackSpeed = new(1.02f, 1.12f);
     WgStat _health = new(20, 100);
     WgStat _defense = new(0, 16 * 2);
     WgStat _resist = new(0f, 0.02f);
     WgStat _movePenalty = new(1.2f, 1.05f);
-
-    static int _glowMask;
 
     public override void SetStaticDefaults()
     {

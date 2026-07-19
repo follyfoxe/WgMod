@@ -13,9 +13,9 @@ namespace WgMod.Content.Items.Armor.AmazonGarb;
 [Credit(ProjectRole.Artist, Contributor.divine_lumine)]
 public class AmazonSandals : ModItem
 {
-    WgStat _critChance = new(6f, 12f);
-
     static int _glowMask;
+
+    WgStat _critChance = new(6f, 12f);
 
     public override void SetStaticDefaults()
     {
@@ -47,17 +47,17 @@ public class AmazonSandals : ModItem
             Lighting.AddLight(player.Center, light);
     }
 
-    public override void ModifyTooltips(List<TooltipLine> tooltips)
-    {
-        tooltips.FormatLines(_critChance);
-    }
-
     public override void AddRecipes()
     {
         CreateRecipe()
             .AddIngredient(ItemID.HellstoneBar, 5)
             .AddIngredient(ItemID.Silk, 10)
             .Register();
+    }
+
+    public override void ModifyTooltips(List<TooltipLine> tooltips)
+    {
+        tooltips.FormatLines(_critChance);
     }
 
     public override void DrawArmorColor(Player drawPlayer, float shadow, ref Color color, ref int glowMask, ref Color glowMaskColor)

@@ -11,6 +11,8 @@ namespace WgMod.Content.Items.Consumables;
 [Credit(ProjectRole.Artist, Contributor.maimaichubs)]
 public class BottledCaramel : ModItem
 {
+    public static LocalizedText RestoreLifeText { get; private set; }
+
     public override void SetStaticDefaults()
     {
         Item.ResearchUnlockCount = 20;
@@ -22,8 +24,6 @@ public class BottledCaramel : ModItem
             new Color(140, 140, 140),
         ];
     }
-
-    public static LocalizedText RestoreLifeText { get; private set; }
 
     public override void SetDefaults()
     {

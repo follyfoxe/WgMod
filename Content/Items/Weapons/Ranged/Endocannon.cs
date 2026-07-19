@@ -41,6 +41,11 @@ public class Endocannon : ModItem
         Item.useAmmo = AmmoID.Bullet;
     }
 
+    public override Vector2? HoldoutOffset()
+    {
+        return new Vector2(2f, -2f);
+    }
+
     public override void UpdateInventory(Player player)
     {
         if (!player.TryGetModPlayer(out WgPlayer wg))
@@ -58,28 +63,6 @@ public class Endocannon : ModItem
     public override void ModifyWeaponCrit(Player player, ref float crit)
     {
         crit *= _crit;
-    }
-
-    public override void AddRecipes()
-    {
-        CreateRecipe()
-            .AddIngredient(ItemID.IllegalGunParts)
-            .AddIngredient(ItemID.Marble, 12)
-            .AddIngredient(ItemID.GoldBar, 12)
-            .AddTile(TileID.Furnaces)
-            .Register();
-
-        CreateRecipe()
-            .AddIngredient(ItemID.IllegalGunParts)
-            .AddIngredient(ItemID.Marble, 12)
-            .AddIngredient(ItemID.PlatinumBar, 12)
-            .AddTile(TileID.Furnaces)
-            .Register();
-    }
-
-    public override Vector2? HoldoutOffset()
-    {
-        return new Vector2(2f, -2f);
     }
 
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
@@ -108,5 +91,22 @@ public class Endocannon : ModItem
         {
             position += muzzleOffset;
         }
+    }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe()
+            .AddIngredient(ItemID.IllegalGunParts)
+            .AddIngredient(ItemID.Marble, 12)
+            .AddIngredient(ItemID.GoldBar, 12)
+            .AddTile(TileID.Furnaces)
+            .Register();
+
+        CreateRecipe()
+            .AddIngredient(ItemID.IllegalGunParts)
+            .AddIngredient(ItemID.Marble, 12)
+            .AddIngredient(ItemID.PlatinumBar, 12)
+            .AddTile(TileID.Furnaces)
+            .Register();
     }
 }

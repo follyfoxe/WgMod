@@ -17,6 +17,8 @@ public class VacuumHelmet : ModItem
 {
     public const float SetBonusWeightLoss = 0.1f;
 
+    static int _glowMask;
+
     WgStat _critChance = new(2f, 8f);
     WgStat _health = new(10, 100);
     WgStat _defense = new(0, 12 * 2);
@@ -25,7 +27,7 @@ public class VacuumHelmet : ModItem
     WgStat _setBonusRegen = new(0, 20);
     WgStat _setBonusHealth = new(0f, 1f);
 
-    static int _glowMask;
+    public static LocalizedText SetBonusText { get; private set; }
 
     public override void SetStaticDefaults()
     {
@@ -41,35 +43,6 @@ public class VacuumHelmet : ModItem
         Item.value = Item.sellPrice(gold: 2);
         Item.rare = ItemRarityID.Red;
         Item.defense = 36 / 2;
-    }
-
-    public static LocalizedText SetBonusText { get; private set; }
-
-    public override bool IsArmorSet(Item head, Item body, Item legs)
-    {
-        return body.type == ModContent.ItemType<VacuumCrop>()
-            && legs.type == ModContent.ItemType<VacuumSkirt>();
-    }
-
-    public override void UpdateArmorSet(Player player)
-    {
-        if (!player.TryGetModPlayer(out WgPlayer wg))
-            return;
-
-        float immobility = wg.Weight.ClampedImmobility;
-        _setBonusRegen.Lerp(immobility);
-        _setBonusHealth.Lerp(immobility);
-
-        player.lifeRegen += _setBonusRegen;
-        player.statLifeMax2 = (int)Math.Round(player.statLifeMax2 * (1f + _setBonusHealth));
-        wg.WeightLossRate *= SetBonusWeightLoss;
-
-        player.setBonus = SetBonusText.Format(_setBonusRegen, _setBonusHealth.Percent(), (1f - SetBonusWeightLoss).Percent());
-    }
-
-    public override void ArmorSetShadows(Player player)
-    {
-        player.armorEffectDrawOutlines = true;
     }
 
     public override void UpdateEquip(Player player)
@@ -99,6 +72,33 @@ public class VacuumHelmet : ModItem
 
         if (!Main.dedServ)
             Lighting.AddLight(player.Center, light);
+    }
+
+    public override bool IsArmorSet(Item head, Item body, Item legs)
+    {
+        return body.type == ModContent.ItemType<VacuumCrop>()
+            && legs.type == ModContent.ItemType<VacuumSkirt>();
+    }
+
+    public override void UpdateArmorSet(Player player)
+    {
+        if (!player.TryGetModPlayer(out WgPlayer wg))
+            return;
+
+        float immobility = wg.Weight.ClampedImmobility;
+        _setBonusRegen.Lerp(immobility);
+        _setBonusHealth.Lerp(immobility);
+
+        player.lifeRegen += _setBonusRegen;
+        player.statLifeMax2 = (int)Math.Round(player.statLifeMax2 * (1f + _setBonusHealth));
+        wg.WeightLossRate *= SetBonusWeightLoss;
+
+        player.setBonus = SetBonusText.Format(_setBonusRegen, _setBonusHealth.Percent(), (1f - SetBonusWeightLoss).Percent());
+    }
+
+    public override void ArmorSetShadows(Player player)
+    {
+        player.armorEffectDrawOutlines = true;
     }
 
     public override void AddRecipes()
