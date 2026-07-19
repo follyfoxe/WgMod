@@ -25,7 +25,7 @@ public class ChestLootSystem : ModSystem
     readonly WeightedRandom<int> _weightPotions = new();
     readonly WeightedRandom<int> _skywareLoot = new();
 
-    public override void PostWorldGen()
+    public override void PostSetupContent()
     {
         _lesserWeightPotions.Add(ModContent.ItemType<LesserWeightGainPotion>());
         _lesserWeightPotions.Add(ModContent.ItemType<LesserWeightLossPotion>());
@@ -35,7 +35,10 @@ public class ChestLootSystem : ModSystem
 
         _skywareLoot.Add(ModContent.ItemType<MeteorCrush>());
         _skywareLoot.Add(ModContent.ItemType<HeliumTank>());
+    }
 
+    public override void PostWorldGen()
+    {
         for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
         {
             Chest chest = Main.chest[chestIndex];
