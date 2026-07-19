@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Utilities;
 using WgMod.Content.Items.Accessories.Fat;
 using WgMod.Content.Items.Accessories.Ranged;
 using WgMod.Content.Items.Ammo;
@@ -20,8 +21,21 @@ public class ChestLootSystem : ModSystem
     const int BuffPotionChance = 4;
     const int TieredPotionChance = 3;
 
+    readonly WeightedRandom<int> _lesserWeightPotions = new();
+    readonly WeightedRandom<int> _weightPotions = new();
+    readonly WeightedRandom<int> _skywareLoot = new();
+
     public override void PostWorldGen()
     {
+        _lesserWeightPotions.Add(ModContent.ItemType<LesserWeightGainPotion>());
+        _lesserWeightPotions.Add(ModContent.ItemType<LesserWeightLossPotion>());
+
+        _weightPotions.Add(ModContent.ItemType<WeightGainPotion>());
+        _weightPotions.Add(ModContent.ItemType<WeightLossPotion>());
+
+        _skywareLoot.Add(ModContent.ItemType<MeteorCrush>());
+        _skywareLoot.Add(ModContent.ItemType<HeliumTank>());
+
         for (int chestIndex = 0; chestIndex < Main.maxChests; chestIndex++)
         {
             Chest chest = Main.chest[chestIndex];
@@ -39,8 +53,7 @@ public class ChestLootSystem : ModSystem
                 // Skyware chest
                 case 13 * 36:
                     FillChest(chest, [
-                        new(ModContent.ItemType<MeteorCrush>(), AccessoryChance),
-                        new(ModContent.ItemType<HeliumTank>(), AccessoryChance)
+                        new(_skywareLoot, AccessoryChance)
                     ]);
                     break;
 
@@ -58,8 +71,7 @@ public class ChestLootSystem : ModSystem
                 case 16 * 36:
                     FillChest(chest, [
                         new(ModContent.ItemType<WeightlessPotion>(), BuffPotionChance, 1, 2),
-                        new(ModContent.ItemType<WeightGainPotion>(), TieredPotionChance, 3, 5),
-                        new(ModContent.ItemType<WeightLossPotion>(), TieredPotionChance, 3, 5)
+                        new(_weightPotions, TieredPotionChance, 3, 5),
                     ]);
                     break;
 
@@ -74,8 +86,7 @@ public class ChestLootSystem : ModSystem
             {
                 FillChest(chest, [
                     new(ModContent.ItemType<WeightlessPotion>(), BuffPotionChance, 1, 2),
-                    new(ModContent.ItemType<LesserWeightGainPotion>(), TieredPotionChance, 3, 5),
-                    new(ModContent.ItemType<LesserWeightLossPotion>(), TieredPotionChance, 3, 5)
+                    new(_lesserWeightPotions, TieredPotionChance, 3, 5),
                 ]);
             }
         }
@@ -109,23 +120,5 @@ public class ChestLootSystem : ModSystem
                 break;
             }
         }
-
-        /*int slotIndex = 0;
-        for (int i = 0; i < loot.Length; i++)
-        {
-            LootEntry entry = loot[i];
-            if (!Main.rand.NextBool(entry.Chance))
-                continue;
-            int amount = Main.rand.Next(entry.MinAmount, entry.MaxAmount + 1);
-            if (amount <= 0)
-                continue;
-            while (slotIndex < Chest.maxItems && chest.item[slotIndex].type != ItemID.None)
-                slotIndex++;
-            if (slotIndex >= Chest.maxItems)
-                break;
-            Item item = chest.item[slotIndex];
-            item.SetDefaults(entry.Type);
-            item.stack = amount;
-        }*/
     }
 }
