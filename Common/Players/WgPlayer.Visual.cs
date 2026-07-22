@@ -32,7 +32,7 @@ public partial class WgPlayer
         {
             Main.RunOnMainThread(() =>
             {
-                WgPlayerDrawLayer.SetupArmorLayers(this);
+                WgArmor.SetupArmorLayers(this);
                 WgArmor.Render(ref _armorTarget, _armorLayers, Player.Male);
             });
         }
@@ -54,7 +54,10 @@ public partial class WgPlayer
         if (Main.dedServ)
             return;
         if (WgArmor.Enabled)
+        {
+            WgArmor.SetupArmorLayers(this);
             WgArmor.Render(ref _armorTarget, _armorLayers, Player.Male);
+        }
     }
 
     void UpdateJiggle()

@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameContent;
+using Terraria.ID;
 using Terraria.ModLoader;
 using WgMod.Common.Configs;
 using WgMod.Common.Players;
@@ -107,5 +109,61 @@ public static class WgArmor
             // Vanilla uses GetImmuneAlpha for body texture, using GetImmuneAlphaPure puts body and armor out of sync
             color = drawInfo.drawPlayer.GetImmuneAlpha(Color.White, drawInfo.shadow)
         });
+    }
+
+    // Hurt effect is already applied in drawInfo, so bake lighting only
+    static Color Light(Player player, Vector2 position, Color color)
+    {
+        return Lighting.GetColorClamped((int)(position.X + player.width * 0.5) / 16, (int)((position.Y + player.height * 0.5) / 16.0), color);
+    }
+
+    static Vector2 GetDrawPosition(Player player)
+    {
+        if (Main.gameMenu)
+            return player.position;
+
+        bool isSitting = player.sitting.isSitting;
+        bool isSleeping = player.sleeping.isSleeping;
+
+        if (player.mount.Active && player.mount.Type == MountID.GolfCartSomebodySaveMe)
+            isSitting = true;
+        if (player.mount.Active && player.mount.Type == MountID.WitchBroom)
+            isSitting = true;
+        if (player.mount.Active && player.mount.Type == MountID.SpookyWood)
+            isSitting = true;
+
+        Vector2 position = player.position;
+        position.X += player.MountXOffset * player.direction;
+        if (isSitting)
+        {
+            player.sitting.GetSittingOffsetInfo(player, out Vector2 posOffset, out _);
+            position += posOffset;
+        }
+        if (isSleeping)
+        {
+            player.sleeping.GetSleepingOffsetInfo(player, out Vector2 posOffset);
+            position += posOffset;
+        }
+        position.Y -= player.HeightOffsetVisual;
+        return position;
+    }
+
+    public static void SetupArmorLayers(WgPlayer wg)
+    {
+        Player player = wg.Player;
+        Vector2 position = GetDrawPosition(player);
+
+        Array.Clear(wg._armorLayers);
+        if (player.body > 0)
+            wg._armorLayers[0] = new(TextureAssets.ArmorBodyComposite[player.body], Light(player, position, Color.White));
+        else
+        {
+            Color underShirt = Light(player, position, player.underShirtColor);
+            Color shirt = Light(player, position, player.shirtColor);
+            wg._armorLayers[0] = new(TextureAssets.Players[player.skinVariant, 4], underShirt);
+            wg._armorLayers[1] = new(TextureAssets.Players[player.skinVariant, 8], underShirt);
+            wg._armorLayers[2] = new(TextureAssets.Players[player.skinVariant, 13], shirt);
+            wg._armorLayers[3] = new(TextureAssets.Players[player.skinVariant, 6], shirt);
+        }
     }
 }
