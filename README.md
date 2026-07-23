@@ -7,7 +7,7 @@ Fetish. Don't like that stuff? Then don't look at it, silly :3
 ![logo](icon.png)
 
 Weight gain mod for tModLoader.
-[More info](https://forum.weightgaming.com/t/terraria-weight-gain-mod-in-development)
+[More info](https://forum.weightgaming.com/t/terraria-weight-gain-mod)
 - Some elements are inspired by [StarPounds](https://github.com/StarPounds/StarPounds)
 - Contributions are very much welcome
 - Do check out the [mod's wiki](https://docs.google.com/document/d/18aau-alSJu0qZohi3YxSXRVZWvEs_h7iqypBFznBjGI/edit?usp=sharing)
@@ -30,7 +30,7 @@ These are turned on by default but can be turned off in the mod's settings
 - Dynamic clothing
 
 # Installation
-[See the thread](https://forum.weightgaming.com/t/terraria-weight-gain-mod-in-development)
+[See the thread](https://forum.weightgaming.com/t/terraria-weight-gain-mod)
 
 # For the devs
 The [.editorconfig](.editorconfig) has some explicit rules about the naming of variables and such.
