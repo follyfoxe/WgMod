@@ -44,7 +44,8 @@ public enum Contributor
     the_trueterrafox,
 
     [Category("Other")]
-    purple_circle
+    purple_circle,
+    bombuspyrobombus
 }
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
